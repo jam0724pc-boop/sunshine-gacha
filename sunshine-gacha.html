@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>すいぞくかん ガチャガチャ 🐧</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sea-deep:#0E5E8C;
+    --sea-mid:#2E9BC6;
+    --sea-light:#8FDCEF;
+    --sea-pale:#DFF6FC;
+    --cream:#FFF9EC;
+    --coral:#FF8A5C;
+    --coral-deep:#F26D3D;
+    --sun:#FFD447;
+    --ink:#1B4965;
+    --rare:#FF9F1C;
+    --kira:#B36BFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{
+    width:100%;height:100%;
+    overflow:hidden;
+    touch-action:manipulation;
+    font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN","BIZ UDPGothic","Yu Gothic",sans-serif;
+    color:var(--ink);
+    user-select:none;-webkit-user-select:none;
+  }
+  body{
+    background:linear-gradient(180deg,#BFEFFB 0%, #8FDCEF 40%, #5BBEDF 100%);
+    display:flex;flex-direction:column;
+  }
+
+  /* ---------- ambient bubbles ---------- */
+  .ambient{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;}
+  .ambient .bub{
+    position:absolute;bottom:-60px;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(255,255,255,.15));
+    animation:rise linear infinite;
+    opacity:.5;
+  }
+  @keyframes rise{
+    from{transform:translateY(0) translateX(0);}
+    to{transform:translateY(-110vh) translateX(30px);}
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:relative;z-index:2;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 22px 4px;
+  }
+  h1{
+    font-size:clamp(20px,2.6vw,30px);
+    font-weight:900;color:#fff;
+    text-shadow:0 3px 0 rgba(14,94,140,.45);
+    letter-spacing:.06em;
+  }
+  h1 small{display:block;font-size:.5em;font-weight:700;letter-spacing:.15em;opacity:.95;}
+  .head-btns{display:flex;gap:12px;}
+  .pill-btn{
+    border:none;cursor:pointer;
+    background:var(--cream);color:var(--ink);
+    font-family:inherit;font-weight:900;
+    font-size:clamp(15px,1.8vw,20px);
+    padding:12px 22px;border-radius:999px;
+    box-shadow:0 4px 0 rgba(14,94,140,.35);
+    display:flex;align-items:center;gap:8px;
+    transition:transform .1s;
+  }
+  .pill-btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(14,94,140,.35);}
+  .badge{
+    background:var(--coral);color:#fff;
+    border-radius:999px;padding:2px 12px;font-size:.85em;
+  }
+
+  /* ---------- main layout (landscape) ---------- */
+  main{
+    position:relative;z-index:1;
+    flex:1;display:flex;align-items:stretch;
+    padding:6px 24px 18px;gap:18px;min-height:0;
+  }
+  .machine-col{
+    flex:0 0 38%;display:flex;align-items:center;justify-content:center;min-width:0;
+  }
+  .stage-col{
+    flex:1;display:flex;align-items:center;justify-content:center;min-width:0;
+  }
+
+  /* ---------- gacha machine ---------- */
+  .machine{
+    position:relative;
+    width:min(34vw,42vh*0.78);
+    aspect-ratio:0.78;
+    max-height:100%;
+  }
+  .machine.shake{animation:mshake .5s ease;}
+  @keyframes mshake{
+    0%,100%{transform:rotate(0);}
+    20%{transform:rotate(-2.5deg);}
+    40%{transform:rotate(2.5deg);}
+    60%{transform:rotate(-1.5deg);}
+    80%{transform:rotate(1.5deg);}
+  }
+  .dome{
+    position:absolute;top:0;left:4%;width:92%;height:56%;
+    background:linear-gradient(180deg,rgba(255,255,255,.65),rgba(190,236,250,.55));
+    border:6px solid #fff;
+    border-radius:46% 46% 14% 14% / 60% 60% 10% 10%;
+    overflow:hidden;
+    box-shadow:inset 0 -14px 24px rgba(46,155,198,.35), 0 8px 18px rgba(14,94,140,.25);
+  }
+  .dome .shine{
+    position:absolute;top:8%;left:12%;width:26%;height:34%;
+    background:rgba(255,255,255,.75);
+    border-radius:50%;filter:blur(2px);
+    transform:rotate(-25deg);
+  }
+  .cap{
+    position:absolute;border-radius:50%;
+    width:23%;aspect-ratio:1;
+    box-shadow:inset -4px -6px 0 rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.12);
+    animation:float 3.2s ease-in-out infinite;
+  }
+  @keyframes float{0%,100%{transform:translateY(0) rotate(-6deg);}50%{transform:translateY(-7%) rotate(6deg);}}
+  .dome .dbub{
+    position:absolute;border-radius:50%;
+    background:rgba(255,255,255,.8);
+    animation:domeRise 3.4s linear infinite;
+  }
+  @keyframes domeRise{from{transform:translateY(0);opacity:.9;}to{transform:translateY(-160px);opacity:0;}}
+
+  .body-box{
+    position:absolute;top:52%;left:0;width:100%;height:40%;
+    background:linear-gradient(180deg,#FF9A6C,#F26D3D);
+    border-radius:22px;
+    box-shadow:0 10px 0 #C7502A, 0 16px 20px rgba(14,94,140,.3);
+  }
+  .body-box::after{ /* 取り出し口 */
+    content:"";
+    position:absolute;bottom:10%;right:10%;
+    width:34%;height:44%;
+    background:linear-gradient(180deg,#7A3A20,#5E2C17);
+    border-radius:14px;
+    box-shadow:inset 0 6px 8px rgba(0,0,0,.45);
+  }
+  .coin{
+    position:absolute;top:14%;left:12%;
+    width:24%;height:20%;
+    background:#FFE3B3;border-radius:10px;
+    box-shadow:inset 0 3px 5px rgba(0,0,0,.2);
+  }
+  .coin::after{
+    content:"";position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    width:56%;height:14%;background:#8A5A33;border-radius:4px;
+  }
+
+  .handle{
+    position:absolute;
+    top:63%;left:50%;
+    width:36%;aspect-ratio:1;
+    transform:translateX(-50%);
+    border:none;cursor:pointer;
+    background:radial-gradient(circle at 32% 30%, #FFF3D6, var(--sun) 60%, #E8B517);
+    border-radius:50%;
+    box-shadow:0 6px 0 #C79510, 0 10px 14px rgba(0,0,0,.25);
+    transition:transform .5s cubic-bezier(.34,1.56,.64,1);
+    z-index:3;
+  }
+  .handle::before{
+    content:"";position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    width:78%;height:26%;
+    background:#fff;border-radius:12px;
+    box-shadow:inset 0 -4px 0 rgba(0,0,0,.12);
+  }
+  .handle::after{
+    content:"▶";
+    position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    font-size:0;
+  }
+  .handle.spin{transform:translateX(-50%) rotate(360deg);}
+  .handle:disabled{filter:grayscale(.4) brightness(.9);cursor:default;}
+
+  .machine-label{
+    position:absolute;top:44%;left:50%;transform:translateX(-50%);
+    background:var(--cream);
+    padding:6px 18px;border-radius:999px;
+    font-weight:900;font-size:clamp(13px,1.6vw,18px);
+    white-space:nowrap;
+    box-shadow:0 3px 0 rgba(14,94,140,.25);
+    z-index:2;
+  }
+
+  .tap-hint{
+    position:absolute;bottom:-8%;left:50%;transform:translateX(-50%);
+    font-weight:900;color:#fff;
+    font-size:clamp(15px,1.9vw,21px);
+    text-shadow:0 2px 0 rgba(14,94,140,.4);
+    white-space:nowrap;
+    animation:hop 1.4s ease-in-out infinite;
+  }
+  @keyframes hop{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,-8px);}}
+
+  /* dropped capsule inside machine */
+  .drop-cap{
+    position:absolute;
+    top:20%;left:38%;
+    width:24%;aspect-ratio:1;border-radius:50%;
+    z-index:2;opacity:0;pointer-events:none;
+  }
+  .drop-cap.go{animation:dropIn .9s cubic-bezier(.3,.7,.4,1.2) forwards;}
+  @keyframes dropIn{
+    0%{opacity:0;transform:translateY(0);}
+    15%{opacity:1;}
+    70%{transform:translateY(230%);}
+    82%{transform:translateY(205%);}
+    100%{opacity:1;transform:translateY(230%);}
+  }
+
+  /* ---------- stage (right) ---------- */
+  .stage{
+    position:relative;
+    width:100%;height:100%;
+    background:rgba(255,255,255,.42);
+    border:5px solid rgba(255,255,255,.9);
+    border-radius:34px;
+    box-shadow:0 10px 24px rgba(14,94,140,.18), inset 0 0 40px rgba(255,255,255,.5);
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .stage-msg{
+    text-align:center;padding:20px;
+  }
+  .stage-msg .big-emoji{font-size:clamp(56px,9vw,110px);display:block;margin-bottom:10px;}
+  .stage-msg p{
+    font-size:clamp(20px,2.8vw,32px);font-weight:900;line-height:1.6;
+  }
+  .stage-msg .sub{font-size:.62em;font-weight:700;color:#33698C;margin-top:8px;}
+
+  /* capsule on stage */
+  .stage-capsule{
+    position:absolute;inset:0;
+    display:none;align-items:center;justify-content:center;flex-direction:column;gap:26px;
+    cursor:pointer;border:none;background:transparent;font-family:inherit;
+    z-index:4;
+  }
+  .stage-capsule.show{display:flex;}
+  .cap-wrap{
+    position:relative;
+    width:clamp(150px,22vw,240px);aspect-ratio:1;
+    animation:wobble .8s ease-in-out infinite;
+  }
+  @keyframes wobble{0%,100%{transform:rotate(-7deg);}50%{transform:rotate(7deg);}}
+  .cap-top,.cap-bottom{
+    position:absolute;left:0;width:100%;height:52%;
+    transition:transform .45s cubic-bezier(.34,1.3,.64,1), opacity .45s;
+  }
+  .cap-top{
+    top:0;background:linear-gradient(180deg,#FFB4CB,#FF7FA5);
+    border-radius:120px 120px 14px 14px;
+    box-shadow:inset -8px 6px 0 rgba(255,255,255,.4);
+  }
+  .cap-bottom{
+    bottom:0;background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(220,242,250,.95));
+    border-radius:14px 14px 120px 120px;
+    box-shadow:inset -8px -8px 0 rgba(46,155,198,.18);
+  }
+  .cap-wrap.open{animation:none;}
+  .cap-wrap.open .cap-top{transform:translateY(-130%) rotate(-24deg);opacity:0;}
+  .cap-wrap.open .cap-bottom{transform:translateY(130%) rotate(20deg);opacity:0;}
+  .open-label{
+    font-size:clamp(20px,2.6vw,30px);font-weight:900;color:var(--ink);
+    background:var(--cream);padding:12px 30px;border-radius:999px;
+    box-shadow:0 4px 0 rgba(14,94,140,.3);
+    animation:hopS 1.2s ease-in-out infinite;
+  }
+  @keyframes hopS{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+
+  /* ---------- result ---------- */
+  .result{
+    position:absolute;inset:0;z-index:3;
+    display:none;flex-direction:row;align-items:center;justify-content:center;
+    gap:clamp(14px,3vw,40px);
+    padding:18px clamp(14px,3vw,40px);
+  }
+  .result.show{display:flex;}
+  .creature-zone{
+    flex:0 0 auto;text-align:center;
+  }
+  .creature-art{
+    width:clamp(160px,24vw,270px);height:clamp(160px,24vw,270px);
+    display:flex;align-items:center;justify-content:center;
+    font-size:clamp(110px,17vw,190px);line-height:1;
+    animation:popIn .6s cubic-bezier(.3,1.6,.5,1) both, sway 3s ease-in-out 1s infinite;
+    filter:drop-shadow(0 8px 10px rgba(14,94,140,.25));
+  }
+  .creature-art svg{width:100%;height:100%;}
+  @keyframes popIn{from{transform:scale(.2);opacity:0;}to{transform:scale(1);opacity:1;}}
+  @keyframes sway{0%,100%{transform:rotate(-3deg);}50%{transform:rotate(3deg);}}
+  .stars{font-size:clamp(20px,2.6vw,30px);margin-top:4px;letter-spacing:.1em;}
+  .info-zone{
+    flex:0 1 auto;max-width:52%;
+    display:flex;flex-direction:column;gap:clamp(8px,1.6vh,16px);
+    align-items:flex-start;
+  }
+  .get-tag{
+    font-size:clamp(16px,2vw,22px);font-weight:900;color:#fff;
+    background:var(--coral);padding:6px 20px;border-radius:999px;
+    box-shadow:0 3px 0 var(--coral-deep);
+  }
+  .get-tag.rare{background:var(--rare);box-shadow:0 3px 0 #D07F0B;}
+  .get-tag.kira{background:var(--kira);box-shadow:0 3px 0 #8A3FE0;}
+  .c-name{
+    font-size:clamp(30px,4.6vw,56px);font-weight:900;line-height:1.2;
+  }
+  .c-desc{
+    font-size:clamp(16px,2.1vw,24px);font-weight:700;line-height:1.75;
+    background:rgba(255,255,255,.8);
+    padding:14px 18px;border-radius:20px;
+  }
+  .c-place{
+    font-size:clamp(14px,1.8vw,20px);font-weight:900;color:#fff;
+    background:var(--sea-mid);padding:8px 18px;border-radius:14px;
+  }
+  .result-btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:4px;}
+  .big-btn{
+    border:none;cursor:pointer;font-family:inherit;font-weight:900;
+    font-size:clamp(18px,2.3vw,26px);
+    padding:16px 30px;border-radius:999px;
+    box-shadow:0 5px 0 rgba(14,94,140,.35);
+    transition:transform .1s;
+    min-height:56px;
+  }
+  .big-btn:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(14,94,140,.35);}
+  .btn-again{background:var(--sun);color:var(--ink);}
+  .btn-zukan{background:var(--cream);color:var(--ink);}
+  .new-mark{
+    display:inline-block;
+    background:#FF5D8F;color:#fff;font-size:.6em;
+    padding:2px 10px;border-radius:999px;vertical-align:middle;margin-left:8px;
+    animation:hopS 1s ease-in-out infinite;
+  }
+
+  /* ---------- confetti ---------- */
+  .confetti{position:absolute;top:-20px;border-radius:3px;pointer-events:none;z-index:6;
+    animation:fall linear forwards;}
+  @keyframes fall{
+    to{transform:translateY(110vh) rotate(720deg);opacity:.9;}
+  }
+
+  /* ---------- zukan ---------- */
+  .zukan{
+    position:fixed;inset:0;z-index:20;
+    background:linear-gradient(180deg,rgba(14,94,140,.92),rgba(27,73,101,.95));
+    display:none;flex-direction:column;
+    padding:16px 26px 20px;
+  }
+  .zukan.show{display:flex;}
+  .zukan-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+  .zukan-head h2{color:#fff;font-size:clamp(22px,3vw,34px);font-weight:900;}
+  .zukan-head h2 span{font-size:.6em;background:var(--sun);color:var(--ink);
+    border-radius:999px;padding:4px 16px;margin-left:14px;vertical-align:middle;}
+  .zukan-grid{
+    flex:1;display:grid;
+    grid-template-columns:repeat(5,1fr);
+    grid-template-rows:repeat(2,1fr);
+    gap:14px;min-height:0;
+  }
+  .z-card{
+    background:var(--cream);border-radius:22px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:4px;padding:8px;
+    box-shadow:0 5px 0 rgba(0,0,0,.2);
+    overflow:hidden;
+  }
+  .z-card .z-art{font-size:clamp(38px,6.5vh,72px);line-height:1.1;
+    display:flex;align-items:center;justify-content:center;
+    width:clamp(48px,9vh,90px);height:clamp(48px,9vh,90px);}
+  .z-card .z-art svg{width:100%;height:100%;}
+  .z-card .z-name{font-size:clamp(11px,1.5vw,16px);font-weight:900;text-align:center;line-height:1.3;}
+  .z-card.locked{background:rgba(255,255,255,.16);box-shadow:none;}
+  .z-card.locked .z-art{filter:grayscale(1) brightness(0) opacity(.35);}
+  .z-card.locked .z-name{color:rgba(255,255,255,.7);}
+  .z-card.new-get{animation:cardPop .5s cubic-bezier(.3,1.6,.5,1);}
+  @keyframes cardPop{from{transform:scale(.6);}to{transform:scale(1);}}
+
+  .complete-banner{
+    display:none;text-align:center;color:#fff;
+    font-size:clamp(18px,2.4vw,26px);font-weight:900;
+    margin-top:10px;
+    animation:hopS 1.2s ease-in-out infinite;
+  }
+  .complete-banner.show{display:block;}
+
+  /* reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.001s !important;animation-iteration-count:1 !important;transition-duration:.001s !important;}
+  }
+
+  /* portrait fallback */
+  .rotate-note{
+    position:fixed;inset:0;z-index:50;
+    background:var(--sea-deep);color:#fff;
+    display:none;align-items:center;justify-content:center;
+    text-align:center;font-size:24px;font-weight:900;line-height:2;
+    padding:30px;
+  }
+  @media (orientation:portrait){
+    .rotate-note{display:flex;}
+  }
+</style>
+</head>
+<body>
+
+<div class="ambient" id="ambient" aria-hidden="true"></div>
+
+<header>
+  <h1>🐠 すいぞくかん ガチャガチャ<small>サンシャインすいぞくかんの なかまたち</small></h1>
+  <div class="head-btns">
+    <button class="pill-btn" id="soundBtn" aria-label="おとのオン・オフ">🔊 おと</button>
+    <button class="pill-btn" id="zukanBtn" aria-label="ずかんをひらく">📖 ずかん <span class="badge" id="countBadge">0/10</span></button>
+  </div>
+</header>
+
+<main>
+  <!-- ガチャマシン -->
+  <div class="machine-col">
+    <div class="machine" id="machine">
+      <div class="dome">
+        <div class="shine"></div>
+        <div class="cap" style="background:#FF8FB0;top:46%;left:8%;animation-delay:0s;"></div>
+        <div class="cap" style="background:#FFD447;top:56%;left:34%;animation-delay:.6s;"></div>
+        <div class="cap" style="background:#7FD4E8;top:44%;left:58%;animation-delay:1.1s;"></div>
+        <div class="cap" style="background:#A6E86C;top:60%;left:70%;animation-delay:1.7s;"></div>
+        <div class="cap" style="background:#C9A6FF;top:64%;left:16%;animation-delay:2.2s;"></div>
+        <div class="dbub" style="width:10px;height:10px;left:22%;bottom:6%;animation-delay:0s;"></div>
+        <div class="dbub" style="width:7px;height:7px;left:55%;bottom:2%;animation-delay:1.2s;"></div>
+        <div class="dbub" style="width:12px;height:12px;left:78%;bottom:4%;animation-delay:2.1s;"></div>
+      </div>
+      <div class="machine-label">うみの なかま ガチャ</div>
+      <div class="body-box"></div>
+      <div class="coin"></div>
+      <div class="drop-cap" id="dropCap"></div>
+      <button class="handle" id="handle" aria-label="ハンドルをまわしてガチャをひく"></button>
+      <div class="tap-hint" id="tapHint">👆 ハンドルを タップしてね！</div>
+    </div>
+  </div>
+
+  <!-- ステージ -->
+  <div class="stage-col">
+    <div class="stage" id="stage">
+      <div class="stage-msg" id="stageMsg">
+        <span class="big-emoji">🐧🦦🪼</span>
+        <p>サンシャインすいぞくかんには<br>どんな なかまが いるかな？<br>
+        <span class="sub">ハンドルをまわして たしかめよう！</span></p>
+      </div>
+
+      <button class="stage-capsule" id="stageCapsule" aria-label="カプセルをあける">
+        <div class="cap-wrap" id="capWrap">
+          <div class="cap-top" id="capTop"></div>
+          <div class="cap-bottom"></div>
+        </div>
+        <span class="open-label">👆 タップして あけてね！</span>
+      </button>
+
+      <div class="result" id="result">
+        <div class="creature-zone">
+          <div class="creature-art" id="creatureArt"></div>
+          <div class="stars" id="stars"></div>
+        </div>
+        <div class="info-zone">
+          <span class="get-tag" id="getTag">ゲット！</span>
+          <div class="c-name" id="cName"></div>
+          <div class="c-desc" id="cDesc"></div>
+          <div class="c-place" id="cPlace"></div>
+          <div class="result-btns">
+            <button class="big-btn btn-again" id="againBtn">🔁 もういっかい！</button>
+            <button class="big-btn btn-zukan" id="toZukanBtn">📖 ずかんをみる</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ずかん -->
+<div class="zukan" id="zukan" role="dialog" aria-label="うみのなかまずかん">
+  <div class="zukan-head">
+    <h2>📖 うみのなかま ずかん<span id="zukanCount">0/10</span></h2>
+    <button class="pill-btn" id="closeZukan">✖ とじる</button>
+  </div>
+  <div class="zukan-grid" id="zukanGrid"></div>
+  <div class="complete-banner" id="completeBanner">🎉 コンプリート！ ぜんぶ あつめたね！ すごい！！ 🎉</div>
+</div>
+
+<div class="rotate-note">📱➡️🔄<br>iPadを よこむきに してね！</div>
+
+<script>
+/* =====================================================
+   サンシャイン水族館のなかまデータ
+   rarity: 1=ふつう 2=レア 3=キラキラ
+===================================================== */
+const SVG = {
+  chinanago: `<svg viewBox="0 0 120 120" aria-hidden="true">
+    <ellipse cx="60" cy="104" rx="44" ry="12" fill="#F0DCA8"/>
+    <ellipse cx="60" cy="101" rx="30" ry="8" fill="#E4C98B"/>
+    <path d="M52 100 C48 70 50 45 58 30 C63 20 72 18 76 26 C80 33 76 40 72 48 C66 62 64 80 66 100 Z" fill="#FDFDF8" stroke="#D8D8CE" stroke-width="2"/>
+    <circle cx="63" cy="34" r="6" fill="#2B2B2B"/>
+    <circle cx="74" cy="32" r="6" fill="#2B2B2B"/>
+    <circle cx="64.5" cy="32.5" r="2" fill="#fff"/>
+    <circle cx="75.5" cy="30.5" r="2" fill="#fff"/>
+    <circle cx="58" cy="55" r="5" fill="#3A3A3A"/>
+    <circle cx="68" cy="72" r="5" fill="#3A3A3A"/>
+    <circle cx="60" cy="88" r="4" fill="#3A3A3A"/>
+    <path d="M66 42 q4 3 8 0" stroke="#2B2B2B" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  </svg>`,
+  ashika: `<svg viewBox="0 0 120 120" aria-hidden="true">
+    <circle cx="60" cy="22" r="14" fill="#FF6B6B"/>
+    <circle cx="55" cy="17" r="4" fill="#FFB3B3"/>
+    <path d="M30 108 C26 78 38 48 60 44 C82 48 94 78 90 108 Z" fill="#8C6E58"/>
+    <path d="M60 44 C48 46 40 58 40 70 C40 88 50 96 60 96 C70 96 80 88 80 70 C80 58 72 46 60 44 Z" fill="#A78A72"/>
+    <circle cx="60" cy="58" r="20" fill="#8C6E58"/>
+    <circle cx="52" cy="54" r="4.5" fill="#2B2B2B"/>
+    <circle cx="68" cy="54" r="4.5" fill="#2B2B2B"/>
+    <circle cx="53.5" cy="52.5" r="1.6" fill="#fff"/>
+    <circle cx="69.5" cy="52.5" r="1.6" fill="#fff"/>
+    <ellipse cx="60" cy="64" rx="7" ry="5" fill="#C9AE95"/>
+    <circle cx="60" cy="61" r="3.4" fill="#2B2B2B"/>
+    <path d="M55 68 q5 4 10 0" stroke="#2B2B2B" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    <path d="M28 100 C18 104 14 110 20 112 C26 114 34 110 36 104 Z" fill="#8C6E58"/>
+    <path d="M92 100 C102 104 106 110 100 112 C94 114 86 110 84 104 Z" fill="#8C6E58"/>
+    <path d="M44 74 q-8 4 -8 12" stroke="#6E5342" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M76 74 q8 4 8 12" stroke="#6E5342" stroke-width="5" fill="none" stroke-linecap="round"/>
+  </svg>`,
+  ei: `<svg viewBox="0 0 120 120" aria-hidden="true">
+    <path d="M60 14 C92 30 108 54 96 72 C88 84 72 88 60 88 C48 88 32 84 24 72 C12 54 28 30 60 14 Z" fill="#7B8FA6"/>
+    <path d="M60 22 C86 36 98 54 89 68 C82 78 70 82 60 82 C50 82 38 78 31 68 C22 54 34 36 60 22 Z" fill="#93A8BF"/>
+    <path d="M60 86 L56 112 M60 86 L64 112" stroke="#7B8FA6" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="46" cy="52" r="5" fill="#2B2B2B"/>
+    <circle cx="74" cy="52" r="5" fill="#2B2B2B"/>
+    <circle cx="47.5" cy="50.5" r="1.8" fill="#fff"/>
+    <circle cx="75.5" cy="50.5" r="1.8" fill="#fff"/>
+    <path d="M50 66 q10 8 20 0" stroke="#2B2B2B" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="40" cy="62" r="3.5" fill="#F7A8B8" opacity=".7"/>
+    <circle cx="80" cy="62" r="3.5" fill="#F7A8B8" opacity=".7"/>
+  </svg>`,
+  gusokumushi: `<svg viewBox="0 0 120 120" aria-hidden="true">
+    <ellipse cx="60" cy="66" rx="42" ry="34" fill="#9BA3B0"/>
+    <path d="M22 60 a38 30 0 0 1 76 0" fill="#B7BEC9"/>
+    <g stroke="#7E8694" stroke-width="4" fill="none" stroke-linecap="round">
+      <path d="M30 58 q30 -10 60 0"/>
+      <path d="M26 70 q34 -10 68 0"/>
+      <path d="M28 82 q32 -10 64 0"/>
+    </g>
+    <g stroke="#7E8694" stroke-width="5" stroke-linecap="round">
+      <path d="M28 92 l-8 12"/><path d="M40 98 l-5 13"/><path d="M54 101 l-2 13"/>
+      <path d="M66 101 l2 13"/><path d="M80 98 l5 13"/><path d="M92 92 l8 12"/>
+    </g>
+    <circle cx="46" cy="50" r="6" fill="#2B2B2B"/>
+    <circle cx="74" cy="50" r="6" fill="#2B2B2B"/>
+    <circle cx="48" cy="48" r="2" fill="#fff"/>
+    <circle cx="76" cy="48" r="2" fill="#fff"/>
+    <path d="M54 62 q6 5 12 0" stroke="#2B2B2B" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M42 38 l-6 -10 M78 38 l6 -10" stroke="#7E8694" stroke-width="4" stroke-linecap="round"/>
+  </svg>`
+};
+
+const CREATURES = [
+  {id:"penguin", name:"ケープペンギン", emoji:"🐧", rarity:1,
+   desc:"みずのなかを とぶように およぐよ。50わくらいの なかまが いるんだって！",
+   place:"「そらとぶペンギン」の すいそうで まってるよ"},
+  {id:"kawauso", name:"コツメカワウソ", emoji:"🦦", rarity:2,
+   desc:"ちいさな つめと みずかきが じまん。てさきが とっても きようだよ。",
+   place:"やがいの「マリンガーデン」で あえるよ"},
+  {id:"azarashi", name:"バイカルアザラシ", emoji:"🦭", rarity:1,
+   desc:"まんまるボディに おおきな おめめ。みずうみで くらす アザラシだよ。",
+   place:"アザラシの すいそうで まってるよ"},
+  {id:"kurage", name:"ミズクラゲ", emoji:"🪼", rarity:1,
+   desc:"ふわふわ〜っと みずに ただよって いるよ。みていると こころが おちつくね。",
+   place:"「海月空感（くらげくうかん）」で あえるよ"},
+  {id:"chinanago", name:"チンアナゴ", svg:"chinanago", rarity:2,
+   desc:"すなの なかから ひょっこり かおを だすよ。なんびき みつけられるかな？",
+   place:"すなの すいそうを のぞいてみてね"},
+  {id:"kumanomi", name:"カクレクマノミ", emoji:"🐠", rarity:1,
+   desc:"オレンジと しろの しましまが かわいいね。イソギンチャクと なかよしだよ。",
+   place:"おさかなの すいそうで さがしてみてね"},
+  {id:"same", name:"トラフザメ", emoji:"🦈", rarity:1,
+   desc:"おっとり やさしい サメだよ。ながい しっぽが かっこいい！",
+   place:"おおきな「サンシャインラグーン」すいそうに いるよ"},
+  {id:"ei", name:"エイ", svg:"ei", rarity:1,
+   desc:"ひらひら〜っと マントのように およぐよ。おなかの かおも みてみてね。",
+   place:"おおきな「サンシャインラグーン」すいそうに いるよ"},
+  {id:"ashika", name:"アシカ", svg:"ashika", rarity:2,
+   desc:"およぎの めいじん！ トレーニングする すがたは はくりょく まんてんだよ。",
+   place:"まるい「アシカのステージ」で あえるよ"},
+  {id:"gusoku", name:"ダイオウグソクムシ", svg:"gusokumushi", rarity:3,
+   desc:"ふかい ふかい うみの アイドル！ ダンゴムシの おおきな なかまだよ。",
+   place:"「しんかい」の コーナーを のぞいてみてね"}
+];
+
+/* ===================== 状態 ===================== */
+const collected = new Set();      // メモリ内コレクション（リロードでリセット）
+let current = null;
+let busy = false;
+let soundOn = true;
+
+/* ===================== 音（Web Audio） ===================== */
+let actx = null;
+function audio(){ if(!actx){ actx = new (window.AudioContext||window.webkitAudioContext)(); } return actx; }
+function tone(freq, dur, type="sine", vol=0.18, when=0){
+  if(!soundOn) return;
+  try{
+    const a = audio();
+    const o = a.createOscillator(), g = a.createGain();
+    o.type = type; o.frequency.value = freq;
+    g.gain.setValueAtTime(vol, a.currentTime + when);
+    g.gain.exponentialRampToValueAtTime(0.001, a.currentTime + when + dur);
+    o.connect(g); g.connect(a.destination);
+    o.start(a.currentTime + when); o.stop(a.currentTime + when + dur + .05);
+  }catch(e){}
+}
+const sfx = {
+  click(){ tone(660,.09,"square",.12); },
+  roll(){ tone(220,.3,"sawtooth",.06); tone(180,.3,"sawtooth",.06,.15); tone(240,.25,"sawtooth",.06,.3); },
+  drop(){ tone(420,.12,"triangle",.2,0); tone(300,.15,"triangle",.2,.1); },
+  pop(){ tone(520,.08,"square",.2); tone(780,.12,"square",.16,.06); },
+  get(){ [523,659,784,1047].forEach((f,i)=>tone(f,.22,"sine",.16,i*.11)); },
+  kira(){ [523,659,784,1047,1319,1568].forEach((f,i)=>tone(f,.3,"triangle",.16,i*.1)); },
+  complete(){ [523,523,784,784,1047,1319,1568].forEach((f,i)=>tone(f,.3,"sine",.15,i*.14)); }
+};
+
+/* ===================== 要素 ===================== */
+const $ = id => document.getElementById(id);
+const handle=$("handle"), machine=$("machine"), dropCap=$("dropCap"),
+      stageMsg=$("stageMsg"), stageCapsule=$("stageCapsule"), capWrap=$("capWrap"),
+      capTop=$("capTop"), result=$("result"), creatureArt=$("creatureArt"),
+      cName=$("cName"), cDesc=$("cDesc"), cPlace=$("cPlace"), stars=$("stars"),
+      getTag=$("getTag"), tapHint=$("tapHint");
+
+const CAP_COLORS = ["#FF8FB0","#FFD447","#7FD4E8","#A6E86C","#C9A6FF","#FFAB76"];
+let autoOpenTimer = null;
+let lastId = null;
+
+/* ===================== 抽選 ===================== */
+function pick(){
+  // レア度で重みづけ（ふつう:10 / レア:6 / キラキラ:3）
+  const pool = [];
+  for(const c of CREATURES){
+    const w = c.rarity===3 ? 3 : c.rarity===2 ? 6 : 10;
+    for(let i=0;i<w;i++) pool.push(c);
+  }
+  let c = pool[Math.floor(Math.random()*pool.length)];
+  // 直前と同じ子は なるべく避ける
+  if(c.id===lastId){ c = pool[Math.floor(Math.random()*pool.length)]; }
+  lastId = c.id;
+  return c;
+}
+
+/* ===================== ガチャを回す ===================== */
+handle.addEventListener("click", ()=>{
+  if(busy) return;
+  busy = true;
+  handle.disabled = true;
+  tapHint.style.visibility = "hidden";
+  sfx.click(); sfx.roll();
+
+  handle.classList.add("spin");
+  machine.classList.add("shake");
+
+  const color = CAP_COLORS[Math.floor(Math.random()*CAP_COLORS.length)];
+  dropCap.style.background = `radial-gradient(circle at 32% 30%, #ffffffcc 12%, ${color} 55%)`;
+  dropCap.style.boxShadow = "inset -4px -6px 0 rgba(0,0,0,.15)";
+
+  setTimeout(()=>{ dropCap.classList.add("go"); sfx.drop(); }, 450);
+
+  setTimeout(()=>{
+    current = pick();
+    // ステージへカプセル登場
+    stageMsg.style.display = "none";
+    result.classList.remove("show");
+    capWrap.classList.remove("open");
+    capTop.style.background = `linear-gradient(180deg, ${color}, ${shade(color)})`;
+    stageCapsule.classList.add("show");
+    sfx.pop();
+    // 4秒たったら じどうで開く（まちすぎ防止）
+    autoOpenTimer = setTimeout(openCapsule, 4000);
+  }, 1300);
+
+  setTimeout(()=>{
+    handle.classList.remove("spin");
+    machine.classList.remove("shake");
+    dropCap.classList.remove("go");
+  }, 1400);
+});
+
+function shade(hex){
+  const n = parseInt(hex.slice(1),16);
+  const r=Math.max(0,(n>>16)-45), g=Math.max(0,((n>>8)&255)-45), b=Math.max(0,(n&255)-45);
+  return `rgb(${r},${g},${b})`;
+}
+
+/* ===================== カプセルを開ける ===================== */
+stageCapsule.addEventListener("click", openCapsule);
+
+function openCapsule(){
+  if(!current) return;
+  clearTimeout(autoOpenTimer); autoOpenTimer=null;
+  if(capWrap.classList.contains("open")) return;
+  capWrap.classList.add("open");
+  sfx.pop();
+
+  setTimeout(()=>{
+    stageCapsule.classList.remove("show");
+    showResult(current);
+  }, 420);
+}
+
+function artHTML(c, forZukan=false){
+  if(c.svg) return SVG[c.svg];
+  return c.emoji;
+}
+
+function showResult(c){
+  const isNew = !collected.has(c.id);
+  collected.add(c.id);
+  updateCount();
+
+  creatureArt.innerHTML = artHTML(c);
+  cName.innerHTML = escapeHTML(c.name) + (isNew ? '<span class="new-mark">NEW!</span>' : "");
+  cDesc.textContent = c.desc;
+  cPlace.textContent = "📍 " + c.place;
+  stars.textContent = "⭐".repeat(c.rarity);
+
+  getTag.className = "get-tag";
+  if(c.rarity===3){ getTag.classList.add("kira"); getTag.textContent="✨キラキラ ゲット！✨"; }
+  else if(c.rarity===2){ getTag.classList.add("rare"); getTag.textContent="🌟レア ゲット！"; }
+  else{ getTag.textContent="ゲット！"; }
+
+  result.classList.add("show");
+
+  if(c.rarity===3){ sfx.kira(); confetti(90); }
+  else{ sfx.get(); if(isNew) confetti(30); }
+
+  if(collected.size===CREATURES.length){
+    setTimeout(()=>{ sfx.complete(); confetti(120); }, 900);
+  }
+
+  busy = false;
+  handle.disabled = false;
+  tapHint.style.visibility = "visible";
+  tapHint.textContent = "👆 もういちど まわせるよ！";
+}
+
+function escapeHTML(s){ return s.replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m])); }
+
+$("againBtn").addEventListener("click", ()=>{
+  sfx.click();
+  result.classList.remove("show");
+  stageMsg.style.display = "";
+  current = null;
+  handle.click();
+});
+
+/* ===================== ずかん ===================== */
+const zukan=$("zukan"), zukanGrid=$("zukanGrid");
+function renderZukan(){
+  zukanGrid.innerHTML = "";
+  for(const c of CREATURES){
+    const has = collected.has(c.id);
+    const card = document.createElement("div");
+    card.className = "z-card" + (has ? " new-get" : " locked");
+    card.innerHTML = `<div class="z-art">${has ? artHTML(c,true) : (c.svg?SVG[c.svg]:c.emoji)}</div>
+                      <div class="z-name">${has ? escapeHTML(c.name) : "？？？"}</div>
+                      <div class="z-name">${has ? "⭐".repeat(c.rarity) : ""}</div>`;
+    zukanGrid.appendChild(card);
+  }
+  $("zukanCount").textContent = `${collected.size}/${CREATURES.length}`;
+  $("completeBanner").classList.toggle("show", collected.size===CREATURES.length);
+}
+function updateCount(){ $("countBadge").textContent = `${collected.size}/${CREATURES.length}`; }
+
+$("zukanBtn").addEventListener("click", ()=>{ sfx.click(); renderZukan(); zukan.classList.add("show"); });
+$("toZukanBtn").addEventListener("click", ()=>{ sfx.click(); renderZukan(); zukan.classList.add("show"); });
+$("closeZukan").addEventListener("click", ()=>{ sfx.click(); zukan.classList.remove("show"); });
+
+/* ===================== 音の切りかえ ===================== */
+$("soundBtn").addEventListener("click", function(){
+  soundOn = !soundOn;
+  this.textContent = soundOn ? "🔊 おと" : "🔇 おと";
+  if(soundOn) sfx.click();
+});
+
+/* ===================== 紙ふぶき ===================== */
+const CONF = ["#FF8FB0","#FFD447","#7FD4E8","#A6E86C","#C9A6FF","#FF8A5C","#fff"];
+function confetti(n){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  for(let i=0;i<n;i++){
+    const d = document.createElement("div");
+    d.className = "confetti";
+    const size = 8+Math.random()*10;
+    d.style.cssText = `left:${Math.random()*100}vw;width:${size}px;height:${size*.6}px;
+      background:${CONF[i%CONF.length]};
+      animation-duration:${2.2+Math.random()*1.6}s;
+      animation-delay:${Math.random()*.5}s;`;
+    document.body.appendChild(d);
+    setTimeout(()=>d.remove(), 4500);
+  }
+}
+
+/* ===================== 背景の泡 ===================== */
+(function(){
+  const amb = $("ambient");
+  for(let i=0;i<14;i++){
+    const b = document.createElement("div");
+    b.className = "bub";
+    const s = 8+Math.random()*26;
+    b.style.cssText = `left:${Math.random()*100}vw;width:${s}px;height:${s}px;
+      animation-duration:${9+Math.random()*10}s;animation-delay:${Math.random()*9}s;`;
+    amb.appendChild(b);
+  }
+})();
+
+updateCount();
+</script>
+</body>
+</html>
