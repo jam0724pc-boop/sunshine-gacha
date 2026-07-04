@@ -405,17 +405,6 @@
     *,*::before,*::after{animation-duration:.001s !important;animation-iteration-count:1 !important;transition-duration:.001s !important;}
   }
 
-  /* portrait fallback */
-  .rotate-note{
-    position:fixed;inset:0;z-index:50;
-    background:var(--sea-deep);color:#fff;
-    display:none;align-items:center;justify-content:center;
-    text-align:center;font-size:24px;font-weight:900;line-height:2;
-    padding:30px;
-  }
-  @media (orientation:portrait){
-    .rotate-note{display:flex;}
-  }
 </style>
 </head>
 <body>
@@ -500,8 +489,6 @@
   <div class="zukan-grid" id="zukanGrid"></div>
   <div class="complete-banner" id="completeBanner">🎉 コンプリート！ ぜんぶ あつめたね！ すごい！！ 🎉</div>
 </div>
-
-<div class="rotate-note">📱➡️🔄<br>iPadを よこむきに してね！</div>
 
 <script>
 /* =====================================================
