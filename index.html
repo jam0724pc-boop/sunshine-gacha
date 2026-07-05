@@ -21,7 +21,7 @@
     --rare:#FF9F1C;
     --kira:#B36BFF;
   }
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;}
   html,body{
     width:100%;height:100%;
     overflow:hidden;
@@ -235,7 +235,19 @@
     box-shadow:0 10px 24px rgba(14,94,140,.18), inset 0 0 40px rgba(255,255,255,.5);
     display:flex;align-items:center;justify-content:center;
     overflow:hidden;
+    transition:background .6s;
   }
+  .stage.hab-sky,.detail.hab-sky{background:linear-gradient(180deg,#D2F0FF,#9ADCF7);}
+  .stage.hab-garden,.detail.hab-garden{background:linear-gradient(180deg,#EAF7DA,#CBEBB2);}
+  .stage.hab-lagoon,.detail.hab-lagoon{background:linear-gradient(180deg,#C2EAF5,#7FC9E4);}
+  .stage.hab-sand,.detail.hab-sand{background:linear-gradient(180deg,#FBF0D2,#F0DCA8);}
+  .stage.hab-ice,.detail.hab-ice{background:linear-gradient(180deg,#EDF8FC,#C8E7F2);}
+  .stage.hab-show,.detail.hab-show{background:linear-gradient(180deg,#FFF1D6,#FFDFA8);}
+  .stage.hab-jelly,.detail.hab-jelly{background:linear-gradient(180deg,#41528C,#28336A);}
+  .stage.hab-deep,.detail.hab-deep{background:linear-gradient(180deg,#16436F,#0A2442);}
+  .stage.hab-jelly .c-name, .stage.hab-deep .c-name{color:#fff;}
+  .detail.hab-jelly .detail-name, .detail.hab-deep .detail-name,
+  .detail.hab-jelly .d-hint, .detail.hab-deep .d-hint{color:#fff;}
   .stage-msg{
     text-align:center;padding:20px;
   }
@@ -288,53 +300,74 @@
   .result{
     position:absolute;inset:0;z-index:3;
     display:none;flex-direction:row;align-items:center;justify-content:center;
-    gap:clamp(14px,3vw,40px);
-    padding:18px clamp(14px,3vw,40px);
+    gap:clamp(12px,2.4vw,32px);
+    padding:12px clamp(12px,2.4vw,32px);
   }
   .result.show{display:flex;}
   .creature-zone{
     flex:0 0 auto;text-align:center;
   }
   .creature-art{
-    width:clamp(160px,24vw,270px);height:clamp(160px,24vw,270px);
+    width:clamp(140px,21vw,230px);height:clamp(140px,21vw,230px);
     display:flex;align-items:center;justify-content:center;
-    font-size:clamp(110px,17vw,190px);line-height:1;
-    animation:popIn .6s cubic-bezier(.3,1.6,.5,1) both, sway 3s ease-in-out 1s infinite;
+    font-size:clamp(100px,15vw,170px);line-height:1;
     filter:drop-shadow(0 8px 10px rgba(14,94,140,.25));
   }
   .creature-art svg{width:100%;height:100%;}
   @keyframes popIn{from{transform:scale(.2);opacity:0;}to{transform:scale(1);opacity:1;}}
   @keyframes sway{0%,100%{transform:rotate(-3deg);}50%{transform:rotate(3deg);}}
-  .stars{font-size:clamp(20px,2.6vw,30px);margin-top:4px;letter-spacing:.1em;}
+  /* ---------- 生きものごとの とうじょうアニメ ---------- */
+  @keyframes nyokiIn{from{transform:translateY(75%);opacity:0;}70%{transform:translateY(-6%);opacity:1;}to{transform:translateY(0);opacity:1;}}
+  @keyframes bobLoop{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
+  @keyframes jumpLoop{0%,55%,100%{transform:translateY(0);}15%{transform:translateY(-22px);}30%{transform:translateY(0);}40%{transform:translateY(-9px);}}
+  @keyframes swimLoop{0%,100%{transform:translateX(-12px) rotate(-2deg);}50%{transform:translateX(12px) rotate(2deg);}}
+  @keyframes glideLoop{0%,100%{transform:translateX(-14px) translateY(0);}25%{transform:translateY(-6px);}50%{transform:translateX(14px) translateY(0);}75%{transform:translateY(6px);}}
+  @keyframes flutterLoop{0%,100%{transform:rotate(-4deg) translateY(0);}50%{transform:rotate(4deg) translateY(-10px);}}
+  @keyframes bounceLoop{0%,100%{transform:scale(1) translateY(0);}30%{transform:scale(1.05,.93) translateY(4px);}60%{transform:scale(.97,1.06) translateY(-8px);}}
+  @keyframes crawlLoop{0%,100%{transform:translateX(0) rotate(0);}20%{transform:translateX(5px) rotate(1deg);}40%{transform:translateX(10px) rotate(0);}60%{transform:translateX(5px) rotate(-1deg);}}
+  @keyframes flapLoop{0%,50%,100%{transform:rotate(0) translateY(0);}10%{transform:rotate(-5deg) translateY(-6px);}20%{transform:rotate(5deg) translateY(-10px);}30%{transform:rotate(-3deg) translateY(-4px);}40%{transform:rotate(0) translateY(0);}}
+  @keyframes wiggleLoop{0%,100%{transform:rotate(-7deg);}50%{transform:rotate(7deg);}}
+  .anim-pop{animation:popIn .6s cubic-bezier(.3,1.6,.5,1) both, sway 3s ease-in-out .8s infinite;}
+  .anim-jump{animation:popIn .5s cubic-bezier(.3,1.6,.5,1) both, jumpLoop 2s ease-in-out .7s infinite;}
+  .anim-float{animation:popIn .7s ease-out both, bobLoop 3.2s ease-in-out .8s infinite;}
+  .anim-nyoki{animation:nyokiIn .8s cubic-bezier(.3,1.3,.5,1) both, bobLoop 2.6s ease-in-out 1s infinite;}
+  .anim-swim{animation:popIn .6s cubic-bezier(.3,1.6,.5,1) both, swimLoop 3s ease-in-out .8s infinite;}
+  .anim-glide{animation:popIn .6s ease-out both, glideLoop 4.5s ease-in-out .8s infinite;}
+  .anim-flutter{animation:popIn .6s ease-out both, flutterLoop 3s ease-in-out .8s infinite;}
+  .anim-bounce{animation:popIn .5s cubic-bezier(.3,1.6,.5,1) both, bounceLoop 2.2s ease-in-out .8s infinite;}
+  .anim-crawl{animation:popIn .6s ease-out both, crawlLoop 3s ease-in-out .9s infinite;}
+  .anim-flap{animation:popIn .6s cubic-bezier(.3,1.6,.5,1) both, flapLoop 2.6s ease-in-out .8s infinite;}
+  .anim-wiggle{animation:popIn .5s cubic-bezier(.3,1.6,.5,1) both, wiggleLoop 1.6s ease-in-out .8s infinite;}
+  .stars{font-size:clamp(17px,2.2vw,26px);margin-top:2px;letter-spacing:.1em;}
   .info-zone{
-    flex:0 1 auto;max-width:52%;
-    display:flex;flex-direction:column;gap:clamp(8px,1.6vh,16px);
+    flex:0 1 auto;max-width:56%;min-width:0;
+    display:flex;flex-direction:column;gap:clamp(6px,1.4vh,12px);
     align-items:flex-start;
   }
   .get-tag{
-    font-size:clamp(16px,2vw,22px);font-weight:900;color:#fff;
+    font-size:clamp(14px,1.8vw,20px);font-weight:900;color:#fff;
     background:var(--coral);padding:6px 20px;border-radius:999px;
     box-shadow:0 3px 0 var(--coral-deep);
   }
   .get-tag.rare{background:var(--rare);box-shadow:0 3px 0 #D07F0B;}
   .get-tag.kira{background:var(--kira);box-shadow:0 3px 0 #8A3FE0;}
   .c-name{
-    font-size:clamp(30px,4.6vw,56px);font-weight:900;line-height:1.2;
+    font-size:clamp(24px,3.4vw,42px);font-weight:900;line-height:1.25;
   }
   .c-desc{
-    font-size:clamp(16px,2.1vw,24px);font-weight:700;line-height:1.75;
+    font-size:clamp(14px,1.8vw,20px);font-weight:700;line-height:1.7;
     background:rgba(255,255,255,.8);
-    padding:14px 18px;border-radius:20px;
+    padding:10px 16px;border-radius:18px;
   }
   .c-place{
-    font-size:clamp(14px,1.8vw,20px);font-weight:900;color:#fff;
+    font-size:clamp(13px,1.6vw,18px);font-weight:900;color:#fff;
     background:var(--sea-mid);padding:8px 18px;border-radius:14px;
   }
   .result-btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:4px;}
   .big-btn{
     border:none;cursor:pointer;font-family:inherit;font-weight:900;
-    font-size:clamp(18px,2.3vw,26px);
-    padding:16px 30px;border-radius:999px;
+    font-size:clamp(16px,2vw,22px);
+    padding:13px 26px;border-radius:999px;
     box-shadow:0 5px 0 rgba(14,94,140,.35);
     transition:transform .1s;
     min-height:56px;
@@ -370,22 +403,22 @@
     border-radius:999px;padding:4px 16px;margin-left:14px;vertical-align:middle;}
   .zukan-grid{
     flex:1;display:grid;
-    grid-template-columns:repeat(5,1fr);
-    grid-template-rows:repeat(2,1fr);
-    gap:14px;min-height:0;
+    grid-template-columns:repeat(4,1fr);
+    grid-template-rows:repeat(3,1fr);
+    gap:12px;min-height:0;
   }
   .z-card{
-    background:var(--cream);border-radius:22px;
+    background:var(--cream);border-radius:18px;
     display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:4px;padding:8px;
+    gap:2px;padding:6px;
     box-shadow:0 5px 0 rgba(0,0,0,.2);
     overflow:hidden;
   }
-  .z-card .z-art{font-size:clamp(38px,6.5vh,72px);line-height:1.1;
+  .z-card .z-art{font-size:clamp(28px,5vh,56px);line-height:1.1;
     display:flex;align-items:center;justify-content:center;
-    width:clamp(48px,9vh,90px);height:clamp(48px,9vh,90px);}
+    width:clamp(38px,7vh,68px);height:clamp(38px,7vh,68px);}
   .z-card .z-art svg{width:100%;height:100%;}
-  .z-card .z-name{font-size:clamp(11px,1.5vw,16px);font-weight:900;text-align:center;line-height:1.3;}
+  .z-card .z-name{font-size:clamp(10px,1.3vw,14px);font-weight:900;text-align:center;line-height:1.25;}
   .z-card.locked{background:rgba(255,255,255,.16);box-shadow:none;}
   .z-card.locked .z-art{filter:grayscale(1) brightness(0) opacity(.35);}
   .z-card.locked .z-name{color:rgba(255,255,255,.7);}
@@ -399,6 +432,176 @@
     animation:hopS 1.2s ease-in-out infinite;
   }
   .complete-banner.show{display:block;}
+
+
+  /* ---------- オーバーレイ共通の あんない文 ---------- */
+  .over-note{
+    color:#DFF3FB;font-weight:900;text-align:center;
+    font-size:clamp(13px,1.8vw,18px);margin:0 0 8px;
+  }
+
+  /* ---------- たんけんカード ---------- */
+  .mission{
+    position:fixed;inset:0;z-index:23;
+    background:linear-gradient(180deg,rgba(19,98,90,.94),rgba(11,74,84,.97));
+    display:none;flex-direction:column;
+    padding:14px 26px 14px;
+  }
+  .mission.show{display:flex;}
+  .mission-grid{
+    flex:1;display:grid;
+    grid-template-columns:repeat(4,1fr);
+    grid-template-rows:repeat(3,1fr);
+    gap:12px;min-height:0;
+  }
+  .mission-grid.stamp{
+    display:flex;flex-wrap:wrap;align-items:center;justify-content:center;align-content:center;
+    gap:clamp(12px,2vw,22px);
+  }
+  .m-card{
+    position:relative;
+    background:var(--cream);border-radius:18px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:2px;padding:6px;cursor:pointer;
+    box-shadow:0 5px 0 rgba(0,0,0,.2);
+  }
+  .mission-grid.stamp .m-card{
+    width:clamp(130px,17vw,190px);height:clamp(150px,32vh,220px);
+  }
+  .mission-grid.stamp .m-card .z-art{
+    font-size:clamp(50px,10vh,90px);
+    width:clamp(70px,13vh,110px);height:clamp(70px,13vh,110px);
+  }
+  .m-card .pick-mark{
+    position:absolute;top:6px;right:8px;
+    width:30px;height:30px;border-radius:50%;
+    background:#CBD8E0;color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:900;font-size:17px;
+  }
+  .m-card.picked{outline:5px solid var(--coral);}
+  .m-card.picked .pick-mark{background:var(--coral);}
+  .mission-grid.stamp .m-card .pick-mark{display:none;}
+  .m-card .stamp-mark{
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    font-size:clamp(60px,14vh,110px);
+    opacity:0;transform:scale(2.2) rotate(-25deg);
+    transition:.25s cubic-bezier(.3,1.4,.5,1);
+    pointer-events:none;
+    filter:drop-shadow(0 3px 4px rgba(0,0,0,.25));
+  }
+  .m-card.stamped .stamp-mark{opacity:1;transform:scale(1) rotate(-12deg);}
+  .m-card.stamped{background:#FFF3E0;}
+  .mission-foot{
+    display:flex;justify-content:center;align-items:center;
+    min-height:64px;margin-top:8px;
+  }
+
+  /* ---------- いきものはかせ ---------- */
+  .detail{
+    position:fixed;inset:0;z-index:24;
+    display:none;flex-direction:column;
+    padding:14px 24px 14px;
+    background:linear-gradient(180deg,#C2EAF5,#7FC9E4);
+  }
+  .detail.show{display:flex;}
+  .detail-close{position:absolute;top:14px;right:22px;z-index:2;}
+  .detail-body{
+    flex:1;display:flex;align-items:center;justify-content:center;
+    gap:clamp(16px,4vw,50px);min-height:0;
+  }
+  .detail-left{display:flex;flex-direction:column;align-items:center;gap:2px;}
+  .detail-name{font-size:clamp(22px,3vw,36px);font-weight:900;color:var(--ink);}
+  .detail-info{
+    display:flex;flex-direction:column;gap:clamp(7px,1.4vh,13px);
+    max-width:54%;min-width:0;
+  }
+  .d-row{
+    display:flex;gap:12px;align-items:flex-start;
+    background:rgba(255,255,255,.88);
+    border-radius:18px;padding:9px 16px;
+  }
+  .d-ico{font-size:clamp(20px,2.6vw,28px);line-height:1.4;}
+  .d-row b{display:block;font-size:clamp(12px,1.5vw,15px);color:#33698C;}
+  .d-row p{font-size:clamp(14px,1.85vw,19px);font-weight:700;line-height:1.6;color:var(--ink);}
+  .detail-nav{display:flex;justify-content:center;gap:18px;}
+
+  /* ---------- シルエットクイズ ---------- */
+  .quiz{
+    position:fixed;inset:0;z-index:22;
+    background:linear-gradient(180deg,rgba(27,73,101,.94),rgba(14,94,140,.97));
+    display:none;flex-direction:column;
+    padding:14px 26px 16px;
+  }
+  .quiz.show{display:flex;}
+  .quiz-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+  .quiz-head h2{color:#fff;font-size:clamp(20px,2.8vw,30px);font-weight:900;}
+  .quiz-head h2 span{font-size:.6em;background:var(--sun);color:var(--ink);
+    border-radius:999px;padding:4px 14px;margin-left:12px;vertical-align:middle;}
+  .quiz-body{flex:1;display:flex;align-items:center;justify-content:center;
+    gap:clamp(20px,5vw,70px);min-height:0;}
+  .quiz-left{display:flex;flex-direction:column;align-items:center;gap:8px;}
+  .quiz-art{
+    width:clamp(150px,30vh,240px);height:clamp(150px,30vh,240px);
+    font-size:clamp(110px,24vh,200px);
+    display:flex;align-items:center;justify-content:center;
+    filter:drop-shadow(0 6px 8px rgba(0,0,0,.3));
+    transition:filter .4s;
+  }
+  .quiz-art svg{width:100%;height:100%;}
+  .quiz-art.sil{filter:brightness(0) invert(1) opacity(.95);}
+  .quiz-q{color:#fff;font-weight:900;font-size:clamp(16px,2.2vw,24px);}
+  .quiz-answers{display:flex;flex-direction:column;gap:14px;width:min(46%,420px);}
+  .quiz-answers .big-btn{background:var(--cream);color:var(--ink);width:100%;}
+  .quiz-answers .big-btn.correct{background:#4CAF7D;color:#fff;}
+  .quiz-answers .big-btn.wrong{background:#DDE4E9;color:#9AA8B2;}
+  .quiz-msg{
+    text-align:center;color:#fff;font-weight:900;
+    font-size:clamp(17px,2.3vw,25px);min-height:1.5em;
+  }
+  @keyframes shakeX{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}50%{transform:translateX(8px);}75%{transform:translateX(-5px);}}
+  .shakeX{animation:shakeX .4s;}
+
+  /* ---------- teacher settings ---------- */
+  .settings{
+    position:fixed;inset:0;z-index:30;
+    background:rgba(14,94,140,.9);
+    display:none;align-items:center;justify-content:center;
+  }
+  .settings.show{display:flex;}
+  .settings-card{
+    background:var(--cream);border-radius:26px;
+    padding:24px 28px;width:min(600px,92vw);max-height:88vh;overflow:auto;
+    box-shadow:0 12px 30px rgba(0,0,0,.3);
+  }
+  .settings-card h2{font-size:clamp(20px,2.6vw,26px);margin-bottom:4px;}
+  .settings-card .note{font-size:13px;color:#33698C;font-weight:700;margin-bottom:10px;}
+  .setting-row{
+    display:flex;align-items:center;justify-content:space-between;gap:14px;
+    padding:13px 0;border-bottom:2px dashed #CDE4EF;
+    font-weight:900;font-size:clamp(15px,1.9vw,18px);
+  }
+  .setting-row .hint{display:block;font-size:12px;color:#557089;font-weight:700;margin-top:2px;}
+  .toggle{position:relative;width:66px;height:38px;flex:0 0 auto;}
+  .toggle input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer;z-index:2;}
+  .toggle .tr{position:absolute;inset:0;background:#B9C7D1;border-radius:999px;transition:.2s;}
+  .toggle .tr::after{
+    content:"";position:absolute;top:4px;left:4px;width:30px;height:30px;
+    background:#fff;border-radius:50%;transition:.2s;box-shadow:0 2px 4px rgba(0,0,0,.25);
+  }
+  .toggle input:checked + .tr{background:#4CAF7D;}
+  .toggle input:checked + .tr::after{left:32px;}
+  .settings-btns{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;}
+  .counter{display:flex;align-items:center;gap:12px;flex:0 0 auto;}
+  .cnt-btn{
+    width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;
+    font-size:24px;font-weight:900;font-family:inherit;
+    background:var(--sea-mid);color:#fff;
+    box-shadow:0 3px 0 #1F7BA0;
+  }
+  .cnt-btn:active{transform:translateY(2px);box-shadow:0 1px 0 #1F7BA0;}
+  #cntVal{min-width:38px;text-align:center;font-size:24px;font-weight:900;}
 
   /* reduced motion */
   @media (prefers-reduced-motion: reduce){
@@ -415,7 +618,9 @@
   <h1>🐠 すいぞくかん ガチャガチャ<small>サンシャインすいぞくかんの なかまたち</small></h1>
   <div class="head-btns">
     <button class="pill-btn" id="soundBtn" aria-label="おとのオン・オフ">🔊 おと</button>
-    <button class="pill-btn" id="zukanBtn" aria-label="ずかんをひらく">📖 ずかん <span class="badge" id="countBadge">0/10</span></button>
+    <button class="pill-btn" id="missionBtn" aria-label="たんけんカードをひらく">🎒 たんけん</button>
+    <button class="pill-btn" id="quizBtn" aria-label="シルエットクイズであそぶ">❓ クイズ</button>
+    <button class="pill-btn" id="zukanBtn" aria-label="ずかんをひらく">📖 ずかん <span class="badge" id="countBadge">0/12</span></button>
   </div>
 </header>
 
@@ -439,7 +644,7 @@
       <div class="coin"></div>
       <div class="drop-cap" id="dropCap"></div>
       <button class="handle" id="handle" aria-label="ハンドルをまわしてガチャをひく"></button>
-      <div class="tap-hint" id="tapHint">👆 ハンドルを タップしてね！</div>
+      <div class="tap-hint" id="tapHint">👆 タップしてね！</div>
     </div>
   </div>
 
@@ -472,7 +677,8 @@
           <div class="c-place" id="cPlace"></div>
           <div class="result-btns">
             <button class="big-btn btn-again" id="againBtn">🔁 もういっかい！</button>
-            <button class="big-btn btn-zukan" id="toZukanBtn">📖 ずかんをみる</button>
+            <button class="big-btn btn-zukan" id="detailBtn">📖 くわしく</button>
+            <button class="big-btn btn-zukan" id="toZukanBtn">🐚 ずかんをみる</button>
           </div>
         </div>
       </div>
@@ -483,11 +689,93 @@
 <!-- ずかん -->
 <div class="zukan" id="zukan" role="dialog" aria-label="うみのなかまずかん">
   <div class="zukan-head">
-    <h2>📖 うみのなかま ずかん<span id="zukanCount">0/10</span></h2>
+    <h2>📖 うみのなかま ずかん<span id="zukanCount">0/12</span></h2>
     <button class="pill-btn" id="closeZukan">✖ とじる</button>
   </div>
+  <p class="over-note">あつめた子を タップすると、くわしい せつめいが みられるよ📖</p>
   <div class="zukan-grid" id="zukanGrid"></div>
   <div class="complete-banner" id="completeBanner">🎉 コンプリート！ ぜんぶ あつめたね！ すごい！！ 🎉</div>
+</div>
+
+<!-- たんけんカード -->
+<div class="mission" id="mission" role="dialog" aria-label="たんけんカード">
+  <div class="zukan-head">
+    <h2 id="missionTitle" style="color:#fff;font-size:clamp(20px,2.8vw,30px);font-weight:900;">🎒 たんけんカード</h2>
+    <button class="pill-btn" id="closeMission">✖ とじる</button>
+  </div>
+  <p class="over-note" id="missionNote"></p>
+  <div class="mission-grid" id="missionGrid"></div>
+  <div class="mission-foot">
+    <button class="big-btn btn-again" id="decideBtn" style="display:none">✨ これに する！</button>
+    <div class="complete-banner" id="missionBanner">🎉 ミッション コンプリート！ ぜんぶ みつけたね！！ 🎉</div>
+  </div>
+</div>
+
+<!-- いきものはかせ（くわしい せつめい） -->
+<div class="detail" id="detail" role="dialog" aria-label="いきもののせつめい">
+  <button class="pill-btn detail-close" id="closeDetail">✖ とじる</button>
+  <div class="detail-body">
+    <div class="detail-left">
+      <div class="creature-art" id="detailArt"></div>
+      <div class="detail-name" id="detailName"></div>
+      <div class="stars" id="detailStars"></div>
+    </div>
+    <div class="detail-info">
+      <div class="d-row"><span class="d-ico">📍</span><div><b>どこに いる？</b><p id="dPlace"></p></div></div>
+      <div class="d-row"><span class="d-ico">📏</span><div><b>おおきさ</b><p id="dSize"></p></div></div>
+      <div class="d-row"><span class="d-ico">✨</span><div><b>すごい ひみつ</b><p id="dSecret"></p></div></div>
+      <div class="d-row"><span class="d-ico">👀</span><div><b>みてみて ポイント</b><p id="dWatch"></p></div></div>
+    </div>
+  </div>
+  <div class="detail-nav">
+    <button class="big-btn btn-zukan" id="prevBtn">◀ まえ</button>
+    <button class="big-btn btn-zukan" id="nextBtn">つぎ ▶</button>
+  </div>
+</div>
+
+<!-- シルエットクイズ -->
+<div class="quiz" id="quiz" role="dialog" aria-label="シルエットクイズ">
+  <div class="quiz-head">
+    <h2>❓ だれかな？ クイズ<span id="quizScore">せいかい 0</span></h2>
+    <button class="pill-btn" id="closeQuiz">✖ おわる</button>
+  </div>
+  <div class="quiz-body">
+    <div class="quiz-left">
+      <div class="quiz-art sil" id="quizArt"></div>
+      <div class="quiz-q">かげだけで わかるかな？</div>
+    </div>
+    <div class="quiz-answers" id="quizAnswers"></div>
+  </div>
+  <div class="quiz-msg" id="quizMsg"></div>
+</div>
+
+<!-- せんせいメニュー（タイトルをながおしでひらく） -->
+<div class="settings" id="settings" role="dialog" aria-label="せんせいメニュー">
+  <div class="settings-card">
+    <h2>⚙️ せんせいメニュー</h2>
+    <p class="note">このメニューは、ひだり上のタイトルを「ながおし」するとひらきます。おこさまには見えないつくりです。</p>
+    <div class="setting-row">
+      <span>がめんぜんぶボタン<span class="hint">がめんの どこをさわっても ガチャがうごきます</span></span>
+      <label class="toggle"><input type="checkbox" id="optFullTap" checked><span class="tr"></span></label>
+    </div>
+    <div class="setting-row">
+      <span>かならず あたらしい子<span class="hint">おなじ子が ダブりません。12かい まわすと ぜんいんに 会えます</span></span>
+      <label class="toggle"><input type="checkbox" id="optNewFirst" checked><span class="tr"></span></label>
+    </div>
+    <div class="setting-row">
+      <span>さがす数（たんけんカード）<span class="hint">この iPadで えらべる 生きものの かず。おこさまの じったいに あわせて どうぞ</span></span>
+      <div class="counter">
+        <button class="cnt-btn" id="cntMinus" aria-label="へらす">−</button>
+        <span id="cntVal">3</span>
+        <button class="cnt-btn" id="cntPlus" aria-label="ふやす">＋</button>
+      </div>
+    </div>
+    <div class="settings-btns">
+      <button class="big-btn btn-zukan" id="rebuildBtn">🎒 カードを つくりなおす</button>
+      <button class="big-btn btn-zukan" id="resetBtn">🗑 ずかんを リセット</button>
+      <button class="big-btn btn-again" id="closeSettings">✔ とじる</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -496,108 +784,311 @@
    rarity: 1=ふつう 2=レア 3=キラキラ
 ===================================================== */
 const SVG = {
-  chinanago: `<svg viewBox="0 0 120 120" aria-hidden="true">
-    <ellipse cx="60" cy="104" rx="44" ry="12" fill="#F0DCA8"/>
-    <ellipse cx="60" cy="101" rx="30" ry="8" fill="#E4C98B"/>
-    <path d="M52 100 C48 70 50 45 58 30 C63 20 72 18 76 26 C80 33 76 40 72 48 C66 62 64 80 66 100 Z" fill="#FDFDF8" stroke="#D8D8CE" stroke-width="2"/>
-    <circle cx="63" cy="34" r="6" fill="#2B2B2B"/>
-    <circle cx="74" cy="32" r="6" fill="#2B2B2B"/>
-    <circle cx="64.5" cy="32.5" r="2" fill="#fff"/>
-    <circle cx="75.5" cy="30.5" r="2" fill="#fff"/>
-    <circle cx="58" cy="55" r="5" fill="#3A3A3A"/>
-    <circle cx="68" cy="72" r="5" fill="#3A3A3A"/>
-    <circle cx="60" cy="88" r="4" fill="#3A3A3A"/>
-    <path d="M66 42 q4 3 8 0" stroke="#2B2B2B" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-  </svg>`,
-  ashika: `<svg viewBox="0 0 120 120" aria-hidden="true">
-    <circle cx="60" cy="22" r="14" fill="#FF6B6B"/>
-    <circle cx="55" cy="17" r="4" fill="#FFB3B3"/>
-    <path d="M30 108 C26 78 38 48 60 44 C82 48 94 78 90 108 Z" fill="#8C6E58"/>
-    <path d="M60 44 C48 46 40 58 40 70 C40 88 50 96 60 96 C70 96 80 88 80 70 C80 58 72 46 60 44 Z" fill="#A78A72"/>
-    <circle cx="60" cy="58" r="20" fill="#8C6E58"/>
-    <circle cx="52" cy="54" r="4.5" fill="#2B2B2B"/>
-    <circle cx="68" cy="54" r="4.5" fill="#2B2B2B"/>
-    <circle cx="53.5" cy="52.5" r="1.6" fill="#fff"/>
-    <circle cx="69.5" cy="52.5" r="1.6" fill="#fff"/>
-    <ellipse cx="60" cy="64" rx="7" ry="5" fill="#C9AE95"/>
-    <circle cx="60" cy="61" r="3.4" fill="#2B2B2B"/>
-    <path d="M55 68 q5 4 10 0" stroke="#2B2B2B" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-    <path d="M28 100 C18 104 14 110 20 112 C26 114 34 110 36 104 Z" fill="#8C6E58"/>
-    <path d="M92 100 C102 104 106 110 100 112 C94 114 86 110 84 104 Z" fill="#8C6E58"/>
-    <path d="M44 74 q-8 4 -8 12" stroke="#6E5342" stroke-width="5" fill="none" stroke-linecap="round"/>
-    <path d="M76 74 q8 4 8 12" stroke="#6E5342" stroke-width="5" fill="none" stroke-linecap="round"/>
-  </svg>`,
-  ei: `<svg viewBox="0 0 120 120" aria-hidden="true">
-    <path d="M60 14 C92 30 108 54 96 72 C88 84 72 88 60 88 C48 88 32 84 24 72 C12 54 28 30 60 14 Z" fill="#7B8FA6"/>
-    <path d="M60 22 C86 36 98 54 89 68 C82 78 70 82 60 82 C50 82 38 78 31 68 C22 54 34 36 60 22 Z" fill="#93A8BF"/>
-    <path d="M60 86 L56 112 M60 86 L64 112" stroke="#7B8FA6" stroke-width="5" stroke-linecap="round"/>
-    <circle cx="46" cy="52" r="5" fill="#2B2B2B"/>
-    <circle cx="74" cy="52" r="5" fill="#2B2B2B"/>
-    <circle cx="47.5" cy="50.5" r="1.8" fill="#fff"/>
-    <circle cx="75.5" cy="50.5" r="1.8" fill="#fff"/>
-    <path d="M50 66 q10 8 20 0" stroke="#2B2B2B" stroke-width="3" fill="none" stroke-linecap="round"/>
-    <circle cx="40" cy="62" r="3.5" fill="#F7A8B8" opacity=".7"/>
-    <circle cx="80" cy="62" r="3.5" fill="#F7A8B8" opacity=".7"/>
-  </svg>`,
-  gusokumushi: `<svg viewBox="0 0 120 120" aria-hidden="true">
-    <ellipse cx="60" cy="66" rx="42" ry="34" fill="#9BA3B0"/>
-    <path d="M22 60 a38 30 0 0 1 76 0" fill="#B7BEC9"/>
-    <g stroke="#7E8694" stroke-width="4" fill="none" stroke-linecap="round">
-      <path d="M30 58 q30 -10 60 0"/>
-      <path d="M26 70 q34 -10 68 0"/>
-      <path d="M28 82 q32 -10 64 0"/>
-    </g>
-    <g stroke="#7E8694" stroke-width="5" stroke-linecap="round">
-      <path d="M28 92 l-8 12"/><path d="M40 98 l-5 13"/><path d="M54 101 l-2 13"/>
-      <path d="M66 101 l2 13"/><path d="M80 98 l5 13"/><path d="M92 92 l8 12"/>
-    </g>
-    <circle cx="46" cy="50" r="6" fill="#2B2B2B"/>
-    <circle cx="74" cy="50" r="6" fill="#2B2B2B"/>
-    <circle cx="48" cy="48" r="2" fill="#fff"/>
-    <circle cx="76" cy="48" r="2" fill="#fff"/>
-    <path d="M54 62 q6 5 12 0" stroke="#2B2B2B" stroke-width="3" fill="none" stroke-linecap="round"/>
-    <path d="M42 38 l-6 -10 M78 38 l6 -10" stroke="#7E8694" stroke-width="4" stroke-linecap="round"/>
-  </svg>`
+  kumanomi: `<svg aria-hidden="true" viewBox="0 0 120 120">
+  <ellipse cx="58" cy="62" rx="40" ry="27" fill="#FF8A3C"/>
+  <path d="M92 56 C104 46 112 44 115 48 C110 58 110 66 115 76 C112 80 104 78 92 68 Z" fill="#FF8A3C" stroke="#333333" stroke-width="2"/>
+  <path d="M42 40 Q58 22 80 38 Q62 32 46 44 Z" fill="#FF9A50" stroke="#333333" stroke-width="2"/>
+  <path d="M48 86 Q54 100 64 94 Q58 88 58 84 Z" fill="#FF9A50" stroke="#333333" stroke-width="2"/>
+  <path d="M33 44 C41 46 41 78 33 80 C28 76 28 48 33 44 Z" fill="#FFFFFF" stroke="#333333" stroke-width="2"/>
+  <path d="M54 36 C64 34 66 88 56 88 C48 86 46 38 54 36 Z" fill="#FFFFFF" stroke="#333333" stroke-width="2"/>
+  <path d="M86 46 C92 48 92 76 86 78 C82 74 82 50 86 46 Z" fill="#FFFFFF" stroke="#333333" stroke-width="2"/>
+  <path d="M44 60 Q54 58 58 66 Q52 76 42 72 Z" fill="#FFB070" stroke="#E56A1F" stroke-width="1.5"/>
+  <circle cx="30" cy="54" r="5.5" fill="#2B2B2B"/>
+  <circle cx="31.5" cy="52.5" r="2" fill="#FFFFFF"/>
+  <path d="M22 66 q4 4 9 2" fill="none" stroke="#7A3A12" stroke-width="2.5" stroke-linecap="round"/>
+</svg>`,
+  penguin: `<svg aria-hidden="true" viewBox="0 0 120 120">
+  <ellipse cx="50" cy="106" rx="9" ry="4.5" fill="#F2A03D"/>
+  <ellipse cx="70" cy="106" rx="9" ry="4.5" fill="#F2A03D"/>
+  <ellipse cx="60" cy="70" rx="30" ry="37" fill="#3E4A54"/>
+  <ellipse cx="60" cy="76" rx="20" ry="26" fill="#FFFFFF"/>
+  <path d="M44 58 C48 70 72 70 76 58" fill="none" stroke="#3E4A54" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="52" cy="82" r="1.8" fill="#3E4A54"/>
+  <circle cx="66" cy="88" r="1.8" fill="#3E4A54"/>
+  <circle cx="58" cy="94" r="1.8" fill="#3E4A54"/>
+  <path d="M32 62 C22 70 24 88 34 94 C36 84 36 72 38 64 Z" fill="#333E47"/>
+  <path d="M88 62 C98 70 96 88 86 94 C84 84 84 72 82 64 Z" fill="#333E47"/>
+  <circle cx="60" cy="36" r="21" fill="#3E4A54"/>
+  <ellipse cx="51" cy="38" rx="9" ry="11" fill="#FFFFFF"/>
+  <ellipse cx="69" cy="38" rx="9" ry="11" fill="#FFFFFF"/>
+  <circle cx="52" cy="36" r="4.2" fill="#1F262B"/>
+  <circle cx="68" cy="36" r="4.2" fill="#1F262B"/>
+  <circle cx="53.4" cy="34.6" r="1.5" fill="#FFFFFF"/>
+  <circle cx="69.4" cy="34.6" r="1.5" fill="#FFFFFF"/>
+  <ellipse cx="60" cy="27" rx="5" ry="2.5" fill="#F7A8B8"/>
+  <path d="M55 43 L65 43 L60 51 Z" fill="#545F6A"/>
+</svg>`,
+  kawauso: `<svg aria-hidden="true" viewBox="0 0 120 120">
+  <circle cx="38" cy="28" r="7" fill="#8C6E58"/>
+  <circle cx="82" cy="28" r="7" fill="#8C6E58"/>
+  <circle cx="38" cy="28" r="3.2" fill="#C9AE95"/>
+  <circle cx="82" cy="28" r="3.2" fill="#C9AE95"/>
+  <ellipse cx="60" cy="94" rx="25" ry="21" fill="#8C6E58"/>
+  <ellipse cx="60" cy="96" rx="15" ry="14" fill="#D9C4A6"/>
+  <circle cx="60" cy="46" r="27" fill="#8C6E58"/>
+  <ellipse cx="60" cy="57" rx="17" ry="13" fill="#E8D5BC"/>
+  <circle cx="49" cy="42" r="4.6" fill="#2B2B2B"/>
+  <circle cx="71" cy="42" r="4.6" fill="#2B2B2B"/>
+  <circle cx="50.5" cy="40.5" r="1.7" fill="#FFFFFF"/>
+  <circle cx="72.5" cy="40.5" r="1.7" fill="#FFFFFF"/>
+  <ellipse cx="60" cy="53" rx="5" ry="3.6" fill="#4A3728"/>
+  <path d="M56 60 q2 3.5 4 0 q2 3.5 4 0" fill="none" stroke="#4A3728" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M42 54 l-11 -2 M42 58 l-11 2" stroke="#8C6E58" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M78 54 l11 -2 M78 58 l11 2" stroke="#8C6E58" stroke-width="1.8" stroke-linecap="round"/>
+  <circle cx="40" cy="52" r="4" fill="#F7A8B8" opacity="0.55"/>
+  <circle cx="80" cy="52" r="4" fill="#F7A8B8" opacity="0.55"/>
+  <circle cx="44" cy="82" r="6.5" fill="#7A5D48"/>
+  <circle cx="76" cy="82" r="6.5" fill="#7A5D48"/>
+  <ellipse cx="46" cy="112" rx="8" ry="4" fill="#7A5D48"/>
+  <ellipse cx="74" cy="112" rx="8" ry="4" fill="#7A5D48"/>
+</svg>`,
+  azarashi: `<svg aria-hidden="true" viewBox="0 0 120 120">
+  <path d="M26 86 C14 92 12 100 20 102 C28 103 33 96 36 90 Z" fill="#8CA3B5"/>
+  <path d="M94 86 C106 92 108 100 100 102 C92 103 87 96 84 90 Z" fill="#8CA3B5"/>
+  <ellipse cx="60" cy="64" rx="39" ry="34" fill="#9FB4C4"/>
+  <ellipse cx="60" cy="76" rx="25" ry="20" fill="#D3E0EA"/>
+  <circle cx="45" cy="52" r="8" fill="#1F2933"/>
+  <circle cx="75" cy="52" r="8" fill="#1F2933"/>
+  <circle cx="47.8" cy="49.5" r="3" fill="#FFFFFF"/>
+  <circle cx="77.8" cy="49.5" r="3" fill="#FFFFFF"/>
+  <circle cx="43" cy="55" r="1.4" fill="#FFFFFF"/>
+  <circle cx="73" cy="55" r="1.4" fill="#FFFFFF"/>
+  <ellipse cx="60" cy="67" rx="11" ry="8" fill="#EAF2F7"/>
+  <ellipse cx="60" cy="63" rx="3.6" ry="2.6" fill="#33404C"/>
+  <path d="M55 70 q2.5 3.5 5 0 q2.5 3.5 5 0" fill="none" stroke="#33404C" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M49 66 l-13 -2 M49 69 l-13 2" stroke="#6B7B89" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M71 66 l13 -2 M71 69 l13 2" stroke="#6B7B89" stroke-width="1.6" stroke-linecap="round"/>
+  <circle cx="38" cy="66" r="4.5" fill="#F7A8B8" opacity="0.5"/>
+  <circle cx="82" cy="66" r="4.5" fill="#F7A8B8" opacity="0.5"/>
+</svg>`,
+  kurage: `<svg aria-hidden="true" viewBox="0 0 120 120">
+  <path d="M42 76 q-5 10 1 18 q5 8 -2 16" fill="none" stroke="#BBDFF0" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M56 79 q-3 11 3 19 q4 8 -1 15" fill="none" stroke="#BBDFF0" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M68 79 q4 11 -2 19 q-4 8 2 15" fill="none" stroke="#BBDFF0" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M80 76 q6 10 0 18 q-5 8 2 15" fill="none" stroke="#BBDFF0" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M20 60 C20 32 40 18 60 18 C80 18 100 32 100 60 C100 69 91 73 84 70 C78 76 68 78 60 77 C52 78 42 76 36 70 C29 73 20 69 20 60 Z" fill="#E3F3FB" stroke="#BBDFF0" stroke-width="2.5"/>
+  <circle cx="50" cy="40" r="6.5" fill="#D2B3EC" opacity="0.85"/>
+  <circle cx="70" cy="40" r="6.5" fill="#D2B3EC" opacity="0.85"/>
+  <circle cx="50" cy="52" r="6.5" fill="#D2B3EC" opacity="0.85"/>
+  <circle cx="70" cy="52" r="6.5" fill="#D2B3EC" opacity="0.85"/>
+  <circle cx="52" cy="62" r="3.4" fill="#4A5A75"/>
+  <circle cx="68" cy="62" r="3.4" fill="#4A5A75"/>
+  <path d="M56 67 q4 3.5 8 0" fill="none" stroke="#4A5A75" stroke-width="2.2" stroke-linecap="round"/>
+</svg>`,
+  chinanago: `<svg aria-hidden="true" viewBox="0 0 120 120">
+  <ellipse cx="60" cy="105" rx="46" ry="11" fill="#F0DCA8"/>
+  <ellipse cx="60" cy="102" rx="32" ry="7" fill="#E4C98B"/>
+  <path d="M46 102 C42 74 44 48 52 32 C57 21 68 19 72 27 C77 35 72 43 68 52 C61 66 58 84 60 102 Z" fill="#FDFDF8" stroke="#C9C9BC" stroke-width="2"/>
+  <circle cx="57" cy="34" r="5.6" fill="#2B2B2B"/>
+  <circle cx="68" cy="31" r="5.6" fill="#2B2B2B"/>
+  <circle cx="58.6" cy="32.4" r="2" fill="#FFFFFF"/>
+  <circle cx="69.6" cy="29.4" r="2" fill="#FFFFFF"/>
+  <path d="M61 41 q4 3.5 8 0" fill="none" stroke="#2B2B2B" stroke-width="2.4" stroke-linecap="round"/>
+  <circle cx="52" cy="56" r="5.5" fill="#3A3A3A"/>
+  <circle cx="61" cy="74" r="5" fill="#3A3A3A"/>
+  <circle cx="55" cy="90" r="4.2" fill="#3A3A3A"/>
+  <path d="M90 102 C88 92 88 82 92 74 C95 68 102 68 104 73 C106 78 102 84 100 90 C98 94 97 98 98 102 Z" fill="#FDFDF8" stroke="#C9C9BC" stroke-width="2"/>
+  <circle cx="94" cy="76" r="3.2" fill="#2B2B2B"/>
+  <circle cx="101" cy="75" r="3.2" fill="#2B2B2B"/>
+  <circle cx="95" cy="75" r="1.1" fill="#FFFFFF"/>
+  <circle cx="102" cy="74" r="1.1" fill="#FFFFFF"/>
+  <circle cx="92" cy="90" r="2.8" fill="#3A3A3A"/>
+</svg>`,
+  same: `<svg aria-hidden="true" viewBox="0 0 120 120">
+  <path d="M14 62 C20 48 34 42 52 42 C70 42 82 50 90 56 C100 62 108 58 114 50 C115 62 109 74 98 72 C88 79 70 83 52 81 C34 81 20 75 14 62 Z" fill="#D9B77A"/>
+  <path d="M18 66 C26 74 38 78 52 78 C66 78 80 75 90 68 C80 76 66 81 52 81 C36 81 24 75 18 66 Z" fill="#F0DFB8"/>
+  <path d="M50 43 Q56 29 68 33 Q60 38 60 44 Z" fill="#CBA76A"/>
+  <path d="M36 74 Q34 88 48 87 Q50 78 46 71 Z" fill="#CBA76A"/>
+  <circle cx="40" cy="52" r="3" fill="#6B5231"/>
+  <circle cx="52" cy="49" r="3.4" fill="#6B5231"/>
+  <circle cx="64" cy="53" r="3" fill="#6B5231"/>
+  <circle cx="76" cy="57" r="2.6" fill="#6B5231"/>
+  <circle cx="57" cy="62" r="2.8" fill="#6B5231"/>
+  <circle cx="46" cy="64" r="2.4" fill="#6B5231"/>
+  <circle cx="69" cy="65" r="2.4" fill="#6B5231"/>
+  <circle cx="86" cy="62" r="2.2" fill="#6B5231"/>
+  <circle cx="27" cy="55" r="4" fill="#2B2B2B"/>
+  <circle cx="28.4" cy="53.6" r="1.4" fill="#FFFFFF"/>
+  <path d="M22 64 q4 3.5 9 2" fill="none" stroke="#6B5231" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M36 54 v7 M40 55 v7 M44 56 v7" stroke="#B99859" stroke-width="1.8" stroke-linecap="round"/>
+</svg>`,
+  ei: `<svg aria-hidden="true" viewBox="0 0 120 120">
+  <path d="M60 14 C98 32 108 56 96 70 C88 80 73 85 60 85 C47 85 32 80 24 70 C12 56 22 32 60 14 Z" fill="#8FA7C0"/>
+  <path d="M60 24 C90 38 98 56 88 66 C81 74 70 78 60 78 C50 78 39 74 32 66 C22 56 30 38 60 24 Z" fill="#A9BDD2"/>
+  <path d="M60 84 C58 96 56 104 52 112 M60 84 C62 96 64 104 68 112" fill="none" stroke="#8FA7C0" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="46" cy="50" r="5.2" fill="#2B2B2B"/>
+  <circle cx="74" cy="50" r="5.2" fill="#2B2B2B"/>
+  <circle cx="47.6" cy="48.4" r="1.9" fill="#FFFFFF"/>
+  <circle cx="75.6" cy="48.4" r="1.9" fill="#FFFFFF"/>
+  <path d="M50 64 q10 8 20 0" fill="none" stroke="#2B2B2B" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="39" cy="60" r="3.6" fill="#F7A8B8" opacity="0.6"/>
+  <circle cx="81" cy="60" r="3.6" fill="#F7A8B8" opacity="0.6"/>
+  <circle cx="60" cy="36" r="2.6" fill="#7B93AC"/>
+  <circle cx="48" cy="40" r="2.2" fill="#7B93AC"/>
+  <circle cx="72" cy="40" r="2.2" fill="#7B93AC"/>
+</svg>`,
+  gusoku: `<svg aria-hidden="true" viewBox="0 0 120 120">
+  <g stroke="#7E8694" stroke-width="5" stroke-linecap="round">
+    <path d="M30 92 l-9 12"/><path d="M42 98 l-6 13"/><path d="M55 101 l-2 13"/>
+    <path d="M65 101 l2 13"/><path d="M78 98 l6 13"/><path d="M90 92 l9 12"/>
+  </g>
+  <path d="M44 36 l-7 -11 M76 36 l7 -11" stroke="#7E8694" stroke-width="4" stroke-linecap="round"/>
+  <ellipse cx="60" cy="66" rx="42" ry="34" fill="#9BA3B0"/>
+  <path d="M22 62 C24 42 40 30 60 30 C80 30 96 42 98 62 Z" fill="#B7BEC9"/>
+  <g stroke="#7E8694" stroke-width="4" fill="none" stroke-linecap="round">
+    <path d="M28 58 q32 -10 64 0"/>
+    <path d="M25 70 q35 -10 70 0"/>
+    <path d="M27 82 q33 -10 66 0"/>
+  </g>
+  <circle cx="46" cy="48" r="6.2" fill="#2B2B2B"/>
+  <circle cx="74" cy="48" r="6.2" fill="#2B2B2B"/>
+  <circle cx="48" cy="46" r="2.2" fill="#FFFFFF"/>
+  <circle cx="76" cy="46" r="2.2" fill="#FFFFFF"/>
+  <path d="M54 60 q6 5 12 0" fill="none" stroke="#2B2B2B" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="38" cy="56" r="4" fill="#F7A8B8" opacity="0.45"/>
+  <circle cx="82" cy="56" r="4" fill="#F7A8B8" opacity="0.45"/>
+</svg>`,
+  pelican: `<svg aria-hidden="true" viewBox="0 0 120 120">
+  <path d="M46 96 v13 M60 96 v13" stroke="#E8933F" stroke-width="4.5" stroke-linecap="round"/>
+  <ellipse cx="45" cy="110" rx="8" ry="3.6" fill="#E8933F"/>
+  <ellipse cx="61" cy="110" rx="8" ry="3.6" fill="#E8933F"/>
+  <path d="M62 62 C70 54 74 46 78 38" stroke="#F9D5DC" stroke-width="14" stroke-linecap="round"/>
+  <ellipse cx="52" cy="76" rx="29" ry="23" fill="#F9D5DC"/>
+  <path d="M32 66 C26 82 40 94 62 90 C46 90 36 82 36 70 Z" fill="#F3B9C6"/>
+  <path d="M24 76 C18 80 16 86 22 88 C27 89 31 84 32 79 Z" fill="#F3B9C6"/>
+  <circle cx="80" cy="32" r="14" fill="#F9D5DC"/>
+  <path d="M76 18 q3 -6 8 -4 q-4 1 -4 6 Z" fill="#F3B9C6"/>
+  <path d="M91 27 C104 29 113 33 116 37 C112 40 103 39 91 36 Z" fill="#F2A03D"/>
+  <path d="M91 35 C95 49 107 49 115 40 C112 51 98 56 89 42 Z" fill="#E8933F"/>
+  <circle cx="84" cy="27" r="3.8" fill="#2B2B2B"/>
+  <circle cx="85.3" cy="25.7" r="1.4" fill="#FFFFFF"/>
+  <circle cx="76" cy="34" r="3.4" fill="#F7A8B8"/>
+</svg>`,
+  utsubo: `<svg aria-hidden="true" viewBox="0 0 120 120">
+  <ellipse cx="40" cy="112" rx="24" ry="7" fill="#9AA0A8"/>
+  <ellipse cx="70" cy="113" rx="16" ry="5.5" fill="#B3B9C0"/>
+  <path d="M36 110 C32 90 38 72 52 64 C63 58 68 50 67 38" fill="none" stroke="#7A8B5A" stroke-width="19" stroke-linecap="round"/>
+  <circle cx="66" cy="32" r="14" fill="#7A8B5A"/>
+  <path d="M78 28 C86 27 91 31 90 36 C89 41 82 43 76 40 Z" fill="#E88A96"/>
+  <path d="M78 28 C86 27 91 31 90 36" fill="none" stroke="#5E6B44" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M79 30 l2 3 l2.5 -3.5" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="62" cy="26" r="4.2" fill="#2B2B2B"/>
+  <circle cx="63.4" cy="24.6" r="1.5" fill="#FFFFFF"/>
+  <circle cx="45" cy="94" r="3.2" fill="#C9D3A0"/>
+  <circle cx="42" cy="80" r="3" fill="#C9D3A0"/>
+  <circle cx="52" cy="68" r="3" fill="#C9D3A0"/>
+  <circle cx="62" cy="52" r="2.8" fill="#C9D3A0"/>
+  <circle cx="56" cy="38" r="2.6" fill="#C9D3A0"/>
+  <path d="M52 22 q4 -8 12 -8" fill="none" stroke="#5E6B44" stroke-width="3" stroke-linecap="round"/>
+</svg>`,
+  nishiki: `<svg aria-hidden="true" viewBox="0 0 120 120">
+  <ellipse cx="60" cy="105" rx="46" ry="11" fill="#F0DCA8"/>
+  <ellipse cx="60" cy="102" rx="32" ry="7" fill="#E4C98B"/>
+  <path d="M50 102 C46 74 48 48 56 32 C61 21 72 19 76 27 C81 35 76 43 72 52 C65 66 62 84 64 102 Z" fill="#FFFDF5" stroke="#E0C9A0" stroke-width="2"/>
+  <path d="M50 62 C56 64 62 63 67 60" fill="none" stroke="#F08A3C" stroke-width="6.5" stroke-linecap="round"/>
+  <path d="M49 76 C55 78 60 77 64 75" fill="none" stroke="#F08A3C" stroke-width="6.5" stroke-linecap="round"/>
+  <path d="M50 90 C55 92 60 91 63 90" fill="none" stroke="#F08A3C" stroke-width="6.5" stroke-linecap="round"/>
+  <path d="M53 47 C59 49 66 47 70 44" fill="none" stroke="#F08A3C" stroke-width="6.5" stroke-linecap="round"/>
+  <circle cx="61" cy="34" r="5.6" fill="#2B2B2B"/>
+  <circle cx="72" cy="31" r="5.6" fill="#2B2B2B"/>
+  <circle cx="62.6" cy="32.4" r="2" fill="#FFFFFF"/>
+  <circle cx="73.6" cy="29.4" r="2" fill="#FFFFFF"/>
+  <path d="M65 41 q4 3.5 8 0" fill="none" stroke="#2B2B2B" stroke-width="2.4" stroke-linecap="round"/>
+  <circle cx="55" cy="40" r="2.6" fill="#F7A8B8" opacity="0.6"/>
+</svg>`
 };
 
 const CREATURES = [
-  {id:"penguin", name:"ケープペンギン", emoji:"🐧", rarity:1,
+  {id:"penguin", name:"ケープペンギン", svg:"penguin", rarity:1,
    desc:"みずのなかを とぶように およぐよ。50わくらいの なかまが いるんだって！",
-   place:"「そらとぶペンギン」の すいそうで まってるよ"},
-  {id:"kawauso", name:"コツメカワウソ", emoji:"🦦", rarity:2,
+   place:"そとの マリンガーデン「てんくうのペンギン」すいそう",
+   size:"ランドセルより すこし おおきいくらい",
+   secret:"アフリカに すんでいる ただひとつの ペンギンだよ。そらは とべないけれど、みずのなかでは とっても はやいんだ！",
+   watch:"あたまの うえを ペンギンが スイ〜ッと とんでいくよ。したから みあげてみてね！"},
+  {id:"kawauso", name:"コツメカワウソ", svg:"kawauso", rarity:2,
    desc:"ちいさな つめと みずかきが じまん。てさきが とっても きようだよ。",
-   place:"やがいの「マリンガーデン」で あえるよ"},
-  {id:"azarashi", name:"バイカルアザラシ", emoji:"🦭", rarity:1,
+   place:"そとの マリンガーデンに いるよ",
+   size:"ねこさんと おなじくらい",
+   secret:"せかいで いちばん ちいさい なかまの カワウソ。てさきが きようで、ちいさな いしも じょうずに つかめるんだ。",
+   watch:"おててを つかって あそぶ すがたに ちゅうもく！ なかまと おいかけっこも するよ。"},
+  {id:"pelican", name:"モモイロペリカン", svg:"pelican", rarity:1,
+   desc:"おおきな くちばしの ふくろで、おさかなを すくって たべるよ。つばさを ひろげると とっても おおきいんだ。",
+   place:"そとの マリンガーデンに いるよ",
+   size:"つばさを ひろげると きょうしつの ドアより おおきい！",
+   secret:"くちばしの したの ふくろで、おみずごと おさかなを バケツみたいに すくうんだよ。",
+   watch:"おおきな くちばしを パカッと あけたら チャンス！ よ〜く みてみてね。"},
+  {id:"azarashi", name:"バイカルアザラシ", svg:"azarashi", rarity:1,
    desc:"まんまるボディに おおきな おめめ。みずうみで くらす アザラシだよ。",
-   place:"アザラシの すいそうで まってるよ"},
-  {id:"kurage", name:"ミズクラゲ", emoji:"🪼", rarity:1,
+   place:"2かいの「みずべのたび」エリア",
+   size:"しょうがくせいの みんなと おなじくらい",
+   secret:"うみじゃなくて『みずうみ』に すむ、せかいで ただひとつの アザラシなんだよ。",
+   watch:"まんまるボディで クルクル まわりながら およぐよ。おおきな おめめと めが あうかも！"},
+  {id:"kurage", name:"ミズクラゲ", svg:"kurage", rarity:1,
    desc:"ふわふわ〜っと みずに ただよって いるよ。みていると こころが おちつくね。",
-   place:"「海月空感（くらげくうかん）」で あえるよ"},
+   place:"1かいの「くらげくうかん」",
+   size:"おとなの てのひらより すこし おおきいくらい",
+   secret:"からだの ほとんどが おみず！ しんぞうも ほねも ないのに いきているよ。ふしぎだね。",
+   watch:"かさの なかの まるい もようは いくつ あるかな？ かぞえてみてね（こたえは 4つ！）。"},
   {id:"chinanago", name:"チンアナゴ", svg:"chinanago", rarity:2,
    desc:"すなの なかから ひょっこり かおを だすよ。なんびき みつけられるかな？",
-   place:"すなの すいそうを のぞいてみてね"},
-  {id:"kumanomi", name:"カクレクマノミ", emoji:"🐠", rarity:1,
+   place:"1かいの すなの すいそう",
+   size:"30センチものさし 1ぽんぶん",
+   secret:"からだの はんぶんは いつも すなの なか。びっくりすると シュッと かくれちゃうよ。",
+   watch:"すなから なんびき かおを だしているか かぞえてみてね。おとなりさんと けんかも するよ。"},
+  {id:"nishiki", name:"ニシキアナゴ", svg:"nishiki", rarity:2,
+   desc:"オレンジの しましまが おしゃれだね。チンアナゴと おなじ すいそうに いるよ。どっちが どっちか わかるかな？",
+   place:"1かいの すなの すいそう（チンアナゴの おとなり）",
+   size:"30センチものさしより すこし ながい",
+   secret:"チンアナゴは みずたまもよう、ニシキアナゴは しましま。もようで みわけられるんだ。",
+   watch:"しましまさんと みずたまさん、どっちが おおいかな？ みくらべてみてね。"},
+  {id:"kumanomi", name:"カクレクマノミ", svg:"kumanomi", rarity:1,
    desc:"オレンジと しろの しましまが かわいいね。イソギンチャクと なかよしだよ。",
-   place:"おさかなの すいそうで さがしてみてね"},
-  {id:"same", name:"トラフザメ", emoji:"🦈", rarity:1,
+   place:"2かいの「みずべのたび」エリア",
+   size:"せんせいの ゆび 1ぽんぶん",
+   secret:"イソギンチャクには どくが あるけれど、クマノミだけは へいき。とくべつな からだなんだ。",
+   watch:"イソギンチャクの なかで かくれんぼ しているよ。ひょっこり でてくるのを まってみてね。"},
+  {id:"same", name:"トラフザメ", svg:"same", rarity:1,
    desc:"おっとり やさしい サメだよ。ながい しっぽが かっこいい！",
-   place:"おおきな「サンシャインラグーン」すいそうに いるよ"},
+   place:"1かいの おおきな すいそう「サンシャインラグーン」",
+   size:"せんせい 2人ぶんくらいの ながさ（はんぶんは しっぽ！）",
+   secret:"こどもの ときは トラみたいな しましま。おとなに なると みずたまもように へんしんするんだよ！",
+   watch:"すいそうの そこで おひるねしている ことが おおいよ。ながーい しっぽを さがしてね。"},
   {id:"ei", name:"エイ", svg:"ei", rarity:1,
    desc:"ひらひら〜っと マントのように およぐよ。おなかの かおも みてみてね。",
-   place:"おおきな「サンシャインラグーン」すいそうに いるよ"},
-  {id:"ashika", name:"アシカ", svg:"ashika", rarity:2,
-   desc:"およぎの めいじん！ トレーニングする すがたは はくりょく まんてんだよ。",
-   place:"まるい「アシカのステージ」で あえるよ"},
-  {id:"gusoku", name:"ダイオウグソクムシ", svg:"gusokumushi", rarity:3,
+   place:"1かいの おおきな すいそう「サンシャインラグーン」",
+   size:"かさを ひろげたくらいの おおきさ",
+   secret:"おくちは おなかがわに あるんだよ。おなかの『かお』みたいに みえるのは、じつは はなと おくちなんだ。",
+   watch:"ガラスの ちかくに きたら おなかがわを チェック！ にっこり わらって みえるよ。"},
+  {id:"utsubo", name:"ウツボ", svg:"utsubo", rarity:1,
+   desc:"いわの すきまが だいすき。おくちは おおきいけれど、ほんとうは はずかしがりやさんなんだ。",
+   place:"1かいの おおきな すいそう「サンシャインラグーン」",
+   size:"せんせいの うでを 2ほん つなげたくらい",
+   secret:"おくちを パクパク あけているのは、おこっているんじゃなくて『いき』を しているんだよ。",
+   watch:"いわの すきまから かおを だしているよ。ダイバーさんと なかよしな ところも みられるかも！"},
+  {id:"gusoku", name:"ダイオウグソクムシ", svg:"gusoku", rarity:3,
    desc:"ふかい ふかい うみの アイドル！ ダンゴムシの おおきな なかまだよ。",
-   place:"「しんかい」の コーナーを のぞいてみてね"}
+   place:"たてものの なかの「しんかい」コーナー",
+   size:"30センチものさし 1ぽんぶん",
+   secret:"ダンゴムシの おおきな なかま。なんねんも ごはんを たべなくても へいきなことが あるんだって！",
+   watch:"じっとしていても ちゃんと いきているよ。うごいているところが みられたら とっても ラッキー！"}
 ];
+
+/* 生きものごとの とうじょうアニメと すみかの色 */
+const ANIM = {penguin:"jump", kawauso:"wiggle", pelican:"flap", azarashi:"bounce",
+  kurage:"float", chinanago:"nyoki", nishiki:"nyoki", utsubo:"nyoki",
+  kumanomi:"swim", same:"glide", ei:"flutter", gusoku:"crawl"};
+const HABITAT = {penguin:"sky", pelican:"sky", kawauso:"garden", azarashi:"ice",
+  kurage:"jelly", chinanago:"sand", nishiki:"sand", kumanomi:"lagoon",
+  same:"lagoon", ei:"lagoon", utsubo:"lagoon", gusoku:"deep"};
 
 /* ===================== 状態 ===================== */
 const collected = new Set();      // メモリ内コレクション（リロードでリセット）
 let current = null;
+let shownC = null;
 let busy = false;
 let soundOn = true;
+let resultShownAt = 0;
+const settings = { fullTap:true, newFirst:true };
 
 /* ===================== 音（Web Audio） ===================== */
 let actx = null;
@@ -621,12 +1112,13 @@ const sfx = {
   pop(){ tone(520,.08,"square",.2); tone(780,.12,"square",.16,.06); },
   get(){ [523,659,784,1047].forEach((f,i)=>tone(f,.22,"sine",.16,i*.11)); },
   kira(){ [523,659,784,1047,1319,1568].forEach((f,i)=>tone(f,.3,"triangle",.16,i*.1)); },
+  wrong(){ tone(260,.15,"triangle",.14); tone(190,.22,"triangle",.14,.1); },
   complete(){ [523,523,784,784,1047,1319,1568].forEach((f,i)=>tone(f,.3,"sine",.15,i*.14)); }
 };
 
 /* ===================== 要素 ===================== */
 const $ = id => document.getElementById(id);
-const handle=$("handle"), machine=$("machine"), dropCap=$("dropCap"),
+const handle=$("handle"), machine=$("machine"), dropCap=$("dropCap"), stageEl=$("stage"),
       stageMsg=$("stageMsg"), stageCapsule=$("stageCapsule"), capWrap=$("capWrap"),
       capTop=$("capTop"), result=$("result"), creatureArt=$("creatureArt"),
       cName=$("cName"), cDesc=$("cDesc"), cPlace=$("cPlace"), stars=$("stars"),
@@ -638,15 +1130,21 @@ let lastId = null;
 
 /* ===================== 抽選 ===================== */
 function pick(){
+  // 「かならず あたらしい子」モード：まだ会っていない子から選ぶ
+  let source = CREATURES;
+  if(settings.newFirst){
+    const remain = CREATURES.filter(c=>!collected.has(c.id));
+    if(remain.length) source = remain;
+  }
   // レア度で重みづけ（ふつう:10 / レア:6 / キラキラ:3）
   const pool = [];
-  for(const c of CREATURES){
+  for(const c of source){
     const w = c.rarity===3 ? 3 : c.rarity===2 ? 6 : 10;
     for(let i=0;i<w;i++) pool.push(c);
   }
   let c = pool[Math.floor(Math.random()*pool.length)];
   // 直前と同じ子は なるべく避ける
-  if(c.id===lastId){ c = pool[Math.floor(Math.random()*pool.length)]; }
+  if(source.length>1 && c.id===lastId){ c = pool[Math.floor(Math.random()*pool.length)]; }
   lastId = c.id;
   return c;
 }
@@ -670,7 +1168,8 @@ handle.addEventListener("click", ()=>{
 
   setTimeout(()=>{
     current = pick();
-    // ステージへカプセル登場
+    // ステージへカプセル登場（背景をいったんもとに戻す）
+    stageEl.className = "stage";
     stageMsg.style.display = "none";
     result.classList.remove("show");
     capWrap.classList.remove("open");
@@ -718,9 +1217,16 @@ function artHTML(c, forZukan=false){
 function showResult(c){
   const isNew = !collected.has(c.id);
   collected.add(c.id);
+  shownC = c;
+  resultShownAt = Date.now();
   updateCount();
+  saveState();
 
   creatureArt.innerHTML = artHTML(c);
+  creatureArt.className = "creature-art";
+  void creatureArt.offsetWidth;
+  creatureArt.classList.add("anim-" + (ANIM[c.id] || "pop"));
+  stageEl.className = "stage hab-" + (HABITAT[c.id] || "lagoon");
   cName.innerHTML = escapeHTML(c.name) + (isNew ? '<span class="new-mark">NEW!</span>' : "");
   cDesc.textContent = c.desc;
   cPlace.textContent = "📍 " + c.place;
@@ -748,12 +1254,254 @@ function showResult(c){
 
 function escapeHTML(s){ return s.replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m])); }
 
-$("againBtn").addEventListener("click", ()=>{
+function goAgain(){
   sfx.click();
   result.classList.remove("show");
+  stageEl.className = "stage";
   stageMsg.style.display = "";
   current = null;
   handle.click();
+}
+$("againBtn").addEventListener("click", goAgain);
+
+/* ===================== シルエットクイズ ===================== */
+const quizEl=$("quiz"), quizArt=$("quizArt"), quizAnswers=$("quizAnswers"),
+      quizMsg=$("quizMsg"), quizScoreEl=$("quizScore");
+let quizScore=0, quizCurrent=null, quizLock=false, quizLastId=null;
+
+function shuffle(a){
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+function openQuiz(){
+  sfx.click();
+  quizScore = 0;
+  quizScoreEl.textContent = "せいかい 0";
+  quizEl.classList.add("show");
+  nextQuestion();
+}
+function nextQuestion(){
+  quizMsg.textContent = "";
+  const poolC = CREATURES.filter(c=>collected.has(c.id));
+  if(poolC.length < 3){
+    quizArt.innerHTML = "🐚";
+    quizArt.classList.remove("sil");
+    quizAnswers.innerHTML = "";
+    quizMsg.textContent = "クイズは 3びき あつめてから あそべるよ！まずは ガチャを まわしてね";
+    return;
+  }
+  let c;
+  do{ c = poolC[Math.floor(Math.random()*poolC.length)]; }while(poolC.length>1 && c.id===quizLastId);
+  quizLastId = c.id;
+  quizCurrent = c;
+  quizLock = false;
+  quizArt.innerHTML = artHTML(c);
+  quizArt.classList.add("sil");
+  const others = shuffle(poolC.filter(x=>x.id!==c.id));
+  const opts = shuffle([c, others[0], others[1]]);
+  quizAnswers.innerHTML = "";
+  for(const o of opts){
+    const b = document.createElement("button");
+    b.className = "big-btn";
+    b.textContent = o.name;
+    b.addEventListener("click", ()=>answerQuiz(b, o));
+    quizAnswers.appendChild(b);
+  }
+}
+function answerQuiz(btn, o){
+  if(quizLock) return;
+  if(o.id === quizCurrent.id){
+    quizLock = true;
+    quizArt.classList.remove("sil");
+    btn.classList.add("correct");
+    quizScore++;
+    quizScoreEl.textContent = "せいかい " + quizScore;
+    quizMsg.textContent = "🎉 せいかい！ " + quizCurrent.name + " だよ！";
+    sfx.get();
+    setTimeout(()=>{
+      const nx = document.createElement("button");
+      nx.className = "big-btn btn-again";
+      nx.textContent = "つぎへ ▶";
+      nx.addEventListener("click", ()=>{ sfx.click(); nextQuestion(); });
+      quizAnswers.innerHTML = "";
+      quizAnswers.appendChild(nx);
+    }, 500);
+  }else{
+    sfx.wrong();
+    btn.classList.add("wrong","shakeX");
+    btn.disabled = true;
+    quizMsg.textContent = "おしい！ もういちど えらんでみよう";
+  }
+}
+$("quizBtn").addEventListener("click", openQuiz);
+$("closeQuiz").addEventListener("click", ()=>{ sfx.click(); quizEl.classList.remove("show"); });
+
+/* ===================== たんけんカード ===================== */
+const missionEl=$("mission"), missionGrid=$("missionGrid"), missionNote=$("missionNote"),
+      missionTitle=$("missionTitle"), decideBtn=$("decideBtn"), missionBanner=$("missionBanner");
+let missionTarget = 3;
+let missionPicked = new Set();
+let missionStamped = new Set();
+let missionDecided = false;
+
+function mCard(c, extra){
+  const d = document.createElement("div");
+  d.className = "m-card" + (extra ? " " + extra : "");
+  d.innerHTML = '<div class="z-art">' + artHTML(c) + '</div>'
+    + '<div class="z-name">' + escapeHTML(c.name) + '</div>'
+    + '<div class="pick-mark">✔</div>'
+    + '<div class="stamp-mark">💮</div>';
+  return d;
+}
+function renderMission(){
+  missionGrid.innerHTML = "";
+  missionBanner.classList.remove("show");
+  if(!missionDecided){
+    missionTitle.textContent = "🎒 たんけんカードを つくろう";
+    missionGrid.classList.remove("stamp");
+    const left = missionTarget - missionPicked.size;
+    missionNote.textContent = left > 0
+      ? "すいぞくかんで さがしたい子を えらんでね（あと " + left + "こ えらべるよ）"
+      : "そろったね！ したの「これにする！」を おしてね";
+    decideBtn.style.display = left === 0 ? "" : "none";
+    for(const c of CREATURES){
+      const card = mCard(c, missionPicked.has(c.id) ? "picked" : "");
+      card.addEventListener("click", ()=>{
+        if(missionPicked.has(c.id)){ missionPicked.delete(c.id); }
+        else{
+          if(missionPicked.size >= missionTarget) return;
+          missionPicked.add(c.id);
+          sfx.click();
+        }
+        saveState();
+        renderMission();
+      });
+      missionGrid.appendChild(card);
+    }
+  }else{
+    missionTitle.textContent = "🎒 たんけんカード";
+    missionGrid.classList.add("stamp");
+    missionNote.textContent = "ほんものに あえたら タップして スタンプを おそう！";
+    decideBtn.style.display = "none";
+    const picked = CREATURES.filter(c=>missionPicked.has(c.id));
+    for(const c of picked){
+      const card = mCard(c, missionStamped.has(c.id) ? "stamped" : "");
+      card.addEventListener("click", ()=>{
+        if(missionStamped.has(c.id)){ missionStamped.delete(c.id); }
+        else{ missionStamped.add(c.id); sfx.pop(); }
+        saveState();
+        renderMission();
+        if(picked.length && picked.every(x=>missionStamped.has(x.id))){
+          missionBanner.classList.add("show");
+          sfx.complete();
+          confetti(100);
+        }
+      });
+      missionGrid.appendChild(card);
+    }
+    if(picked.length && picked.every(x=>missionStamped.has(x.id))){
+      missionBanner.classList.add("show");
+    }
+  }
+}
+decideBtn.addEventListener("click", ()=>{
+  if(missionPicked.size !== missionTarget) return;
+  missionDecided = true;
+  missionStamped.clear();
+  sfx.get();
+  saveState();
+  renderMission();
+});
+$("missionBtn").addEventListener("click", ()=>{ sfx.click(); renderMission(); missionEl.classList.add("show"); });
+$("closeMission").addEventListener("click", ()=>{ sfx.click(); missionEl.classList.remove("show"); });
+
+/* せんせいメニュー：さがす数・つくりなおす */
+function setTarget(v){
+  missionTarget = Math.min(CREATURES.length, Math.max(1, v));
+  $("cntVal").textContent = missionTarget;
+  saveState();
+}
+$("cntMinus").addEventListener("click", ()=>{ sfx.click(); setTarget(missionTarget-1); });
+$("cntPlus").addEventListener("click", ()=>{ sfx.click(); setTarget(missionTarget+1); });
+$("rebuildBtn").addEventListener("click", function(){
+  missionPicked.clear();
+  missionStamped.clear();
+  missionDecided = false;
+  saveState();
+  this.textContent = "✅ あたらしく つくれます！";
+  setTimeout(()=>{ this.textContent = "🎒 カードを つくりなおす"; }, 1800);
+});
+
+/* ===================== いきものはかせ（くわしい せつめい） ===================== */
+const detailEl=$("detail"), detailArt=$("detailArt"),
+      detailName=$("detailName"), detailStars=$("detailStars");
+let detailIndex = 0;
+
+function openDetail(id){
+  const i = CREATURES.findIndex(c=>c.id===id);
+  if(i < 0) return;
+  detailIndex = i;
+  renderDetail();
+  detailEl.classList.add("show");
+}
+function renderDetail(){
+  const c = CREATURES[detailIndex];
+  detailEl.className = "detail show hab-" + (HABITAT[c.id] || "lagoon");
+  detailArt.innerHTML = artHTML(c);
+  detailArt.className = "creature-art";
+  void detailArt.offsetWidth;
+  detailArt.classList.add("anim-" + (ANIM[c.id] || "pop"));
+  detailName.textContent = c.name;
+  detailStars.textContent = "⭐".repeat(c.rarity);
+  $("dPlace").textContent = c.place;
+  $("dSize").textContent = c.size;
+  $("dSecret").textContent = c.secret;
+  $("dWatch").textContent = c.watch;
+}
+$("prevBtn").addEventListener("click", ()=>{ sfx.click(); detailIndex=(detailIndex+CREATURES.length-1)%CREATURES.length; renderDetail(); });
+$("nextBtn").addEventListener("click", ()=>{ sfx.click(); detailIndex=(detailIndex+1)%CREATURES.length; renderDetail(); });
+$("closeDetail").addEventListener("click", ()=>{ sfx.click(); detailEl.classList.remove("show"); });
+$("detailBtn").addEventListener("click", ()=>{ if(shownC){ sfx.click(); openDetail(shownC.id); } });
+
+/* ===================== がめんぜんぶボタン ===================== */
+document.addEventListener("click", (e)=>{
+  if(!settings.fullTap) return;
+  if(e.target.closest("button, header, .zukan, .settings, .quiz, .mission, .detail")) return;
+  if(zukan.classList.contains("show") || settingsEl.classList.contains("show") ||
+     quizEl.classList.contains("show") || missionEl.classList.contains("show") ||
+     detailEl.classList.contains("show")) return;
+  if(result.classList.contains("show")){
+    // 出てすぐの おてつき防止に 1.5びょう待ってから
+    if(Date.now() - resultShownAt > 1500) goAgain();
+    return;
+  }
+  if(stageCapsule.classList.contains("show")){ openCapsule(); return; }
+  if(!busy) handle.click();
+});
+
+/* ===================== せんせいメニュー（タイトルをながおし） ===================== */
+const settingsEl = $("settings");
+let lpTimer = null;
+const titleEl = document.querySelector("h1");
+titleEl.addEventListener("pointerdown", ()=>{
+  clearTimeout(lpTimer);
+  lpTimer = setTimeout(()=>{ settingsEl.classList.add("show"); }, 700);
+});
+["pointerup","pointerleave","pointercancel"].forEach(ev=>
+  titleEl.addEventListener(ev, ()=>clearTimeout(lpTimer))
+);
+titleEl.addEventListener("contextmenu", e=>e.preventDefault());
+
+$("closeSettings").addEventListener("click", ()=>{ sfx.click(); settingsEl.classList.remove("show"); });
+$("optFullTap").addEventListener("change", function(){ settings.fullTap = this.checked; saveState(); });
+$("optNewFirst").addEventListener("change", function(){ settings.newFirst = this.checked; saveState(); });
+$("resetBtn").addEventListener("click", function(){
+  collected.clear();
+  lastId = null;
+  updateCount();
+  saveState();
+  this.textContent = "✅ リセットしました！";
+  setTimeout(()=>{ this.textContent = "🗑 ずかんを リセット"; }, 1800);
 });
 
 /* ===================== ずかん ===================== */
@@ -764,9 +1512,10 @@ function renderZukan(){
     const has = collected.has(c.id);
     const card = document.createElement("div");
     card.className = "z-card" + (has ? " new-get" : " locked");
-    card.innerHTML = `<div class="z-art">${has ? artHTML(c,true) : (c.svg?SVG[c.svg]:c.emoji)}</div>
-                      <div class="z-name">${has ? escapeHTML(c.name) : "？？？"}</div>
-                      <div class="z-name">${has ? "⭐".repeat(c.rarity) : ""}</div>`;
+    if(has) card.dataset.id = c.id;
+    card.innerHTML = '<div class="z-art">' + (has ? artHTML(c,true) : (c.svg?SVG[c.svg]:c.emoji)) + '</div>'
+              + '<div class="z-name">' + (has ? escapeHTML(c.name) : "？？？") + '</div>'
+              + '<div class="z-name">' + (has ? "⭐".repeat(c.rarity) : "") + '</div>';
     zukanGrid.appendChild(card);
   }
   $("zukanCount").textContent = `${collected.size}/${CREATURES.length}`;
@@ -777,12 +1526,19 @@ function updateCount(){ $("countBadge").textContent = `${collected.size}/${CREAT
 $("zukanBtn").addEventListener("click", ()=>{ sfx.click(); renderZukan(); zukan.classList.add("show"); });
 $("toZukanBtn").addEventListener("click", ()=>{ sfx.click(); renderZukan(); zukan.classList.add("show"); });
 $("closeZukan").addEventListener("click", ()=>{ sfx.click(); zukan.classList.remove("show"); });
+zukanGrid.addEventListener("click", (e)=>{
+  const card = e.target.closest(".z-card");
+  if(!card || !card.dataset.id) return;
+  sfx.click();
+  openDetail(card.dataset.id);
+});
 
 /* ===================== 音の切りかえ ===================== */
 $("soundBtn").addEventListener("click", function(){
   soundOn = !soundOn;
   this.textContent = soundOn ? "🔊 おと" : "🔇 おと";
   if(soundOn) sfx.click();
+  saveState();
 });
 
 /* ===================== 紙ふぶき ===================== */
@@ -815,6 +1571,44 @@ function confetti(n){
   }
 })();
 
+/* ===================== ほぞん（この iPad の中だけに きろく） ===================== */
+const STORE_KEY = "sunshine-gacha-v1";
+function saveState(){
+  try{
+    localStorage.setItem(STORE_KEY, JSON.stringify({
+      collected: [...collected],
+      settings: { fullTap: settings.fullTap, newFirst: settings.newFirst },
+      soundOn: soundOn,
+      missionTarget: missionTarget,
+      missionPicked: [...missionPicked],
+      missionStamped: [...missionStamped],
+      missionDecided: missionDecided
+    }));
+  }catch(e){ /* ほぞんできない環境では そのまま あそべます */ }
+}
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    if(!raw) return;
+    const s = JSON.parse(raw);
+    const valid = new Set(CREATURES.map(c=>c.id));
+    (s.collected || []).filter(id=>valid.has(id)).forEach(id=>collected.add(id));
+    if(s.settings){
+      if(typeof s.settings.fullTap === "boolean") settings.fullTap = s.settings.fullTap;
+      if(typeof s.settings.newFirst === "boolean") settings.newFirst = s.settings.newFirst;
+    }
+    if(typeof s.soundOn === "boolean") soundOn = s.soundOn;
+    if(typeof s.missionTarget === "number") missionTarget = s.missionTarget;
+    (s.missionPicked || []).filter(id=>valid.has(id)).forEach(id=>missionPicked.add(id));
+    (s.missionStamped || []).filter(id=>valid.has(id)).forEach(id=>missionStamped.add(id));
+    missionDecided = !!s.missionDecided;
+  }catch(e){}
+}
+loadState();
+$("optFullTap").checked = settings.fullTap;
+$("optNewFirst").checked = settings.newFirst;
+$("cntVal").textContent = missionTarget;
+$("soundBtn").textContent = soundOn ? "🔊 おと" : "🔇 おと";
 updateCount();
 </script>
 </body>
