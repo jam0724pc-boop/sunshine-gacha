@@ -86,29 +86,29 @@
     padding:6px 24px 18px;gap:18px;min-height:0;
   }
   .machine-col{
-    flex:0 0 38%;display:flex;align-items:center;justify-content:center;min-width:0;
+    flex:1;display:flex;align-items:center;justify-content:center;min-width:0;
   }
   .stage-col{
-    flex:1;display:flex;align-items:center;justify-content:center;min-width:0;
+    display:none;
   }
 
   /* ---------- gacha machine ---------- */
   .machine{
     position:relative;
-    width:min(38vw,50vh);
+    width:min(48vw,55vh);
     aspect-ratio:0.78;
     max-height:100%;
   }
   .machine.shake{animation:mshake .5s ease;}
   @keyframes mzoom{
     0%{transform:scale(1) rotate(0);}
-    12%{transform:scale(1.28) rotate(-2.5deg);}
-    26%{transform:scale(1.28) rotate(2.5deg);}
-    40%{transform:scale(1.28) rotate(-2deg);}
-    54%{transform:scale(1.28) rotate(2deg);}
-    70%{transform:scale(1.28) rotate(-1deg);}
-    86%{transform:scale(1.28) rotate(.5deg);}
-    100%{transform:scale(1.28) rotate(0);}
+    12%{transform:scale(1.15) rotate(-2.5deg);}
+    26%{transform:scale(1.15) rotate(2.5deg);}
+    40%{transform:scale(1.15) rotate(-2deg);}
+    54%{transform:scale(1.15) rotate(2deg);}
+    70%{transform:scale(1.15) rotate(-1deg);}
+    86%{transform:scale(1.15) rotate(.5deg);}
+    100%{transform:scale(1.15) rotate(0);}
   }
   .machine.zoom{animation:mzoom 1.5s ease forwards;z-index:5;}
   .machine.zoom .cap{animation-duration:.5s;}
@@ -475,11 +475,11 @@
     box-shadow:0 5px 0 rgba(0,0,0,.2);
     overflow:hidden;
   }
-  .z-card .z-art{font-size:clamp(28px,5vh,56px);line-height:1.1;
+  .z-card .z-art{font-size:clamp(42px,8vh,86px);line-height:1.1;
     display:flex;align-items:center;justify-content:center;
-    width:clamp(38px,7vh,68px);height:clamp(38px,7vh,68px);}
+    width:clamp(58px,11.5vh,108px);height:clamp(58px,11.5vh,108px);}
   .z-card .z-art svg{width:100%;height:100%;}
-  .z-card .z-name{font-size:clamp(10px,1.3vw,14px);font-weight:900;text-align:center;line-height:1.25;}
+  .z-card .z-name{font-size:clamp(12px,1.5vw,16px);font-weight:900;text-align:center;line-height:1.25;}
   .z-card.locked{background:rgba(255,255,255,.16);box-shadow:none;}
   .z-card.locked .z-art{filter:grayscale(1) brightness(0) opacity(.35);}
   .z-card.locked .z-name{color:rgba(255,255,255,.7);}
@@ -500,10 +500,20 @@
     position:fixed;inset:0;z-index:15;
     display:none;flex-direction:column;align-items:center;justify-content:center;
     gap:clamp(12px,2.6vh,24px);
-    background:linear-gradient(180deg,#BFEFFB 0%, #8FDCEF 45%, #4FB3DA 100%);
+    background:
+      radial-gradient(circle at 80% 8%, rgba(255,246,190,.95), rgba(255,246,190,0) 30%),
+      linear-gradient(180deg,#C8F1FD 0%, #8FDCEF 48%, #3FA8D6 100%);
     padding:20px 30px;
   }
   .home.show{display:flex;}
+  .home::before,.home::after{
+    content:"";position:absolute;left:-60%;width:220%;height:26vh;bottom:-14vh;
+    background:rgba(255,255,255,.28);border-radius:44%;
+    animation:waveShift 11s ease-in-out infinite;
+  }
+  .home::after{bottom:-17vh;background:rgba(255,255,255,.18);animation-duration:14s;animation-direction:reverse;}
+  @keyframes waveShift{0%,100%{transform:translateX(0) rotate(0);}50%{transform:translateX(4%) rotate(2deg);}}
+  .home>*{position:relative;z-index:1;}
   .home-deco{display:flex;gap:clamp(14px,3vw,36px);align-items:flex-end;}
   .h-art{width:clamp(60px,10vh,94px);height:clamp(60px,10vh,94px);filter:drop-shadow(0 5px 6px rgba(14,94,140,.25));}
   .h-art svg{width:100%;height:100%;}
@@ -539,7 +549,8 @@
     display:flex;flex-direction:column;align-items:center;gap:6px;
   }
   .home-btn:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(14,94,140,.35);}
-  .hb-ico{font-size:clamp(32px,5vh,46px);line-height:1;}
+  .hb-ico{width:clamp(46px,7.5vh,66px);height:clamp(46px,7.5vh,66px);}
+  .hb-ico svg{width:100%;height:100%;}
 
   /* ---------- せんせいボタン（がめんのすみ） ---------- */
   .teacher-btn{
@@ -586,6 +597,13 @@
   .mission-grid.stamp .m-card{
     width:clamp(130px,17vw,190px);height:clamp(150px,32vh,220px);
   }
+  .m-card .z-art{
+    display:flex;align-items:center;justify-content:center;
+    font-size:clamp(34px,7vh,70px);
+    width:clamp(50px,10vh,92px);height:clamp(50px,10vh,92px);
+  }
+  .m-card .z-art svg{width:100%;height:100%;}
+  .m-card .z-name{font-size:clamp(11px,1.5vw,16px);font-weight:900;text-align:center;line-height:1.25;}
   .mission-grid.stamp .m-card .z-art{
     font-size:clamp(50px,10vh,90px);
     width:clamp(70px,13vh,110px);height:clamp(70px,13vh,110px);
@@ -850,6 +868,7 @@
         <button class="big-btn btn-again" id="rAgainBtn">🔁 もういっかい！</button>
         <button class="big-btn btn-zukan" id="rDetailBtn">📖 くわしく</button>
         <button class="big-btn btn-zukan" id="rZukanBtn">🐚 ずかんをみる</button>
+        <button class="big-btn btn-zukan" id="rBackBtn">⬅ もどる</button>
       </div>
     </div>
   </div>
@@ -866,10 +885,10 @@
   <h2>サンシャインすいぞくかんへ<br>いこう！</h2>
   <p class="home-sub">🚌 とうきょう・いけぶくろの「てんくうのオアシス」で うみの なかまに あいに いこう</p>
   <div class="home-menu">
-    <button class="home-btn" id="goGacha"><span class="hb-ico">🎡</span>ガチャで<br>なかまを あつめる</button>
-    <button class="home-btn" id="goZukan"><span class="hb-ico">📖</span>うみのなかま<br>ずかん</button>
-    <button class="home-btn" id="goMission"><span class="hb-ico">🎒</span>たんけん<br>カード</button>
-    <button class="home-btn" id="goQuiz"><span class="hb-ico">❓</span>だれかな？<br>クイズ</button>
+    <button class="home-btn" id="goGacha"><span class="hb-ico" data-ico="gacha"></span>ガチャで<br>なかまを あつめる</button>
+    <button class="home-btn" id="goZukan"><span class="hb-ico" data-ico="zukan"></span>うみのなかま<br>ずかん</button>
+    <button class="home-btn" id="goMission"><span class="hb-ico" data-ico="mission"></span>たんけん<br>カード</button>
+    <button class="home-btn" id="goQuiz"><span class="hb-ico" data-ico="quiz"></span>だれかな？<br>クイズ</button>
   </div>
 </div>
 
@@ -1330,13 +1349,30 @@ function pick(){
 }
 
 /* ===================== ガチャを回す ===================== */
+/* とちゅうで べつの画面へ うつったら、ガチャの予約をぜんぶ取り消す */
+let gachaTimers = [];
+function gt(fn, ms){ gachaTimers.push(setTimeout(fn, ms)); }
+function cancelGacha(){
+  gachaTimers.forEach(clearTimeout);
+  gachaTimers = [];
+  handle.classList.remove("spin");
+  machine.classList.remove("zoom");
+  dropCap.classList.remove("go");
+  if(!revealEl.classList.contains("phase-result")){
+    revealEl.className = "reveal";
+  }
+  busy = false;
+  handle.disabled = false;
+  tapHint.style.visibility = "visible";
+}
+
 handle.addEventListener("click", ()=>{
   if(busy) return;
   busy = true;
   handle.disabled = true;
   tapHint.style.visibility = "hidden";
   sfx.click(); sfx.roll();
-  setTimeout(()=>sfx.roll(), 560);
+  gt(()=>sfx.roll(), 560);
 
   machine.classList.add("zoom");
   handle.classList.add("spin");
@@ -1345,14 +1381,14 @@ handle.addEventListener("click", ()=>{
   dropCap.style.background = `radial-gradient(circle at 32% 30%, #ffffffcc 12%, ${color} 55%)`;
   dropCap.style.boxShadow = "inset -4px -6px 0 rgba(0,0,0,.15)";
 
-  setTimeout(()=>{ dropCap.classList.add("go"); sfx.drop(); }, 900);
+  gt(()=>{ dropCap.classList.add("go"); sfx.drop(); }, 900);
 
-  setTimeout(()=>{
+  gt(()=>{
     current = pick();
     showRevealCapsule(color);
   }, 1600);
 
-  setTimeout(()=>{
+  gt(()=>{
     handle.classList.remove("spin");
     machine.classList.remove("zoom");
     dropCap.classList.remove("go");
@@ -1486,13 +1522,11 @@ function showRevealResult(c){
   tapHint.style.visibility = "visible";
   tapHint.textContent = "👆 もういちど まわせるよ！";
 }
-revealEl.addEventListener("click", (e)=>{
-  if(revealEl.classList.contains("phase-cap")){ openRevealCapsule(); return; }
-  if(revealEl.classList.contains("phase-result")){
-    if(e.target.closest("button")) return;
-    if(settings.fullTap && Date.now() - resultShownAt > 1500) goAgain();
-  }
+revealEl.addEventListener("click", ()=>{
+  // カプセルは がめんの どこをタップしても ひらく（結果画面では 何もおきない）
+  if(revealEl.classList.contains("phase-cap")) openRevealCapsule();
 });
+$("rBackBtn").addEventListener("click", ()=>{ sfx.click(); revealEl.className = "reveal"; });
 $("rAgainBtn").addEventListener("click", goAgain);
 $("rDetailBtn").addEventListener("click", ()=>{ if(shownC){ sfx.click(); openDetail(shownC.id); } });
 $("rZukanBtn").addEventListener("click", ()=>{ sfx.click(); renderZukan(); zukan.classList.add("show"); });
@@ -1508,6 +1542,7 @@ function shuffle(a){
 }
 function openQuiz(){
   sfx.click();
+  cancelGacha();
   quizScore = 0;
   quizScoreEl.textContent = "せいかい 0";
   quizEl.classList.add("show");
@@ -1693,7 +1728,7 @@ decideBtn.addEventListener("click", ()=>{
   saveState();
   renderMission();
 });
-function openMission(){ sfx.click(); missionSel = null; renderMission(); missionEl.classList.add("show"); }
+function openMission(){ sfx.click(); cancelGacha(); missionSel = null; renderMission(); missionEl.classList.add("show"); }
 $("missionBtn").addEventListener("click", openMission);
 $("closeMission").addEventListener("click", ()=>{ sfx.click(); missionEl.classList.remove("show"); });
 
@@ -1768,7 +1803,7 @@ let lpTimer = null;
 const titleEl = document.querySelector("h1");
 titleEl.addEventListener("pointerdown", ()=>{
   clearTimeout(lpTimer);
-  lpTimer = setTimeout(()=>{ settingsEl.classList.add("show"); }, 700);
+  lpTimer = setTimeout(()=>{ cancelGacha(); settingsEl.classList.add("show"); }, 700);
 });
 ["pointerup","pointerleave","pointercancel"].forEach(ev=>
   titleEl.addEventListener(ev, ()=>clearTimeout(lpTimer))
@@ -1806,7 +1841,7 @@ function renderZukan(){
 }
 function updateCount(){ $("countBadge").textContent = `${collected.size}/${CREATURES.length}`; }
 
-$("zukanBtn").addEventListener("click", ()=>{ sfx.click(); renderZukan(); zukan.classList.add("show"); });
+$("zukanBtn").addEventListener("click", ()=>{ sfx.click(); cancelGacha(); renderZukan(); zukan.classList.add("show"); });
 $("toZukanBtn").addEventListener("click", ()=>{ sfx.click(); renderZukan(); zukan.classList.add("show"); });
 $("closeZukan").addEventListener("click", ()=>{ sfx.click(); zukan.classList.remove("show"); });
 zukanGrid.addEventListener("click", (e)=>{
@@ -1856,17 +1891,56 @@ function confetti(n){
 
 /* ===================== トップ画面 ===================== */
 const homeEl = $("home");
+const ICONS = {
+  gacha: `<svg aria-hidden="true" viewBox="0 0 120 120">
+  <path d="M22 62 C22 34 40 20 60 20 C80 20 98 34 98 62 Z" fill="#EAF7FD" stroke="#FFFFFF" stroke-width="5"/>
+  <circle cx="45" cy="46" r="10" fill="#FF8FB0"/>
+  <circle cx="67" cy="38" r="9" fill="#FFD447"/>
+  <circle cx="77" cy="53" r="8" fill="#7FD4E8"/>
+  <circle cx="53" cy="56" r="7" fill="#A6E86C"/>
+  <rect x="22" y="62" width="76" height="34" rx="11" fill="#F26D3D"/>
+  <circle cx="60" cy="79" r="13" fill="#FFD447"/>
+  <rect x="51" y="75.5" width="18" height="7" rx="3.5" fill="#FFFFFF"/>
+</svg>`,
+  zukan: `<svg aria-hidden="true" viewBox="0 0 120 120">
+  <path d="M60 42 C48 34 32 32 20 36 L20 92 C32 88 48 90 60 98 C72 90 88 88 100 92 L100 36 C88 32 72 34 60 42 Z" fill="#FFF9EC" stroke="#2E9BC6" stroke-width="5"/>
+  <path d="M60 42 L60 98" stroke="#2E9BC6" stroke-width="4"/>
+  <path d="M30 50 q11 -2 21 3 M30 62 q11 -2 21 3 M30 74 q11 -2 21 3" stroke="#9CC8DD" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M69 62 q11 -2 21 3 M69 74 q11 -2 21 3" stroke="#9CC8DD" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <ellipse cx="78" cy="46" rx="12" ry="8" fill="#FF8A3C"/>
+  <path d="M88 46 L98 40 L98 52 Z" fill="#FF8A3C"/>
+  <circle cx="72" cy="44" r="2.2" fill="#2B2B2B"/>
+</svg>`,
+  mission: `<svg aria-hidden="true" viewBox="0 0 120 120">
+  <path d="M40 34 C40 20 80 20 80 34" fill="none" stroke="#C0392B" stroke-width="9" stroke-linecap="round"/>
+  <rect x="24" y="32" width="70" height="62" rx="18" fill="#E74C3C"/>
+  <rect x="36" y="58" width="46" height="30" rx="10" fill="#FF8A75"/>
+  <rect x="48" y="29" width="22" height="10" rx="5" fill="#C0392B"/>
+  <circle cx="90" cy="88" r="21" fill="#FFD447" stroke="#FFFFFF" stroke-width="4"/>
+  <path d="M90 76 L94 84 L103 85 L96.5 91.5 L98 100 L90 96 L82 100 L83.5 91.5 L77 85 L86 84 Z" fill="#F26D3D"/>
+</svg>`,
+  quiz: `<svg aria-hidden="true" viewBox="0 0 120 120">
+  <circle cx="58" cy="60" r="42" fill="#1B4965"/>
+  <path d="M44 48 C44 30 73 30 73 46 C73 58 59 57 59 68" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="59" cy="84" r="6.5" fill="#FFFFFF"/>
+  <circle cx="102" cy="26" r="7" fill="#7FD4E8"/>
+  <circle cx="110" cy="42" r="4.5" fill="#7FD4E8"/>
+</svg>`
+};
 document.querySelectorAll(".h-art").forEach(el=>{
   el.innerHTML = SVG[el.dataset.svg] || "";
 });
-$("homeBtn").addEventListener("click", ()=>{ sfx.click(); homeEl.classList.add("show"); });
+document.querySelectorAll(".hb-ico").forEach(el=>{
+  el.innerHTML = ICONS[el.dataset.ico] || "";
+});
+$("homeBtn").addEventListener("click", ()=>{ sfx.click(); cancelGacha(); homeEl.classList.add("show"); });
 $("goGacha").addEventListener("click", ()=>{ sfx.click(); homeEl.classList.remove("show"); });
 $("goZukan").addEventListener("click", ()=>{ sfx.click(); renderZukan(); zukan.classList.add("show"); });
 $("goMission").addEventListener("click", openMission);
 $("goQuiz").addEventListener("click", openQuiz);
 
 /* せんせいボタン（がめんのすみ） */
-$("teacherBtn").addEventListener("click", ()=>{ settingsEl.classList.add("show"); });
+$("teacherBtn").addEventListener("click", ()=>{ cancelGacha(); settingsEl.classList.add("show"); });
 
 /* ===================== ほぞん（この iPad の中だけに きろく） ===================== */
 const STORE_KEY = "sunshine-gacha-v1";
