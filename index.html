@@ -669,9 +669,68 @@
   }
   .m-card.stamped .stamp-label{display:block;}
   .mission-foot{
-    display:flex;justify-content:center;align-items:center;
-    min-height:64px;margin-top:8px;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    gap:10px;min-height:64px;margin-top:8px;
   }
+  .feel-row{display:none;gap:12px;flex-wrap:wrap;justify-content:center;}
+  .feel-btn{
+    border:none;cursor:pointer;font-family:inherit;font-weight:900;
+    font-size:clamp(15px,1.9vw,20px);
+    padding:12px 20px;border-radius:999px;
+    background:var(--cream);color:var(--ink);
+    box-shadow:0 4px 0 rgba(14,94,140,.3);
+  }
+  .feel-btn.on{background:#FFE1EA;outline:4px solid #FF6B9A;}
+  .feel-btn:active{transform:translateY(3px);}
+  .m-card .feel-mark{
+    position:absolute;left:8px;bottom:6px;
+    font-size:clamp(22px,4.5vh,34px);line-height:1;
+    filter:drop-shadow(0 2px 2px rgba(0,0,0,.2));
+  }
+  /* ---------- にんていしょう ---------- */
+  .cert{
+    position:fixed;inset:0;z-index:28;
+    background:rgba(16,48,76,.78);
+    display:none;align-items:center;justify-content:center;padding:20px;
+  }
+  .cert.show{display:flex;}
+  .cert-paper{
+    background:linear-gradient(180deg,#FFFDF4,#FFF4D6);
+    border:6px solid #E0AE1B;
+    border-radius:14px;
+    box-shadow:inset 0 0 0 4px #FFF7D8, inset 0 0 0 7px #EFC94C, 0 16px 40px rgba(0,0,0,.35);
+    padding:26px 40px 22px;text-align:center;
+    width:min(700px,92vw);max-height:90vh;overflow:auto;
+  }
+  .cert-title{
+    font-size:clamp(26px,3.6vw,40px);font-weight:900;color:#B8860B;
+    letter-spacing:.18em;margin-bottom:8px;
+  }
+  .cert-name{
+    font-size:clamp(22px,3vw,32px);font-weight:900;color:var(--ink);
+    border-bottom:3px solid #E0AE1B;display:inline-block;
+    padding:0 26px 2px;margin-bottom:8px;
+  }
+  .cert-text{
+    font-size:clamp(14px,1.9vw,19px);font-weight:700;line-height:1.9;
+    color:var(--ink);margin-bottom:10px;
+  }
+  .cert-animals{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+  .cert-art{width:clamp(46px,9vh,68px);height:clamp(46px,9vh,68px);}
+  .cert-art svg{width:100%;height:100%;}
+  .cert-date{font-size:clamp(13px,1.6vw,16px);font-weight:900;color:#8A6C1F;margin-bottom:14px;}
+  /* ---------- ついたよボタン ---------- */
+  .today-btn{
+    border:none;cursor:pointer;font-family:inherit;font-weight:900;
+    background:linear-gradient(180deg,#FF9A6C,#F26D3D);color:#fff;
+    font-size:clamp(17px,2.3vw,24px);
+    padding:15px 36px;border-radius:999px;
+    box-shadow:0 6px 0 #C7502A;
+    display:flex;align-items:center;gap:10px;
+    margin-top:clamp(4px,1vh,10px);
+  }
+  .today-btn span{font-size:.6em;opacity:.95;font-weight:700;}
+  .today-btn:active{transform:translateY(4px);box-shadow:0 2px 0 #C7502A;}
 
   /* ---------- いきものはかせ ---------- */
   .detail{
@@ -767,7 +826,28 @@
   }
   .toggle input:checked + .tr{background:#4CAF7D;}
   .toggle input:checked + .tr::after{left:32px;}
-  .settings-btns{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;}
+  .settings-btns{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;justify-content:center;}
+  .sg{background:#F2F9FD;border-radius:16px;padding:2px 16px 6px;margin-top:14px;}
+  .sg-head{
+    display:inline-block;transform:translateY(-12px);
+    font-weight:900;font-size:14px;color:#fff;
+    padding:5px 16px;border-radius:999px;
+    box-shadow:0 2px 0 rgba(0,0,0,.15);
+  }
+  .sgh-gacha{background:#F26D3D;}
+  .sgh-zukan{background:#2E9BC6;}
+  .sgh-mission{background:#159E8C;}
+  .sgh-sousa{background:#8A6FD8;}
+  .sgh-kiroku{background:#7A8894;}
+  .sg .setting-row{padding:10px 0;}
+  .sg .setting-row:first-of-type{margin-top:-8px;}
+  .sg .setting-row:last-of-type{border-bottom:none;}
+  .sg .setting-row .big-btn{font-size:14px;padding:9px 16px;box-shadow:0 3px 0 rgba(14,94,140,.3);flex:0 0 auto;}
+  .name-input{
+    font-family:inherit;font-weight:900;font-size:16px;color:var(--ink);
+    padding:9px 14px;border-radius:12px;border:2px solid #CDE4EF;
+    width:min(180px,42%);flex:0 0 auto;background:#fff;
+  }
   .counter{display:flex;align-items:center;gap:12px;flex:0 0 auto;}
   .cnt-btn{
     width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;
@@ -937,6 +1017,7 @@
     <button class="home-btn" id="goMission"><span class="hb-ico" data-ico="mission"></span>たんけん<br>カード</button>
     <button class="home-btn" id="goQuiz"><span class="hb-ico" data-ico="quiz"></span>だれかな？<br>クイズ</button>
   </div>
+  <button class="today-btn" id="todayBtn">🚌 すいぞくかんに ついたよ！<span>（たんけんカードが ひらきます）</span></button>
 </div>
 
 <!-- せんせいボタン（がめんのすみ） -->
@@ -953,6 +1034,12 @@
   <div class="mission-foot">
     <button class="big-btn btn-again" id="decideBtn" style="display:none">✨ これに する！</button>
     <button class="big-btn btn-again" id="stampBtn" style="display:none">💮 スタンプを おす！</button>
+    <div class="feel-row" id="feelRow" style="display:none">
+      <button class="feel-btn" data-feel="fun">😊 たのしかった</button>
+      <button class="feel-btn" data-feel="wow">😲 びっくりした</button>
+      <button class="feel-btn" data-feel="love">❤️ だいすき</button>
+    </div>
+    <button class="big-btn btn-again" id="certBtn" style="display:none">🏆 しょうじょうを みる</button>
     <div class="complete-banner" id="missionBanner">🎉 ミッション コンプリート！ ぜんぶ みつけたね！！ 🎉</div>
   </div>
 </div>
@@ -995,38 +1082,85 @@
   <div class="quiz-msg" id="quizMsg"></div>
 </div>
 
+<!-- にんていしょう（賞状） -->
+<div class="cert" id="cert" role="dialog" aria-label="にんていしょう">
+  <div class="cert-paper">
+    <div class="cert-title">🏆 にんていしょう 🏆</div>
+    <div class="cert-name" id="certName"></div>
+    <p class="cert-text">たんけんミッション だいせいこう！<br>さがしていた なかまに ぜんいん あえました。<br>りっぱな「すいぞくかん たんけんたい」に にんていします！</p>
+    <div class="cert-animals" id="certAnimals"></div>
+    <div class="cert-date" id="certDate"></div>
+    <button class="big-btn btn-again" id="closeCert">✔ とじる</button>
+  </div>
+</div>
+
 <!-- せんせいメニュー（タイトルをながおしでひらく） -->
 <div class="settings" id="settings" role="dialog" aria-label="せんせいメニュー">
   <div class="settings-card">
     <h2>⚙️ せんせいメニュー</h2>
     <p class="note">このメニューは、ひだり下の ⚙ボタン か、タイトルの「ながおし」で ひらきます。</p>
-    <div class="setting-row">
-      <span>がめんぜんぶボタン<span class="hint">がめんの どこをさわっても ガチャがうごきます</span></span>
-      <label class="toggle"><input type="checkbox" id="optFullTap" checked><span class="tr"></span></label>
-    </div>
-    <div class="setting-row">
-      <span>かならず あたらしい子<span class="hint">おなじ子が ダブりません。12かい まわすと ぜんいんに 会えます</span></span>
-      <label class="toggle"><input type="checkbox" id="optNewFirst" checked><span class="tr"></span></label>
-    </div>
-    <div class="setting-row">
-      <span>コインの えんしゅつ<span class="hint">タップで 100えんコインを いれてから、もういちどタップで ハンドルが まわります</span></span>
-      <label class="toggle"><input type="checkbox" id="optCoin" checked><span class="tr"></span></label>
-    </div>
-    <div class="setting-row">
-      <span>ずかんを ぜんぶひらく<span class="hint">ガチャで あつめていない子も、ずかんと クイズに ぜんいん とうじょうします（あつめた きろくは きえません）</span></span>
-      <label class="toggle"><input type="checkbox" id="optShowAll"><span class="tr"></span></label>
-    </div>
-    <div class="setting-row">
-      <span>さがす数（たんけんカード）<span class="hint">この iPadで えらべる 生きものの かず。おこさまの じったいに あわせて どうぞ</span></span>
-      <div class="counter">
-        <button class="cnt-btn" id="cntMinus" aria-label="へらす">−</button>
-        <span id="cntVal">3</span>
-        <button class="cnt-btn" id="cntPlus" aria-label="ふやす">＋</button>
+
+    <div class="sg">
+      <div class="sg-head sgh-gacha">🎡 ガチャ</div>
+      <div class="setting-row">
+        <span>かならず あたらしい子<span class="hint">おなじ子が ダブりません。12かい まわすと ぜんいんに 会えます</span></span>
+        <label class="toggle"><input type="checkbox" id="optNewFirst" checked><span class="tr"></span></label>
+      </div>
+      <div class="setting-row">
+        <span>コインの えんしゅつ<span class="hint">タップで 100えんコインを いれてから、もういちどタップで ハンドルが まわります</span></span>
+        <label class="toggle"><input type="checkbox" id="optCoin" checked><span class="tr"></span></label>
       </div>
     </div>
+
+    <div class="sg">
+      <div class="sg-head sgh-zukan">📖 ずかん・クイズ</div>
+      <div class="setting-row">
+        <span>ずかんを ぜんぶひらく<span class="hint">あつめていない子も、ずかんと クイズに ぜんいん とうじょう（あつめた きろくは きえません）</span></span>
+        <label class="toggle"><input type="checkbox" id="optShowAll"><span class="tr"></span></label>
+      </div>
+    </div>
+
+    <div class="sg">
+      <div class="sg-head sgh-mission">🎒 たんけんカード</div>
+      <div class="setting-row">
+        <span>さがす数<span class="hint">この iPadで えらべる 生きものの かず。おこさまの じったいに あわせて どうぞ</span></span>
+        <div class="counter">
+          <button class="cnt-btn" id="cntMinus" aria-label="へらす">−</button>
+          <span id="cntVal">3</span>
+          <button class="cnt-btn" id="cntPlus" aria-label="ふやす">＋</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <span>きもちスタンプ<span class="hint">みつけた子に「😊たのしかった」などの きもちを つけられます（当日でも あとからでも）</span></span>
+        <label class="toggle"><input type="checkbox" id="optFeel"><span class="tr"></span></label>
+      </div>
+      <div class="setting-row">
+        <span>おなまえ<span class="hint">いれておくと、コンプリートの しょうじょうに 「○○さん」と でます</span></span>
+        <input class="name-input" id="optName" type="text" maxlength="10" placeholder="なまえ">
+      </div>
+      <div class="setting-row">
+        <span>カードを つくりなおす<span class="hint">えらんだ子・スタンプ・きもちを けして、さいしょから えらべます</span></span>
+        <button class="big-btn btn-zukan" id="rebuildBtn">🎒 カードを つくりなおす</button>
+      </div>
+    </div>
+
+    <div class="sg">
+      <div class="sg-head sgh-sousa">🖐 そうさ</div>
+      <div class="setting-row">
+        <span>がめんぜんぶボタン<span class="hint">ガチャと スタンプが、がめんの どこをさわっても うごきます</span></span>
+        <label class="toggle"><input type="checkbox" id="optFullTap" checked><span class="tr"></span></label>
+      </div>
+    </div>
+
+    <div class="sg">
+      <div class="sg-head sgh-kiroku">🧹 きろく</div>
+      <div class="setting-row">
+        <span>ずかんを リセット<span class="hint">ガチャで あつめた きろくを けします（つぎの クラスの まえに）</span></span>
+        <button class="big-btn btn-zukan" id="resetBtn">🗑 ずかんを リセット</button>
+      </div>
+    </div>
+
     <div class="settings-btns">
-      <button class="big-btn btn-zukan" id="rebuildBtn">🎒 カードを つくりなおす</button>
-      <button class="big-btn btn-zukan" id="resetBtn">🗑 ずかんを リセット</button>
       <button class="big-btn btn-again" id="closeSettings">✔ とじる</button>
     </div>
   </div>
@@ -1342,7 +1476,7 @@ let shownC = null;
 let busy = false;
 let soundOn = true;
 let resultShownAt = 0;
-const settings = { fullTap:true, newFirst:true, coinMode:true, showAll:false };
+const settings = { fullTap:true, newFirst:true, coinMode:true, showAll:false, feelings:false, studentName:"" };
 
 /* ===================== 音（Web Audio） ===================== */
 let actx = null;
@@ -1705,6 +1839,8 @@ let missionPicked = new Set();
 let missionStamped = new Set();
 let missionDecided = false;
 let missionSel = null;   // スタンプモードで えらんでいる子
+let missionFeel = {};     // きもちスタンプ（id → fun/wow/love）
+const FEEL = { fun:"😊", wow:"😲", love:"❤️" };
 
 function mCard(c, extra){
   const d = document.createElement("div");
@@ -1712,6 +1848,7 @@ function mCard(c, extra){
   d.innerHTML = '<div class="z-art">' + artHTML(c) + '</div>'
     + '<div class="z-name">' + escapeHTML(c.name) + '</div>'
     + '<div class="stamp-label">✔ みつけた！</div>'
+    + (missionFeel[c.id] ? '<div class="feel-mark">' + FEEL[missionFeel[c.id]] + '</div>' : '')
     + '<div class="pick-mark">✔</div>'
     + '<div class="stamp-mark">💮</div>';
   return d;
@@ -1719,6 +1856,8 @@ function mCard(c, extra){
 function renderMission(){
   missionGrid.innerHTML = "";
   missionBanner.classList.remove("show");
+  feelRow.style.display = "none";
+  certBtn.style.display = "none";
   if(!missionDecided){
     missionTitle.textContent = "🎒 たんけんカードを つくろう";
     missionGrid.classList.remove("stamp");
@@ -1747,11 +1886,12 @@ function renderMission(){
     decideBtn.style.display = "none";
     const picked = CREATURES.filter(c=>missionPicked.has(c.id));
     const selC = picked.find(c=>c.id===missionSel) || null;
-    missionNote.textContent = selC
-      ? (missionStamped.has(selC.id)
-          ? selC.name + " の スタンプは、したの ボタンで けせるよ"
-          : selC.name + " を えらんだよ。がめんの どこを タップしても スタンプが おせるよ！")
-      : "ほんものに あえたら、その子を タップして えらんでね";
+    let noteTxt;
+    if(!selC){ noteTxt = "ほんものに あえたら、その子を タップして えらんでね"; }
+    else if(!missionStamped.has(selC.id)){ noteTxt = selC.name + " を えらんだよ。がめんの どこを タップしても スタンプが おせるよ！"; }
+    else if(settings.feelings){ noteTxt = selC.name + " は どんな きもちだった？ したから えらんでね"; }
+    else { noteTxt = selC.name + " の スタンプは、したの ボタンで けせるよ"; }
+    missionNote.textContent = noteTxt;
     for(const c of picked){
       let cls = missionStamped.has(c.id) ? "stamped" : "";
       if(missionSel === c.id) cls += " sel";
@@ -1775,9 +1915,18 @@ function renderMission(){
     }else{
       stampBtn.style.display = "none";
     }
-    if(picked.length && picked.every(x=>missionStamped.has(x.id))){
-      missionBanner.classList.add("show");
+    // きもちボタン（スタンプずみの子を えらんでいるときだけ）
+    const showFeel = !!(selC && missionStamped.has(selC.id) && settings.feelings);
+    feelRow.style.display = showFeel ? "flex" : "none";
+    if(showFeel){
+      feelRow.querySelectorAll(".feel-btn").forEach(b=>{
+        b.classList.toggle("on", missionFeel[selC.id] === b.dataset.feel);
+      });
     }
+    // コンプリートで しょうじょうボタン
+    const complete = picked.length > 0 && picked.every(x=>missionStamped.has(x.id));
+    certBtn.style.display = complete ? "" : "none";
+    if(complete){ missionBanner.classList.add("show"); }
   }
 }
 const stampBtn = $("stampBtn");
@@ -1789,6 +1938,7 @@ function doStamp(){
   if(picked.length && picked.every(x=>missionStamped.has(x.id))){
     sfx.complete();
     confetti(100);
+    setTimeout(showCert, 1300);
   }
   missionSel = null;
   saveState();
@@ -1825,6 +1975,40 @@ function openMission(){ sfx.click(); cancelGacha(); missionSel = null; renderMis
 $("missionBtn").addEventListener("click", openMission);
 $("closeMission").addEventListener("click", ()=>{ sfx.click(); missionEl.classList.remove("show"); });
 
+/* ===================== きもちスタンプ と にんていしょう ===================== */
+const certEl = $("cert"), certName = $("certName"),
+      certAnimals = $("certAnimals"), certDate = $("certDate"),
+      certBtn = $("certBtn"), feelRow = $("feelRow");
+
+/* きもちスタンプ */
+feelRow.addEventListener("click", (e)=>{
+  const b = e.target.closest(".feel-btn");
+  if(!b || !missionSel) return;
+  if(missionFeel[missionSel] === b.dataset.feel){
+    delete missionFeel[missionSel];
+  }else{
+    missionFeel[missionSel] = b.dataset.feel;
+    sfx.click();
+  }
+  saveState();
+  renderMission();
+});
+
+function showCert(){
+  const picked = CREATURES.filter(c=>missionPicked.has(c.id));
+  certAnimals.innerHTML = picked.map(c=>'<div class="cert-art">' + artHTML(c) + '</div>').join("");
+  const nm = (settings.studentName || "").trim();
+  certName.textContent = nm ? nm + " さん" : "";
+  certName.style.display = nm ? "" : "none";
+  const d = new Date();
+  certDate.textContent = d.getFullYear() + "ねん " + (d.getMonth()+1) + "がつ " + d.getDate() + "にち";
+  certEl.classList.add("show");
+  sfx.kira();
+  confetti(60);
+}
+certBtn.addEventListener("click", ()=>{ sfx.click(); showCert(); });
+$("closeCert").addEventListener("click", ()=>{ sfx.click(); certEl.classList.remove("show"); });
+
 /* せんせいメニュー：さがす数・つくりなおす */
 function setTarget(v){
   missionTarget = Math.min(CREATURES.length, Math.max(1, v));
@@ -1836,6 +2020,7 @@ $("cntPlus").addEventListener("click", ()=>{ sfx.click(); setTarget(missionTarge
 $("rebuildBtn").addEventListener("click", function(){
   missionPicked.clear();
   missionStamped.clear();
+  missionFeel = {};
   missionDecided = false;
   saveState();
   this.textContent = "✅ あたらしく つくれます！";
@@ -1876,11 +2061,11 @@ $("detailBtn").addEventListener("click", ()=>{ if(shownC){ sfx.click(); openDeta
 /* ===================== がめんぜんぶボタン ===================== */
 document.addEventListener("click", (e)=>{
   if(!settings.fullTap) return;
-  if(e.target.closest("button, header, .zukan, .settings, .quiz, .mission, .detail, .home, .reveal")) return;
+  if(e.target.closest("button, header, .zukan, .settings, .quiz, .mission, .detail, .home, .reveal, .cert")) return;
   if(zukan.classList.contains("show") || settingsEl.classList.contains("show") ||
      quizEl.classList.contains("show") || missionEl.classList.contains("show") ||
      detailEl.classList.contains("show") || homeEl.classList.contains("show") ||
-     revealEl.classList.contains("show")) return;
+     revealEl.classList.contains("show") || certEl.classList.contains("show")) return;
   if(result.classList.contains("show")){
     // 出てすぐの おてつき防止に 1.5びょう待ってから
     if(Date.now() - resultShownAt > 1500) goAgain();
@@ -1915,6 +2100,14 @@ $("optCoin").addEventListener("change", function(){
 $("optShowAll").addEventListener("change", function(){
   settings.showAll = this.checked;
   if(zukan.classList.contains("show")) renderZukan();
+  saveState();
+});
+$("optFeel").addEventListener("change", function(){
+  settings.feelings = this.checked;
+  saveState();
+});
+$("optName").addEventListener("input", function(){
+  settings.studentName = this.value;
   saveState();
 });
 $("resetBtn").addEventListener("click", function(){
@@ -2047,6 +2240,7 @@ $("goGacha").addEventListener("click", ()=>{ sfx.click(); homeEl.classList.remov
 $("goZukan").addEventListener("click", ()=>{ sfx.click(); renderZukan(); zukan.classList.add("show"); });
 $("goMission").addEventListener("click", openMission);
 $("goQuiz").addEventListener("click", openQuiz);
+$("todayBtn").addEventListener("click", openMission);
 
 /* せんせいボタン（がめんのすみ） */
 $("teacherBtn").addEventListener("click", ()=>{ cancelGacha(); settingsEl.classList.add("show"); });
@@ -2057,7 +2251,9 @@ function saveState(){
   try{
     localStorage.setItem(STORE_KEY, JSON.stringify({
       collected: [...collected],
-      settings: { fullTap: settings.fullTap, newFirst: settings.newFirst, coinMode: settings.coinMode, showAll: settings.showAll },
+      settings: { fullTap: settings.fullTap, newFirst: settings.newFirst, coinMode: settings.coinMode,
+                  showAll: settings.showAll, feelings: settings.feelings, studentName: settings.studentName },
+      missionFeel: missionFeel,
       soundOn: soundOn,
       missionTarget: missionTarget,
       missionPicked: [...missionPicked],
@@ -2078,12 +2274,19 @@ function loadState(){
       if(typeof s.settings.newFirst === "boolean") settings.newFirst = s.settings.newFirst;
       if(typeof s.settings.coinMode === "boolean") settings.coinMode = s.settings.coinMode;
       if(typeof s.settings.showAll === "boolean") settings.showAll = s.settings.showAll;
+      if(typeof s.settings.feelings === "boolean") settings.feelings = s.settings.feelings;
+      if(typeof s.settings.studentName === "string") settings.studentName = s.settings.studentName;
     }
     if(typeof s.soundOn === "boolean") soundOn = s.soundOn;
     if(typeof s.missionTarget === "number") missionTarget = s.missionTarget;
     (s.missionPicked || []).filter(id=>valid.has(id)).forEach(id=>missionPicked.add(id));
     (s.missionStamped || []).filter(id=>valid.has(id)).forEach(id=>missionStamped.add(id));
     missionDecided = !!s.missionDecided;
+    if(s.missionFeel){
+      for(const k in s.missionFeel){
+        if(valid.has(k) && FEEL[s.missionFeel[k]]) missionFeel[k] = s.missionFeel[k];
+      }
+    }
   }catch(e){}
 }
 loadState();
@@ -2091,6 +2294,8 @@ $("optFullTap").checked = settings.fullTap;
 $("optNewFirst").checked = settings.newFirst;
 $("optCoin").checked = settings.coinMode;
 $("optShowAll").checked = settings.showAll;
+$("optFeel").checked = settings.feelings;
+$("optName").value = settings.studentName || "";
 $("cntVal").textContent = missionTarget;
 $("soundBtn").textContent = soundOn ? "🔊 おと" : "🔇 おと";
 updateHint();
