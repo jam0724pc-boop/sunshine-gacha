@@ -174,6 +174,26 @@
     transform:translate(-50%,-50%);
     width:56%;height:14%;background:#8A5A33;border-radius:4px;
   }
+  .coin.flash{animation:slotFlash .5s ease;}
+  @keyframes slotFlash{
+    0%,100%{filter:brightness(1);box-shadow:none;}
+    40%{filter:brightness(1.7);box-shadow:0 0 22px 6px rgba(255,236,160,.95);}
+  }
+  .coin-fly{
+    position:absolute;left:58%;top:-14%;
+    width:30%;aspect-ratio:1;
+    z-index:6;opacity:0;pointer-events:none;
+    filter:drop-shadow(0 6px 8px rgba(14,94,140,.35));
+  }
+  .coin-fly svg{width:100%;height:100%;}
+  .coin-fly.go{animation:coinGo 1s cubic-bezier(.45,.1,.5,1) forwards;}
+  @keyframes coinGo{
+    0%{opacity:0;left:58%;top:-14%;transform:rotateY(0) scale(1.05);}
+    10%{opacity:1;}
+    55%{left:10%;top:52%;transform:rotateY(540deg) scale(.72);}
+    78%{left:11%;top:59%;transform:rotateY(720deg) scale(.4);opacity:1;}
+    100%{left:12%;top:61%;transform:rotateY(720deg) scale(.08);opacity:0;}
+  }
 
   .handle{
     position:absolute;
@@ -471,6 +491,7 @@
     gap:12px;min-height:0;
   }
   .z-card{
+    position:relative;
     background:var(--cream);border-radius:18px;
     display:flex;flex-direction:column;align-items:center;justify-content:center;
     gap:2px;padding:6px;
@@ -482,6 +503,12 @@
     width:clamp(58px,11.5vh,108px);height:clamp(58px,11.5vh,108px);}
   .z-card .z-art svg{width:100%;height:100%;}
   .z-card .z-name{font-size:clamp(12px,1.5vw,16px);font-weight:900;text-align:center;line-height:1.25;}
+  .z-card .notyet{
+    position:absolute;top:6px;right:8px;
+    background:var(--sun);color:#7A4E00;
+    font-size:clamp(9px,1.2vw,13px);font-weight:900;
+    padding:2px 10px;border-radius:999px;
+  }
   .z-card.locked{background:rgba(255,255,255,.16);box-shadow:none;}
   .z-card.locked .z-art{filter:grayscale(1) brightness(0) opacity(.35);}
   .z-card.locked .z-name{color:rgba(255,255,255,.7);}
@@ -790,7 +817,25 @@
       </div>
       <div class="machine-label">うみの なかま ガチャ</div>
       <div class="body-box"></div>
-      <div class="coin"></div>
+      <div class="coin" id="coinSlot"></div>
+      <div class="coin-fly" id="coinFly" aria-hidden="true">
+        <svg viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="55" fill="#C9CFD8"/>
+          <circle cx="60" cy="60" r="55" fill="none" stroke="#A7AEB9" stroke-width="5" stroke-dasharray="3 3"/>
+          <circle cx="60" cy="60" r="46" fill="#E6EAEF"/>
+          <circle cx="60" cy="60" r="46" fill="none" stroke="#C3C9D2" stroke-width="2"/>
+          <g fill="#C3C9D2">
+            <circle cx="60" cy="26" r="4.4"/>
+            <circle cx="67" cy="31" r="4.4"/>
+            <circle cx="64.3" cy="39.2" r="4.4"/>
+            <circle cx="55.7" cy="39.2" r="4.4"/>
+            <circle cx="53" cy="31" r="4.4"/>
+          </g>
+          <circle cx="60" cy="33" r="3" fill="#AEB4BE"/>
+          <text x="60" y="82" text-anchor="middle" font-family="'Zen Maru Gothic','Hiragino Maru Gothic ProN',sans-serif" font-size="38" font-weight="900" fill="#8A909B">100</text>
+          <ellipse cx="42" cy="36" rx="12" ry="6" fill="#FFFFFF" opacity="0.5"/>
+        </svg>
+      </div>
       <div class="drop-cap" id="dropCap"></div>
       <button class="handle" id="handle" aria-label="ハンドルをまわしてガチャをひく"></button>
       <div class="tap-hint" id="tapHint">👆 タップしてね！</div>
@@ -962,6 +1007,14 @@
     <div class="setting-row">
       <span>かならず あたらしい子<span class="hint">おなじ子が ダブりません。12かい まわすと ぜんいんに 会えます</span></span>
       <label class="toggle"><input type="checkbox" id="optNewFirst" checked><span class="tr"></span></label>
+    </div>
+    <div class="setting-row">
+      <span>コインの えんしゅつ<span class="hint">タップで 100えんコインを いれてから、もういちどタップで ハンドルが まわります</span></span>
+      <label class="toggle"><input type="checkbox" id="optCoin" checked><span class="tr"></span></label>
+    </div>
+    <div class="setting-row">
+      <span>ずかんを ぜんぶひらく<span class="hint">ガチャで あつめていない子も、ずかんと クイズに ぜんいん とうじょうします（あつめた きろくは きえません）</span></span>
+      <label class="toggle"><input type="checkbox" id="optShowAll"><span class="tr"></span></label>
     </div>
     <div class="setting-row">
       <span>さがす数（たんけんカード）<span class="hint">この iPadで えらべる 生きものの かず。おこさまの じったいに あわせて どうぞ</span></span>
@@ -1289,7 +1342,7 @@ let shownC = null;
 let busy = false;
 let soundOn = true;
 let resultShownAt = 0;
-const settings = { fullTap:true, newFirst:true };
+const settings = { fullTap:true, newFirst:true, coinMode:true, showAll:false };
 
 /* ===================== 音（Web Audio） ===================== */
 let actx = null;
@@ -1313,6 +1366,7 @@ const sfx = {
   pop(){ tone(520,.08,"square",.2); tone(780,.12,"square",.16,.06); },
   get(){ [523,659,784,1047].forEach((f,i)=>tone(f,.22,"sine",.16,i*.11)); },
   kira(){ [523,659,784,1047,1319,1568].forEach((f,i)=>tone(f,.3,"triangle",.16,i*.1)); },
+  coin(){ tone(1568,.35,"triangle",.16); tone(2093,.45,"sine",.11,.04); tone(1175,.12,"triangle",.09,.01); },
   wrong(){ tone(260,.15,"triangle",.14); tone(190,.22,"triangle",.14,.1); },
   complete(){ [523,523,784,784,1047,1319,1568].forEach((f,i)=>tone(f,.3,"sine",.15,i*.14)); }
 };
@@ -1365,11 +1419,48 @@ function cancelGacha(){
   }
   busy = false;
   handle.disabled = false;
+  coinBusy = false;
+  coinIn = false;
+  coinFly.classList.remove("go");
+  coinSlot.classList.remove("flash");
   tapHint.style.visibility = "visible";
+  updateHint();
+}
+
+/* ===================== 100円コインを いれる ===================== */
+const coinFly = $("coinFly"), coinSlot = $("coinSlot");
+let coinIn = false;    // コインが はいっているか
+let coinBusy = false;  // コインが とんでいる とちゅうか
+
+function updateHint(){
+  if(settings.coinMode && !coinIn){
+    tapHint.textContent = "👆 タップして 100えんを いれてね！";
+  }else{
+    tapHint.textContent = "👆 タップして ハンドルを まわそう！";
+  }
+}
+function insertCoin(){
+  if(coinBusy || coinIn || busy) return;
+  coinBusy = true;
+  tapHint.style.visibility = "hidden";
+  coinFly.classList.remove("go");
+  void coinFly.offsetWidth;
+  coinFly.classList.add("go");
+  gt(()=>{ sfx.coin(); coinSlot.classList.add("flash"); }, 580);
+  gt(()=>{
+    coinFly.classList.remove("go");
+    coinSlot.classList.remove("flash");
+    coinIn = true;
+    coinBusy = false;
+    tapHint.style.visibility = "visible";
+    updateHint();
+  }, 1050);
 }
 
 handle.addEventListener("click", ()=>{
-  if(busy) return;
+  if(busy || coinBusy) return;
+  if(settings.coinMode && !coinIn){ insertCoin(); return; }
+  coinIn = false;
   busy = true;
   handle.disabled = true;
   tapHint.style.visibility = "hidden";
@@ -1459,7 +1550,7 @@ function showResult(c){
   busy = false;
   handle.disabled = false;
   tapHint.style.visibility = "visible";
-  tapHint.textContent = "👆 もういちど まわせるよ！";
+  updateHint();
 }
 
 function escapeHTML(s){ return s.replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m])); }
@@ -1552,7 +1643,7 @@ function openQuiz(){
 }
 function nextQuestion(){
   quizMsg.textContent = "";
-  const poolC = CREATURES.filter(c=>collected.has(c.id));
+  const poolC = settings.showAll ? CREATURES.slice() : CREATURES.filter(c=>collected.has(c.id));
   if(poolC.length < 3){
     quizArt.innerHTML = "🐚";
     quizArt.classList.remove("sil");
@@ -1815,6 +1906,17 @@ titleEl.addEventListener("contextmenu", e=>e.preventDefault());
 $("closeSettings").addEventListener("click", ()=>{ sfx.click(); settingsEl.classList.remove("show"); });
 $("optFullTap").addEventListener("change", function(){ settings.fullTap = this.checked; saveState(); });
 $("optNewFirst").addEventListener("change", function(){ settings.newFirst = this.checked; saveState(); });
+$("optCoin").addEventListener("change", function(){
+  settings.coinMode = this.checked;
+  coinIn = false;
+  updateHint();
+  saveState();
+});
+$("optShowAll").addEventListener("change", function(){
+  settings.showAll = this.checked;
+  if(zukan.classList.contains("show")) renderZukan();
+  saveState();
+});
 $("resetBtn").addEventListener("click", function(){
   collected.clear();
   lastId = null;
@@ -1829,13 +1931,18 @@ const zukan=$("zukan"), zukanGrid=$("zukanGrid");
 function renderZukan(){
   zukanGrid.innerHTML = "";
   for(const c of CREATURES){
-    const has = collected.has(c.id);
+    const met = collected.has(c.id);
+    const visible = met || settings.showAll;
     const card = document.createElement("div");
-    card.className = "z-card" + (has ? " new-get" : " locked");
-    if(has) card.dataset.id = c.id;
-    card.innerHTML = '<div class="z-art">' + (has ? artHTML(c,true) : (c.svg?SVG[c.svg]:c.emoji)) + '</div>'
-              + '<div class="z-name">' + (has ? escapeHTML(c.name) : "？？？") + '</div>'
-              + '<div class="z-name">' + (has ? "⭐".repeat(c.rarity) : "") + '</div>';
+    card.className = "z-card" + (visible ? " new-get" : " locked");
+    if(visible) card.dataset.id = c.id;
+    let inner = '<div class="z-art">' + (visible ? artHTML(c,true) : (c.svg?SVG[c.svg]:c.emoji)) + '</div>'
+              + '<div class="z-name">' + (visible ? escapeHTML(c.name) : "？？？") + '</div>'
+              + '<div class="z-name">' + (visible ? "⭐".repeat(c.rarity) : "") + '</div>';
+    if(visible && !met){
+      inner += '<div class="notyet">⭐まだ</div>';
+    }
+    card.innerHTML = inner;
     zukanGrid.appendChild(card);
   }
   $("zukanCount").textContent = `${collected.size}/${CREATURES.length}`;
@@ -1950,7 +2057,7 @@ function saveState(){
   try{
     localStorage.setItem(STORE_KEY, JSON.stringify({
       collected: [...collected],
-      settings: { fullTap: settings.fullTap, newFirst: settings.newFirst },
+      settings: { fullTap: settings.fullTap, newFirst: settings.newFirst, coinMode: settings.coinMode, showAll: settings.showAll },
       soundOn: soundOn,
       missionTarget: missionTarget,
       missionPicked: [...missionPicked],
@@ -1969,6 +2076,8 @@ function loadState(){
     if(s.settings){
       if(typeof s.settings.fullTap === "boolean") settings.fullTap = s.settings.fullTap;
       if(typeof s.settings.newFirst === "boolean") settings.newFirst = s.settings.newFirst;
+      if(typeof s.settings.coinMode === "boolean") settings.coinMode = s.settings.coinMode;
+      if(typeof s.settings.showAll === "boolean") settings.showAll = s.settings.showAll;
     }
     if(typeof s.soundOn === "boolean") soundOn = s.soundOn;
     if(typeof s.missionTarget === "number") missionTarget = s.missionTarget;
@@ -1980,8 +2089,11 @@ function loadState(){
 loadState();
 $("optFullTap").checked = settings.fullTap;
 $("optNewFirst").checked = settings.newFirst;
+$("optCoin").checked = settings.coinMode;
+$("optShowAll").checked = settings.showAll;
 $("cntVal").textContent = missionTarget;
 $("soundBtn").textContent = soundOn ? "🔊 おと" : "🔇 おと";
+updateHint();
 updateCount();
 </script>
 </body>
