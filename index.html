@@ -95,11 +95,23 @@
   /* ---------- gacha machine ---------- */
   .machine{
     position:relative;
-    width:min(34vw,42vh*0.78);
+    width:min(38vw,50vh);
     aspect-ratio:0.78;
     max-height:100%;
   }
   .machine.shake{animation:mshake .5s ease;}
+  @keyframes mzoom{
+    0%{transform:scale(1) rotate(0);}
+    12%{transform:scale(1.28) rotate(-2.5deg);}
+    26%{transform:scale(1.28) rotate(2.5deg);}
+    40%{transform:scale(1.28) rotate(-2deg);}
+    54%{transform:scale(1.28) rotate(2deg);}
+    70%{transform:scale(1.28) rotate(-1deg);}
+    86%{transform:scale(1.28) rotate(.5deg);}
+    100%{transform:scale(1.28) rotate(0);}
+  }
+  .machine.zoom{animation:mzoom 1.5s ease forwards;z-index:5;}
+  .machine.zoom .cap{animation-duration:.5s;}
   @keyframes mshake{
     0%,100%{transform:rotate(0);}
     20%{transform:rotate(-2.5deg);}
@@ -186,7 +198,7 @@
     transform:translate(-50%,-50%);
     font-size:0;
   }
-  .handle.spin{transform:translateX(-50%) rotate(360deg);}
+  .handle.spin{transform:translateX(-50%) rotate(720deg);transition:transform 1.15s cubic-bezier(.45,.15,.35,1);}
   .handle:disabled{filter:grayscale(.4) brightness(.9);cursor:default;}
 
   .machine-label{
@@ -237,17 +249,18 @@
     overflow:hidden;
     transition:background .6s;
   }
-  .stage.hab-sky,.detail.hab-sky{background:linear-gradient(180deg,#D2F0FF,#9ADCF7);}
-  .stage.hab-garden,.detail.hab-garden{background:linear-gradient(180deg,#EAF7DA,#CBEBB2);}
-  .stage.hab-lagoon,.detail.hab-lagoon{background:linear-gradient(180deg,#C2EAF5,#7FC9E4);}
-  .stage.hab-sand,.detail.hab-sand{background:linear-gradient(180deg,#FBF0D2,#F0DCA8);}
-  .stage.hab-ice,.detail.hab-ice{background:linear-gradient(180deg,#EDF8FC,#C8E7F2);}
-  .stage.hab-show,.detail.hab-show{background:linear-gradient(180deg,#FFF1D6,#FFDFA8);}
-  .stage.hab-jelly,.detail.hab-jelly{background:linear-gradient(180deg,#41528C,#28336A);}
-  .stage.hab-deep,.detail.hab-deep{background:linear-gradient(180deg,#16436F,#0A2442);}
+  .stage.hab-sky,.detail.hab-sky,.reveal.hab-sky{background:linear-gradient(180deg,#D2F0FF,#9ADCF7);}
+  .stage.hab-garden,.detail.hab-garden,.reveal.hab-garden{background:linear-gradient(180deg,#EAF7DA,#CBEBB2);}
+  .stage.hab-lagoon,.detail.hab-lagoon,.reveal.hab-lagoon{background:linear-gradient(180deg,#C2EAF5,#7FC9E4);}
+  .stage.hab-sand,.detail.hab-sand,.reveal.hab-sand{background:linear-gradient(180deg,#FBF0D2,#F0DCA8);}
+  .stage.hab-ice,.detail.hab-ice,.reveal.hab-ice{background:linear-gradient(180deg,#EDF8FC,#C8E7F2);}
+  .stage.hab-show,.detail.hab-show,.reveal.hab-show{background:linear-gradient(180deg,#FFF1D6,#FFDFA8);}
+  .stage.hab-jelly,.detail.hab-jelly,.reveal.hab-jelly{background:linear-gradient(180deg,#41528C,#28336A);}
+  .stage.hab-deep,.detail.hab-deep,.reveal.hab-deep{background:linear-gradient(180deg,#16436F,#0A2442);}
   .stage.hab-jelly .c-name, .stage.hab-deep .c-name{color:#fff;}
   .detail.hab-jelly .detail-name, .detail.hab-deep .detail-name,
   .detail.hab-jelly .d-hint, .detail.hab-deep .d-hint{color:#fff;}
+  .reveal.hab-jelly .r-name, .reveal.hab-deep .r-name{color:#fff;}
   .stage-msg{
     text-align:center;padding:20px;
   }
@@ -382,8 +395,56 @@
     animation:hopS 1s ease-in-out infinite;
   }
 
+  /* ---------- カプセルおひろめ（全画面） ---------- */
+  .reveal{
+    position:fixed;inset:0;z-index:18;
+    display:none;flex-direction:column;align-items:center;justify-content:center;
+    background:linear-gradient(180deg,#FFE9A8,#FFC978);
+    overflow:hidden;
+  }
+  .reveal.show{display:flex;}
+  .reveal-rays{
+    position:absolute;left:50%;top:50%;width:220vmax;height:220vmax;
+    transform:translate(-50%,-50%);
+    background:repeating-conic-gradient(rgba(255,255,255,.5) 0deg 11deg, rgba(255,255,255,0) 11deg 22deg);
+    animation:raysSpin 16s linear infinite;
+  }
+  @keyframes raysSpin{to{transform:translate(-50%,-50%) rotate(360deg);}}
+  .reveal.phase-result .reveal-rays{display:none;}
+  .reveal-capsule{
+    display:none;position:relative;z-index:1;
+    flex-direction:column;align-items:center;gap:32px;
+    border:none;background:transparent;font-family:inherit;cursor:pointer;
+  }
+  .reveal.phase-cap .reveal-capsule{display:flex;}
+  .cap-wrap.big{width:clamp(230px,44vh,360px);}
+  .reveal-result{
+    display:none;position:relative;z-index:1;
+    align-items:center;justify-content:center;
+    gap:clamp(20px,4vw,60px);
+    width:100%;padding:0 clamp(20px,4vw,60px);
+  }
+  .reveal.phase-result .reveal-result{display:flex;}
+  .r-left{display:flex;flex-direction:column;align-items:center;}
+  .creature-art.big{
+    width:clamp(220px,52vh,430px);height:clamp(220px,52vh,430px);
+    font-size:clamp(160px,40vh,330px);
+  }
+  .r-right{
+    display:flex;flex-direction:column;align-items:flex-start;
+    gap:clamp(8px,1.6vh,14px);max-width:52%;min-width:0;
+  }
+  .r-name{
+    font-size:clamp(32px,5vw,60px);font-weight:900;line-height:1.2;color:var(--ink);
+  }
+  .r-desc{
+    background:rgba(255,255,255,.88);border-radius:20px;
+    padding:12px 18px;font-weight:700;color:var(--ink);
+    font-size:clamp(15px,2vw,22px);line-height:1.7;
+  }
+
   /* ---------- confetti ---------- */
-  .confetti{position:absolute;top:-20px;border-radius:3px;pointer-events:none;z-index:6;
+  .confetti{position:absolute;top:-20px;border-radius:3px;pointer-events:none;z-index:40;
     animation:fall linear forwards;}
   @keyframes fall{
     to{transform:translateY(110vh) rotate(720deg);opacity:.9;}
@@ -763,6 +824,35 @@
   <p class="over-note">あつめた子を タップすると、くわしい せつめいが みられるよ📖</p>
   <div class="zukan-grid" id="zukanGrid"></div>
   <div class="complete-banner" id="completeBanner">🎉 コンプリート！ ぜんぶ あつめたね！ すごい！！ 🎉</div>
+</div>
+
+<!-- カプセルおひろめ（全画面） -->
+<div class="reveal" id="reveal">
+  <div class="reveal-rays" aria-hidden="true"></div>
+  <button class="reveal-capsule" id="revealCapsule" aria-label="カプセルをあける">
+    <div class="cap-wrap big" id="rCapWrap">
+      <div class="cap-top" id="rCapTop"></div>
+      <div class="cap-bottom"></div>
+    </div>
+    <span class="open-label">👆 タップして あけてね！</span>
+  </button>
+  <div class="reveal-result">
+    <div class="r-left">
+      <div class="creature-art big" id="rArt"></div>
+      <div class="stars" id="rStars"></div>
+    </div>
+    <div class="r-right">
+      <span class="get-tag" id="rGetTag">ゲット！</span>
+      <div class="r-name" id="rName"></div>
+      <div class="r-desc" id="rDesc"></div>
+      <div class="c-place" id="rPlace"></div>
+      <div class="result-btns">
+        <button class="big-btn btn-again" id="rAgainBtn">🔁 もういっかい！</button>
+        <button class="big-btn btn-zukan" id="rDetailBtn">📖 くわしく</button>
+        <button class="big-btn btn-zukan" id="rZukanBtn">🐚 ずかんをみる</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- トップ画面 -->
@@ -1246,35 +1336,27 @@ handle.addEventListener("click", ()=>{
   handle.disabled = true;
   tapHint.style.visibility = "hidden";
   sfx.click(); sfx.roll();
+  setTimeout(()=>sfx.roll(), 560);
 
+  machine.classList.add("zoom");
   handle.classList.add("spin");
-  machine.classList.add("shake");
 
   const color = CAP_COLORS[Math.floor(Math.random()*CAP_COLORS.length)];
   dropCap.style.background = `radial-gradient(circle at 32% 30%, #ffffffcc 12%, ${color} 55%)`;
   dropCap.style.boxShadow = "inset -4px -6px 0 rgba(0,0,0,.15)";
 
-  setTimeout(()=>{ dropCap.classList.add("go"); sfx.drop(); }, 450);
+  setTimeout(()=>{ dropCap.classList.add("go"); sfx.drop(); }, 900);
 
   setTimeout(()=>{
     current = pick();
-    // ステージへカプセル登場（背景をいったんもとに戻す）
-    stageEl.className = "stage";
-    stageMsg.style.display = "none";
-    result.classList.remove("show");
-    capWrap.classList.remove("open");
-    capTop.style.background = `linear-gradient(180deg, ${color}, ${shade(color)})`;
-    stageCapsule.classList.add("show");
-    sfx.pop();
-    // 4秒たったら じどうで開く（まちすぎ防止）
-    autoOpenTimer = setTimeout(openCapsule, 4000);
-  }, 1300);
+    showRevealCapsule(color);
+  }, 1600);
 
   setTimeout(()=>{
     handle.classList.remove("spin");
-    machine.classList.remove("shake");
+    machine.classList.remove("zoom");
     dropCap.classList.remove("go");
-  }, 1400);
+  }, 1800);
 });
 
 function shade(hex){
@@ -1346,13 +1428,74 @@ function escapeHTML(s){ return s.replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;"
 
 function goAgain(){
   sfx.click();
-  result.classList.remove("show");
-  stageEl.className = "stage";
-  stageMsg.style.display = "";
-  current = null;
+  revealEl.className = "reveal";
   handle.click();
 }
 $("againBtn").addEventListener("click", goAgain);
+
+/* ===================== カプセルおひろめ（全画面） ===================== */
+const revealEl=$("reveal"), rCapWrap=$("rCapWrap"), rCapTop=$("rCapTop"),
+      rArt=$("rArt"), rName=$("rName"), rStars=$("rStars"),
+      rDesc=$("rDesc"), rPlace=$("rPlace"), rGetTag=$("rGetTag");
+
+function showRevealCapsule(color){
+  rCapWrap.classList.remove("open");
+  rCapTop.style.background = `linear-gradient(180deg, ${color}, ${shade(color)})`;
+  revealEl.className = "reveal show phase-cap";
+  sfx.pop();
+}
+function openRevealCapsule(){
+  if(!current) return;
+  if(rCapWrap.classList.contains("open")) return;
+  rCapWrap.classList.add("open");
+  sfx.pop();
+  setTimeout(()=>{ showRevealResult(current); }, 420);
+}
+function showRevealResult(c){
+  const isNew = !collected.has(c.id);
+  collected.add(c.id);
+  shownC = c;
+  resultShownAt = Date.now();
+  updateCount();
+  saveState();
+
+  rArt.innerHTML = artHTML(c);
+  rArt.className = "creature-art big";
+  void rArt.offsetWidth;
+  rArt.classList.add("anim-" + (ANIM[c.id] || "pop"));
+  rName.innerHTML = escapeHTML(c.name) + (isNew ? '<span class="new-mark">NEW!</span>' : "");
+  rDesc.textContent = c.desc;
+  rPlace.textContent = "📍 " + c.place;
+  rStars.textContent = "⭐".repeat(c.rarity);
+
+  rGetTag.className = "get-tag";
+  if(c.rarity===3){ rGetTag.classList.add("kira"); rGetTag.textContent="✨キラキラ ゲット！✨"; }
+  else if(c.rarity===2){ rGetTag.classList.add("rare"); rGetTag.textContent="🌟レア ゲット！"; }
+  else{ rGetTag.textContent="ゲット！"; }
+
+  revealEl.className = "reveal show phase-result hab-" + (HABITAT[c.id] || "lagoon");
+
+  if(c.rarity===3){ sfx.kira(); confetti(90); }
+  else{ sfx.get(); if(isNew) confetti(30); }
+  if(collected.size === CREATURES.length){
+    setTimeout(()=>{ sfx.complete(); confetti(120); }, 900);
+  }
+
+  busy = false;
+  handle.disabled = false;
+  tapHint.style.visibility = "visible";
+  tapHint.textContent = "👆 もういちど まわせるよ！";
+}
+revealEl.addEventListener("click", (e)=>{
+  if(revealEl.classList.contains("phase-cap")){ openRevealCapsule(); return; }
+  if(revealEl.classList.contains("phase-result")){
+    if(e.target.closest("button")) return;
+    if(settings.fullTap && Date.now() - resultShownAt > 1500) goAgain();
+  }
+});
+$("rAgainBtn").addEventListener("click", goAgain);
+$("rDetailBtn").addEventListener("click", ()=>{ if(shownC){ sfx.click(); openDetail(shownC.id); } });
+$("rZukanBtn").addEventListener("click", ()=>{ sfx.click(); renderZukan(); zukan.classList.add("show"); });
 
 /* ===================== シルエットクイズ ===================== */
 const quizEl=$("quiz"), quizArt=$("quizArt"), quizAnswers=$("quizAnswers"),
@@ -1477,7 +1620,9 @@ function renderMission(){
     const picked = CREATURES.filter(c=>missionPicked.has(c.id));
     const selC = picked.find(c=>c.id===missionSel) || null;
     missionNote.textContent = selC
-      ? selC.name + " を えらんだよ。したの ボタンを おしてね！"
+      ? (missionStamped.has(selC.id)
+          ? selC.name + " の スタンプは、したの ボタンで けせるよ"
+          : selC.name + " を えらんだよ。がめんの どこを タップしても スタンプが おせるよ！")
       : "ほんものに あえたら、その子を タップして えらんでね";
     for(const c of picked){
       let cls = missionStamped.has(c.id) ? "stamped" : "";
@@ -1508,23 +1653,37 @@ function renderMission(){
   }
 }
 const stampBtn = $("stampBtn");
-stampBtn.addEventListener("click", ()=>{
-  if(!missionSel) return;
-  if(missionStamped.has(missionSel)){
-    missionStamped.delete(missionSel);
-    sfx.click();
-  }else{
-    missionStamped.add(missionSel);
-    sfx.pop();
-    const picked = CREATURES.filter(c=>missionPicked.has(c.id));
-    if(picked.length && picked.every(x=>missionStamped.has(x.id))){
-      sfx.complete();
-      confetti(100);
-    }
+function doStamp(){
+  if(!missionSel || missionStamped.has(missionSel)) return;
+  missionStamped.add(missionSel);
+  sfx.pop();
+  const picked = CREATURES.filter(c=>missionPicked.has(c.id));
+  if(picked.length && picked.every(x=>missionStamped.has(x.id))){
+    sfx.complete();
+    confetti(100);
   }
   missionSel = null;
   saveState();
   renderMission();
+}
+stampBtn.addEventListener("click", ()=>{
+  if(!missionSel) return;
+  if(missionStamped.has(missionSel)){
+    // けすときだけは、このボタンを正確におす必要がある
+    missionStamped.delete(missionSel);
+    sfx.click();
+    missionSel = null;
+    saveState();
+    renderMission();
+  }else{
+    doStamp();
+  }
+});
+/* えらんだあとは がめんの どこをタップしても スタンプが おせる */
+missionEl.addEventListener("click", (e)=>{
+  if(e.target.closest(".m-card, button")) return;
+  if(!missionDecided) return;
+  if(missionSel && !missionStamped.has(missionSel)) doStamp();
 });
 decideBtn.addEventListener("click", ()=>{
   if(missionPicked.size !== missionTarget) return;
@@ -1589,10 +1748,11 @@ $("detailBtn").addEventListener("click", ()=>{ if(shownC){ sfx.click(); openDeta
 /* ===================== がめんぜんぶボタン ===================== */
 document.addEventListener("click", (e)=>{
   if(!settings.fullTap) return;
-  if(e.target.closest("button, header, .zukan, .settings, .quiz, .mission, .detail, .home")) return;
+  if(e.target.closest("button, header, .zukan, .settings, .quiz, .mission, .detail, .home, .reveal")) return;
   if(zukan.classList.contains("show") || settingsEl.classList.contains("show") ||
      quizEl.classList.contains("show") || missionEl.classList.contains("show") ||
-     detailEl.classList.contains("show") || homeEl.classList.contains("show")) return;
+     detailEl.classList.contains("show") || homeEl.classList.contains("show") ||
+     revealEl.classList.contains("show")) return;
   if(result.classList.contains("show")){
     // 出てすぐの おてつき防止に 1.5びょう待ってから
     if(Date.now() - resultShownAt > 1500) goAgain();
