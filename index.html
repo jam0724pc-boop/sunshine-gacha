@@ -785,7 +785,49 @@
   }
   .quiz-art svg{width:100%;height:100%;}
   .quiz-art.sil{filter:brightness(0) invert(1) opacity(.95);}
-  .quiz-q{color:#fff;font-weight:900;font-size:clamp(16px,2.2vw,24px);}
+  .quiz-q{
+    background:rgba(255,255,255,.92);color:var(--ink);
+    font-weight:900;font-size:clamp(15px,2vw,21px);line-height:1.7;
+    padding:10px 18px;border-radius:18px;
+    max-width:min(430px,40vw);text-align:center;
+  }
+  .quiz-head-btns{display:flex;gap:10px;}
+  .quiz .quiz-select,.quiz .quiz-level,.quiz .quiz-body{display:none;}
+  .quiz.ph-select .quiz-select{display:flex;}
+  .quiz.ph-level .quiz-level{display:flex;}
+  .quiz.ph-q .quiz-body{display:flex;}
+  .quiz .quiz-back{display:none;}
+  .quiz.ph-level .quiz-back,.quiz.ph-q .quiz-back{display:block;}
+  .quiz-select,.quiz-level{
+    flex:1;align-items:center;justify-content:center;
+    gap:clamp(16px,3vw,40px);flex-wrap:wrap;
+  }
+  .qtype-btn,.qlv-btn{
+    border:none;cursor:pointer;font-family:inherit;font-weight:900;
+    background:var(--cream);color:var(--ink);
+    width:clamp(160px,20vw,230px);
+    padding:clamp(18px,3.4vh,30px) 10px;border-radius:26px;
+    font-size:clamp(16px,2vw,21px);line-height:1.5;
+    box-shadow:0 6px 0 rgba(0,0,0,.28);
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+  }
+  .qtype-btn:active,.qlv-btn:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.28);}
+  .qt-ico{font-size:clamp(34px,5.5vh,52px);line-height:1;}
+  .quiz-answers.ox{flex-direction:row;width:auto;gap:clamp(24px,5vw,60px);}
+  .ox-btn{
+    border:none;cursor:pointer;font-family:inherit;font-weight:900;
+    width:clamp(120px,20vh,185px);aspect-ratio:1;border-radius:50%;
+    font-size:clamp(56px,11vh,100px);line-height:1;
+    background:var(--cream);
+    box-shadow:0 6px 0 rgba(0,0,0,.28);
+  }
+  .ox-btn.maru{color:#E74C3C;}
+  .ox-btn.batu{color:#2E9BC6;}
+  .ox-btn:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.28);}
+  .ox-btn.correct{background:#4CAF7D;color:#fff;}
+  .ox-btn.wrong{background:#DDE4E9;color:#9AA8B2;}
+  .glowAns{animation:glowP 1s ease-in-out infinite;box-shadow:0 0 0 6px var(--sun) !important;}
+  @keyframes glowP{0%,100%{filter:brightness(1);}50%{filter:brightness(1.3);}}
   .quiz-answers{display:flex;flex-direction:column;gap:14px;width:min(46%,420px);}
   .quiz-answers .big-btn{background:var(--cream);color:var(--ink);width:100%;}
   .quiz-answers .big-btn.correct{background:#4CAF7D;color:#fff;}
@@ -843,6 +885,13 @@
   .sg .setting-row:first-of-type{margin-top:-8px;}
   .sg .setting-row:last-of-type{border-bottom:none;}
   .sg .setting-row .big-btn{font-size:14px;padding:9px 16px;box-shadow:0 3px 0 rgba(14,94,140,.3);flex:0 0 auto;}
+  .lv-seg{display:flex;gap:6px;flex:0 0 auto;}
+  .lv-btn{
+    border:none;cursor:pointer;font-family:inherit;font-weight:900;
+    font-size:14px;padding:9px 13px;border-radius:12px;
+    background:#E3EDF4;color:#557089;
+  }
+  .lv-btn.on{background:var(--sea-mid);color:#fff;}
   .name-input{
     font-family:inherit;font-weight:900;font-size:16px;color:var(--ink);
     padding:9px 14px;border-radius:12px;border:2px solid #CDE4EF;
@@ -1067,15 +1116,28 @@
 </div>
 
 <!-- シルエットクイズ -->
-<div class="quiz" id="quiz" role="dialog" aria-label="シルエットクイズ">
+<div class="quiz" id="quiz" role="dialog" aria-label="クイズ">
   <div class="quiz-head">
-    <h2>❓ だれかな？ クイズ<span id="quizScore">せいかい 0</span></h2>
-    <button class="pill-btn" id="closeQuiz">✖ おわる</button>
+    <h2><span id="quizTitle">❓ クイズで あそぼう</span><span id="quizScore">せいかい 0</span></h2>
+    <div class="quiz-head-btns">
+      <button class="pill-btn quiz-back" id="quizBackBtn">🔁 クイズを えらぶ</button>
+      <button class="pill-btn" id="closeQuiz">✖ おわる</button>
+    </div>
+  </div>
+  <div class="quiz-select" id="quizSelect">
+    <button class="qtype-btn" data-qtype="ox"><span class="qt-ico">🔴⚪</span>まるばつ<br>クイズ</button>
+    <button class="qtype-btn" data-qtype="sil"><span class="qt-ico">❓</span>だれかな？<br>クイズ</button>
+    <button class="qtype-btn" data-qtype="text"><span class="qt-ico">📝</span>ぶんしょう<br>クイズ</button>
+  </div>
+  <div class="quiz-level" id="quizLevel">
+    <button class="qlv-btn" data-lv="1">⭐<br>かんたん</button>
+    <button class="qlv-btn" data-lv="2">⭐⭐<br>ふつう</button>
+    <button class="qlv-btn" data-lv="3">⭐⭐⭐<br>むずかしい</button>
   </div>
   <div class="quiz-body">
     <div class="quiz-left">
       <div class="quiz-art sil" id="quizArt"></div>
-      <div class="quiz-q">かげだけで わかるかな？</div>
+      <div class="quiz-q" id="quizQ">かげだけで わかるかな？</div>
     </div>
     <div class="quiz-answers" id="quizAnswers"></div>
   </div>
@@ -1115,8 +1177,20 @@
     <div class="sg">
       <div class="sg-head sgh-zukan">📖 ずかん・クイズ</div>
       <div class="setting-row">
-        <span>ずかんを ぜんぶひらく<span class="hint">あつめていない子も、ずかんと クイズに ぜんいん とうじょう（あつめた きろくは きえません）</span></span>
+        <span>ずかんを ぜんぶひらく<span class="hint">あつめていない子も、ずかんに ぜんいん とうじょうします（あつめた きろくは きえません）</span></span>
         <label class="toggle"><input type="checkbox" id="optShowAll"><span class="tr"></span></label>
+      </div>
+      <div class="setting-row">
+        <span>クイズの むずかしさ<span class="hint">⭐かんたん＝2たく・まちがえると こたえが ひかる ／ ⭐⭐ふつう＝3たく ／ ⭐⭐⭐むずかしい＝4たく（にている子いり）</span></span>
+        <div class="lv-seg">
+          <button class="lv-btn" data-lv="1">⭐</button>
+          <button class="lv-btn on" data-lv="2">⭐⭐</button>
+          <button class="lv-btn" data-lv="3">⭐⭐⭐</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <span>こどもが むずかしさを えらべる<span class="hint">オンにすると、クイズの はじめに ⭐えらびの がめんが でます。オフなら 上の むずかしさで こていします</span></span>
+        <label class="toggle"><input type="checkbox" id="optQuizPick" checked><span class="tr"></span></label>
       </div>
     </div>
 
@@ -1476,7 +1550,7 @@ let shownC = null;
 let busy = false;
 let soundOn = true;
 let resultShownAt = 0;
-const settings = { fullTap:true, newFirst:true, coinMode:true, showAll:false, feelings:false, studentName:"" };
+const settings = { fullTap:true, newFirst:true, coinMode:true, showAll:false, feelings:false, studentName:"", quizLevel:2, quizPick:true };
 
 /* ===================== 音（Web Audio） ===================== */
 let actx = null;
@@ -1758,10 +1832,66 @@ $("rAgainBtn").addEventListener("click", goAgain);
 $("rDetailBtn").addEventListener("click", ()=>{ if(shownC){ sfx.click(); openDetail(shownC.id); } });
 $("rZukanBtn").addEventListener("click", ()=>{ sfx.click(); renderZukan(); zukan.classList.add("show"); });
 
-/* ===================== シルエットクイズ ===================== */
+/* ===================== クイズ（3しゅるい ＋ むずかしさ） ===================== */
 const quizEl=$("quiz"), quizArt=$("quizArt"), quizAnswers=$("quizAnswers"),
-      quizMsg=$("quizMsg"), quizScoreEl=$("quizScore");
-let quizScore=0, quizCurrent=null, quizLock=false, quizLastId=null;
+      quizMsg=$("quizMsg"), quizScoreEl=$("quizScore"),
+      quizSelectEl=$("quizSelect"), quizLevelSel=$("quizLevel"),
+      quizQ=$("quizQ"), quizTitleEl=$("quizTitle");
+let quizScore=0, quizType=null, quizLevel=2,
+    quizCurrent=null, quizLock=false, quizLastKey=null;
+
+/* ぶんしょうクイズの ヒント文（こたえの なまえは 入れない） */
+const QHINT = {
+  penguin:"とべない とりだよ。みずのなかを とぶように およぐよ。",
+  kawauso:"てさきが とっても きような、ちいさな どうぶつだよ。",
+  pelican:"おおきな くちばしの ふくろで、おさかなを すくうよ。",
+  azarashi:"うみじゃなくて みずうみに すむ、まんまるボディの 子だよ。",
+  kurage:"ほねも しんぞうも ないのに、ふわふわ およいでいるよ。",
+  chinanago:"すなの なかから かおを だす、みずたまもようの 子だよ。",
+  nishiki:"すなの なかから かおを だす、オレンジの しましまの 子だよ。",
+  kumanomi:"イソギンチャクと なかよしの、オレンジと しろの おさかなだよ。",
+  same:"こどもの ときは トラもよう。しっぽが ながーい サメだよ。",
+  ei:"マントみたいに ひらひら およぐよ。おくちは おなかがわに あるよ。",
+  utsubo:"いわの すきまが だいすき。おくちを パクパクしているよ。",
+  gusoku:"ふかい うみに すむ、ダンゴムシの おおきな なかまだよ。"
+};
+
+/* まるばつクイズの もんだい（e:true は かんたんモードでも でる） */
+const OXQ = [
+  {id:"penguin", t:"ケープペンギンは とりの なかまだ", a:true, e:true, why:"とりだけど、そらじゃなくて みずのなかを とぶように およぐんだよ"},
+  {id:"penguin", t:"ケープペンギンは そらを とべる", a:false, e:true, why:"とべないよ。そのかわり みずのなかを ビュンと とぶんだ"},
+  {id:"kawauso", t:"コツメカワウソは てさきが きようだ", a:true, e:true, why:"ちいさな いしも じょうずに つかめるよ"},
+  {id:"kawauso", t:"コツメカワウソは せかいで いちばん おおきい カワウソだ", a:false, e:false, why:"はんたいだよ。せかいで いちばん ちいさい なかまなんだ"},
+  {id:"pelican", t:"モモイロペリカンは くちばしの ふくろで おさかなを すくう", a:true, e:true, why:"バケツみたいに おみずごと すくうんだよ"},
+  {id:"pelican", t:"モモイロペリカンの つばさは とても ちいさい", a:false, e:false, why:"ひろげると きょうしつの ドアより おおきいんだよ"},
+  {id:"azarashi", t:"バイカルアザラシは みずうみに すんでいる", a:true, e:false, why:"みずうみに すむ、せかいで ただひとつの アザラシだよ"},
+  {id:"azarashi", t:"バイカルアザラシの おめめは とても ちいさい", a:false, e:true, why:"くりくりの おおきな おめめが チャームポイントだよ"},
+  {id:"kurage", t:"ミズクラゲの からだは ほとんど みずで できている", a:true, e:false, why:"だから すきとおって みえるんだね"},
+  {id:"kurage", t:"ミズクラゲには ほねが ある", a:false, e:true, why:"ほねも しんぞうも ないのに いきている、ふしぎな 子だよ"},
+  {id:"chinanago", t:"チンアナゴは すなの なかに かくれる", a:true, e:true, why:"びっくりすると シュッと すなに もぐっちゃうよ"},
+  {id:"chinanago", t:"チンアナゴは そらを とぶ", a:false, e:true, why:"とばないよ。すなから かおを だして ゆらゆらしているんだ"},
+  {id:"nishiki", t:"ニシキアナゴは オレンジの しましま もようだ", a:true, e:true, why:"しましまが ニシキアナゴ、みずたまが チンアナゴだよ"},
+  {id:"nishiki", t:"ニシキアナゴは みずたま もようだ", a:false, e:false, why:"みずたまは チンアナゴ。ニシキアナゴは しましまだよ"},
+  {id:"kumanomi", t:"カクレクマノミは イソギンチャクと なかよしだ", a:true, e:true, why:"イソギンチャクの なかで かくれんぼ するよ"},
+  {id:"kumanomi", t:"カクレクマノミは イソギンチャクに さわると あぶない", a:false, e:false, why:"クマノミだけは とくべつな からだで へいきなんだよ"},
+  {id:"same", t:"トラフザメの しっぽは とても ながい", a:true, e:true, why:"からだの はんぶんくらいが しっぽなんだよ"},
+  {id:"same", t:"トラフザメは こわくて らんぼうな サメだ", a:false, e:false, why:"おっとり やさしい サメで、すいそうの そこで おひるねも するよ"},
+  {id:"ei", t:"エイは マントのように ひらひら およぐ", a:true, e:true, why:"ガラスの ちかくで おなかの かおも みられるかも"},
+  {id:"ei", t:"エイの おくちは せなかがわに ある", a:false, e:false, why:"おくちは おなかがわに あるよ。にっこり わらって みえるんだ"},
+  {id:"utsubo", t:"ウツボは いわの すきまが だいすきだ", a:true, e:true, why:"すきまから ひょっこり かおを だすよ"},
+  {id:"utsubo", t:"ウツボは おこって おくちを パクパクしている", a:false, e:false, why:"おこってないよ。おくちで いきを しているんだ"},
+  {id:"gusoku", t:"ダイオウグソクムシは ダンゴムシの なかまだ", a:true, e:true, why:"ふかい うみに すむ、おおきな なかまだよ"},
+  {id:"gusoku", t:"ダイオウグソクムシは まいにち たくさん ごはんを たべる", a:false, e:false, why:"なんねんも たべなくても へいきなことが あるんだって"}
+];
+
+/* にている子（⭐⭐⭐で まぜる／⭐では ださない） */
+const SIMILAR = {
+  chinanago:["nishiki","utsubo"], nishiki:["chinanago","kumanomi"],
+  same:["ei","utsubo"], ei:["same","gusoku"], utsubo:["chinanago","same"],
+  penguin:["pelican","azarashi"], pelican:["penguin","kawauso"],
+  azarashi:["kawauso","penguin"], kawauso:["azarashi","pelican"],
+  kumanomi:["nishiki","same"], kurage:["ei","gusoku"], gusoku:["kurage","utsubo"]
+};
 
 function shuffle(a){
   for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
@@ -1772,64 +1902,165 @@ function openQuiz(){
   cancelGacha();
   quizScore = 0;
   quizScoreEl.textContent = "せいかい 0";
+  showQuizSelect();
   quizEl.classList.add("show");
+}
+function showQuizSelect(){
+  quizType = null;
+  quizEl.className = "quiz show ph-select";
+  quizTitleEl.textContent = "❓ クイズで あそぼう";
+  quizMsg.textContent = "すきな クイズを えらんでね";
+}
+quizSelectEl.addEventListener("click", (e)=>{
+  const b = e.target.closest(".qtype-btn");
+  if(!b) return;
+  sfx.click();
+  quizType = b.dataset.qtype;
+  if(settings.quizPick){
+    quizEl.className = "quiz show ph-level";
+    quizMsg.textContent = "むずかしさを えらんでね";
+  }else{
+    quizLevel = settings.quizLevel;
+    startQuestions();
+  }
+});
+quizLevelSel.addEventListener("click", (e)=>{
+  const b = e.target.closest(".qlv-btn");
+  if(!b) return;
+  sfx.click();
+  quizLevel = parseInt(b.dataset.lv, 10);
+  startQuestions();
+});
+$("quizBackBtn").addEventListener("click", ()=>{ sfx.click(); showQuizSelect(); });
+
+function startQuestions(){
+  quizEl.className = "quiz show ph-q";
+  quizTitleEl.textContent = quizType==="ox" ? "🔴⚪ まるばつクイズ"
+                          : quizType==="text" ? "📝 ぶんしょうクイズ"
+                          : "❓ だれかな？クイズ";
   nextQuestion();
 }
+function qStars(){ return "⭐".repeat(quizLevel); }
+
 function nextQuestion(){
   quizMsg.textContent = "";
-  const poolC = settings.showAll ? CREATURES.slice() : CREATURES.filter(c=>collected.has(c.id));
-  if(poolC.length < 3){
-    quizArt.innerHTML = "🐚";
-    quizArt.classList.remove("sil");
-    quizAnswers.innerHTML = "";
-    quizMsg.textContent = "クイズは 3びき あつめてから あそべるよ！まずは ガチャを まわしてね";
-    return;
-  }
-  let c;
-  do{ c = poolC[Math.floor(Math.random()*poolC.length)]; }while(poolC.length>1 && c.id===quizLastId);
-  quizLastId = c.id;
-  quizCurrent = c;
   quizLock = false;
-  quizArt.innerHTML = artHTML(c);
-  quizArt.classList.add("sil");
-  const others = shuffle(poolC.filter(x=>x.id!==c.id));
-  const opts = shuffle([c, others[0], others[1]]);
+  quizAnswers.classList.toggle("ox", quizType==="ox");
   quizAnswers.innerHTML = "";
-  for(const o of opts){
-    const b = document.createElement("button");
-    b.className = "big-btn";
-    b.textContent = o.name;
-    b.addEventListener("click", ()=>answerQuiz(b, o));
-    quizAnswers.appendChild(b);
+
+  if(quizType === "ox"){
+    const pool = OXQ.filter(q => quizLevel > 1 || q.e);
+    let q;
+    do{ q = pool[Math.floor(Math.random()*pool.length)]; }while(pool.length>1 && q.t===quizLastKey);
+    quizLastKey = q.t;
+    quizCurrent = q;
+    const c = CREATURES.find(x=>x.id===q.id);
+    quizArt.innerHTML = artHTML(c);
+    quizArt.classList.remove("sil");
+    quizQ.textContent = q.t + "。 ○かな？ ×かな？";
+    [["○", true, "maru"], ["×", false, "batu"]].forEach(([lab,val,cls])=>{
+      const b = document.createElement("button");
+      b.className = "ox-btn " + cls;
+      b.textContent = lab;
+      b.addEventListener("click", ()=>answerOX(b, val));
+      quizAnswers.appendChild(b);
+    });
+  }else{
+    const pool = CREATURES.slice();
+    let c;
+    do{ c = pool[Math.floor(Math.random()*pool.length)]; }while(pool.length>1 && c.id===quizLastKey);
+    quizLastKey = c.id;
+    quizCurrent = c;
+    if(quizType === "sil"){
+      quizArt.innerHTML = artHTML(c);
+      quizArt.classList.add("sil");
+      quizQ.textContent = "かげだけで わかるかな？";
+    }else{
+      quizArt.classList.remove("sil");
+      quizArt.innerHTML = "";
+      quizArt.textContent = "❓";
+      quizQ.textContent = QHINT[c.id] + " だれかな？";
+    }
+    const nOpt = quizLevel + 1;   // ⭐=2たく ⭐⭐=3たく ⭐⭐⭐=4たく
+    let others = pool.filter(x=>x.id!==c.id);
+    if(quizLevel === 3){
+      const sims = (SIMILAR[c.id]||[]).map(id=>others.find(o=>o.id===id)).filter(Boolean);
+      const rest = shuffle(others.filter(o=>!sims.includes(o)));
+      others = sims.concat(rest);
+    }else if(quizLevel === 1){
+      const sims = SIMILAR[c.id]||[];
+      others = shuffle(others.filter(o=>!sims.includes(o.id)));
+    }else{
+      others = shuffle(others);
+    }
+    const opts = shuffle([c].concat(others.slice(0, nOpt-1)));
+    for(const o of opts){
+      const b = document.createElement("button");
+      b.className = "big-btn";
+      b.textContent = o.name;
+      b.dataset.cid = o.id;
+      b.addEventListener("click", ()=>answerPick(b, o));
+      quizAnswers.appendChild(b);
+    }
   }
 }
-function answerQuiz(btn, o){
+function showNextBtn(){
+  setTimeout(()=>{
+    const nx = document.createElement("button");
+    nx.className = "big-btn btn-again";
+    nx.textContent = "つぎへ ▶";
+    nx.addEventListener("click", ()=>{ sfx.click(); nextQuestion(); });
+    quizAnswers.innerHTML = "";
+    quizAnswers.classList.remove("ox");
+    quizAnswers.appendChild(nx);
+  }, 650);
+}
+function onCorrect(msg){
+  quizLock = true;
+  quizScore++;
+  quizScoreEl.textContent = "せいかい " + quizScore;
+  quizMsg.textContent = msg;
+  sfx.get();
+  showNextBtn();
+}
+function answerOX(btn, val){
   if(quizLock) return;
-  if(o.id === quizCurrent.id){
-    quizLock = true;
-    quizArt.classList.remove("sil");
+  if(val === quizCurrent.a){
     btn.classList.add("correct");
-    quizScore++;
-    quizScoreEl.textContent = "せいかい " + quizScore;
-    quizMsg.textContent = "🎉 せいかい！ " + quizCurrent.name + " だよ！";
-    sfx.get();
-    setTimeout(()=>{
-      const nx = document.createElement("button");
-      nx.className = "big-btn btn-again";
-      nx.textContent = "つぎへ ▶";
-      nx.addEventListener("click", ()=>{ sfx.click(); nextQuestion(); });
-      quizAnswers.innerHTML = "";
-      quizAnswers.appendChild(nx);
-    }, 500);
+    onCorrect("🎉 せいかい！" + qStars() + (quizCurrent.why ? " " + quizCurrent.why : ""));
   }else{
     sfx.wrong();
     btn.classList.add("wrong","shakeX");
     btn.disabled = true;
     quizMsg.textContent = "おしい！ もういちど えらんでみよう";
+    if(quizLevel === 1){
+      quizAnswers.querySelectorAll(".ox-btn").forEach(b=>{
+        if(!b.disabled) b.classList.add("glowAns");
+      });
+    }
+  }
+}
+function answerPick(btn, o){
+  if(quizLock) return;
+  if(o.id === quizCurrent.id){
+    quizArt.classList.remove("sil");
+    quizArt.innerHTML = artHTML(quizCurrent);
+    btn.classList.add("correct");
+    onCorrect("🎉 せいかい！ " + quizCurrent.name + " だよ！ " + qStars());
+  }else{
+    sfx.wrong();
+    btn.classList.add("wrong","shakeX");
+    btn.disabled = true;
+    quizMsg.textContent = "おしい！ もういちど えらんでみよう";
+    if(quizLevel === 1){
+      quizAnswers.querySelectorAll(".big-btn").forEach(b=>{
+        if(b.dataset.cid === quizCurrent.id) b.classList.add("glowAns");
+      });
+    }
   }
 }
 $("quizBtn").addEventListener("click", openQuiz);
-$("closeQuiz").addEventListener("click", ()=>{ sfx.click(); quizEl.classList.remove("show"); });
+$("closeQuiz").addEventListener("click", ()=>{ sfx.click(); quizEl.className = "quiz"; });
 
 /* ===================== たんけんカード ===================== */
 const missionEl=$("mission"), missionGrid=$("missionGrid"), missionNote=$("missionNote"),
@@ -2106,6 +2337,18 @@ $("optFeel").addEventListener("change", function(){
   settings.feelings = this.checked;
   saveState();
 });
+document.querySelector(".lv-seg").addEventListener("click", (e)=>{
+  const b = e.target.closest(".lv-btn");
+  if(!b) return;
+  sfx.click();
+  settings.quizLevel = parseInt(b.dataset.lv, 10);
+  document.querySelectorAll(".lv-seg .lv-btn").forEach(x=>x.classList.toggle("on", x===b));
+  saveState();
+});
+$("optQuizPick").addEventListener("change", function(){
+  settings.quizPick = this.checked;
+  saveState();
+});
 $("optName").addEventListener("input", function(){
   settings.studentName = this.value;
   saveState();
@@ -2252,7 +2495,8 @@ function saveState(){
     localStorage.setItem(STORE_KEY, JSON.stringify({
       collected: [...collected],
       settings: { fullTap: settings.fullTap, newFirst: settings.newFirst, coinMode: settings.coinMode,
-                  showAll: settings.showAll, feelings: settings.feelings, studentName: settings.studentName },
+                  showAll: settings.showAll, feelings: settings.feelings, studentName: settings.studentName,
+                  quizLevel: settings.quizLevel, quizPick: settings.quizPick },
       missionFeel: missionFeel,
       soundOn: soundOn,
       missionTarget: missionTarget,
@@ -2276,6 +2520,8 @@ function loadState(){
       if(typeof s.settings.showAll === "boolean") settings.showAll = s.settings.showAll;
       if(typeof s.settings.feelings === "boolean") settings.feelings = s.settings.feelings;
       if(typeof s.settings.studentName === "string") settings.studentName = s.settings.studentName;
+      if([1,2,3].includes(s.settings.quizLevel)) settings.quizLevel = s.settings.quizLevel;
+      if(typeof s.settings.quizPick === "boolean") settings.quizPick = s.settings.quizPick;
     }
     if(typeof s.soundOn === "boolean") soundOn = s.soundOn;
     if(typeof s.missionTarget === "number") missionTarget = s.missionTarget;
@@ -2296,6 +2542,8 @@ $("optCoin").checked = settings.coinMode;
 $("optShowAll").checked = settings.showAll;
 $("optFeel").checked = settings.feelings;
 $("optName").value = settings.studentName || "";
+$("optQuizPick").checked = settings.quizPick;
+document.querySelectorAll(".lv-seg .lv-btn").forEach(x=>x.classList.toggle("on", parseInt(x.dataset.lv,10)===settings.quizLevel));
 $("cntVal").textContent = missionTarget;
 $("soundBtn").textContent = soundOn ? "🔊 おと" : "🔇 おと";
 updateHint();
