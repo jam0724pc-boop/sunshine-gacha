@@ -434,6 +434,63 @@
   .complete-banner.show{display:block;}
 
 
+  /* ---------- トップ画面 ---------- */
+  .home{
+    position:fixed;inset:0;z-index:15;
+    display:none;flex-direction:column;align-items:center;justify-content:center;
+    gap:clamp(12px,2.6vh,24px);
+    background:linear-gradient(180deg,#BFEFFB 0%, #8FDCEF 45%, #4FB3DA 100%);
+    padding:20px 30px;
+  }
+  .home.show{display:flex;}
+  .home-deco{display:flex;gap:clamp(14px,3vw,36px);align-items:flex-end;}
+  .h-art{width:clamp(60px,10vh,94px);height:clamp(60px,10vh,94px);filter:drop-shadow(0 5px 6px rgba(14,94,140,.25));}
+  .h-art svg{width:100%;height:100%;}
+  .h-art:nth-child(1){animation:hopS 2.2s ease-in-out infinite;}
+  .h-art:nth-child(2){animation:bobLoop 3s ease-in-out infinite;}
+  .h-art:nth-child(3){animation:swimLoop 3.4s ease-in-out infinite;}
+  .h-art:nth-child(4){animation:hopS 2.6s ease-in-out .5s infinite;}
+  .home h2{
+    text-align:center;color:#fff;font-weight:900;
+    font-size:clamp(28px,4.4vw,52px);line-height:1.35;
+    text-shadow:0 4px 0 rgba(14,94,140,.4);
+    letter-spacing:.05em;
+  }
+  .home-sub{
+    color:#0E5E8C;background:rgba(255,255,255,.8);
+    font-weight:900;font-size:clamp(12px,1.7vw,17px);
+    padding:8px 22px;border-radius:999px;
+    text-align:center;max-width:90%;
+  }
+  .home-menu{
+    display:flex;gap:clamp(12px,2vw,24px);flex-wrap:wrap;justify-content:center;
+    margin-top:clamp(4px,1vh,10px);
+  }
+  .home-btn{
+    border:none;cursor:pointer;font-family:inherit;font-weight:900;
+    background:var(--cream);color:var(--ink);
+    width:clamp(150px,19vw,220px);
+    padding:clamp(14px,2.4vh,22px) 10px;
+    border-radius:26px;
+    font-size:clamp(14px,1.85vw,19px);line-height:1.45;
+    box-shadow:0 6px 0 rgba(14,94,140,.35);
+    transition:transform .1s;
+    display:flex;flex-direction:column;align-items:center;gap:6px;
+  }
+  .home-btn:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(14,94,140,.35);}
+  .hb-ico{font-size:clamp(32px,5vh,46px);line-height:1;}
+
+  /* ---------- せんせいボタン（がめんのすみ） ---------- */
+  .teacher-btn{
+    position:fixed;left:10px;bottom:10px;z-index:26;
+    width:48px;height:48px;border-radius:50%;
+    border:none;cursor:pointer;
+    background:rgba(255,255,255,.6);
+    font-size:21px;
+    box-shadow:0 2px 6px rgba(14,94,140,.3);
+    opacity:.85;
+  }
+
   /* ---------- オーバーレイ共通の あんない文 ---------- */
   .over-note{
     color:#DFF3FB;font-weight:900;text-align:center;
@@ -483,16 +540,26 @@
   .m-card.picked .pick-mark{background:var(--coral);}
   .mission-grid.stamp .m-card .pick-mark{display:none;}
   .m-card .stamp-mark{
-    position:absolute;inset:0;
-    display:flex;align-items:center;justify-content:center;
-    font-size:clamp(60px,14vh,110px);
-    opacity:0;transform:scale(2.2) rotate(-25deg);
+    position:absolute;top:-12px;right:-12px;
+    font-size:clamp(38px,8vh,60px);line-height:1;
+    opacity:0;transform:scale(2.4) rotate(-30deg);
     transition:.25s cubic-bezier(.3,1.4,.5,1);
     pointer-events:none;
     filter:drop-shadow(0 3px 4px rgba(0,0,0,.25));
   }
-  .m-card.stamped .stamp-mark{opacity:1;transform:scale(1) rotate(-12deg);}
-  .m-card.stamped{background:#FFF3E0;}
+  .m-card.stamped .stamp-mark{opacity:1;transform:scale(1) rotate(-14deg);}
+  .m-card.sel{outline:6px solid var(--sea-mid);transform:scale(1.05);}
+  .m-card.stamped{
+    background:linear-gradient(180deg,#FFEDB0,#FFD87E);
+    outline:6px solid #FF9F1C;
+  }
+  .m-card.stamped .z-name{color:#7A4E00;}
+  .m-card.stamped.sel{outline:6px solid var(--sea-mid);}
+  .m-card .stamp-label{
+    display:none;font-weight:900;color:#E85D3A;
+    font-size:clamp(11px,1.5vw,15px);
+  }
+  .m-card.stamped .stamp-label{display:block;}
   .mission-foot{
     display:flex;justify-content:center;align-items:center;
     min-height:64px;margin-top:8px;
@@ -617,6 +684,7 @@
 <header>
   <h1>🐠 すいぞくかん ガチャガチャ<small>サンシャインすいぞくかんの なかまたち</small></h1>
   <div class="head-btns">
+    <button class="pill-btn" id="homeBtn" aria-label="ホームにもどる">🏠 ホーム</button>
     <button class="pill-btn" id="soundBtn" aria-label="おとのオン・オフ">🔊 おと</button>
     <button class="pill-btn" id="missionBtn" aria-label="たんけんカードをひらく">🎒 たんけん</button>
     <button class="pill-btn" id="quizBtn" aria-label="シルエットクイズであそぶ">❓ クイズ</button>
@@ -697,6 +765,27 @@
   <div class="complete-banner" id="completeBanner">🎉 コンプリート！ ぜんぶ あつめたね！ すごい！！ 🎉</div>
 </div>
 
+<!-- トップ画面 -->
+<div class="home show" id="home">
+  <div class="home-deco" aria-hidden="true">
+    <div class="h-art" data-svg="penguin"></div>
+    <div class="h-art" data-svg="kurage"></div>
+    <div class="h-art" data-svg="kumanomi"></div>
+    <div class="h-art" data-svg="kawauso"></div>
+  </div>
+  <h2>サンシャインすいぞくかんへ<br>いこう！</h2>
+  <p class="home-sub">🚌 とうきょう・いけぶくろの「てんくうのオアシス」で うみの なかまに あいに いこう</p>
+  <div class="home-menu">
+    <button class="home-btn" id="goGacha"><span class="hb-ico">🎡</span>ガチャで<br>なかまを あつめる</button>
+    <button class="home-btn" id="goZukan"><span class="hb-ico">📖</span>うみのなかま<br>ずかん</button>
+    <button class="home-btn" id="goMission"><span class="hb-ico">🎒</span>たんけん<br>カード</button>
+    <button class="home-btn" id="goQuiz"><span class="hb-ico">❓</span>だれかな？<br>クイズ</button>
+  </div>
+</div>
+
+<!-- せんせいボタン（がめんのすみ） -->
+<button class="teacher-btn" id="teacherBtn" aria-label="せんせいメニューをひらく">⚙️</button>
+
 <!-- たんけんカード -->
 <div class="mission" id="mission" role="dialog" aria-label="たんけんカード">
   <div class="zukan-head">
@@ -707,6 +796,7 @@
   <div class="mission-grid" id="missionGrid"></div>
   <div class="mission-foot">
     <button class="big-btn btn-again" id="decideBtn" style="display:none">✨ これに する！</button>
+    <button class="big-btn btn-again" id="stampBtn" style="display:none">💮 スタンプを おす！</button>
     <div class="complete-banner" id="missionBanner">🎉 ミッション コンプリート！ ぜんぶ みつけたね！！ 🎉</div>
   </div>
 </div>
@@ -753,7 +843,7 @@
 <div class="settings" id="settings" role="dialog" aria-label="せんせいメニュー">
   <div class="settings-card">
     <h2>⚙️ せんせいメニュー</h2>
-    <p class="note">このメニューは、ひだり上のタイトルを「ながおし」するとひらきます。おこさまには見えないつくりです。</p>
+    <p class="note">このメニューは、ひだり下の ⚙ボタン か、タイトルの「ながおし」で ひらきます。</p>
     <div class="setting-row">
       <span>がめんぜんぶボタン<span class="hint">がめんの どこをさわっても ガチャがうごきます</span></span>
       <label class="toggle"><input type="checkbox" id="optFullTap" checked><span class="tr"></span></label>
@@ -1343,12 +1433,14 @@ let missionTarget = 3;
 let missionPicked = new Set();
 let missionStamped = new Set();
 let missionDecided = false;
+let missionSel = null;   // スタンプモードで えらんでいる子
 
 function mCard(c, extra){
   const d = document.createElement("div");
   d.className = "m-card" + (extra ? " " + extra : "");
   d.innerHTML = '<div class="z-art">' + artHTML(c) + '</div>'
     + '<div class="z-name">' + escapeHTML(c.name) + '</div>'
+    + '<div class="stamp-label">✔ みつけた！</div>'
     + '<div class="pick-mark">✔</div>'
     + '<div class="stamp-mark">💮</div>';
   return d;
@@ -1381,29 +1473,59 @@ function renderMission(){
   }else{
     missionTitle.textContent = "🎒 たんけんカード";
     missionGrid.classList.add("stamp");
-    missionNote.textContent = "ほんものに あえたら タップして スタンプを おそう！";
     decideBtn.style.display = "none";
     const picked = CREATURES.filter(c=>missionPicked.has(c.id));
+    const selC = picked.find(c=>c.id===missionSel) || null;
+    missionNote.textContent = selC
+      ? selC.name + " を えらんだよ。したの ボタンを おしてね！"
+      : "ほんものに あえたら、その子を タップして えらんでね";
     for(const c of picked){
-      const card = mCard(c, missionStamped.has(c.id) ? "stamped" : "");
+      let cls = missionStamped.has(c.id) ? "stamped" : "";
+      if(missionSel === c.id) cls += " sel";
+      const card = mCard(c, cls);
       card.addEventListener("click", ()=>{
-        if(missionStamped.has(c.id)){ missionStamped.delete(c.id); }
-        else{ missionStamped.add(c.id); sfx.pop(); }
-        saveState();
+        missionSel = (missionSel === c.id) ? null : c.id;
+        sfx.click();
         renderMission();
-        if(picked.length && picked.every(x=>missionStamped.has(x.id))){
-          missionBanner.classList.add("show");
-          sfx.complete();
-          confetti(100);
-        }
       });
       missionGrid.appendChild(card);
+    }
+    if(selC){
+      stampBtn.style.display = "";
+      if(missionStamped.has(selC.id)){
+        stampBtn.textContent = "🗑 スタンプを けす";
+        stampBtn.className = "big-btn btn-zukan";
+      }else{
+        stampBtn.textContent = "💮 スタンプを おす！";
+        stampBtn.className = "big-btn btn-again";
+      }
+    }else{
+      stampBtn.style.display = "none";
     }
     if(picked.length && picked.every(x=>missionStamped.has(x.id))){
       missionBanner.classList.add("show");
     }
   }
 }
+const stampBtn = $("stampBtn");
+stampBtn.addEventListener("click", ()=>{
+  if(!missionSel) return;
+  if(missionStamped.has(missionSel)){
+    missionStamped.delete(missionSel);
+    sfx.click();
+  }else{
+    missionStamped.add(missionSel);
+    sfx.pop();
+    const picked = CREATURES.filter(c=>missionPicked.has(c.id));
+    if(picked.length && picked.every(x=>missionStamped.has(x.id))){
+      sfx.complete();
+      confetti(100);
+    }
+  }
+  missionSel = null;
+  saveState();
+  renderMission();
+});
 decideBtn.addEventListener("click", ()=>{
   if(missionPicked.size !== missionTarget) return;
   missionDecided = true;
@@ -1412,7 +1534,8 @@ decideBtn.addEventListener("click", ()=>{
   saveState();
   renderMission();
 });
-$("missionBtn").addEventListener("click", ()=>{ sfx.click(); renderMission(); missionEl.classList.add("show"); });
+function openMission(){ sfx.click(); missionSel = null; renderMission(); missionEl.classList.add("show"); }
+$("missionBtn").addEventListener("click", openMission);
 $("closeMission").addEventListener("click", ()=>{ sfx.click(); missionEl.classList.remove("show"); });
 
 /* せんせいメニュー：さがす数・つくりなおす */
@@ -1466,10 +1589,10 @@ $("detailBtn").addEventListener("click", ()=>{ if(shownC){ sfx.click(); openDeta
 /* ===================== がめんぜんぶボタン ===================== */
 document.addEventListener("click", (e)=>{
   if(!settings.fullTap) return;
-  if(e.target.closest("button, header, .zukan, .settings, .quiz, .mission, .detail")) return;
+  if(e.target.closest("button, header, .zukan, .settings, .quiz, .mission, .detail, .home")) return;
   if(zukan.classList.contains("show") || settingsEl.classList.contains("show") ||
      quizEl.classList.contains("show") || missionEl.classList.contains("show") ||
-     detailEl.classList.contains("show")) return;
+     detailEl.classList.contains("show") || homeEl.classList.contains("show")) return;
   if(result.classList.contains("show")){
     // 出てすぐの おてつき防止に 1.5びょう待ってから
     if(Date.now() - resultShownAt > 1500) goAgain();
@@ -1570,6 +1693,20 @@ function confetti(n){
     amb.appendChild(b);
   }
 })();
+
+/* ===================== トップ画面 ===================== */
+const homeEl = $("home");
+document.querySelectorAll(".h-art").forEach(el=>{
+  el.innerHTML = SVG[el.dataset.svg] || "";
+});
+$("homeBtn").addEventListener("click", ()=>{ sfx.click(); homeEl.classList.add("show"); });
+$("goGacha").addEventListener("click", ()=>{ sfx.click(); homeEl.classList.remove("show"); });
+$("goZukan").addEventListener("click", ()=>{ sfx.click(); renderZukan(); zukan.classList.add("show"); });
+$("goMission").addEventListener("click", openMission);
+$("goQuiz").addEventListener("click", openQuiz);
+
+/* せんせいボタン（がめんのすみ） */
+$("teacherBtn").addEventListener("click", ()=>{ settingsEl.classList.add("show"); });
 
 /* ===================== ほぞん（この iPad の中だけに きろく） ===================== */
 const STORE_KEY = "sunshine-gacha-v1";
