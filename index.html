@@ -1154,6 +1154,326 @@
   .cnt-btn:active{transform:translateY(2px);box-shadow:0 1px 0 #1F7BA0;}
   #cntVal{min-width:38px;text-align:center;font-size:24px;font-weight:900;}
 
+  /* ========== 👀👂 みる・きく ========== */
+  .sgh-see{background:#D9577A;}
+
+  /* E. かけ声の 大きな もじ */
+  .chant-word{
+    position:fixed;left:50%;top:14%;z-index:19;pointer-events:none;
+    transform:translateX(-50%);opacity:0;
+    font-weight:900;font-size:clamp(52px,12vh,112px);line-height:1;
+    color:#fff;letter-spacing:.06em;white-space:nowrap;
+    text-shadow:0 6px 0 rgba(14,94,140,.55), 0 0 22px rgba(255,236,140,.9);
+  }
+  .chant-word.show{animation:chantPop .75s ease-out forwards;}
+  @keyframes chantPop{
+    0%{opacity:0;transform:translateX(-50%) scale(.4);}
+    25%{opacity:1;transform:translateX(-50%) scale(1.18);}
+    45%{transform:translateX(-50%) scale(1);}
+    80%{opacity:1;}
+    100%{opacity:0;transform:translateX(-50%) scale(1);}
+  }
+
+  /* B. つぎに おす ばしょが ゆっくり ひかる */
+  @keyframes nudgeHandle{
+    0%,100%{box-shadow:0 6px 0 #C79510, 0 10px 14px rgba(0,0,0,.25), 0 0 0 0 rgba(255,236,120,0);}
+    50%{box-shadow:0 6px 0 #C79510, 0 10px 14px rgba(0,0,0,.25), 0 0 0 18px rgba(255,236,120,.8);}
+  }
+  @keyframes nudgeBtn{
+    0%,100%{box-shadow:0 5px 0 rgba(14,94,140,.35), 0 0 0 0 rgba(255,236,120,0);}
+    50%{box-shadow:0 5px 0 rgba(14,94,140,.35), 0 0 0 14px rgba(255,236,120,.85);}
+  }
+  @keyframes nudgeGlowF{
+    0%,100%{filter:drop-shadow(0 0 0 rgba(255,255,255,0));}
+    50%{filter:drop-shadow(0 0 26px rgba(255,255,255,.95)) drop-shadow(0 0 10px rgba(255,236,140,.95));}
+  }
+  body.nudge-on .handle:not(:disabled){animation:nudgeHandle 1.6s ease-in-out infinite;}
+  body.nudge-on #stampBtn, body.nudge-on #decideBtn, body.nudge-on #certBtn,
+  body.nudge-on #quizAnswers .btn-again{animation:nudgeBtn 1.6s ease-in-out infinite;}
+  body.nudge-on .reveal.phase-cap .reveal-capsule{animation:nudgeGlowF 1.6s ease-in-out infinite;}
+
+  /* C. 生きものの ふちどり */
+  body.outline-on .creature-art svg,
+  body.outline-on .z-card:not(.locked) .z-art svg,
+  body.outline-on .m-card .z-art svg{
+    filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 2px #fff) drop-shadow(0 0 10px rgba(255,236,140,.9));
+  }
+  body.outline-on .swim-fish svg{
+    filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 9px rgba(255,236,140,.85));
+  }
+
+  /* A. みやすさモード：くらい はいけい・かざりを へらす・生きものを 大きく */
+  body.clear-view{background:#0B1F3A;}
+  body.clear-view .ambient,
+  body.clear-view .dome .dbub,
+  body.clear-view .reveal-rays,
+  body.clear-view .tank-bubble,
+  body.clear-view .home::before,
+  body.clear-view .home::after,
+  body.clear-view .confetti{display:none !important;}
+  body.clear-view .cap,
+  body.clear-view .h-art{animation:none;}
+  body.clear-view .home{background:#0B1F3A;}
+  body.clear-view .home h2{text-shadow:none;}
+  body.clear-view .reveal,
+  body.clear-view .detail{background:#0B1F3A;}
+  body.clear-view .r-name,
+  body.clear-view .detail-name,
+  body.clear-view .tap-hint{color:#fff;text-shadow:none;}
+  body.clear-view .creature-art.big{
+    width:clamp(260px,62vh,520px);height:clamp(260px,62vh,520px);
+  }
+  body.clear-view #detailArt{width:clamp(220px,46vh,380px);height:clamp(220px,46vh,380px);}
+  body.clear-view .swim{background:#0B1F3A;}
+  body.clear-view .swim-tank{background:none;box-shadow:inset 0 0 0 4px rgba(255,255,255,.25);}
+  body.clear-view .zukan,
+  body.clear-view .mission,
+  body.clear-view .quiz{background:#0B1F3A;}
+
+  /* ========== 生きものの 本かくてきな うごき ========== */
+  .cr .pt{transform-box:fill-box;}
+  .anim-perf{animation:popIn .6s cubic-bezier(.3,1.6,.5,1) both, idleBreath 3.4s ease-in-out 4s infinite;}
+  @keyframes idleBreath{0%,100%{transform:scale(1);}50%{transform:scale(1.03);}}
+  .creature-art{cursor:pointer;}
+
+  /* --- ペンギン（2.4びょう）：つばさパタパタ・よちよち → アー！ → ぴょん --- */
+  .pg-flipL{transform-origin:90% 6%;}
+  .pg-flipR{transform-origin:10% 6%;}
+  .pg-waddle{transform-origin:50% 100%;}
+  .pg-head{transform-origin:50% 90%;}
+  .pg-beak{transform-origin:50% 0%;}
+  .pg-all{transform-origin:50% 100%;}
+  svg.perf .pg-flipL{animation:pgFlipL 2.4s ease-in-out;}
+  svg.perf .pg-flipR{animation:pgFlipR 2.4s ease-in-out;}
+  svg.perf .pg-waddle{animation:pgWaddle 2.4s ease-in-out;}
+  svg.perf .pg-footL{animation:pgFootL 2.4s ease-in-out;}
+  svg.perf .pg-footR{animation:pgFootR 2.4s ease-in-out;}
+  svg.perf .pg-head{animation:pgHead 2.4s ease-in-out;}
+  svg.perf .pg-beak{animation:pgBeak 2.4s ease-in-out;}
+  svg.perf .pg-all{animation:pgAll 2.4s ease-out;}
+  @keyframes pgFlipL{0%{transform:rotate(0)}6%{transform:rotate(38deg)}12%{transform:rotate(-4deg)}18%{transform:rotate(38deg)}24%{transform:rotate(-4deg)}30%{transform:rotate(38deg)}36%{transform:rotate(-4deg)}42%{transform:rotate(38deg)}50%,100%{transform:rotate(0)}}
+  @keyframes pgFlipR{0%{transform:rotate(0)}6%{transform:rotate(-38deg)}12%{transform:rotate(4deg)}18%{transform:rotate(-38deg)}24%{transform:rotate(4deg)}30%{transform:rotate(-38deg)}36%{transform:rotate(4deg)}42%{transform:rotate(-38deg)}50%,100%{transform:rotate(0)}}
+  @keyframes pgWaddle{0%{transform:rotate(0)}12.5%{transform:rotate(-7deg)}25%{transform:rotate(7deg)}37.5%{transform:rotate(-7deg)}50%,100%{transform:rotate(0)}}
+  @keyframes pgFootL{0%{transform:translateY(0)}6%{transform:translateY(-5px)}12%{transform:translateY(0)}31%{transform:translateY(-5px)}37%,100%{transform:translateY(0)}}
+  @keyframes pgFootR{0%,12%{transform:translateY(0)}18%{transform:translateY(-5px)}24%{transform:translateY(0)}43%{transform:translateY(-5px)}49%,100%{transform:translateY(0)}}
+  @keyframes pgHead{0%,52%{transform:rotate(0)}58%{transform:rotate(-14deg)}76%{transform:rotate(-14deg)}82%,100%{transform:rotate(0)}}
+  @keyframes pgBeak{0%,55%{transform:scale(1)}58%{transform:scale(1.3,1.7)}64%{transform:scale(1)}68%{transform:scale(1.3,1.7)}74%,100%{transform:scale(1)}}
+  @keyframes pgAll{0%,80%{transform:translateY(0)}86%{transform:translateY(-18px)}92%{transform:translateY(0) scale(1.05,.95)}96%{transform:translateY(-4px)}100%{transform:translateY(0)}}
+
+  /* --- ペリカン（2.6びょう）：つばさを ひろげて バサッ ×3 → くちばしの ふくろ ぷくっ --- */
+  .pl-wing,.pl-wing2{transform-origin:94% 15%;}
+  .pl-pouch{transform-origin:8% 5%;}
+  svg.perf .pl-wing{animation:plWing 2.6s ease-in-out;}
+  svg.perf .pl-wing2{animation:plWing2 2.6s ease-in-out;}
+  svg.perf .pl-pouch{animation:plPouch 2.6s ease-in-out;}
+  svg.perf .pl-all{animation:plAll 2.6s ease-in-out;}
+  @keyframes plWing{0%{transform:rotate(0)}8%{transform:rotate(72deg)}16%{transform:rotate(18deg)}24%{transform:rotate(76deg)}32%{transform:rotate(18deg)}40%{transform:rotate(76deg)}48%{transform:rotate(18deg)}56%,100%{transform:rotate(0)}}
+  @keyframes plWing2{0%{transform:rotate(0)}9%{transform:rotate(86deg)}17%{transform:rotate(28deg)}25%{transform:rotate(90deg)}33%{transform:rotate(28deg)}41%{transform:rotate(90deg)}49%{transform:rotate(28deg)}57%,100%{transform:rotate(0)}}
+  @keyframes plPouch{0%,58%{transform:scale(1)}64%{transform:scale(1.06,1.9)}78%{transform:scale(1.06,1.9)}86%,100%{transform:scale(1)}}
+  @keyframes plAll{0%{transform:translateY(0)}16%{transform:translateY(-4px)}20%{transform:translateY(0)}32%{transform:translateY(-4px)}36%{transform:translateY(0)}48%{transform:translateY(-4px)}52%,100%{transform:translateY(0)}}
+
+  /* --- ミズクラゲ（3びょう）：かさが きゅっ・ふわっ ×3 で うえへ --- */
+  .kr-bell{transform-origin:50% 100%;}
+  .kr-tent{transform-origin:50% 0%;}
+  svg.perf .kr-all{animation:krAll 3s ease-in-out;}
+  svg.perf .kr-bell{animation:krBell 3s ease-in-out;}
+  svg.perf .kr-tent{animation:krTent 3s ease-in-out;}
+  @keyframes krAll{0%{transform:translateY(0)}10%{transform:translateY(-10px)}33%{transform:translateY(-5px)}43%{transform:translateY(-16px)}66%{transform:translateY(-10px)}76%{transform:translateY(-20px)}100%{transform:translateY(0)}}
+  @keyframes krBell{0%{transform:scale(1)}5%{transform:scale(1.1,.82)}10%{transform:scale(1)}33%{transform:scale(1)}38%{transform:scale(1.1,.82)}43%{transform:scale(1)}66%{transform:scale(1)}71%{transform:scale(1.1,.82)}76%,100%{transform:scale(1)}}
+  @keyframes krTent{0%{transform:skewX(0) scaleY(1)}6%{transform:skewX(0) scaleY(.9)}14%{transform:skewX(9deg) scaleY(1.05)}26%{transform:skewX(-8deg)}39%{transform:skewX(0) scaleY(.9)}48%{transform:skewX(8deg) scaleY(1.05)}60%{transform:skewX(-7deg)}72%{transform:skewX(0) scaleY(.9)}82%{transform:skewX(7deg) scaleY(1.05)}100%{transform:skewX(0) scaleY(1)}}
+
+  /* --- チンアナゴ（3びょう）：にょきっ → ゆらゆら → シュッ → ぴょこ --- */
+  .cn-main,.cn-sub{transform-origin:50% 100%;}
+  svg.perf .cn-main{animation:cnMain 3s ease-in-out;}
+  svg.perf .cn-sub{animation:cnSub 3s ease-in-out;}
+  @keyframes cnMain{0%{transform:translateY(92px)}3%{transform:translateY(92px)}12%{transform:translateY(-5px)}16%{transform:translateY(0)}24%{transform:rotate(-7deg)}34%{transform:rotate(7deg)}44%{transform:rotate(-5deg)}50%{transform:translateY(0) rotate(0)}53%{transform:translateY(92px)}64%{transform:translateY(92px)}71%{transform:translateY(-4px)}75%,100%{transform:translateY(0)}}
+  @keyframes cnSub{0%,24%{transform:translateY(46px)}32%{transform:translateY(-3px)}35%{transform:translateY(0)}42%{transform:rotate(9deg)}48%{transform:rotate(-6deg)}52%{transform:translateY(0) rotate(0)}55%{transform:translateY(46px)}78%{transform:translateY(46px)}86%{transform:translateY(-2px)}90%,100%{transform:translateY(0)}}
+
+  /* --- エイ（3びょう）：ヒレを ひらひら ×3 → にっこり --- */
+  .ei-wingL{transform-origin:100% 50%;}
+  .ei-wingR{transform-origin:0% 50%;}
+  .ei-tail{transform-origin:50% 0%;}
+  .ei-mouth{transform-origin:50% 0%;}
+  .ei-eye{transform-origin:50% 50%;}
+  svg.perf .ei-wingL, svg.perf .ei-wingR{animation:eiWing 3s ease-in-out;}
+  svg.perf .ei-all{animation:eiAll 3s ease-in-out;}
+  svg.perf .ei-tail{animation:eiTail 3s ease-in-out;}
+  svg.perf .ei-mouth{animation:eiMouth 3s ease-in-out;}
+  svg.perf .ei-eye{animation:eiEye 3s ease-in-out;}
+  @keyframes eiWing{0%{transform:scaleX(1)}10%{transform:scaleX(.7)}20%{transform:scaleX(1.04)}30%{transform:scaleX(.7)}40%{transform:scaleX(1.04)}50%{transform:scaleX(.7)}60%,100%{transform:scaleX(1)}}
+  @keyframes eiAll{0%{transform:translateY(0)}10%{transform:translateY(-7px)}20%{transform:translateY(0)}30%{transform:translateY(-7px)}40%{transform:translateY(0)}50%{transform:translateY(-7px)}60%,100%{transform:translateY(0)}}
+  @keyframes eiTail{0%{transform:rotate(0)}10%{transform:rotate(12deg)}25%{transform:rotate(-12deg)}40%{transform:rotate(10deg)}55%{transform:rotate(-8deg)}65%,100%{transform:rotate(0)}}
+  @keyframes eiMouth{0%,68%{transform:scale(1)}74%{transform:scale(1.35,1.6)}92%{transform:scale(1.35,1.6)}100%{transform:scale(1)}}
+  @keyframes eiEye{0%,68%{transform:scaleY(1)}73%{transform:scaleY(.18)}92%{transform:scaleY(.18)}100%{transform:scaleY(1)}}
+
+  /* --- ダイオウグソクムシ（2.8びょう）：しょっかく ぴくぴく → あし わしゃわしゃ → ずしん --- */
+  .gs-antL{transform-origin:100% 100%;}
+  .gs-antR{transform-origin:0% 100%;}
+  .gs-L{transform-origin:100% 0%;}
+  .gs-R{transform-origin:0% 0%;}
+  .gs-all{transform-origin:50% 100%;}
+  svg.perf .gs-antL{animation:gsAntL 2.8s ease-in-out;}
+  svg.perf .gs-antR{animation:gsAntR 2.8s ease-in-out;}
+  svg.perf .gs-p1{animation:gsLeg1 2.8s linear;}
+  svg.perf .gs-p2{animation:gsLeg2 2.8s linear;}
+  svg.perf .gs-all{animation:gsAll 2.8s ease-in-out;}
+  @keyframes gsAntL{0%{transform:rotate(0)}5%{transform:rotate(-22deg)}10%{transform:rotate(4deg)}15%{transform:rotate(-22deg)}20%,100%{transform:rotate(0)}}
+  @keyframes gsAntR{0%{transform:rotate(0)}5%{transform:rotate(22deg)}10%{transform:rotate(-4deg)}15%{transform:rotate(22deg)}20%,100%{transform:rotate(0)}}
+  @keyframes gsLeg1{0%,22%{transform:rotate(0)}26%{transform:rotate(18deg)}30%{transform:rotate(-18deg)}34%{transform:rotate(18deg)}38%{transform:rotate(-18deg)}42%{transform:rotate(18deg)}46%{transform:rotate(-18deg)}50%{transform:rotate(18deg)}54%{transform:rotate(-18deg)}58%,100%{transform:rotate(0)}}
+  @keyframes gsLeg2{0%,22%{transform:rotate(0)}26%{transform:rotate(-18deg)}30%{transform:rotate(18deg)}34%{transform:rotate(-18deg)}38%{transform:rotate(18deg)}42%{transform:rotate(-18deg)}46%{transform:rotate(18deg)}50%{transform:rotate(-18deg)}54%{transform:rotate(18deg)}58%,100%{transform:rotate(0)}}
+  @keyframes gsAll{0%,62%{transform:translateY(0)}72%{transform:translateY(-20px)}78%{transform:translateY(0) scale(1.07,.88)}84%{transform:scale(.97,1.04)}90%,100%{transform:scale(1)}}
+
+  /* --- コツメカワウソ（2.8びょう）：いしあそび → くびを かしげる → しっぽ ふりふり --- */
+  .kw-head{transform-origin:50% 100%;}
+  .kw-tail{transform-origin:0% 25%;}
+  .kw-stone{transform-origin:50% 50%;}
+  svg.perf .kw-pawL{animation:kwPawL 2.8s ease-in-out;}
+  svg.perf .kw-pawR{animation:kwPawR 2.8s ease-in-out;}
+  svg.perf .kw-stone{animation:kwStone 2.8s ease-in-out;}
+  svg.perf .kw-head{animation:kwHead 2.8s ease-in-out;}
+  svg.perf .kw-tail{animation:kwTail 2.8s ease-in-out;}
+  @keyframes kwPawL{0%{transform:translate(0,0)}5%{transform:translate(9px,-2px)}10%{transform:translate(4px,0)}15%{transform:translate(9px,-2px)}20%{transform:translate(4px,0)}25%{transform:translate(9px,-2px)}30%{transform:translate(4px,0)}35%{transform:translate(9px,-2px)}40%{transform:translate(4px,0)}44%,100%{transform:translate(0,0)}}
+  @keyframes kwPawR{0%{transform:translate(0,0)}5%{transform:translate(-4px,0)}10%{transform:translate(-9px,-2px)}15%{transform:translate(-4px,0)}20%{transform:translate(-9px,-2px)}25%{transform:translate(-4px,0)}30%{transform:translate(-9px,-2px)}35%{transform:translate(-4px,0)}40%{transform:translate(-9px,-2px)}44%,100%{transform:translate(0,0)}}
+  @keyframes kwStone{0%{opacity:0;transform:rotate(0)}4%{opacity:1}10%{transform:rotate(25deg)}20%{transform:rotate(-20deg)}30%{transform:rotate(25deg)}40%{opacity:1;transform:rotate(-15deg)}46%,100%{opacity:0;transform:rotate(0)}}
+  @keyframes kwHead{0%,46%{transform:rotate(0)}54%{transform:rotate(14deg)}64%{transform:rotate(14deg)}70%,100%{transform:rotate(0)}}
+  @keyframes kwTail{0%,68%{transform:rotate(0)}72%{transform:rotate(-22deg)}77%{transform:rotate(16deg)}82%{transform:rotate(-22deg)}87%{transform:rotate(16deg)}92%{transform:rotate(-10deg)}100%{transform:rotate(0)}}
+
+  /* --- バイカルアザラシ（2.8びょう）：おなか ポンポン → まばたき → ころん --- */
+  .az-finL{transform-origin:95% 15%;}
+  .az-finR{transform-origin:5% 15%;}
+  .az-eyes{transform-origin:50% 50%;}
+  .az-all{transform-origin:50% 100%;}
+  svg.perf .az-finL{animation:azFinL 2.8s ease-in-out;}
+  svg.perf .az-finR{animation:azFinR 2.8s ease-in-out;}
+  svg.perf .az-eyes{animation:azEyes 2.8s linear;}
+  svg.perf .az-all{animation:azAll 2.8s ease-in-out;}
+  @keyframes azFinL{0%{transform:none}6%{transform:translate(12px,-14px) rotate(-30deg)}12%{transform:none}18%{transform:translate(12px,-14px) rotate(-30deg)}24%,100%{transform:none}}
+  @keyframes azFinR{0%,3%{transform:none}9%{transform:translate(-12px,-14px) rotate(30deg)}15%{transform:none}21%{transform:translate(-12px,-14px) rotate(30deg)}27%,100%{transform:none}}
+  @keyframes azEyes{0%,38%{transform:scaleY(1)}40%{transform:scaleY(.1)}42%{transform:scaleY(1)}45%{transform:scaleY(.1)}47%,100%{transform:scaleY(1)}}
+  @keyframes azAll{0%,54%{transform:none}62%{transform:translateX(-8px) rotate(-18deg)}72%{transform:translateX(8px) rotate(16deg)}80%{transform:rotate(-6deg)}86%{transform:rotate(3deg)}92%,100%{transform:none}}
+
+  /* --- ニシキアナゴ（3びょう）：にょきっ → くねくね → ぴょこ --- */
+  .ns-eel{transform-origin:50% 100%;}
+  svg.perf .ns-eel{animation:nsEel 3s ease-in-out;}
+  @keyframes nsEel{0%,3%{transform:translateY(92px)}13%{transform:translateY(-5px)}17%{transform:translateY(0)}25%{transform:skewX(14deg)}33%{transform:skewX(-14deg)}41%{transform:skewX(14deg)}49%{transform:skewX(-14deg)}57%{transform:skewX(10deg)}63%{transform:skewX(0)}68%{transform:translateY(40px)}76%{transform:translateY(-3px)}80%,100%{transform:translateY(0)}}
+
+  /* --- カクレクマノミ（3びょう）：イソギンチャクから ちらっ → ひょっこり → ぴるぴる --- */
+  .km-fish{transform-origin:50% 50%;}
+  .km-tail,.km-fin{transform-origin:0% 50%;}
+  .km-tA,.km-tB{transform-origin:50% 100%;}
+  svg.perf .km-fish{animation:kmFish 3s ease-in-out;}
+  svg.perf .km-tail{animation:kmTail 3s linear;}
+  svg.perf .km-fin{animation:kmFin 3s linear;}
+  svg.perf .km-tA{animation:kmSwayA 3s ease-in-out;}
+  svg.perf .km-tB{animation:kmSwayB 3s ease-in-out;}
+  @keyframes kmFish{0%,6%{transform:translateY(58px)}14%,22%{transform:translateY(38px)}28%,36%{transform:translateY(58px)}46%{transform:translateY(-6px)}52%{transform:translateY(0)}60%{transform:rotate(-5deg)}68%{transform:rotate(5deg)}76%{transform:rotate(-4deg)}84%{transform:rotate(3deg)}90%,100%{transform:none}}
+  @keyframes kmTail{0%,50%{transform:rotate(0)}54%{transform:rotate(20deg)}58%{transform:rotate(-20deg)}62%{transform:rotate(20deg)}66%{transform:rotate(-20deg)}70%{transform:rotate(20deg)}74%{transform:rotate(-20deg)}78%{transform:rotate(20deg)}82%{transform:rotate(-20deg)}86%,100%{transform:rotate(0)}}
+  @keyframes kmFin{0%,50%{transform:scaleX(1)}56%{transform:scaleX(.55)}62%{transform:scaleX(1)}68%{transform:scaleX(.55)}74%{transform:scaleX(1)}80%{transform:scaleX(.55)}86%,100%{transform:scaleX(1)}}
+  @keyframes kmSwayA{0%{transform:skewX(0)}25%{transform:skewX(7deg)}50%{transform:skewX(-7deg)}75%{transform:skewX(5deg)}100%{transform:skewX(0)}}
+  @keyframes kmSwayB{0%{transform:skewX(0)}25%{transform:skewX(-6deg)}50%{transform:skewX(6deg)}75%{transform:skewX(-5deg)}100%{transform:skewX(0)}}
+
+  /* --- トラフザメ（3.2びょう）：しっぽを ゆ〜ったり → くち ぱくぱく・あわ --- */
+  .sm-tail{transform-origin:0% 50%;}
+  .sm-fin{transform-origin:50% 0%;}
+  .sm-mouth{transform-origin:0% 0%;}
+  svg.perf .sm-tail{animation:smTail 3.2s ease-in-out;}
+  svg.perf .sm-all{animation:smAll 3.2s ease-in-out;}
+  svg.perf .sm-fin{animation:smFin 3.2s ease-in-out;}
+  svg.perf .sm-mouth{animation:smMouth 3.2s ease-in-out;}
+  svg.perf .sm-bub{animation:smBub 3.2s ease-out;}
+  @keyframes smTail{0%{transform:rotate(0)}12%{transform:rotate(15deg)}28%{transform:rotate(-15deg)}44%{transform:rotate(15deg)}60%{transform:rotate(-12deg)}72%,100%{transform:rotate(0)}}
+  @keyframes smAll{0%{transform:translateX(0)}30%{transform:translateX(-7px)}60%{transform:translateX(7px)}100%{transform:translateX(0)}}
+  @keyframes smFin{0%{transform:rotate(0)}20%{transform:rotate(12deg)}40%{transform:rotate(-6deg)}60%{transform:rotate(9deg)}72%,100%{transform:rotate(0)}}
+  @keyframes smMouth{0%,64%{transform:scale(1)}68%{transform:scale(1.2,2.8)}72%{transform:scale(1)}76%{transform:scale(1.2,2.8)}80%{transform:scale(1)}84%{transform:scale(1.2,2.8)}88%,100%{transform:scale(1)}}
+  @keyframes smBub{0%,66%{opacity:0;transform:translateY(0)}70%{opacity:1}100%{opacity:0;transform:translateY(-26px)}}
+
+  /* --- ウツボ（3びょう）：いわの あなから ぬ〜っ → くち パクパク --- */
+  .ut-mouth{transform-origin:0% 50%;}
+  .ut-head{transform-origin:30% 100%;}
+  svg.perf .ut-eel{animation:utEel 3s ease-in-out;}
+  svg.perf .ut-mouth{animation:utMouth 3s ease-in-out;}
+  svg.perf .ut-head{animation:utHead 3s ease-in-out;}
+  @keyframes utEel{0%,4%{transform:translateY(92px)}34%{transform:translateY(0)}82%{transform:translateY(0)}88%{transform:translateY(6px)}94%,100%{transform:translateY(0)}}
+  @keyframes utMouth{0%,40%{transform:scale(1)}45%{transform:scale(1.25,1.7)}50%{transform:scale(1)}55%{transform:scale(1.25,1.7)}60%{transform:scale(1)}65%{transform:scale(1.25,1.7)}70%{transform:scale(1)}75%{transform:scale(1.25,1.7)}80%,100%{transform:scale(1)}}
+  @keyframes utHead{0%,82%{transform:rotate(0)}88%{transform:rotate(-6deg)}94%{transform:rotate(3deg)}100%{transform:rotate(0)}}
+
+  /* およぐ おさかな・クイズの かげ では、イソギンチャクと まえの いわを かくす */
+  .swim-fish .km-anem, .quiz-art .km-anem,
+  .swim-fish .ut-rockF, .quiz-art .ut-rockF{display:none;}
+
+  /* --- 本物の形に 描きなおした 子の うごき ちょうせい --- */
+  .gs-antL{transform-origin:95% 20%;}
+  .gs-antR{transform-origin:5% 20%;}
+  .ut-mouth{transform-origin:12% 40%;transform:rotate(7deg);}
+  svg.perf .ut-mouth{animation:utMouth2 3s ease-in-out;}
+  @keyframes utMouth2{0%,40%{transform:rotate(7deg)}45%{transform:rotate(22deg)}50%{transform:rotate(5deg)}55%{transform:rotate(22deg)}60%{transform:rotate(5deg)}65%{transform:rotate(22deg)}70%{transform:rotate(5deg)}75%{transform:rotate(22deg)}80%,100%{transform:rotate(7deg)}}
+  svg.perf .ut-eel{animation:utEel2 3s ease-in-out;}
+  @keyframes utEel2{0%,4%{transform:translateY(100px)}34%{transform:translateY(0)}82%{transform:translateY(0)}88%{transform:translateY(6px)}94%,100%{transform:translateY(0)}}
+  svg.perf .kw-pawL{animation:kwPawL2 2.8s ease-in-out;}
+  svg.perf .kw-pawR{animation:kwPawR2 2.8s ease-in-out;}
+  @keyframes kwPawL2{0%{transform:translate(0,0)}5%{transform:translate(4px,-2px)}10%{transform:translate(1px,0)}15%{transform:translate(4px,-2px)}20%{transform:translate(1px,0)}25%{transform:translate(4px,-2px)}30%{transform:translate(1px,0)}35%{transform:translate(4px,-2px)}40%{transform:translate(1px,0)}44%,100%{transform:translate(0,0)}}
+  @keyframes kwPawR2{0%{transform:translate(0,0)}5%{transform:translate(-1px,0)}10%{transform:translate(-4px,-2px)}15%{transform:translate(-1px,0)}20%{transform:translate(-4px,-2px)}25%{transform:translate(-1px,0)}30%{transform:translate(-4px,-2px)}35%{transform:translate(-1px,0)}40%{transform:translate(-4px,-2px)}44%,100%{transform:translate(0,0)}}
+
+  /* ========== およぐ おさかな：泳ぎの 体の うごき（くりかえし） ========== */
+  .swim-fish{transition:filter .3s, opacity .4s;}
+  .swim-fish.stay .ut-rockF{display:block;}
+  .fish-inner.tapPop{animation:tapPop .45s cubic-bezier(.3,1.6,.5,1);}
+  @keyframes tapPop{0%{transform:scale(1)}45%{transform:scale(1.18)}100%{transform:scale(1)}}
+  .swim-fish svg.sw .pg-flipL{animation:swPgL .55s ease-in-out infinite alternate;}
+  .swim-fish svg.sw .pg-flipR{animation:swPgR .55s ease-in-out infinite alternate;}
+  .swim-fish svg.sw .pg-all{animation:swBob 1.1s ease-in-out infinite alternate;}
+  @keyframes swPgL{from{transform:rotate(0)}to{transform:rotate(36deg)}}
+  @keyframes swPgR{from{transform:rotate(0)}to{transform:rotate(-36deg)}}
+  @keyframes swBob{from{transform:translateY(0)}to{transform:translateY(-3px)}}
+  .swim-fish svg.sw .kw-tail{animation:swRot14 .9s ease-in-out infinite alternate;}
+  .swim-fish svg.sw .kw-pawL{animation:swPaw .45s ease-in-out infinite alternate;}
+  .swim-fish svg.sw .kw-pawR{animation:swPaw .45s ease-in-out -.225s infinite alternate;}
+  .swim-fish svg.sw .kw-head{animation:swRot3 1.8s ease-in-out infinite alternate;}
+  @keyframes swRot14{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
+  @keyframes swRot3{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
+  @keyframes swPaw{from{transform:translateY(0)}to{transform:translateY(-4px)}}
+  .swim-fish svg.sw .pl-all{animation:swFloat 2s ease-in-out infinite alternate;}
+  .swim-fish svg.sw .pl-wing{animation:swWing6 2s ease-in-out infinite alternate;}
+  @keyframes swFloat{from{transform:translateY(0)}to{transform:translateY(2.5px)}}
+  @keyframes swWing6{from{transform:rotate(0)}to{transform:rotate(7deg)}}
+  .swim-fish svg.sw .az-finL{animation:swFinL .8s ease-in-out infinite alternate;}
+  .swim-fish svg.sw .az-finR{animation:swFinR .8s ease-in-out -.4s infinite alternate;}
+  .swim-fish svg.sw .az-all{animation:swRot4 2.4s ease-in-out infinite alternate;}
+  @keyframes swFinL{from{transform:rotate(0)}to{transform:rotate(-20deg)}}
+  @keyframes swFinR{from{transform:rotate(0)}to{transform:rotate(20deg)}}
+  @keyframes swRot4{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+  .swim-fish svg.sw .kr-bell{animation:swBell 1.4s ease-in-out infinite;}
+  .swim-fish svg.sw .kr-tent{animation:swTent 1.4s ease-in-out infinite;}
+  @keyframes swBell{0%{transform:scale(1)}25%{transform:scale(1.1,.84)}55%,100%{transform:scale(1)}}
+  @keyframes swTent{0%{transform:skewX(0) scaleY(1)}25%{transform:skewX(4deg) scaleY(.9)}60%{transform:skewX(-5deg) scaleY(1.04)}100%{transform:skewX(0) scaleY(1)}}
+  .swim-fish svg.sw .cn-main{animation:swRot4 2.4s ease-in-out infinite alternate;}
+  .swim-fish svg.sw .cn-sub{animation:swRot4 2s ease-in-out -1s infinite alternate;}
+  .swim-fish svg.sw .ns-eel{animation:swSkew 2.2s ease-in-out infinite alternate;}
+  @keyframes swSkew{from{transform:skewX(-6deg)}to{transform:skewX(6deg)}}
+  .swim-fish svg.sw .km-tail{animation:swRot18 .3s ease-in-out infinite alternate;}
+  .swim-fish svg.sw .km-fin{animation:swFin .35s ease-in-out infinite alternate;}
+  @keyframes swRot18{from{transform:rotate(-18deg)}to{transform:rotate(18deg)}}
+  @keyframes swFin{from{transform:scaleX(.6)}to{transform:scaleX(1)}}
+  .swim-fish svg.sw .sm-tail{animation:swRot12 1.6s ease-in-out infinite alternate;}
+  .swim-fish svg.sw .sm-fin{animation:swFinS 1.6s ease-in-out infinite alternate;}
+  @keyframes swRot12{from{transform:rotate(-12deg)}to{transform:rotate(12deg)}}
+  @keyframes swFinS{from{transform:rotate(-5deg)}to{transform:rotate(8deg)}}
+  .swim-fish svg.sw .ei-wingL, .swim-fish svg.sw .ei-wingR{animation:swEiWing 1.2s ease-in-out infinite alternate;}
+  .swim-fish svg.sw .ei-tail{animation:swRot8 1.2s ease-in-out infinite alternate;}
+  @keyframes swEiWing{from{transform:scaleX(1)}to{transform:scaleX(.76)}}
+  @keyframes swRot8{from{transform:rotate(-8deg)}to{transform:rotate(8deg)}}
+  .swim-fish svg.sw .ut-mouth{animation:swUtMouth 2.4s ease-in-out infinite alternate;}
+  .swim-fish svg.sw .ut-head{animation:swRot2 3s ease-in-out infinite alternate;}
+  @keyframes swUtMouth{from{transform:rotate(6deg)}to{transform:rotate(18deg)}}
+  @keyframes swRot2{from{transform:rotate(-2deg)}to{transform:rotate(2deg)}}
+  .swim-fish svg.sw .gs-p1{animation:swLeg .5s ease-in-out infinite alternate;}
+  .swim-fish svg.sw .gs-p2{animation:swLeg .5s ease-in-out -.25s infinite alternate;}
+  .swim-fish svg.sw .gs-antL{animation:swAntL 1.6s ease-in-out infinite alternate;}
+  .swim-fish svg.sw .gs-antR{animation:swAntR 1.6s ease-in-out infinite alternate;}
+  @keyframes swLeg{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
+  @keyframes swAntL{from{transform:rotate(0)}to{transform:rotate(-8deg)}}
+  @keyframes swAntR{from{transform:rotate(0)}to{transform:rotate(8deg)}}
+
   /* reduced motion */
   @media (prefers-reduced-motion: reduce){
     *,*::before,*::after{animation-duration:.001s !important;animation-iteration-count:1 !important;transition-duration:.001s !important;}
@@ -1315,6 +1635,7 @@
 </div>
 
 <!-- せんせいボタン（がめんのすみ） -->
+<div class="chant-word" id="chantWord" aria-hidden="true"></div>
 <button class="teacher-btn" id="teacherBtn" aria-label="せんせいメニューをひらく">⚙️</button>
 
 <!-- つかいかた（？） -->
@@ -1478,6 +1799,10 @@
         <input class="name-input" id="optName" type="text" maxlength="10" placeholder="なまえ">
       </div>
       <div class="setting-row">
+        <span>👀 みやすさモード<span class="hint">はいけいを くらくし、うごく かざりを へらして、生きものを 大きく はっきり みせます</span></span>
+        <label class="toggle"><input type="checkbox" id="optClear"><span class="tr"></span></label>
+      </div>
+      <div class="setting-row">
         <span>たんけんカードで さがす数<span class="hint">おこさまの じったいに あわせて どうぞ</span></span>
         <div class="counter">
           <button class="cnt-btn" id="cntMinus" aria-label="へらす">−</button>
@@ -1563,6 +1888,26 @@
     </div>
 
     <div class="sg">
+      <div class="sg-head sgh-see">👀👂 みる・きく</div>
+      <div class="setting-row">
+        <span>つぎに おす ばしょを ひからせる<span class="hint">ハンドル・カプセル・スタンプの ボタンなどが ゆっくり ひかります</span></span>
+        <label class="toggle"><input type="checkbox" id="optNudge" checked><span class="tr"></span></label>
+      </div>
+      <div class="setting-row">
+        <span>生きものの ふちどり<span class="hint">生きものの まわりを ひかりで ふちどり、はいけいから うかびあがらせます</span></span>
+        <label class="toggle"><input type="checkbox" id="optOutline" checked><span class="tr"></span></label>
+      </div>
+      <div class="setting-row">
+        <span>生きものの しるしの おと<span class="hint">ペンギンは「ペタペタ」、クラゲは「ふわ〜ん」など、その子だけの おとが なります</span></span>
+        <label class="toggle"><input type="checkbox" id="optSig" checked><span class="tr"></span></label>
+      </div>
+      <div class="setting-row">
+        <span>ガチャの かけごえ<span class="hint">まわすたびに「ガチャ・ガチャ・ポン！」の おとと 大きな もじが でます</span></span>
+        <label class="toggle"><input type="checkbox" id="optChant" checked><span class="tr"></span></label>
+      </div>
+    </div>
+
+    <div class="sg">
       <div class="sg-head sgh-sousa">🖐 そうさ</div>
       <div class="setting-row">
         <span>がめんぜんぶボタン<span class="hint">ガチャと スタンプが、がめんの どこをさわっても うごきます</span></span>
@@ -1592,218 +1937,451 @@
    rarity: 1=ふつう 2=レア 3=キラキラ
 ===================================================== */
 const SVG = {
-  kumanomi: `<svg aria-hidden="true" viewBox="0 0 120 120">
-  <ellipse cx="58" cy="62" rx="40" ry="27" fill="#FF8A3C"/>
-  <path d="M92 56 C104 46 112 44 115 48 C110 58 110 66 115 76 C112 80 104 78 92 68 Z" fill="#FF8A3C" stroke="#333333" stroke-width="2"/>
-  <path d="M42 40 Q58 22 80 38 Q62 32 46 44 Z" fill="#FF9A50" stroke="#333333" stroke-width="2"/>
-  <path d="M48 86 Q54 100 64 94 Q58 88 58 84 Z" fill="#FF9A50" stroke="#333333" stroke-width="2"/>
-  <path d="M33 44 C41 46 41 78 33 80 C28 76 28 48 33 44 Z" fill="#FFFFFF" stroke="#333333" stroke-width="2"/>
-  <path d="M54 36 C64 34 66 88 56 88 C48 86 46 38 54 36 Z" fill="#FFFFFF" stroke="#333333" stroke-width="2"/>
-  <path d="M86 46 C92 48 92 76 86 78 C82 74 82 50 86 46 Z" fill="#FFFFFF" stroke="#333333" stroke-width="2"/>
-  <path d="M44 60 Q54 58 58 66 Q52 76 42 72 Z" fill="#FFB070" stroke="#E56A1F" stroke-width="1.5"/>
-  <circle cx="30" cy="54" r="5.5" fill="#2B2B2B"/>
-  <circle cx="31.5" cy="52.5" r="2" fill="#FFFFFF"/>
-  <path d="M22 66 q4 4 9 2" fill="none" stroke="#7A3A12" stroke-width="2.5" stroke-linecap="round"/>
-</svg>`,
-  penguin: `<svg aria-hidden="true" viewBox="0 0 120 120">
-  <ellipse cx="50" cy="106" rx="9" ry="4.5" fill="#F2A03D"/>
-  <ellipse cx="70" cy="106" rx="9" ry="4.5" fill="#F2A03D"/>
-  <ellipse cx="60" cy="70" rx="30" ry="37" fill="#3E4A54"/>
-  <ellipse cx="60" cy="76" rx="20" ry="26" fill="#FFFFFF"/>
-  <path d="M44 58 C48 70 72 70 76 58" fill="none" stroke="#3E4A54" stroke-width="5" stroke-linecap="round"/>
-  <circle cx="52" cy="82" r="1.8" fill="#3E4A54"/>
-  <circle cx="66" cy="88" r="1.8" fill="#3E4A54"/>
-  <circle cx="58" cy="94" r="1.8" fill="#3E4A54"/>
-  <path d="M32 62 C22 70 24 88 34 94 C36 84 36 72 38 64 Z" fill="#333E47"/>
-  <path d="M88 62 C98 70 96 88 86 94 C84 84 84 72 82 64 Z" fill="#333E47"/>
-  <circle cx="60" cy="36" r="21" fill="#3E4A54"/>
-  <ellipse cx="51" cy="38" rx="9" ry="11" fill="#FFFFFF"/>
-  <ellipse cx="69" cy="38" rx="9" ry="11" fill="#FFFFFF"/>
-  <circle cx="52" cy="36" r="4.2" fill="#1F262B"/>
-  <circle cx="68" cy="36" r="4.2" fill="#1F262B"/>
-  <circle cx="53.4" cy="34.6" r="1.5" fill="#FFFFFF"/>
-  <circle cx="69.4" cy="34.6" r="1.5" fill="#FFFFFF"/>
-  <ellipse cx="60" cy="27" rx="5" ry="2.5" fill="#F7A8B8"/>
-  <path d="M55 43 L65 43 L60 51 Z" fill="#545F6A"/>
-</svg>`,
-  kawauso: `<svg aria-hidden="true" viewBox="0 0 120 120">
-  <circle cx="38" cy="28" r="7" fill="#8C6E58"/>
-  <circle cx="82" cy="28" r="7" fill="#8C6E58"/>
-  <circle cx="38" cy="28" r="3.2" fill="#C9AE95"/>
-  <circle cx="82" cy="28" r="3.2" fill="#C9AE95"/>
-  <ellipse cx="60" cy="94" rx="25" ry="21" fill="#8C6E58"/>
-  <ellipse cx="60" cy="96" rx="15" ry="14" fill="#D9C4A6"/>
-  <circle cx="60" cy="46" r="27" fill="#8C6E58"/>
-  <ellipse cx="60" cy="57" rx="17" ry="13" fill="#E8D5BC"/>
-  <circle cx="49" cy="42" r="4.6" fill="#2B2B2B"/>
-  <circle cx="71" cy="42" r="4.6" fill="#2B2B2B"/>
-  <circle cx="50.5" cy="40.5" r="1.7" fill="#FFFFFF"/>
-  <circle cx="72.5" cy="40.5" r="1.7" fill="#FFFFFF"/>
-  <ellipse cx="60" cy="53" rx="5" ry="3.6" fill="#4A3728"/>
-  <path d="M56 60 q2 3.5 4 0 q2 3.5 4 0" fill="none" stroke="#4A3728" stroke-width="2.2" stroke-linecap="round"/>
-  <path d="M42 54 l-11 -2 M42 58 l-11 2" stroke="#8C6E58" stroke-width="1.8" stroke-linecap="round"/>
-  <path d="M78 54 l11 -2 M78 58 l11 2" stroke="#8C6E58" stroke-width="1.8" stroke-linecap="round"/>
-  <circle cx="40" cy="52" r="4" fill="#F7A8B8" opacity="0.55"/>
-  <circle cx="80" cy="52" r="4" fill="#F7A8B8" opacity="0.55"/>
-  <circle cx="44" cy="82" r="6.5" fill="#7A5D48"/>
-  <circle cx="76" cy="82" r="6.5" fill="#7A5D48"/>
-  <ellipse cx="46" cy="112" rx="8" ry="4" fill="#7A5D48"/>
-  <ellipse cx="74" cy="112" rx="8" ry="4" fill="#7A5D48"/>
-</svg>`,
-  azarashi: `<svg aria-hidden="true" viewBox="0 0 120 120">
-  <path d="M26 86 C14 92 12 100 20 102 C28 103 33 96 36 90 Z" fill="#8CA3B5"/>
-  <path d="M94 86 C106 92 108 100 100 102 C92 103 87 96 84 90 Z" fill="#8CA3B5"/>
-  <ellipse cx="60" cy="64" rx="39" ry="34" fill="#9FB4C4"/>
-  <ellipse cx="60" cy="76" rx="25" ry="20" fill="#D3E0EA"/>
-  <circle cx="45" cy="52" r="8" fill="#1F2933"/>
-  <circle cx="75" cy="52" r="8" fill="#1F2933"/>
-  <circle cx="47.8" cy="49.5" r="3" fill="#FFFFFF"/>
-  <circle cx="77.8" cy="49.5" r="3" fill="#FFFFFF"/>
-  <circle cx="43" cy="55" r="1.4" fill="#FFFFFF"/>
-  <circle cx="73" cy="55" r="1.4" fill="#FFFFFF"/>
-  <ellipse cx="60" cy="67" rx="11" ry="8" fill="#EAF2F7"/>
-  <ellipse cx="60" cy="63" rx="3.6" ry="2.6" fill="#33404C"/>
-  <path d="M55 70 q2.5 3.5 5 0 q2.5 3.5 5 0" fill="none" stroke="#33404C" stroke-width="2.2" stroke-linecap="round"/>
-  <path d="M49 66 l-13 -2 M49 69 l-13 2" stroke="#6B7B89" stroke-width="1.6" stroke-linecap="round"/>
-  <path d="M71 66 l13 -2 M71 69 l13 2" stroke="#6B7B89" stroke-width="1.6" stroke-linecap="round"/>
-  <circle cx="38" cy="66" r="4.5" fill="#F7A8B8" opacity="0.5"/>
-  <circle cx="82" cy="66" r="4.5" fill="#F7A8B8" opacity="0.5"/>
-</svg>`,
-  kurage: `<svg aria-hidden="true" viewBox="0 0 120 120">
-  <path d="M42 76 q-5 10 1 18 q5 8 -2 16" fill="none" stroke="#BBDFF0" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M56 79 q-3 11 3 19 q4 8 -1 15" fill="none" stroke="#BBDFF0" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M68 79 q4 11 -2 19 q-4 8 2 15" fill="none" stroke="#BBDFF0" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M80 76 q6 10 0 18 q-5 8 2 15" fill="none" stroke="#BBDFF0" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M20 60 C20 32 40 18 60 18 C80 18 100 32 100 60 C100 69 91 73 84 70 C78 76 68 78 60 77 C52 78 42 76 36 70 C29 73 20 69 20 60 Z" fill="#E3F3FB" stroke="#BBDFF0" stroke-width="2.5"/>
-  <circle cx="50" cy="40" r="6.5" fill="#D2B3EC" opacity="0.85"/>
-  <circle cx="70" cy="40" r="6.5" fill="#D2B3EC" opacity="0.85"/>
-  <circle cx="50" cy="52" r="6.5" fill="#D2B3EC" opacity="0.85"/>
-  <circle cx="70" cy="52" r="6.5" fill="#D2B3EC" opacity="0.85"/>
-  <circle cx="52" cy="62" r="3.4" fill="#4A5A75"/>
-  <circle cx="68" cy="62" r="3.4" fill="#4A5A75"/>
-  <path d="M56 67 q4 3.5 8 0" fill="none" stroke="#4A5A75" stroke-width="2.2" stroke-linecap="round"/>
-</svg>`,
-  chinanago: `<svg aria-hidden="true" viewBox="0 0 120 120">
-  <ellipse cx="60" cy="105" rx="46" ry="11" fill="#F0DCA8"/>
-  <ellipse cx="60" cy="102" rx="32" ry="7" fill="#E4C98B"/>
-  <path d="M46 102 C42 74 44 48 52 32 C57 21 68 19 72 27 C77 35 72 43 68 52 C61 66 58 84 60 102 Z" fill="#FDFDF8" stroke="#C9C9BC" stroke-width="2"/>
-  <circle cx="57" cy="34" r="5.6" fill="#2B2B2B"/>
-  <circle cx="68" cy="31" r="5.6" fill="#2B2B2B"/>
-  <circle cx="58.6" cy="32.4" r="2" fill="#FFFFFF"/>
-  <circle cx="69.6" cy="29.4" r="2" fill="#FFFFFF"/>
-  <path d="M61 41 q4 3.5 8 0" fill="none" stroke="#2B2B2B" stroke-width="2.4" stroke-linecap="round"/>
-  <circle cx="52" cy="56" r="5.5" fill="#3A3A3A"/>
-  <circle cx="61" cy="74" r="5" fill="#3A3A3A"/>
-  <circle cx="55" cy="90" r="4.2" fill="#3A3A3A"/>
-  <path d="M90 102 C88 92 88 82 92 74 C95 68 102 68 104 73 C106 78 102 84 100 90 C98 94 97 98 98 102 Z" fill="#FDFDF8" stroke="#C9C9BC" stroke-width="2"/>
-  <circle cx="94" cy="76" r="3.2" fill="#2B2B2B"/>
-  <circle cx="101" cy="75" r="3.2" fill="#2B2B2B"/>
-  <circle cx="95" cy="75" r="1.1" fill="#FFFFFF"/>
-  <circle cx="102" cy="74" r="1.1" fill="#FFFFFF"/>
-  <circle cx="92" cy="90" r="2.8" fill="#3A3A3A"/>
-</svg>`,
-  same: `<svg aria-hidden="true" viewBox="0 0 120 120">
-  <path d="M14 62 C20 48 34 42 52 42 C70 42 82 50 90 56 C100 62 108 58 114 50 C115 62 109 74 98 72 C88 79 70 83 52 81 C34 81 20 75 14 62 Z" fill="#D9B77A"/>
-  <path d="M18 66 C26 74 38 78 52 78 C66 78 80 75 90 68 C80 76 66 81 52 81 C36 81 24 75 18 66 Z" fill="#F0DFB8"/>
-  <path d="M50 43 Q56 29 68 33 Q60 38 60 44 Z" fill="#CBA76A"/>
-  <path d="M36 74 Q34 88 48 87 Q50 78 46 71 Z" fill="#CBA76A"/>
-  <circle cx="40" cy="52" r="3" fill="#6B5231"/>
-  <circle cx="52" cy="49" r="3.4" fill="#6B5231"/>
-  <circle cx="64" cy="53" r="3" fill="#6B5231"/>
-  <circle cx="76" cy="57" r="2.6" fill="#6B5231"/>
-  <circle cx="57" cy="62" r="2.8" fill="#6B5231"/>
-  <circle cx="46" cy="64" r="2.4" fill="#6B5231"/>
-  <circle cx="69" cy="65" r="2.4" fill="#6B5231"/>
-  <circle cx="86" cy="62" r="2.2" fill="#6B5231"/>
-  <circle cx="27" cy="55" r="4" fill="#2B2B2B"/>
-  <circle cx="28.4" cy="53.6" r="1.4" fill="#FFFFFF"/>
-  <path d="M22 64 q4 3.5 9 2" fill="none" stroke="#6B5231" stroke-width="2.2" stroke-linecap="round"/>
-  <path d="M36 54 v7 M40 55 v7 M44 56 v7" stroke="#B99859" stroke-width="1.8" stroke-linecap="round"/>
-</svg>`,
-  ei: `<svg aria-hidden="true" viewBox="0 0 120 120">
-  <path d="M60 14 C98 32 108 56 96 70 C88 80 73 85 60 85 C47 85 32 80 24 70 C12 56 22 32 60 14 Z" fill="#8FA7C0"/>
-  <path d="M60 24 C90 38 98 56 88 66 C81 74 70 78 60 78 C50 78 39 74 32 66 C22 56 30 38 60 24 Z" fill="#A9BDD2"/>
-  <path d="M60 84 C58 96 56 104 52 112 M60 84 C62 96 64 104 68 112" fill="none" stroke="#8FA7C0" stroke-width="5" stroke-linecap="round"/>
-  <circle cx="46" cy="50" r="5.2" fill="#2B2B2B"/>
-  <circle cx="74" cy="50" r="5.2" fill="#2B2B2B"/>
-  <circle cx="47.6" cy="48.4" r="1.9" fill="#FFFFFF"/>
-  <circle cx="75.6" cy="48.4" r="1.9" fill="#FFFFFF"/>
-  <path d="M50 64 q10 8 20 0" fill="none" stroke="#2B2B2B" stroke-width="3" stroke-linecap="round"/>
-  <circle cx="39" cy="60" r="3.6" fill="#F7A8B8" opacity="0.6"/>
-  <circle cx="81" cy="60" r="3.6" fill="#F7A8B8" opacity="0.6"/>
-  <circle cx="60" cy="36" r="2.6" fill="#7B93AC"/>
-  <circle cx="48" cy="40" r="2.2" fill="#7B93AC"/>
-  <circle cx="72" cy="40" r="2.2" fill="#7B93AC"/>
-</svg>`,
-  gusoku: `<svg aria-hidden="true" viewBox="0 0 120 120">
-  <g stroke="#7E8694" stroke-width="5" stroke-linecap="round">
-    <path d="M30 92 l-9 12"/><path d="M42 98 l-6 13"/><path d="M55 101 l-2 13"/>
-    <path d="M65 101 l2 13"/><path d="M78 98 l6 13"/><path d="M90 92 l9 12"/>
+  kumanomi: `<svg aria-hidden="true" class="cr" viewBox="0 0 120 120">
+  <g class="pt km-fish">
+    <g transform="translate(9,-8) scale(0.85)">
+      <g class="pt km-tail">
+        <path d="M92 56 C102 44 112 42 116 46 C112 56 112 68 116 78 C112 82 102 80 92 68 Z" fill="#FF7A1F"/>
+        <path d="M110 45 C113 44 116 45 116 46 C112 56 112 68 116 78 C115 80 112 80 110 79 C107 68 107 56 110 45 Z" fill="#FFFFFF"/>
+        <path d="M92 56 C102 44 112 42 116 46 C112 56 112 68 116 78 C112 82 102 80 92 68" fill="none" stroke="#141414" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M100 53 L110 60 M100 71 L110 64" stroke="#E0600F" stroke-width="1.4" stroke-linecap="round"/>
+      </g>
+      <path d="M40 40 C44 30 52 27 58 30 C60 33 58 36 56 38 C62 30 72 30 80 36 C82 40 80 42 76 42 Z" fill="#FF7A1F"/>
+      <path d="M40 40 C44 30 52 27 58 30 C60 33 58 36 56 38 C62 30 72 30 80 36 C82 40 80 42 76 42" fill="none" stroke="#141414" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M62 86 C66 96 76 96 80 88 Q72 86 70 82 Z" fill="#FF7A1F" stroke="#141414" stroke-width="1.8" stroke-linejoin="round"/>
+      <ellipse cx="58" cy="62" rx="40" ry="27" fill="#FF7A1F"/>
+      <path d="M22 68 C30 82 46 89 62 88 C44 92 27 83 20 70 Z" fill="#D9540A" opacity="0.45"/>
+      <path d="M26 50 C34 40 48 35 60 36 C46 38 34 44 28 54 Z" fill="#FFFFFF" opacity="0.4"/>
+      <path d="M33 43 C42 45 42 79 33 81 C28 76 28 48 33 43 Z" fill="#FFFFFF" stroke="#141414" stroke-width="2.4"/>
+      <path d="M53 35 C65 34 66 89 55 89 C46 86 45 37 53 35 Z" fill="#FFFFFF" stroke="#141414" stroke-width="2.4"/>
+      <path d="M86 45 C93 47 93 77 86 79 C81 74 81 50 86 45 Z" fill="#FFFFFF" stroke="#141414" stroke-width="2.4"/>
+      <path d="M56 40 C60 40 61 60 60 84 C58 62 54 42 56 40 Z" fill="#DCE8F0" opacity="0.7"/>
+      <path d="M44 86 Q48 98 56 94 Q52 90 52 84 Z" fill="#FF7A1F" stroke="#141414" stroke-width="1.8" stroke-linejoin="round"/>
+      <g class="pt km-fin">
+        <path d="M42 60 Q54 57 58 66 Q52 77 40 72 Z" fill="#FFA24F" opacity="0.95"/>
+        <path d="M44 62 Q52 62 55 67 M44 69 Q50 70 54 68" stroke="#E0600F" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+      </g>
+      <circle cx="29" cy="54" r="5.8" fill="#FF9A3C"/>
+      <circle cx="29" cy="54" r="3.8" fill="#141414"/>
+      <circle cx="30.4" cy="52.6" r="1.4" fill="#FFFFFF"/>
+      <circle cx="37" cy="65" r="3.2" fill="#FF6A5A" opacity="0.45"/>
+      <path d="M20 66 q4 4 9 2" fill="none" stroke="#7A3A12" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
   </g>
-  <path d="M44 36 l-7 -11 M76 36 l7 -11" stroke="#7E8694" stroke-width="4" stroke-linecap="round"/>
-  <ellipse cx="60" cy="66" rx="42" ry="34" fill="#9BA3B0"/>
-  <path d="M22 62 C24 42 40 30 60 30 C80 30 96 42 98 62 Z" fill="#B7BEC9"/>
-  <g stroke="#7E8694" stroke-width="4" fill="none" stroke-linecap="round">
-    <path d="M28 58 q32 -10 64 0"/>
-    <path d="M25 70 q35 -10 70 0"/>
-    <path d="M27 82 q33 -10 66 0"/>
+  <g class="pt km-anem">
+    <ellipse cx="60" cy="114" rx="36" ry="6" fill="#B85C95"/>
+    <g class="pt km-tA" stroke="#F39AC7" stroke-width="7" stroke-linecap="round" fill="none">
+      <path d="M30 112 C26 100 22 92 24 82"/>
+      <path d="M46 112 C44 98 42 88 44 78"/>
+      <path d="M62 112 C62 98 60 88 62 76"/>
+      <path d="M78 112 C80 98 82 88 80 78"/>
+      <path d="M92 112 C96 100 98 92 96 82"/>
+    </g>
+    <g class="pt km-tB" stroke="#E57FB4" stroke-width="6" stroke-linecap="round" fill="none">
+      <path d="M38 112 C34 102 32 94 34 86"/>
+      <path d="M54 112 C52 100 50 92 52 84"/>
+      <path d="M70 112 C70 100 72 92 70 84"/>
+      <path d="M86 112 C88 102 90 94 88 86"/>
+    </g>
+    <g fill="#FFD1E8">
+      <circle cx="24" cy="82" r="3.4"/><circle cx="44" cy="78" r="3.4"/><circle cx="62" cy="76" r="3.4"/>
+      <circle cx="80" cy="78" r="3.4"/><circle cx="96" cy="82" r="3.4"/>
+    </g>
+    <path d="M26 116 C40 110 80 110 94 116" stroke="#A04E82" stroke-width="2" fill="none" stroke-linecap="round"/>
   </g>
-  <circle cx="46" cy="48" r="6.2" fill="#2B2B2B"/>
-  <circle cx="74" cy="48" r="6.2" fill="#2B2B2B"/>
-  <circle cx="48" cy="46" r="2.2" fill="#FFFFFF"/>
-  <circle cx="76" cy="46" r="2.2" fill="#FFFFFF"/>
-  <path d="M54 60 q6 5 12 0" fill="none" stroke="#2B2B2B" stroke-width="3" stroke-linecap="round"/>
-  <circle cx="38" cy="56" r="4" fill="#F7A8B8" opacity="0.45"/>
-  <circle cx="82" cy="56" r="4" fill="#F7A8B8" opacity="0.45"/>
 </svg>`,
-  pelican: `<svg aria-hidden="true" viewBox="0 0 120 120">
-  <path d="M46 96 v13 M60 96 v13" stroke="#E8933F" stroke-width="4.5" stroke-linecap="round"/>
-  <ellipse cx="45" cy="110" rx="8" ry="3.6" fill="#E8933F"/>
-  <ellipse cx="61" cy="110" rx="8" ry="3.6" fill="#E8933F"/>
-  <path d="M62 62 C70 54 74 46 78 38" stroke="#F9D5DC" stroke-width="14" stroke-linecap="round"/>
-  <ellipse cx="52" cy="76" rx="29" ry="23" fill="#F9D5DC"/>
-  <path d="M32 66 C26 82 40 94 62 90 C46 90 36 82 36 70 Z" fill="#F3B9C6"/>
-  <path d="M24 76 C18 80 16 86 22 88 C27 89 31 84 32 79 Z" fill="#F3B9C6"/>
-  <circle cx="80" cy="32" r="14" fill="#F9D5DC"/>
-  <path d="M76 18 q3 -6 8 -4 q-4 1 -4 6 Z" fill="#F3B9C6"/>
-  <path d="M91 27 C104 29 113 33 116 37 C112 40 103 39 91 36 Z" fill="#F2A03D"/>
-  <path d="M91 35 C95 49 107 49 115 40 C112 51 98 56 89 42 Z" fill="#E8933F"/>
-  <circle cx="84" cy="27" r="3.8" fill="#2B2B2B"/>
-  <circle cx="85.3" cy="25.7" r="1.4" fill="#FFFFFF"/>
-  <circle cx="76" cy="34" r="3.4" fill="#F7A8B8"/>
+  penguin: `<svg aria-hidden="true" class="cr" viewBox="0 0 120 120">
+  <ellipse cx="60" cy="112" rx="30" ry="4.5" fill="#1B4965" opacity="0.14"/>
+  <g class="pt pg-all">
+    <g class="pt pg-footL">
+      <path d="M40 108 C40 102 46 101 52 102 C56 103 57 108 54 110 C50 111 43 111 40 108 Z" fill="#2E3338"/>
+      <circle cx="45" cy="106" r="1.2" fill="#D9A3A8"/><circle cx="50" cy="104.6" r="1" fill="#D9A3A8"/>
+    </g>
+    <g class="pt pg-footR">
+      <path d="M80 108 C80 102 74 101 68 102 C64 103 63 108 66 110 C70 111 77 111 80 108 Z" fill="#2E3338"/>
+      <circle cx="75" cy="106" r="1.2" fill="#D9A3A8"/><circle cx="70" cy="104.6" r="1" fill="#D9A3A8"/>
+    </g>
+    <g class="pt pg-waddle">
+      <path d="M60 30 C84 30 92 58 90 80 C88 98 76 106 60 106 C44 106 32 98 30 80 C28 58 36 30 60 30 Z" fill="#23282D"/>
+      <path d="M60 50 C76 50 82 66 81 82 C80 96 71 102 60 102 C49 102 40 96 39 82 C38 66 44 50 60 50 Z" fill="#FFFFFF"/>
+      <path d="M40 86 C42 96 50 101 60 101 C52 101 44 96 41 86 Z" fill="#D9E2E8"/>
+      <path d="M41 62 C47 70 73 70 79 62" fill="none" stroke="#23282D" stroke-width="4.6" stroke-linecap="round"/>
+      <path d="M41 62 C37 74 38 88 44 98 M79 62 C83 74 82 88 76 98" fill="none" stroke="#23282D" stroke-width="3.2" stroke-linecap="round"/>
+      <g fill="#23282D">
+        <circle cx="52" cy="78" r="1.6"/><circle cx="67" cy="82" r="1.8"/><circle cx="57" cy="90" r="1.4"/>
+        <circle cx="71" cy="92" r="1.3"/><circle cx="48" cy="88" r="1.2"/><circle cx="62" cy="74" r="1.1"/>
+      </g>
+      <g class="pt pg-flipL">
+        <path d="M33 58 C24 66 24 86 30 96 C34 90 36 76 38 62 Z" fill="#1B2024"/>
+        <path d="M34 64 C31 74 31 84 32 90" stroke="#FFFFFF" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.55"/>
+      </g>
+      <g class="pt pg-flipR">
+        <path d="M87 58 C96 66 96 86 90 96 C86 90 84 76 82 62 Z" fill="#1B2024"/>
+        <path d="M86 64 C89 74 89 84 88 90" stroke="#FFFFFF" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.55"/>
+      </g>
+      <g class="pt pg-head">
+        <circle cx="60" cy="34" r="20" fill="#23282D"/>
+        <path d="M46 22 C52 16 62 15 70 18 C62 17 54 19 48 25 Z" fill="#FFFFFF" opacity="0.18"/>
+        <path d="M49 21 C40 26 38 38 42 46 C45 51 51 53 56 54 L60 54 L64 54 C69 53 75 51 78 46 C82 38 80 26 71 21 C76 28 76 38 72 44 C69 48 64 49 60 49 C56 49 51 48 48 44 C44 38 44 28 49 21 Z" fill="#FFFFFF"/>
+        <path d="M47.5 30 C49 27.6 54 27.2 56 29.4 C54 30.2 50 30.6 47.5 30 Z" fill="#E98FA0"/>
+        <path d="M72.5 30 C71 27.6 66 27.2 64 29.4 C66 30.2 70 30.6 72.5 30 Z" fill="#E98FA0"/>
+        <circle cx="52" cy="34.6" r="3.8" fill="#FFFFFF" opacity="0.12"/>
+        <circle cx="68" cy="34.6" r="3.8" fill="#FFFFFF" opacity="0.12"/>
+        <circle cx="52" cy="34.6" r="3.3" fill="#5A3322"/>
+        <circle cx="68" cy="34.6" r="3.3" fill="#5A3322"/>
+        <circle cx="52" cy="34.6" r="1.9" fill="#120C0A"/>
+        <circle cx="68" cy="34.6" r="1.9" fill="#120C0A"/>
+        <circle cx="53.2" cy="33.2" r="1.3" fill="#FFFFFF"/>
+        <circle cx="69.2" cy="33.2" r="1.3" fill="#FFFFFF"/>
+        <circle cx="51" cy="35.8" r="0.6" fill="#FFFFFF" opacity="0.8"/>
+        <circle cx="67" cy="35.8" r="0.6" fill="#FFFFFF" opacity="0.8"/>
+        <g class="pt pg-beak">
+          <path d="M55 38 C57 36 63 36 65 38 L61 49 C60.5 50 59.5 50 59 49 Z" fill="#101316"/>
+          <path d="M56.6 44 L63.4 44" stroke="#8C949B" stroke-width="1.4" stroke-linecap="round"/>
+        </g>
+      </g>
+    </g>
+  </g>
 </svg>`,
-  utsubo: `<svg aria-hidden="true" viewBox="0 0 120 120">
-  <ellipse cx="40" cy="112" rx="24" ry="7" fill="#9AA0A8"/>
-  <ellipse cx="70" cy="113" rx="16" ry="5.5" fill="#B3B9C0"/>
-  <path d="M36 110 C32 90 38 72 52 64 C63 58 68 50 67 38" fill="none" stroke="#7A8B5A" stroke-width="19" stroke-linecap="round"/>
-  <circle cx="66" cy="32" r="14" fill="#7A8B5A"/>
-  <path d="M78 28 C86 27 91 31 90 36 C89 41 82 43 76 40 Z" fill="#E88A96"/>
-  <path d="M78 28 C86 27 91 31 90 36" fill="none" stroke="#5E6B44" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M79 30 l2 3 l2.5 -3.5" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
-  <circle cx="62" cy="26" r="4.2" fill="#2B2B2B"/>
-  <circle cx="63.4" cy="24.6" r="1.5" fill="#FFFFFF"/>
-  <circle cx="45" cy="94" r="3.2" fill="#C9D3A0"/>
-  <circle cx="42" cy="80" r="3" fill="#C9D3A0"/>
-  <circle cx="52" cy="68" r="3" fill="#C9D3A0"/>
-  <circle cx="62" cy="52" r="2.8" fill="#C9D3A0"/>
-  <circle cx="56" cy="38" r="2.6" fill="#C9D3A0"/>
-  <path d="M52 22 q4 -8 12 -8" fill="none" stroke="#5E6B44" stroke-width="3" stroke-linecap="round"/>
+  kawauso: `<svg aria-hidden="true" class="cr" viewBox="0 0 120 120">
+  <ellipse cx="62" cy="114" rx="38" ry="4.5" fill="#1B4965" opacity="0.14"/>
+  <g class="pt kw-tail">
+    <path d="M72 96 C84 98 98 104 106 98 C110 95 114 95 113 99 C111 106 100 111 88 110 C80 109 74 107 70 105 Z" fill="#6B4A33"/>
+    <path d="M78 104 C88 107 100 106 108 100" stroke="#8A6448" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+  <path d="M60 50 C74 50 80 64 80 80 C80 96 74 108 60 108 C46 108 40 96 40 80 C40 64 46 50 60 50 Z" fill="#7A5438"/>
+  <path d="M42 90 C44 102 52 108 60 108 C50 108 43 101 41 90 Z" fill="#5E3F2A"/>
+  <path d="M60 54 C68 54 71 62 71 70 C71 80 66 86 60 86 C54 86 49 80 49 70 C49 62 52 54 60 54 Z" fill="#E6D2B5"/>
+  <path d="M42 108 C42 102 48 100 54 102 C57 104 56 110 52 111 C48 112 43 111 42 108 Z" fill="#5E3F2A"/>
+  <path d="M78 108 C78 102 72 100 66 102 C63 104 64 110 68 111 C72 112 77 111 78 108 Z" fill="#5E3F2A"/>
+  <path d="M44 110 l-1 2 M47 110.6 l0 2 M50 110.4 l1 2 M76 110 l1 2 M73 110.6 l0 2 M70 110.4 l-1 2" stroke="#3E2A1C" stroke-width="1" stroke-linecap="round"/>
+  <g class="pt kw-head">
+    <ellipse cx="39.5" cy="34" rx="4.6" ry="4" fill="#6B4A33"/>
+    <ellipse cx="80.5" cy="34" rx="4.6" ry="4" fill="#6B4A33"/>
+    <ellipse cx="39.5" cy="34.5" rx="2.2" ry="1.8" fill="#C9A98A"/>
+    <ellipse cx="80.5" cy="34.5" rx="2.2" ry="1.8" fill="#C9A98A"/>
+    <path d="M60 18 C76 18 84 26 84 36 C84 48 74 55 60 55 C46 55 36 48 36 36 C36 26 44 18 60 18 Z" fill="#7A5438"/>
+    <path d="M44 24 C50 19 58 18 66 19 C58 20 50 23 46 28 Z" fill="#FFFFFF" opacity="0.22"/>
+    <path d="M44 42 C46 50 52 55 60 55 C68 55 74 50 76 42 C72 46 66 48 60 48 C54 48 48 46 44 42 Z" fill="#E6D2B5"/>
+    <ellipse cx="60" cy="42" rx="11" ry="7" fill="#EFE0C8"/>
+    <path d="M55.5 37 C57 35.6 63 35.6 64.5 37 C64.5 39.2 62 40.6 60 40.6 C58 40.6 55.5 39.2 55.5 37 Z" fill="#3A2618"/>
+    <ellipse cx="58.3" cy="36.9" rx="1.2" ry="0.7" fill="#6E5242"/>
+    <path d="M60 40.6 L60 43 M56.5 44.5 C58 46 62 46 63.5 44.5" fill="none" stroke="#3A2618" stroke-width="1.6" stroke-linecap="round"/>
+    <g fill="#8C6A52"><circle cx="54" cy="42" r="0.7"/><circle cx="52" cy="44" r="0.7"/><circle cx="66" cy="42" r="0.7"/><circle cx="68" cy="44" r="0.7"/></g>
+    <path d="M52 42 l-15 -3 M52 44 l-15 1 M53 46 l-13 4" stroke="#8C6A52" stroke-width="1" stroke-linecap="round"/>
+    <path d="M68 42 l15 -3 M68 44 l15 1 M67 46 l13 4" stroke="#8C6A52" stroke-width="1" stroke-linecap="round"/>
+    <circle cx="50" cy="31.5" r="3.2" fill="#1E1612"/>
+    <circle cx="70" cy="31.5" r="3.2" fill="#1E1612"/>
+    <circle cx="51" cy="30.4" r="1.1" fill="#FFFFFF"/>
+    <circle cx="71" cy="30.4" r="1.1" fill="#FFFFFF"/>
+  </g>
+  <g class="pt kw-stone" opacity="0">
+    <ellipse cx="60" cy="71" rx="5.6" ry="4.4" fill="#B7BEC9"/>
+    <ellipse cx="58.4" cy="69.6" rx="2" ry="1.2" fill="#FFFFFF" opacity="0.7"/>
+  </g>
+  <g class="pt kw-pawL">
+    <path d="M44 62 C42 68 44 74 50 76" stroke="#6B4A33" stroke-width="6.5" fill="none" stroke-linecap="round"/>
+    <ellipse cx="51.5" cy="75" rx="4.2" ry="3.4" fill="#5E3F2A"/>
+    <path d="M53 72.6 l1.6 -0.8 M54.4 74.6 l1.8 -0.2 M54.2 76.8 l1.6 0.6" stroke="#E6D2B5" stroke-width="0.9" stroke-linecap="round"/>
+  </g>
+  <g class="pt kw-pawR">
+    <path d="M76 62 C78 68 76 74 70 76" stroke="#6B4A33" stroke-width="6.5" fill="none" stroke-linecap="round"/>
+    <ellipse cx="68.5" cy="75" rx="4.2" ry="3.4" fill="#5E3F2A"/>
+    <path d="M67 72.6 l-1.6 -0.8 M65.6 74.6 l-1.8 -0.2 M65.8 76.8 l-1.6 0.6" stroke="#E6D2B5" stroke-width="0.9" stroke-linecap="round"/>
+  </g>
 </svg>`,
-  nishiki: `<svg aria-hidden="true" viewBox="0 0 120 120">
-  <ellipse cx="60" cy="105" rx="46" ry="11" fill="#F0DCA8"/>
-  <ellipse cx="60" cy="102" rx="32" ry="7" fill="#E4C98B"/>
-  <path d="M50 102 C46 74 48 48 56 32 C61 21 72 19 76 27 C81 35 76 43 72 52 C65 66 62 84 64 102 Z" fill="#FFFDF5" stroke="#E0C9A0" stroke-width="2"/>
-  <path d="M50 62 C56 64 62 63 67 60" fill="none" stroke="#F08A3C" stroke-width="6.5" stroke-linecap="round"/>
-  <path d="M49 76 C55 78 60 77 64 75" fill="none" stroke="#F08A3C" stroke-width="6.5" stroke-linecap="round"/>
-  <path d="M50 90 C55 92 60 91 63 90" fill="none" stroke="#F08A3C" stroke-width="6.5" stroke-linecap="round"/>
-  <path d="M53 47 C59 49 66 47 70 44" fill="none" stroke="#F08A3C" stroke-width="6.5" stroke-linecap="round"/>
-  <circle cx="61" cy="34" r="5.6" fill="#2B2B2B"/>
-  <circle cx="72" cy="31" r="5.6" fill="#2B2B2B"/>
-  <circle cx="62.6" cy="32.4" r="2" fill="#FFFFFF"/>
-  <circle cx="73.6" cy="29.4" r="2" fill="#FFFFFF"/>
-  <path d="M65 41 q4 3.5 8 0" fill="none" stroke="#2B2B2B" stroke-width="2.4" stroke-linecap="round"/>
-  <circle cx="55" cy="40" r="2.6" fill="#F7A8B8" opacity="0.6"/>
-</svg>`
+  azarashi: `<svg aria-hidden="true" class="cr" viewBox="0 0 120 120">
+  <ellipse cx="60" cy="106" rx="42" ry="5" fill="#1B4965" opacity="0.12"/>
+  <g class="pt az-all">
+    <ellipse cx="60" cy="63" rx="39" ry="35" fill="#98ACBD"/>
+    <path d="M24 62 C22 44 36 28 60 28 C84 28 98 44 96 62 C92 46 78 36 60 36 C42 36 28 46 24 62 Z" fill="#7F95A8" opacity="0.7"/>
+    <path d="M26 74 C32 90 46 98 60 98 C42 98 30 88 24 76 Z" fill="#7C92A4" opacity="0.6"/>
+    <path d="M34 40 C42 32 54 29 64 30 C52 31 43 36 38 44 Z" fill="#FFFFFF" opacity="0.35"/>
+    <ellipse cx="60" cy="77" rx="26" ry="20" fill="#CAD7E2"/>
+    <path d="M42 85 C48 93 56 96 62 96 C52 96 45 91 41 85 Z" fill="#B3C3D0" opacity="0.9"/>
+    <g class="pt az-eyes">
+      <circle cx="45" cy="53" r="7.4" fill="#141C24"/>
+      <circle cx="75" cy="53" r="7.4" fill="#141C24"/>
+      <circle cx="47.6" cy="50.4" r="2.6" fill="#FFFFFF"/>
+      <circle cx="77.6" cy="50.4" r="2.6" fill="#FFFFFF"/>
+      <circle cx="43" cy="56" r="1.2" fill="#FFFFFF" opacity="0.9"/>
+      <circle cx="73" cy="56" r="1.2" fill="#FFFFFF" opacity="0.9"/>
+    </g>
+    <ellipse cx="60" cy="67" rx="11" ry="8" fill="#DCE5EC"/>
+    <path d="M56.4 62 C57.2 63.6 58 64.4 58.6 64.8 M63.6 62 C62.8 63.6 62 64.4 61.4 64.8" stroke="#2B3640" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M60 65.4 L60 67.6 M56 70 q2 2.4 4 0 q2 2.4 4 0" fill="none" stroke="#2B3640" stroke-width="1.6" stroke-linecap="round"/>
+    <g fill="#8FA3B2"><circle cx="53" cy="65.6" r="0.9"/><circle cx="52" cy="68.6" r="0.9"/><circle cx="67" cy="65.6" r="0.9"/><circle cx="68" cy="68.6" r="0.9"/></g>
+    <path d="M50 66 C44 64 40 63 35 63 M50 68.4 C44 68.4 40 69 35 70.6 M51 70.6 C46 72 42 73.6 38 76" stroke="#EEF3F6" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-dasharray="1.6 1.2"/>
+    <path d="M70 66 C76 64 80 63 85 63 M70 68.4 C76 68.4 80 69 85 70.6 M69 70.6 C74 72 78 73.6 82 76" stroke="#EEF3F6" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-dasharray="1.6 1.2"/>
+    <circle cx="38" cy="67" r="4.2" fill="#F7A8B8" opacity="0.45"/>
+    <circle cx="82" cy="67" r="4.2" fill="#F7A8B8" opacity="0.45"/>
+    <g class="pt az-finL">
+      <path d="M26 84 C14 90 12 99 20 101 C28 102 33 95 36 88 Z" fill="#8398AA"/>
+      <path d="M17 97 l-2.6 1.2 M19 99.6 l-2.2 1.8 M22 100.8 l-1.4 2.2" stroke="#3E4C58" stroke-width="1.3" stroke-linecap="round"/>
+      <path d="M22 92 l6 -3" stroke="#6E8496" stroke-width="1.3" stroke-linecap="round"/>
+    </g>
+    <g class="pt az-finR">
+      <path d="M94 84 C106 90 108 99 100 101 C92 102 87 95 84 88 Z" fill="#8398AA"/>
+      <path d="M103 97 l2.6 1.2 M101 99.6 l2.2 1.8 M98 100.8 l1.4 2.2" stroke="#3E4C58" stroke-width="1.3" stroke-linecap="round"/>
+      <path d="M98 92 l-6 -3" stroke="#6E8496" stroke-width="1.3" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>`,
+  kurage: `<svg aria-hidden="true" class="cr" viewBox="0 0 120 120">
+  <ellipse cx="60" cy="44" rx="50" ry="34" fill="#DDF1FB" opacity="0.28"/>
+  <g class="pt kr-all">
+    <g class="pt kr-tent">
+      <path d="M52 58 C48 70 54 78 49 88 C46 95 50 101 47 108" stroke="#D9C4EE" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.85"/>
+      <path d="M68 58 C72 70 66 78 71 88 C74 95 70 101 73 108" stroke="#D9C4EE" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.85"/>
+      <path d="M57 58 C55 72 60 82 57 96" stroke="#E6D6F4" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.9"/>
+      <path d="M63 58 C65 72 60 82 63 96" stroke="#E6D6F4" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.9"/>
+      <path d="M52 64 l-3 2 M50 74 l3 2 M51 84 l-3 2 M68 64 l3 2 M70 74 l-3 2 M69 84 l3 2 M57 70 l-2.6 1.6 M63 70 l2.6 1.6 M57 84 l-2.6 1.6 M63 84 l2.6 1.6" stroke="#C7AEE3" stroke-width="1.6" stroke-linecap="round"/>
+    </g>
+    <g class="pt kr-bell">
+      <path d="M19.0 58.5 q1.4 5 0 9" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M22.7 58.5 q-1.4 5 0 10" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M26.4 58.5 q1.4 5 0 11" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M30.1 57.0 q-1.4 5 0 9" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M33.8 57.0 q1.4 5 0 10" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M37.5 57.0 q-1.4 5 0 11" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M41.2 57.0 q1.4 5 0 9" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M44.9 57.0 q-1.4 5 0 10" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M48.6 57.0 q1.4 5 0 11" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M52.3 57.0 q-1.4 5 0 9" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M56.0 57.0 q1.4 5 0 10" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M59.7 57.0 q-1.4 5 0 11" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M63.4 57.0 q1.4 5 0 9" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M67.1 57.0 q-1.4 5 0 10" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M70.8 57.0 q1.4 5 0 11" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M74.5 57.0 q-1.4 5 0 9" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M78.2 57.0 q1.4 5 0 10" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M81.9 57.0 q-1.4 5 0 11" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M85.6 57.0 q1.4 5 0 9" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M89.3 57.0 q-1.4 5 0 10" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M93.0 58.5 q1.4 5 0 11" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M96.7 58.5 q-1.4 5 0 9" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/><path d="M100.4 58.5 q1.4 5 0 10" stroke="#BFE2F2" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+      <path d="M16 56 C16 30 36 16 60 16 C84 16 104 30 104 56 C98 60 90 59 84 58 C76 60 68 60 60 60 C52 60 44 60 36 58 C30 59 22 60 16 56 Z" fill="#E6F5FC" stroke="#BBDFF0" stroke-width="2" opacity="0.95"/>
+      <path d="M60 18 L60 57 M36 22 C40 34 44 46 46 58 M84 22 C80 34 76 46 74 58 M22 36 C28 44 32 52 32 58 M98 36 C92 44 88 52 88 58" stroke="#CBE7F4" stroke-width="1" fill="none"/>
+      <path d="M28 36 C32 26 42 20 52 18 C42 23 34 30 31 40 Z" fill="#FFFFFF" opacity="0.6"/>
+      <path d="M20 55 C30 58 46 59 60 59 C74 59 90 58 100 55" stroke="#A9D3E8" stroke-width="1.6" fill="none" opacity="0.8"/>
+      <g transform="rotate(135 52 33)"><path d="M47 35 A5.4 5.4 0 1 1 57 35" fill="none" stroke="#C79BE0" stroke-width="3.2" stroke-linecap="round"/><path d="M47 35 A5.4 5.4 0 1 1 57 35" fill="none" stroke="#E7CFF4" stroke-width="1.1" stroke-linecap="round"/></g><g transform="rotate(-135 68 33)"><path d="M63 35 A5.4 5.4 0 1 1 73 35" fill="none" stroke="#C79BE0" stroke-width="3.2" stroke-linecap="round"/><path d="M63 35 A5.4 5.4 0 1 1 73 35" fill="none" stroke="#E7CFF4" stroke-width="1.1" stroke-linecap="round"/></g><g transform="rotate(45 52 45)"><path d="M47 47 A5.4 5.4 0 1 1 57 47" fill="none" stroke="#C79BE0" stroke-width="3.2" stroke-linecap="round"/><path d="M47 47 A5.4 5.4 0 1 1 57 47" fill="none" stroke="#E7CFF4" stroke-width="1.1" stroke-linecap="round"/></g><g transform="rotate(-45 68 45)"><path d="M63 47 A5.4 5.4 0 1 1 73 47" fill="none" stroke="#C79BE0" stroke-width="3.2" stroke-linecap="round"/><path d="M63 47 A5.4 5.4 0 1 1 73 47" fill="none" stroke="#E7CFF4" stroke-width="1.1" stroke-linecap="round"/></g>
+      <circle cx="60" cy="39" r="2.2" fill="#E7CFF4"/>
+      <circle cx="53" cy="52" r="2.3" fill="#3E4E68"/>
+      <circle cx="67" cy="52" r="2.3" fill="#3E4E68"/>
+      <circle cx="53.8" cy="51.2" r="0.8" fill="#FFFFFF"/>
+      <circle cx="67.8" cy="51.2" r="0.8" fill="#FFFFFF"/>
+      <path d="M57.5 55 q2.5 2 5 0" fill="none" stroke="#3E4E68" stroke-width="1.5" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>`,
+  chinanago: `<svg aria-hidden="true" class="cr" viewBox="0 0 120 120"><ellipse cx="60" cy="106" rx="52" ry="13" fill="#F0DCA8"/><g class="pt cn-main"><path d="M53 106 C50 82 47 60 50 46 C53 32 62 24 72 27" fill="none" stroke="#C9C6B4" stroke-width="15.2" stroke-linecap="round"/><path d="M53 106 C50 82 47 60 50 46 C53 32 62 24 72 27" fill="none" stroke="#FBFAF3" stroke-width="13" stroke-linecap="round"/><path d="M56.6 105.5 L56.4 103.6 L56.1 101.6 L55.9 99.6 L55.6 97.6 L55.4 95.6 L55.1 93.7 L54.9 91.7 L54.7 89.7 L54.4 87.7 L54.2 85.7 L54.0 83.8 L53.8 81.8 L53.6 79.8 L53.4 77.8 L53.2 75.9 L53.0 73.9 L52.9 71.9 L52.7 70.0 L52.6 68.0 L52.5 66.1 L52.5 64.1 L52.4 62.2 L52.4 60.2 L52.4 58.3 L52.5 56.4 L52.6 54.5 L52.7 52.6 L52.9 50.7 L53.2 48.8 L53.5 47.0 L53.9 45.3 L54.4 43.5 L55.0 41.8 L55.7 40.2 L56.4 38.6 L57.3 37.1 L58.2 35.6 L59.3 34.3 L60.4 33.2 L61.7 32.2 L62.9 31.3 L64.3 30.7" fill="none" stroke="#E2DFD0" stroke-width="4.2" stroke-linecap="round" opacity="0.7"/><circle cx="46.5" cy="78.6" r="0.81" fill="#2A2A2A"/><circle cx="52.1" cy="96.2" r="0.70" fill="#2A2A2A"/><circle cx="52.0" cy="97.2" r="0.56" fill="#2A2A2A"/><circle cx="45.1" cy="70.7" r="0.59" fill="#2A2A2A"/><circle cx="52.2" cy="70.9" r="0.60" fill="#2A2A2A"/><circle cx="51.7" cy="85.3" r="0.93" fill="#2A2A2A"/><circle cx="47.8" cy="60.2" r="0.94" fill="#2A2A2A"/><circle cx="55.3" cy="97.6" r="0.67" fill="#2A2A2A"/><circle cx="47.6" cy="91.5" r="0.67" fill="#2A2A2A"/><circle cx="47.8" cy="42.3" r="0.78" fill="#2A2A2A"/><circle cx="47.7" cy="55.7" r="0.77" fill="#2A2A2A"/><circle cx="47.8" cy="97.4" r="0.63" fill="#2A2A2A"/><circle cx="48.4" cy="52.7" r="0.68" fill="#2A2A2A"/><circle cx="48.3" cy="59.5" r="0.67" fill="#2A2A2A"/><circle cx="52.1" cy="45.1" r="0.65" fill="#2A2A2A"/><circle cx="49.0" cy="60.3" r="0.90" fill="#2A2A2A"/><circle cx="47.5" cy="49.0" r="0.94" fill="#2A2A2A"/><circle cx="50.6" cy="93.1" r="0.85" fill="#2A2A2A"/><circle cx="51.0" cy="90.6" r="0.57" fill="#2A2A2A"/><circle cx="51.4" cy="53.8" r="0.78" fill="#2A2A2A"/><circle cx="50.5" cy="38.5" r="0.83" fill="#2A2A2A"/><circle cx="49.5" cy="58.9" r="0.73" fill="#2A2A2A"/><circle cx="55.2" cy="42.9" r="0.74" fill="#2A2A2A"/><circle cx="44.9" cy="53.6" r="0.83" fill="#2A2A2A"/><circle cx="53.5" cy="55.4" r="0.88" fill="#2A2A2A"/><circle cx="49.0" cy="81.2" r="0.82" fill="#2A2A2A"/><circle cx="51.9" cy="99.8" r="0.62" fill="#2A2A2A"/><circle cx="47.3" cy="93.5" r="0.86" fill="#2A2A2A"/><circle cx="48.9" cy="92.4" r="0.71" fill="#2A2A2A"/><circle cx="48.4" cy="37.9" r="0.73" fill="#2A2A2A"/><circle cx="52.4" cy="62.1" r="0.88" fill="#2A2A2A"/><circle cx="49.9" cy="39.2" r="0.72" fill="#2A2A2A"/><circle cx="53.1" cy="75.5" r="0.93" fill="#2A2A2A"/><circle cx="48.1" cy="91.0" r="0.64" fill="#2A2A2A"/><circle cx="50.3" cy="84.8" r="0.79" fill="#2A2A2A"/><circle cx="45.6" cy="83.1" r="0.72" fill="#2A2A2A"/><circle cx="50.1" cy="75.0" r="0.93" fill="#2A2A2A"/><circle cx="49.2" cy="52.0" r="0.80" fill="#2A2A2A"/><circle cx="44.9" cy="52.7" r="0.91" fill="#2A2A2A"/><circle cx="53.5" cy="46.4" r="0.87" fill="#2A2A2A"/><circle cx="48.4" cy="73.5" r="0.59" fill="#2A2A2A"/><circle cx="44.7" cy="55.9" r="0.58" fill="#2A2A2A"/><circle cx="47.5" cy="86.9" r="0.69" fill="#2A2A2A"/><circle cx="47.3" cy="98.2" r="0.61" fill="#2A2A2A"/><circle cx="50.3" cy="94.3" r="0.56" fill="#2A2A2A"/><circle cx="53.1" cy="39.6" r="0.61" fill="#2A2A2A"/><circle cx="48.8" cy="63.4" r="3.6" fill="#2A2A2A"/><circle cx="50.7" cy="87.5" r="3.2" fill="#2A2A2A"/><g transform="translate(73 28) rotate(-18)"><ellipse cx="0" cy="0" rx="10.1" ry="8.1" fill="#FBFAF3" stroke="#C9C6B4" stroke-width="1.1"/><circle cx="-0.7" cy="-2.1" r="2.9" fill="#1B1B1B"/><circle cx="0.4" cy="-3.1" r="1.10" fill="#FFFFFF"/><path d="M5.5 2.3 q2.6 -0.3 4.4 -3.6" stroke="#3A3A3A" stroke-width="1.2" fill="none" stroke-linecap="round"/></g></g><g class="pt cn-sub"><path d="M97 106 C96 96 95 86 97 80 C99 73 94 67 88 68" fill="none" stroke="#C9C6B4" stroke-width="10.2" stroke-linecap="round"/><path d="M97 106 C96 96 95 86 97 80 C99 73 94 67 88 68" fill="none" stroke="#FBFAF3" stroke-width="8" stroke-linecap="round"/><circle cx="96.3" cy="95.7" r="0.70" fill="#2A2A2A"/><circle cx="96.9" cy="83.4" r="0.58" fill="#2A2A2A"/><circle cx="98.7" cy="103.2" r="0.65" fill="#2A2A2A"/><circle cx="98.9" cy="95.7" r="0.74" fill="#2A2A2A"/><circle cx="97.2" cy="75.6" r="0.81" fill="#2A2A2A"/><circle cx="97.1" cy="98.6" r="0.90" fill="#2A2A2A"/><circle cx="97.3" cy="86.2" r="0.82" fill="#2A2A2A"/><circle cx="98.1" cy="101.5" r="0.79" fill="#2A2A2A"/><circle cx="93.3" cy="93.7" r="0.90" fill="#2A2A2A"/><circle cx="97.1" cy="87.8" r="0.90" fill="#2A2A2A"/><circle cx="99.4" cy="80.3" r="0.71" fill="#2A2A2A"/><circle cx="97.1" cy="76.8" r="0.92" fill="#2A2A2A"/><circle cx="94.9" cy="74.8" r="0.60" fill="#2A2A2A"/><circle cx="98.8" cy="96.3" r="0.72" fill="#2A2A2A"/><circle cx="95.2" cy="82.4" r="0.75" fill="#2A2A2A"/><circle cx="95.0" cy="90.7" r="0.78" fill="#2A2A2A"/><circle cx="98.5" cy="84.3" r="0.82" fill="#2A2A2A"/><circle cx="98.3" cy="71.7" r="0.95" fill="#2A2A2A"/><circle cx="96.1" cy="84.0" r="2.2" fill="#2A2A2A"/><g transform="translate(87.5 68) rotate(200)"><ellipse cx="0" cy="0" rx="6.2" ry="5.0" fill="#FBFAF3" stroke="#C9C6B4" stroke-width="1.1"/><circle cx="-0.4" cy="-1.3" r="1.9" fill="#1B1B1B"/><circle cx="0.3" cy="-1.9" r="0.72" fill="#FFFFFF"/><path d="M3.4 1.4 q1.6 -0.2 2.7 -2.2" stroke="#3A3A3A" stroke-width="1.2" fill="none" stroke-linecap="round"/></g></g><path d="M6 107 Q60 97 114 107 L114 120 L6 120 Z" fill="#F0DCA8"/><circle cx="26" cy="110" r="2" fill="#D9BC7E"/><circle cx="84" cy="112" r="2.4" fill="#D9BC7E"/><circle cx="40" cy="114" r="1.6" fill="#D9BC7E"/><path d="M18 106 q3 -3 6 0 q-3 -1 -6 0 Z" fill="#F7F0DC"/><ellipse cx="53" cy="103.5" rx="10" ry="2.6" fill="#D9BC7E"/><ellipse cx="97" cy="104.8" rx="6.5" ry="2" fill="#D9BC7E"/></svg>`,
+  same: `<svg aria-hidden="true" class="cr" viewBox="0 0 120 120">
+  <g class="pt sm-all">
+    <g class="pt sm-tail">
+      <path d="M62 50 C78 52 96 51 114 46 C117 47 118 51 115 53 C104 60 90 64 78 66 C72 67 66 67 62 67 Z" fill="#D2AC68"/>
+      <path d="M64 63 C76 63 92 60 108 54 C98 61 86 65 74 66 Z" fill="#EAD8AE"/>
+      <path d="M64 53 C80 54 96 53 112 48" stroke="#B48C4E" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+      <path d="M66 50 Q72 43 78 49 Q72 49 70 52 Z" fill="#C49C5A"/>
+      <path d="M86 62 Q88 69 94 66 Q90 64 90 61 Z" fill="#C49C5A"/>
+      <circle cx="70" cy="56" r="1.8" fill="#5E3F1E"/><circle cx="78" cy="55" r="1.8" fill="#5E3F1E"/><circle cx="86" cy="55" r="1.6" fill="#5E3F1E"/><circle cx="94" cy="54" r="1.5" fill="#5E3F1E"/><circle cx="102" cy="53" r="1.3" fill="#5E3F1E"/><circle cx="74" cy="61" r="1.4" fill="#5E3F1E"/><circle cx="84" cy="60" r="1.4" fill="#5E3F1E"/><circle cx="92" cy="59" r="1.2" fill="#5E3F1E"/><circle cx="108" cy="52" r="1.1" fill="#5E3F1E"/>
+    </g>
+    <path d="M6 58 C7 50 16 45 28 44 C42 43 56 45 66 50 L66 67 C56 72 42 75 28 75 C16 74 7 67 6 58 Z" fill="#D6B26E"/>
+    <path d="M9 64 C16 71 28 74 40 74 C52 74 60 71 66 67 L66 70 C56 74 42 76 28 75 C18 74 11 70 9 64 Z" fill="#F0E0B8"/>
+    <path d="M14 50 C22 45 34 43 46 43 C34 45 24 48 18 53 Z" fill="#FFFFFF" opacity="0.35"/>
+    <path d="M18 49 C30 45 48 45 64 51 M20 54 C32 50 50 50 64 55 M22 59 C34 56 50 56 64 59" stroke="#B48C4E" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.9"/>
+    <path d="M42 44 Q48 32 56 36 Q52 40 52 45 Z" fill="#C49C5A"/>
+    <path d="M45 42 Q49 36 53 37" stroke="#A67E42" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+    <circle cx="24" cy="50" r="1.8" fill="#5E3F1E"/><circle cx="32" cy="47" r="2.2" fill="#5E3F1E"/><circle cx="40" cy="50" r="2.4" fill="#5E3F1E"/><circle cx="48" cy="47" r="2" fill="#5E3F1E"/><circle cx="56" cy="50" r="2.2" fill="#5E3F1E"/><circle cx="30" cy="56" r="1.8" fill="#5E3F1E"/><circle cx="38" cy="58" r="2" fill="#5E3F1E"/><circle cx="46" cy="56" r="2.2" fill="#5E3F1E"/><circle cx="54" cy="58" r="1.8" fill="#5E3F1E"/><circle cx="62" cy="55" r="2" fill="#5E3F1E"/><circle cx="44" cy="64" r="1.6" fill="#5E3F1E"/><circle cx="52" cy="65" r="1.8" fill="#5E3F1E"/><circle cx="36" cy="64" r="1.4" fill="#5E3F1E"/><circle cx="60" cy="62" r="1.6" fill="#5E3F1E"/><circle cx="26" cy="61" r="1.4" fill="#5E3F1E"/>
+    <path d="M30 57 v7 M33 57 v7.4 M36 57.4 v7.4 M39 58 v7 M42 58.6 v6.4" stroke="#8C6934" stroke-width="1.1" stroke-linecap="round"/>
+    <g class="pt sm-fin">
+      <path d="M32 72 C28 84 34 92 46 91 C44 84 40 77 38 71 Z" fill="#C49C5A"/>
+      <path d="M36 76 C35 82 38 87 43 88" stroke="#A67E42" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+    </g>
+    <path d="M54 72 Q56 79 62 77 Q59 75 59 71 Z" fill="#C49C5A"/>
+    <circle cx="18" cy="54" r="2.6" fill="#1E1810"/>
+    <circle cx="18.8" cy="53.2" r="0.9" fill="#FFFFFF"/>
+    <ellipse cx="24" cy="53.6" rx="1.4" ry="1" fill="#6B4A26"/>
+    <path d="M9 62 l-2 4.6 M12 63 l-1 4.8" stroke="#8C6934" stroke-width="1.3" stroke-linecap="round"/>
+    <circle cx="10" cy="59" r="1" fill="#6B4A26"/>
+    <g class="pt sm-mouth">
+      <path d="M11 67 q4 2.4 9 0.4" fill="none" stroke="#5E3F1E" stroke-width="1.8" stroke-linecap="round"/>
+    </g>
+  </g>
+  <g class="pt sm-bub" opacity="0">
+    <circle cx="8" cy="60" r="2.6" fill="none" stroke="#FFFFFF" stroke-width="1.5"/>
+    <circle cx="4" cy="50" r="3.4" fill="none" stroke="#FFFFFF" stroke-width="1.5"/>
+    <circle cx="9" cy="40" r="2.2" fill="none" stroke="#FFFFFF" stroke-width="1.3"/>
+  </g>
+</svg>`,
+  ei: `<svg aria-hidden="true" class="cr" viewBox="0 0 120 120">
+  <g class="pt ei-all">
+    <g class="pt ei-tail">
+      <path d="M60 84 C60 98 62 108 67 119" fill="none" stroke="#7D93AB" stroke-width="3.6" stroke-linecap="round"/>
+      <path d="M60 84 C60 98 62 108 67 119" fill="none" stroke="#A9BDD2" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M61 92 l4 -2.4" stroke="#5E7288" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M55 82 C51 84 50 89 53 90 C56 90 58 87 58 84 Z M65 82 C69 84 70 89 67 90 C64 90 62 87 62 84 Z" fill="#7D93AB"/>
+    </g>
+    <g class="pt ei-wingL">
+      <path d="M60 20 C54 32 36 44 10 55 C7 57 8 60 12 61 C30 68 46 78 60 87 Z" fill="#7D93AB"/>
+      <path d="M60 27 C54 37 40 47 20 56 C34 63 48 72 60 80 Z" fill="#94A9C0"/>
+      <path d="M58 24 C52 33 40 42 22 51 C38 45 50 37 57 28 Z" fill="#FFFFFF" opacity="0.35"/>
+      <path d="M14 60 C30 67 46 77 60 86 C46 80 30 70 14 62 Z" fill="#5E7288" opacity="0.6"/>
+      <g fill="#B8C9DA" opacity="0.9"><circle cx="40" cy="54" r="2.2"/><circle cx="30" cy="57" r="1.6"/><circle cx="48" cy="64" r="1.8"/><circle cx="46" cy="47" r="1.4"/><circle cx="36" cy="62" r="1.4"/></g>
+      <ellipse cx="50.5" cy="49" rx="2.2" ry="1.5" fill="#4A5E73"/>
+      <g class="pt ei-eye">
+        <circle cx="51" cy="41" r="3.6" fill="#DDE6EE"/>
+        <circle cx="51" cy="41" r="2.5" fill="#1B232B"/>
+        <circle cx="51.9" cy="40.1" r="0.9" fill="#FFFFFF"/>
+      </g>
+    </g>
+    <g class="pt ei-wingR">
+      <path d="M60 20 C66 32 84 44 110 55 C113 57 112 60 108 61 C90 68 74 78 60 87 Z" fill="#7D93AB"/>
+      <path d="M60 27 C66 37 80 47 100 56 C86 63 72 72 60 80 Z" fill="#94A9C0"/>
+      <path d="M106 60 C90 67 74 77 60 86 C74 80 90 70 106 62 Z" fill="#5E7288" opacity="0.6"/>
+      <g fill="#B8C9DA" opacity="0.9"><circle cx="80" cy="54" r="2.2"/><circle cx="90" cy="57" r="1.6"/><circle cx="72" cy="64" r="1.8"/><circle cx="74" cy="47" r="1.4"/><circle cx="84" cy="62" r="1.4"/></g>
+      <ellipse cx="69.5" cy="49" rx="2.2" ry="1.5" fill="#4A5E73"/>
+      <g class="pt ei-eye">
+        <circle cx="69" cy="41" r="3.6" fill="#DDE6EE"/>
+        <circle cx="69" cy="41" r="2.5" fill="#1B232B"/>
+        <circle cx="69.9" cy="40.1" r="0.9" fill="#FFFFFF"/>
+      </g>
+    </g>
+    <path d="M60 21 L60 86" stroke="#7D93AB" stroke-width="1.4"/>
+    <path d="M60 28 L60 79" stroke="#94A9C0" stroke-width="1.6"/>
+    <path d="M60 30 C57 50 57 66 60 80 C63 66 63 50 60 30 Z" fill="#6E849C" opacity="0.5"/>
+    <g class="pt ei-mouth">
+      <path d="M54.5 58 q5.5 4.4 11 0" fill="none" stroke="#2B3440" stroke-width="2.2" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>`,
+  gusoku: `<svg aria-hidden="true" class="cr" viewBox="0 0 120 120">
+  <ellipse cx="60" cy="113" rx="36" ry="5" fill="#04101F" opacity="0.22"/>
+  <g class="pt gs-all">
+    <path class="pt gs-leg gs-L gs-p1" d="M30 40 l-9 4 l-3 5" stroke="#9A8FA6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="pt gs-leg gs-R gs-p2" d="M90 40 l9 4 l3 5" stroke="#9A8FA6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="pt gs-leg gs-L gs-p2" d="M30 48 l-9 4 l-3 5" stroke="#9A8FA6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="pt gs-leg gs-R gs-p1" d="M90 48 l9 4 l3 5" stroke="#9A8FA6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="pt gs-leg gs-L gs-p1" d="M30 56 l-9 4 l-3 5" stroke="#9A8FA6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="pt gs-leg gs-R gs-p2" d="M90 56 l9 4 l3 5" stroke="#9A8FA6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="pt gs-leg gs-L gs-p2" d="M30 64 l-9 4 l-3 5" stroke="#9A8FA6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="pt gs-leg gs-R gs-p1" d="M90 64 l9 4 l3 5" stroke="#9A8FA6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="pt gs-leg gs-L gs-p1" d="M30 72 l-9 4 l-3 5" stroke="#9A8FA6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="pt gs-leg gs-R gs-p2" d="M90 72 l9 4 l3 5" stroke="#9A8FA6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="pt gs-leg gs-L gs-p2" d="M30 80 l-9 4 l-3 5" stroke="#9A8FA6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="pt gs-leg gs-R gs-p1" d="M90 80 l9 4 l3 5" stroke="#9A8FA6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="pt gs-leg gs-L gs-p1" d="M30 88 l-9 4 l-3 5" stroke="#9A8FA6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="pt gs-leg gs-R gs-p2" d="M90 88 l9 4 l3 5" stroke="#9A8FA6" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <g class="pt gs-antL">
+      <path d="M50 22 C38 14 24 20 18 38 C16 46 17 54 20 60" stroke="#8F8499" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+      <path d="M53 20 l-5 -9" stroke="#8F8499" stroke-width="2.2" stroke-linecap="round"/>
+    </g>
+    <g class="pt gs-antR">
+      <path d="M70 22 C82 14 96 20 102 38 C104 46 103 54 100 60" stroke="#8F8499" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+      <path d="M67 20 l5 -9" stroke="#8F8499" stroke-width="2.2" stroke-linecap="round"/>
+    </g>
+    <path d="M60 18 C80 18 94 28 95 46 L96 84 C96 94 90 100 82 101 L38 101 C30 100 24 94 24 84 L25 46 C26 28 40 18 60 18 Z" fill="#C9C0CF"/>
+    <path d="M25 70 L24 84 C24 94 30 100 38 101 L50 101 C40 98 30 90 28 76 Z" fill="#A99FB2" opacity="0.8"/>
+    <path d="M34 30 C42 22 52 20 62 20 C52 23 44 28 39 36 Z" fill="#FFFFFF" opacity="0.5"/>
+    <g fill="#B3A9BD">
+      <path d="M25 40 l-4 3 l4 2 Z M25 48 l-4 3 l4 2 Z M25 56 l-4 3 l4 2 Z M25 64 l-4 3 l4 2 Z M25 72 l-4 3 l4 2 Z M25 80 l-4 3 l4 2 Z M25 88 l-4 3 l4 2 Z"/>
+      <path d="M95 40 l4 3 l-4 2 Z M95 48 l4 3 l-4 2 Z M95 56 l4 3 l-4 2 Z M95 64 l4 3 l-4 2 Z M95 72 l4 3 l-4 2 Z M95 80 l4 3 l-4 2 Z M95 88 l4 3 l-4 2 Z"/>
+    </g>
+    <g>
+      <path d="M27.0 38 C40 33 80 33 93.0 38" stroke="#8F8499" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path d="M29.0 36 C42 31 78 31 91.0 36" stroke="#EDE8F0" stroke-width="1.1" fill="none" stroke-linecap="round" opacity="0.8"/>
+      <path d="M27.2 46 C40 41 80 41 92.8 46" stroke="#8F8499" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path d="M29.2 44 C42 39 78 39 90.8 44" stroke="#EDE8F0" stroke-width="1.1" fill="none" stroke-linecap="round" opacity="0.8"/>
+      <path d="M27.4 54 C40 49 80 49 92.6 54" stroke="#8F8499" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path d="M29.4 52 C42 47 78 47 90.6 52" stroke="#EDE8F0" stroke-width="1.1" fill="none" stroke-linecap="round" opacity="0.8"/>
+      <path d="M27.6 62 C40 57 80 57 92.4 62" stroke="#8F8499" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path d="M29.6 60 C42 55 78 55 90.4 60" stroke="#EDE8F0" stroke-width="1.1" fill="none" stroke-linecap="round" opacity="0.8"/>
+      <path d="M27.8 70 C40 65 80 65 92.2 70" stroke="#8F8499" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path d="M29.8 68 C42 63 78 63 90.2 68" stroke="#EDE8F0" stroke-width="1.1" fill="none" stroke-linecap="round" opacity="0.8"/>
+      <path d="M28.0 78 C40 73 80 73 92.0 78" stroke="#8F8499" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path d="M30.0 76 C42 71 78 71 90.0 76" stroke="#EDE8F0" stroke-width="1.1" fill="none" stroke-linecap="round" opacity="0.8"/>
+      <path d="M28.2 86 C40 81 80 81 91.8 86" stroke="#8F8499" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path d="M30.2 84 C42 79 78 79 89.8 84" stroke="#EDE8F0" stroke-width="1.1" fill="none" stroke-linecap="round" opacity="0.8"/>
+    </g>
+    <path d="M40 101 C38 110 46 117 60 117 C74 117 82 110 80 101 Z" fill="#BDB3C4"/>
+    <path d="M42 104 l-3 3 M46 110 l-3 3 M53 114 l-1 3.5 M60 115 l0 3.5 M67 114 l1 3.5 M74 110 l3 3 M78 104 l3 3" stroke="#8F8499" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M38 99 C30 104 30 112 36 114 C40 112 42 106 42 101 Z M82 99 C90 104 90 112 84 114 C80 112 78 106 78 101 Z" fill="#B3A9BD"/>
+    <path d="M44 106 C52 108 68 108 76 106" stroke="#9A8FA6" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+    <path d="M36 32 C33 26 38 22 44 24 C46 28 44 34 38 35 Z" fill="#2A2530"/>
+    <path d="M84 32 C87 26 82 22 76 24 C74 28 76 34 82 35 Z" fill="#2A2530"/>
+    <circle cx="40" cy="27" r="1.4" fill="#FFFFFF" opacity="0.9"/>
+    <circle cx="80" cy="27" r="1.4" fill="#FFFFFF" opacity="0.9"/>
+    <g fill="#4A4452" opacity="0.5"><circle cx="38" cy="31" r="0.6"/><circle cx="41" cy="30" r="0.6"/><circle cx="82" cy="31" r="0.6"/><circle cx="79" cy="30" r="0.6"/></g>
+    <path d="M55 29 q5 3.6 10 0" fill="none" stroke="#5C5466" stroke-width="2" stroke-linecap="round"/>
+  </g>
+</svg>`,
+  pelican: `<svg aria-hidden="true" class="cr" viewBox="0 0 120 120">
+  <ellipse cx="48" cy="113" rx="32" ry="4.5" fill="#1B4965" opacity="0.14"/>
+  <path d="M40 92 v15 M54 92 v15" stroke="#F2A07A" stroke-width="4" stroke-linecap="round"/>
+  <path d="M33 111 C35 106 44 106 46 110 C43 112 36 112 33 111 Z M47 111 C49 106 58 106 60 110 C57 112 50 112 47 111 Z" fill="#F2A07A"/>
+  <g class="pt pl-all">
+    <g class="pt pl-wing2">
+      <path d="M58 64 C46 58 30 64 20 78 C26 86 42 88 58 82 C61 76 61 69 58 64 Z" fill="#EFC6CE"/>
+      <path d="M30 72 C22 76 14 82 8 90 C16 91 26 88 34 84 Z" fill="#3A3A3A"/>
+    </g>
+    <path d="M10 76 C8 80 10 84 16 84 C18 81 18 78 16 75 Z" fill="#F6DCE1"/>
+    <ellipse cx="44" cy="76" rx="28" ry="19" fill="#FBE5E9"/>
+    <path d="M20 84 C28 94 42 97 54 95 C42 95 30 91 22 83 Z" fill="#E9B9C4" opacity="0.8"/>
+    <path d="M24 64 C32 58 44 56 54 58 C44 59 34 62 28 68 Z" fill="#FFFFFF" opacity="0.6"/>
+    <path d="M58 68 C72 62 60 48 68 36" stroke="#FBE5E9" stroke-width="14" fill="none" stroke-linecap="round"/>
+    <path d="M57 70 C66 64 58 52 63 44" stroke="#E9B9C4" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.55"/>
+    <g class="pt pl-wing">
+      <path d="M58 64 C46 58 30 64 20 78 C26 86 42 88 58 82 C61 76 61 69 58 64 Z" fill="#F6D2D9"/>
+      <path d="M36 70 C34 78 40 84 48 86 M44 66 C41 74 44 82 52 85" stroke="#E9B9C4" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <path d="M32 72 C24 75 16 81 10 88 C18 90 28 88 38 84 C36 80 34 76 32 72 Z" fill="#262626"/>
+      <path d="M16 85 C22 83 28 81 33 80 M19 88 C25 86 31 84 36 83" stroke="#5A5A5A" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+    </g>
+    <path d="M62 20 C58 22 57 26 60 29" stroke="#F6DCE1" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <circle cx="71" cy="30" r="11" fill="#FBE5E9"/>
+    <path d="M63 24 C66 20 72 19 76 20 C71 21 67 23 65 27 Z" fill="#FFFFFF" opacity="0.6"/>
+    <ellipse cx="75" cy="29" rx="5.4" ry="4.2" fill="#F5B79E"/>
+    <circle cx="75.5" cy="28.4" r="2.1" fill="#3A1F14"/>
+    <circle cx="76.2" cy="27.7" r="0.8" fill="#FFFFFF"/>
+    <path d="M78 26 L113 30.6 C116.4 31 117 33.8 114 34.4 L80 34.8 C78 34 77.4 28 78 26 Z" fill="#F2B84B"/>
+    <path d="M81 29.6 L110 32.6" stroke="#D9963A" stroke-width="1" stroke-linecap="round"/>
+    <path d="M111 30.4 C115.6 30.4 118.4 33 116.4 35.6 C115.4 36.4 114 36 113.4 34.8 Z" fill="#D9534F"/>
+    <g class="pt pl-pouch">
+      <path d="M80 34.8 L114 34.4 C112 40 102 47 92 47 C86 47 81 42 80 34.8 Z" fill="#F4C542"/>
+      <path d="M84 39 C90 43 100 43 108 38" stroke="#D9A42E" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>`,
+  utsubo: `<svg aria-hidden="true" class="cr" viewBox="0 0 120 120">
+  <ellipse cx="42" cy="112" rx="26" ry="7" fill="#9AA0A8"/>
+  <ellipse cx="80" cy="114" rx="18" ry="5.5" fill="#B3B9C0"/>
+  <ellipse cx="42" cy="103" rx="17" ry="4.5" fill="#2E343B" opacity="0.8"/>
+  <g class="pt ut-eel">
+    <path d="M60 22 C40 30 28 54 34 70 C40 86 30 100 26 116" fill="none" stroke="#5A3A1C" stroke-width="7" stroke-linecap="round"/>
+    <path d="M60 22 C40 30 28 54 34 70 C40 86 30 100 26 116" fill="none" stroke="#C99A55" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="1 3"/>
+    <path d="M58 36 C46 46 40 60 46 74 C52 88 42 100 38 116" fill="none" stroke="#8B5A2B" stroke-width="24" stroke-linecap="round"/>
+    <path d="M64 40 C54 50 50 62 56 74 C61 86 52 100 49 116" fill="none" stroke="#B98A4E" stroke-width="7" stroke-linecap="round" opacity="0.75"/>
+    <g fill="#E3C27A" opacity="0.9">
+      <ellipse cx="46" cy="52" rx="4" ry="2.6" transform="rotate(-30 46 52)"/>
+      <ellipse cx="41" cy="64" rx="3" ry="2"/>
+      <ellipse cx="50" cy="70" rx="3.6" ry="2.2" transform="rotate(20 50 70)"/>
+      <ellipse cx="44" cy="80" rx="4" ry="2.4"/>
+      <ellipse cx="50" cy="90" rx="3" ry="2" transform="rotate(-20 50 90)"/>
+      <ellipse cx="40" cy="96" rx="3.4" ry="2.2"/>
+      <ellipse cx="47" cy="104" rx="3" ry="2"/>
+      <ellipse cx="54" cy="44" rx="2.6" ry="1.8"/>
+    </g>
+    <g fill="#5E3A1A" opacity="0.55">
+      <ellipse cx="40" cy="58" rx="2.4" ry="1.6"/>
+      <ellipse cx="53" cy="80" rx="2.2" ry="1.5"/>
+      <ellipse cx="39" cy="88" rx="2.2" ry="1.4"/>
+      <ellipse cx="52" cy="98" rx="2" ry="1.4"/>
+    </g>
+    <g class="pt ut-head">
+      <path d="M68 37 L103 35 L99 45 C89 49 77 49 66 45 Z" fill="#6A1C26"/>
+      <path d="M50 36 C49 22 64 14 82 16 C95 18 104 23 107 29 C108 33 105 35 100 35 L70 37 C62 38 55 40 50 36 Z" fill="#8B5A2B"/>
+      <path d="M56 22 C64 17 76 15 86 17 C76 17 66 20 59 26 Z" fill="#FFFFFF" opacity="0.25"/>
+      <g fill="#E3C27A" opacity="0.9">
+        <ellipse cx="66" cy="22" rx="3" ry="1.8"/><ellipse cx="92" cy="22" rx="2.4" ry="1.5"/><ellipse cx="58" cy="30" rx="2" ry="1.4"/>
+      </g>
+      <path d="M75 35 l1.6 3.4 l1.6 -3.4 Z M81 35 l1.6 3.6 l1.6 -3.6 Z M87 34.6 l1.6 3.6 l1.6 -3.6 Z M93 34.4 l1.5 3.4 l1.5 -3.4 Z M98.6 34.2 l1.3 3 l1.3 -3 Z" fill="#FFFFFF"/>
+      <path d="M103 27 l4 -5" stroke="#5A3A1C" stroke-width="2.6" stroke-linecap="round"/>
+      <circle cx="107" cy="21.6" r="1.3" fill="#3A2412"/>
+      <circle cx="83" cy="25" r="4.4" fill="#F2D8A0"/>
+      <circle cx="83" cy="25" r="3.1" fill="#1E1A16"/>
+      <circle cx="84.2" cy="23.8" r="1.1" fill="#FFFFFF"/>
+      <g class="pt ut-mouth">
+        <path d="M70 37 L101 35.4 C104 36 104 38.5 101 40.5 C92 45.5 78 47 66 46 C58 45 52 42 50 38 C57 39.5 63 38.5 70 37 Z" fill="#7E5028"/>
+        <path d="M58 43 C68 45.6 84 45 97 40.6" stroke="#B98A4E" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M77 37.2 l1.5 -3.2 l1.5 3.2 Z M83 36.8 l1.5 -3.4 l1.5 3.4 Z M89 36.4 l1.5 -3.4 l1.5 3.4 Z M95 36 l1.4 -3 l1.4 3 Z" fill="#FFFFFF"/>
+      </g>
+      <circle cx="60" cy="42" r="2" fill="#2E1A0C" opacity="0.8"/>
+    </g>
+  </g>
+  <g class="ut-rockF">
+    <path d="M2 120 C3 104 14 96 28 99 C36 92 52 92 62 100 C72 96 88 99 96 108 C104 108 110 114 112 120 Z" fill="#8A9098"/>
+    <path d="M10 106 C16 100 24 99 30 101 M40 97 C48 95 56 96 61 101 M70 100 C78 99 86 101 92 106" stroke="#A9AFB7" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    <circle cx="24" cy="112" r="2.4" fill="#6F757D"/><circle cx="58" cy="110" r="2" fill="#6F757D"/><circle cx="86" cy="114" r="2.2" fill="#6F757D"/>
+  </g>
+</svg>`,
+  nishiki: `<svg aria-hidden="true" class="cr" viewBox="0 0 120 120"><ellipse cx="60" cy="106" rx="52" ry="13" fill="#F0DCA8"/><g class="pt ns-eel"><path d="M53 106 C50 82 47 60 50 46 C53 32 62 24 72 27" fill="none" stroke="#E0B98A" stroke-width="15.2" stroke-linecap="round"/><path d="M53 106 C50 82 47 60 50 46 C53 32 62 24 72 27" fill="none" stroke="#FFF8EC" stroke-width="13" stroke-linecap="round"/><path d="M59.1 102.2 L46.2 103.8" stroke="#F07A2A" stroke-width="3.4"/><path d="M58.4 96.7 L45.5 98.3" stroke="#F07A2A" stroke-width="3.4"/><path d="M57.7 91.1 L44.8 92.7" stroke="#F07A2A" stroke-width="3.4"/><path d="M57.1 85.6 L44.1 87.1" stroke="#F07A2A" stroke-width="3.4"/><path d="M56.5 80.1 L43.5 81.4" stroke="#F07A2A" stroke-width="3.4"/><path d="M56.0 74.7 L43.0 75.7" stroke="#F07A2A" stroke-width="3.4"/><path d="M55.6 69.2 L42.6 70.0" stroke="#F07A2A" stroke-width="3.4"/><path d="M55.3 63.8 L42.3 64.2" stroke="#F07A2A" stroke-width="3.4"/><path d="M55.3 58.5 L42.3 58.3" stroke="#F07A2A" stroke-width="3.4"/><path d="M55.5 53.4 L42.6 52.3" stroke="#F07A2A" stroke-width="3.4"/><path d="M56.1 48.5 L43.4 46.1" stroke="#F07A2A" stroke-width="3.4"/><path d="M57.3 43.9 L44.9 39.8" stroke="#F07A2A" stroke-width="3.4"/><path d="M59.0 39.8 L47.6 33.6" stroke="#F07A2A" stroke-width="3.4"/><path d="M61.3 36.3 L51.5 27.8" stroke="#F07A2A" stroke-width="3.4"/><path d="M64.1 34.0 L57.3 22.9" stroke="#F07A2A" stroke-width="3.4"/><path d="M56.6 105.5 L56.4 103.6 L56.1 101.6 L55.9 99.6 L55.6 97.6 L55.4 95.6 L55.1 93.7 L54.9 91.7 L54.7 89.7 L54.4 87.7 L54.2 85.7 L54.0 83.8 L53.8 81.8 L53.6 79.8 L53.4 77.8 L53.2 75.9 L53.0 73.9 L52.9 71.9 L52.7 70.0 L52.6 68.0 L52.5 66.1 L52.5 64.1 L52.4 62.2 L52.4 60.2 L52.4 58.3 L52.5 56.4 L52.6 54.5 L52.7 52.6 L52.9 50.7 L53.2 48.8 L53.5 47.0 L53.9 45.3 L54.4 43.5 L55.0 41.8 L55.7 40.2 L56.4 38.6 L57.3 37.1 L58.2 35.6 L59.3 34.3 L60.4 33.2 L61.7 32.2 L62.9 31.3 L64.3 30.7" fill="none" stroke="#D9661C" stroke-width="4.2" stroke-linecap="round" opacity="0.7"/><g transform="translate(73 28) rotate(-18)"><ellipse cx="0" cy="0" rx="10.1" ry="8.1" fill="#FFF8EC" stroke="#E0B98A" stroke-width="1.1"/><circle cx="-0.7" cy="-2.1" r="2.9" fill="#1B1B1B"/><circle cx="0.4" cy="-3.1" r="1.10" fill="#FFFFFF"/><path d="M5.5 2.3 q2.6 -0.3 4.4 -3.6" stroke="#3A3A3A" stroke-width="1.2" fill="none" stroke-linecap="round"/></g><path d="M77 26.5 C80 27 82 29 82.5 31" stroke="#F07A2A" stroke-width="2.4" fill="none" stroke-linecap="round"/></g><path d="M6 107 Q60 97 114 107 L114 120 L6 120 Z" fill="#F0DCA8"/><circle cx="26" cy="110" r="2" fill="#D9BC7E"/><circle cx="84" cy="112" r="2.4" fill="#D9BC7E"/><circle cx="40" cy="114" r="1.6" fill="#D9BC7E"/><path d="M18 106 q3 -3 6 0 q-3 -1 -6 0 Z" fill="#F7F0DC"/><ellipse cx="53" cy="103.5" rx="10" ry="2.6" fill="#D9BC7E"/></svg>`
 };
 
 const CREATURES = [
@@ -1896,7 +2474,7 @@ let shownC = null;
 let busy = false;
 let soundOn = true;
 let resultShownAt = 0;
-const settings = { fullTap:true, newFirst:true, coinMode:true, showAll:false, feelings:false, studentName:"", quizLevel:2, quizPick:true, swimSpeed:2, swimCount:5, fishSize:2 };
+const settings = { fullTap:true, newFirst:true, coinMode:true, showAll:false, feelings:false, studentName:"", quizLevel:2, quizPick:true, swimSpeed:2, swimCount:5, fishSize:2, clearView:false, nudge:true, outline:true, sigSound:true, chant:true };
 
 /* ===================== 音（Web Audio） ===================== */
 let actx = null;
@@ -1913,7 +2491,161 @@ function tone(freq, dur, type="sine", vol=0.18, when=0){
     o.start(a.currentTime + when); o.stop(a.currentTime + when + dur + .05);
   }catch(e){}
 }
+/* 高さが なめらかに かわる おと */
+function slide(f1, f2, dur, type="sine", vol=0.14, when=0){
+  if(!soundOn) return;
+  try{
+    const a = audio();
+    const o = a.createOscillator(), g = a.createGain();
+    o.type = type;
+    o.frequency.setValueAtTime(f1, a.currentTime + when);
+    o.frequency.exponentialRampToValueAtTime(f2, a.currentTime + when + dur);
+    g.gain.setValueAtTime(0.0001, a.currentTime + when);
+    g.gain.exponentialRampToValueAtTime(vol, a.currentTime + when + Math.min(.05, dur/3));
+    g.gain.exponentialRampToValueAtTime(0.001, a.currentTime + when + dur);
+    o.connect(g); g.connect(a.destination);
+    o.start(a.currentTime + when); o.stop(a.currentTime + when + dur + .05);
+  }catch(e){}
+}
+/* D. 生きもの ごとの しるしの おと */
+const SIG = {
+  penguin(){ tone(330,.08,"square",.1); tone(330,.08,"square",.1,.2); tone(392,.1,"square",.1,.4); },          // ペタペタ
+  kawauso(){ slide(1100,1500,.09,"sine",.13); slide(1100,1600,.09,"sine",.13,.16); },                         // キュッキュッ
+  pelican(){ tone(240,.1,"square",.12); tone(170,.14,"square",.12,.12); },                                     // パクッ
+  azarashi(){ slide(280,620,.2,"sine",.16); slide(620,420,.22,"sine",.14,.2); },                              // ぽよ〜ん
+  kurage(){ slide(420,820,.9,"sine",.1); slide(630,1230,.9,"sine",.05,.08); },                               // ふわ〜ん
+  chinanago(){ slide(260,900,.32,"triangle",.14); },                                                         // にょきっ
+  nishiki(){ slide(260,760,.22,"triangle",.13); slide(300,900,.24,"triangle",.13,.26); },                    // にょきにょき
+  kumanomi(){ [900,1050,1200].forEach((f,i)=>tone(f,.06,"triangle",.12,i*.1)); },                             // ぴちぴち
+  same(){ slide(150,95,.9,"sine",.2); },                                                                     // ゆ〜ったり
+  ei(){ slide(480,720,.3,"sine",.12); slide(720,480,.3,"sine",.12,.3); },                                    // ひらひら
+  utsubo(){ slide(140,260,.6,"triangle",.14); },                                                             // ぬ〜っ
+  gusoku(){ tone(70,.45,"sine",.28); [0,1,2].forEach(i=>tone(2400,.03,"square",.03,.5+i*.08)); }            // ずしん・カサカサ
+};
+function playSig(id){
+  if(!settings.sigSound || !SIG[id]) return;
+  SIG[id]();
+}
+/* E. かけごえ「ガチャ・ガチャ・ポン！」 */
+function chantWord(t){
+  const w = document.getElementById("chantWord");
+  if(!w) return;
+  w.textContent = t;
+  w.classList.remove("show"); void w.offsetWidth; w.classList.add("show");
+}
+/* ノイズの おと（はおと・シュッ・ずしん など） */
+let noiseBuf = null;
+function noise(dur, vol=0.15, when=0, freq=1200, q=1){
+  if(!soundOn) return;
+  try{
+    const a = audio();
+    if(!noiseBuf){
+      noiseBuf = a.createBuffer(1, a.sampleRate, a.sampleRate);
+      const d = noiseBuf.getChannelData(0);
+      for(let i=0;i<d.length;i++) d[i] = Math.random()*2 - 1;
+    }
+    const s = a.createBufferSource(); s.buffer = noiseBuf;
+    const f = a.createBiquadFilter(); f.type = "bandpass"; f.frequency.value = freq; f.Q.value = q;
+    const g = a.createGain(); const t = a.currentTime + when;
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol, t + .02);
+    g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    s.connect(f); f.connect(g); g.connect(a.destination);
+    s.start(t); s.stop(t + dur + .05);
+  }catch(e){}
+}
+/* 生きもの ごとの うごきと おとの だいほん（t = ながさ ミリびょう） */
+const PERF = {
+  penguin:{ t:2400, snd(){
+    [0.15,0.45,0.75,1.05].forEach(w=>{ tone(330,.07,"square",.1,w); noise(.05,.05,w,900,2); });   // ペタペタ
+    slide(560,420,.2,"sawtooth",.07,1.39); slide(560,400,.24,"sawtooth",.07,1.63);                    // アー！アー！
+    slide(420,900,.16,"sine",.13,2.02);                                                                 // ぴょん
+  }},
+  pelican:{ t:2600, snd(){
+    [0.4,0.82,1.24].forEach(w=>{ noise(.16,.22,w,700,.8); tone(110,.1,"sine",.12,w); });             // バサッ
+    tone(240,.1,"square",.11,1.56); tone(170,.14,"square",.11,1.68);                                   // パクッ
+    slide(260,560,.22,"sine",.12,1.72);                                                                 // ぷくっ
+  }},
+  kurage:{ t:3000, snd(){
+    [0,1,2].forEach(w=>{ slide(420,820,.7,"sine",.08,w); slide(630,1230,.7,"sine",.035,w+.06); });    // ふわ〜ん
+  }},
+  chinanago:{ t:3000, snd(){
+    slide(260,900,.3,"triangle",.14,.08);                                                               // にょきっ
+    slide(320,760,.2,"triangle",.09,.75);                                                               // （となりの子）にょき
+    noise(.12,.12,1.55,3000,1.2); slide(900,300,.12,"triangle",.06,1.55);                             // シュッ
+    slide(500,1000,.12,"sine",.13,2.02);                                                                // ぴょこ
+    slide(320,760,.2,"triangle",.08,2.42);
+  }},
+  ei:{ t:3000, snd(){
+    [0,.6,1.2].forEach(w=>{ slide(480,720,.28,"sine",.1,w); slide(720,480,.28,"sine",.1,w+.28); });  // ひらひら
+    tone(1047,.2,"sine",.1,2.2); tone(1319,.3,"sine",.1,2.32);                                          // にっこり
+  }},
+  gusoku:{ t:2800, snd(){
+    [0.1,0.24,0.38,0.52].forEach(w=>tone(2600,.025,"square",.03,w));                                  // ぴくぴく
+    for(let i=0;i<12;i++){ const w=.62+i*.08; noise(.03,.06,w,4200,3); }                              // カサカサ
+    slide(300,600,.2,"sine",.06,1.75);
+    tone(70,.45,"sine",.3,2.18); noise(.25,.12,2.18,180,.7);                                           // ずしん
+  }},
+  kawauso:{ t:2800, snd(){
+    [0.14,0.42,0.7,0.98].forEach(w=>{ tone(1800,.03,"square",.04,w); noise(.05,.05,w,2500,2); });       // いしを こする
+    slide(1100,1500,.09,"sine",.13,1.2); slide(1100,1600,.09,"sine",.13,1.34);                          // キュッキュッ
+    slide(900,1400,.16,"sine",.11,1.52);                                                                 // キュ？
+    [2.0,2.15,2.3,2.45].forEach(w=>tone(700,.05,"sine",.07,w));                                         // ふりふり
+  }},
+  azarashi:{ t:2800, snd(){
+    [0.17,0.25,0.5,0.59].forEach(w=>{ tone(200,.1,"sine",.18,w); noise(.06,.06,w,500,1); });            // ポンポン
+    tone(1600,.03,"square",.04,1.12); tone(1600,.03,"square",.04,1.26);                                 // ぱちっ
+    slide(280,620,.2,"sine",.15,1.6); slide(620,420,.22,"sine",.13,1.8);                                // ぽよ〜ん
+    slide(500,300,.25,"sine",.1,2.05);                                                                   // ころん
+  }},
+  nishiki:{ t:3000, snd(){
+    slide(260,900,.3,"triangle",.14,.08);                                                                // にょきっ
+    [0.75,1.0,1.25,1.5].forEach((w,i)=>slide(i%2?600:420, i%2?420:600, .14,"triangle",.07,w));          // くねくね
+    noise(.08,.08,2.02,3000,1.2);                                                                        // シュッ
+    slide(500,1000,.12,"sine",.13,2.28);                                                                 // ぴょこ
+  }},
+  kumanomi:{ t:3000, snd(){
+    tone(1000,.06,"triangle",.1,.42);                                                                    // ちらっ
+    noise(.08,.05,.84,1500,1);
+    [0,.1,.2].forEach((d,i)=>tone([900,1050,1200][i],.06,"triangle",.12,1.38+d));                       // ぴちぴち
+    for(let i=0;i<8;i++) tone(1400,.03,"triangle",.04,1.62+i*.12);                                      // ぴるぴる
+  }},
+  same:{ t:3200, snd(){
+    slide(150,95,.9,"sine",.2,0); slide(150,95,.9,"sine",.18,1.0);                                       // ゆ〜ったり
+    [2.18,2.43,2.69].forEach(w=>{ tone(260,.05,"sine",.12,w); slide(500,900,.08,"sine",.08,w+.05); });  // ぱく・ぽこ
+  }},
+  utsubo:{ t:3000, snd(){
+    slide(140,260,.8,"triangle",.14,.12);                                                                // ぬ〜っ
+    [1.35,1.65,1.95,2.25].forEach(w=>{ tone(300,.05,"square",.08,w); tone(220,.05,"square",.06,w+.06); }); // パクパク
+  }}
+};
+/* うごかす（なんども よべる） */
+function performAct(container, id){
+  const p = PERF[id];
+  if(!p || !container) return false;
+  const svg = container.querySelector("svg");
+  if(!svg) return false;
+  svg.classList.remove("perf");
+  svg.getBoundingClientRect();
+  svg.classList.add("perf");
+  p.snd();
+  clearTimeout(svg._perfT);
+  svg._perfT = setTimeout(()=>svg.classList.remove("perf"), p.t + 60);
+  return true;
+}
+/* タップで もういちど（うごきが ない子は いつもの うごき＋しるしの おと） */
+function replayCreature(container, id, baseClass){
+  if(!id) return;
+  if(performAct(container, id)) return;
+  container.className = baseClass;
+  void container.offsetWidth;
+  container.classList.add("anim-" + (ANIM[id] || "pop"));
+  playSig(id);
+}
+
 const sfx = {
+  gacha(){ tone(523,.18,"square",.12); tone(659,.2,"square",.12,.12); },
+  pon(){ tone(1047,.32,"triangle",.2); tone(523,.16,"sine",.12); },
   click(){ tone(660,.09,"square",.12); },
   roll(){ tone(220,.3,"sawtooth",.06); tone(180,.3,"sawtooth",.06,.15); tone(240,.25,"sawtooth",.06,.3); },
   drop(){ tone(420,.12,"triangle",.2,0); tone(300,.15,"triangle",.2,.1); },
@@ -2026,8 +2758,14 @@ handle.addEventListener("click", ()=>{
   busy = true;
   handle.disabled = true;
   tapHint.style.visibility = "hidden";
-  sfx.click(); sfx.roll();
-  gt(()=>sfx.roll(), 560);
+  sfx.click();
+  if(settings.chant){
+    sfx.gacha(); chantWord("ガチャ");
+    gt(()=>{ sfx.gacha(); chantWord("ガチャ"); }, 560);
+  }else{
+    sfx.roll();
+    gt(()=>sfx.roll(), 560);
+  }
 
   machine.classList.add("zoom");
   handle.classList.add("spin");
@@ -2104,6 +2842,7 @@ function showResult(c){
 
   if(c.rarity===3){ sfx.kira(); confetti(90); }
   else{ sfx.get(); if(isNew) confetti(30); }
+  if(!PERF[c.id]) setTimeout(()=>playSig(c.id), c.rarity===3 ? 900 : 650);
 
   if(collected.size===CREATURES.length){
     setTimeout(()=>{ sfx.complete(); confetti(120); }, 900);
@@ -2133,7 +2872,8 @@ function showRevealCapsule(color){
   rCapWrap.classList.remove("open");
   rCapTop.style.background = `linear-gradient(180deg, ${color}, ${shade(color)})`;
   revealEl.className = "reveal show phase-cap";
-  sfx.pop();
+  if(settings.chant){ sfx.pon(); chantWord("ポン！"); }
+  else sfx.pop();
 }
 function openRevealCapsule(){
   if(!current) return;
@@ -2152,8 +2892,14 @@ function showRevealResult(c){
 
   rArt.innerHTML = artHTML(c);
   rArt.className = "creature-art big";
+  rArt.dataset.id = c.id;
   void rArt.offsetWidth;
-  rArt.classList.add("anim-" + (ANIM[c.id] || "pop"));
+  if(PERF[c.id]){
+    rArt.classList.add("anim-perf");
+    setTimeout(()=>performAct(rArt, c.id), c.rarity===3 ? 900 : 650);
+  }else{
+    rArt.classList.add("anim-" + (ANIM[c.id] || "pop"));
+  }
   rName.innerHTML = escapeHTML(c.name) + (isNew ? '<span class="new-mark">NEW!</span>' : "");
   rDesc.textContent = c.desc;
   rPlace.textContent = "📍 " + c.place;
@@ -2181,6 +2927,7 @@ revealEl.addEventListener("click", ()=>{
   // カプセルは がめんの どこをタップしても ひらく（結果画面では 何もおきない）
   if(revealEl.classList.contains("phase-cap")) openRevealCapsule();
 });
+rArt.addEventListener("click", (e)=>{ e.stopPropagation(); replayCreature(rArt, rArt.dataset.id, "creature-art big"); });
 $("rBackBtn").addEventListener("click", ()=>{ sfx.click(); revealEl.className = "reveal"; });
 $("rAgainBtn").addEventListener("click", goAgain);
 $("rDetailBtn").addEventListener("click", ()=>{ if(shownC){ sfx.click(); openDetail(shownC.id); } });
@@ -2475,6 +3222,65 @@ let swimMode=null, swimRAF=null, swimFishes=[], swimTarget=null, swimBubbleTimer
 let swimSpeed=2, swimCount=5, followDir="lr";
 const SPEED_PX = {1:0.9, 2:1.7, 3:2.9};
 const FISH_SIZE = {1:0.75, 2:1, 3:1.35};
+/* すむ場所（zone）・進み方（style）・絵の向き（orient） ／ face: 絵が もともと むいている むき（1=みぎ -1=ひだり） */
+const SWIM_PROF = {
+  penguin:  {zone:"mid",   spd:1.5,  style:"cruise",  orient:"front"},
+  kawauso:  {zone:"mid",   spd:1.1,  style:"playful", orient:"front"},
+  pelican:  {zone:"top",   spd:0.45, style:"float",   orient:"side", face:1},
+  azarashi: {zone:"mid",   spd:0.9,  style:"cruise",  orient:"front"},
+  kurage:   {zone:"mid",   spd:0.5,  style:"pulse",   orient:"none"},
+  chinanago:{zone:"sand",  spd:0,    style:"stay",    orient:"none"},
+  nishiki:  {zone:"sand",  spd:0,    style:"stay",    orient:"none"},
+  kumanomi: {zone:"mid",   spd:1.4,  style:"dart",    orient:"side", face:-1},
+  same:     {zone:"low",   spd:0.7,  style:"cruise",  orient:"side", face:-1},
+  ei:       {zone:"mid",   spd:0.8,  style:"glide",   orient:"top"},
+  utsubo:   {zone:"sand",  spd:0,    style:"stay",    orient:"none"},
+  gusoku:   {zone:"floor", spd:0.35, style:"walk",    orient:"none"}
+};
+function zoneY(z, h, size){
+  const maxY = Math.max(1, h - size);
+  if(z === "top")   return 2;
+  if(z === "sand")  return h - size;
+  if(z === "floor") return h - size*0.96;
+  if(z === "low")   return rand(maxY*0.5, maxY*0.82);
+  return rand(maxY*0.1, maxY*0.72);
+}
+function zoneRange(z, h, size){
+  const maxY = Math.max(1, h - size);
+  if(z === "low") return [maxY*0.45, maxY*0.88];
+  return [maxY*0.05, maxY*0.8];
+}
+/* D. 絵の むきと かたむき（なめらかに） */
+function orientStr(f, vx, vy, smooth, maxTilt){
+  const p = f.prof;
+  if(p.orient === "side"){
+    const want = Math.abs(vx) > 0.04 ? Math.sign(vx) : (f.lastFace || 1);
+    f.lastFace = want;
+    const target = want * p.face;
+    f.sx = smooth ? f.sx + (target - f.sx) * 0.14 : target;
+    let sx = f.sx; if(Math.abs(sx) < 0.12) sx = 0.12 * (Math.sign(sx) || 1);
+    let tilt = Math.atan2(vy, Math.abs(vx) + 0.001) * 57.3 * want;
+    const mt = maxTilt || 24;
+    tilt = Math.max(-mt, Math.min(mt, tilt));
+    f.tilt = smooth ? f.tilt + (tilt - f.tilt) * 0.1 : tilt;
+    return " rotate(" + f.tilt.toFixed(2) + "deg) scaleX(" + sx.toFixed(3) + ")";
+  }
+  if(p.orient === "top"){
+    if(Math.abs(vx) + Math.abs(vy) > 0.03){
+      const target = Math.atan2(vy, vx) * 57.3 + 90;
+      const d = ((target - f.ang + 540) % 360) - 180;
+      f.ang += smooth ? d * 0.08 : d;
+    }
+    return " rotate(" + f.ang.toFixed(2) + "deg)";
+  }
+  return " rotate(" + (f.wob || 0).toFixed(2) + "deg)";
+}
+function pickZone(zones, n){
+  const pool = shuffle(CREATURES.filter(c=>zones.includes(SWIM_PROF[c.id].zone)));
+  const out = [];
+  for(let i=0;i<n;i++) out.push(pool[i % pool.length]);
+  return out;
+}
 
 function openSwim(){
   sfx.click();
@@ -2551,8 +3357,12 @@ function makeFish(c, opts){
   el.dataset.id = c.id;
   swimTank.appendChild(el);
   const { w, h } = tankSize();
-  // 奥行き：0（奥・小さい）〜1（手前・大きい）
-  const depth = opts.depth != null ? opts.depth : rand(0, 1);
+  const prof = SWIM_PROF[c.id] || SWIM_PROF.penguin;
+  el.querySelector("svg").classList.add("sw");
+  // 奥行き：0（奥・小さい）〜1（手前・大きい）。底や 水面の子は 手前に
+  let depth = opts.depth != null ? opts.depth : rand(0, 1);
+  if(!opts.path && (prof.zone === "sand" || prof.zone === "floor")) depth = Math.max(depth, 0.75);
+  if(!opts.path && prof.zone === "top") depth = Math.max(depth, 0.65);
   const size = baseFishPx() * (0.62 + depth * 0.55);
   el.style.width = size + "px";
   el.style.height = size + "px";
@@ -2574,9 +3384,25 @@ function makeFish(c, opts){
     path: opts.path || null,     // "lr","rl","ud","du","diag","circle"
     vx: opts.vx || 0,
     vy: opts.vy || 0,
-    t: 0
+    t: 0,
+    prof, sx: 1, tilt: 0, ang: 0, wob: 0, lastFace: 0,
+    reloc: !!opts.reloc, relocAt: performance.now() + rand(6000, 9000), relocStep: 0,
+    burstUntil: 0, restMoveUntil: 0
   };
-  fish.baseY = opts.y != null ? opts.y : rand(0, Math.max(1, h - size));
+  fish.sx = fish.dir * (prof.face || 1);
+  fish.lastFace = fish.dir;
+  fish.ang = fish.dir > 0 ? 90 : -90;
+  if(opts.y != null){ fish.baseY = opts.y; }
+  else{ fish.baseY = zoneY(prof.zone, h, size); }
+  if(!opts.path && prof.style === "stay"){
+    // 砂や いわの 子は、ほかの 子と かさならない ばしょに すわる
+    let bestX = rand(0, Math.max(1, w - size)), tries = 0;
+    while(tries++ < 12 && swimFishes.some(o=>o.prof && o.prof.style==="stay" && Math.abs(o.x - bestX) < size*0.95)){
+      bestX = rand(0, Math.max(1, w - size));
+    }
+    fish.x = bestX;
+    el.classList.add("stay");
+  }
   fish.y = fish.baseY;
   el.addEventListener("click", (ev)=>onFishTap(fish, ev));
   swimFishes.push(fish);
@@ -2597,38 +3423,101 @@ function layoutFrame(){
       }
     }
     if(f.path){ movePath(f, w, h); continue; }
-    if(!f.straight && now > f.pauseUntil){
-      // ときどき ゆっくり止まって、むきを かえる（しぜんな およぎ）
-      if(now > f.turnAt){
-        f.pauseUntil = now + rand(500, 1200);
-        f.turnAt = now + rand(5000, 11000);
-        if(!f.loop || Math.random() < 0.7) f.dir *= -1;
+    moveFish(f, w, h, now);
+  }
+  swimRAF = requestAnimationFrame(layoutFrame);
+}
+
+/* B・C・D. 生きもの ごとの 進み方 */
+function moveFish(f, w, h, now){
+  const p = f.prof, sp = SPEED_PX[swimSpeed] * p.spd;
+  const maxY = Math.max(1, h - f.size);
+  const px = f.x, py = f.y;
+  let y = f.y;
+
+  if(p.style === "stay"){
+    // 砂・いわの 子：うごかない（タッチモードでは ときどき べつの ばしょへ）
+    if(f.reloc && now > f.relocAt){
+      if(f.relocStep === 0){ f.el.style.opacity = "0"; f.relocStep = 1; f.relocAt = now + 450; }
+      else{
+        f.x = rand(0, Math.max(1, w - f.size));
+        f.el.style.opacity = "1"; f.relocStep = 0; f.relocAt = now + rand(6000, 9000);
       }
-      f.x += f.sp * f.dir;
-    }else if(f.straight){
-      f.x += f.sp * f.dir;
     }
+    f.baseY = h - f.size;
+    y = f.baseY;
+  }else{
+    // とまる・むきを かえる
+    let moving = now > f.pauseUntil;
+    if(moving && now > f.turnAt){
+      f.pauseUntil = now + rand(500, 1200);
+      f.turnAt = now + rand(5000, 11000);
+      if(!f.loop || Math.random() < 0.7) f.dir *= -1;
+      moving = false;
+    }
+    let vx = 0;
+    if(p.style === "dart"){
+      // クマノミ：すばやく すすんでは ぴたっと とまる
+      if(now > f.burstUntil + f.restMoveUntil){
+        f.burstUntil = now + rand(450, 900);
+        f.restMoveUntil = rand(450, 1100);
+        if(Math.random() < 0.25) f.dir *= -1;
+        f.baseY = Math.max(maxY*0.08, Math.min(maxY*0.8, f.baseY + rand(-40, 40)));
+      }
+      vx = (now < f.burstUntil && moving) ? sp * 2.2 : 0;
+    }else if(p.style === "pulse"){
+      // クラゲ：かさを ちぢめた ときに ふわっと うえへ、あとは ゆっくり しずむ
+      const ph = (now % 1400) / 1400;
+      const push = ph < 0.3 ? Math.sin(ph / 0.3 * Math.PI) : 0;
+      f.baseY -= push * sp * 1.6;
+      f.baseY += 0.22 * SPEED_PX[swimSpeed] * 0.5;
+      if(f.baseY < maxY*0.05) f.baseY = maxY*0.05;
+      if(f.baseY > maxY*0.8) f.baseY = maxY*0.8;
+      vx = moving ? sp * (0.3 + push * 0.9) : 0;
+    }else if(p.style === "walk"){
+      // グソクムシ：そこを ゆっくり あるく
+      vx = moving ? sp : 0;
+      f.baseY = h - f.size * 0.96;
+    }else if(p.style === "float"){
+      // ペリカン：すいめんに ぷかぷか
+      vx = moving ? sp : 0;
+      f.baseY = 2;
+    }else{
+      vx = moving ? sp : 0;
+    }
+    f.x += vx * f.dir;
+
     if(f.loop){
-      // 画面の中を まわりつづける（外に出ない）
       if(f.x > w - f.size){ f.x = w - f.size; f.dir = -1; f.turnAt = now + rand(4000,9000); }
       if(f.x < 0){ f.x = 0; f.dir = 1; f.turnAt = now + rand(4000,9000); }
     }else{
-      if(f.dir > 0 && f.x > w + 10){ f.x = -f.size - 10; f.baseY = rand(0, maxY); }
-      if(f.dir < 0 && f.x < -f.size - 10){ f.x = w + 10; f.baseY = rand(0, maxY); }
+      if(f.dir > 0 && f.x > w + 10){ f.x = -f.size - 10; if(p.zone==="mid"||p.zone==="low") f.baseY = zoneY(p.zone, h, f.size); }
+      if(f.dir < 0 && f.x < -f.size - 10){ f.x = w + 10; if(p.zone==="mid"||p.zone==="low") f.baseY = zoneY(p.zone, h, f.size); }
     }
-    let y = f.baseY;
-    if(!f.straight){
-      f.phase += f.wobble;
-      y = f.baseY + Math.sin(f.phase) * f.amp;
-      // ゆるやかに たてにも いどう（カーブ）
-      f.baseY += Math.sin(f.phase * 0.23) * 0.35;
-      if(f.baseY < 0) f.baseY = 0;
-      if(f.baseY > maxY) f.baseY = maxY;
+
+    // たての ゆらぎ（生きもの ごとに ちがう）
+    y = f.baseY;
+    if(p.style === "cruise" || p.style === "playful" || p.style === "glide" || p.style === "dart"){
+      const amp = p.style === "playful" ? 30 : p.style === "glide" ? 22 : p.style === "dart" ? 6 : 12;
+      const spdW = p.style === "playful" ? 1.8 : p.style === "glide" ? 0.6 : 1;
+      f.phase += f.wobble * spdW;
+      y = f.baseY + Math.sin(f.phase) * amp;
+      if(p.style !== "dart"){
+        f.baseY += Math.sin(f.phase * 0.23) * 0.35;
+        const [lo, hi] = zoneRange(p.zone, h, f.size);
+        if(f.baseY < lo) f.baseY = lo;
+        if(f.baseY > hi) f.baseY = hi;
+      }
+    }else if(p.style === "float"){
+      f.phase += 0.03; y = f.baseY + Math.sin(f.phase) * 2;
     }
-    const tilt = f.straight ? 0 : Math.sin(f.phase) * 5;
-    f.el.style.transform = `translate(${f.x}px, ${y}px) rotate(${tilt}deg)` + (f.dir < 0 ? " scaleX(-1)" : "");
+    if(p.orient === "front" || p.orient === "none"){
+      f.wob = p.style === "pulse" ? 0 : Math.sin(f.phase) * 5;
+    }
   }
-  swimRAF = requestAnimationFrame(layoutFrame);
+  f.y = y;
+  const vx2 = f.x - px, vy2 = f.y - py;
+  f.el.style.transform = "translate(" + f.x.toFixed(1) + "px, " + y.toFixed(1) + "px)" + orientStr(f, vx2, vy2, true);
 }
 /* おいかけモード：えらんだ むきに ゆっくり すすむ */
 function movePath(f, w, h){
@@ -2642,8 +3531,7 @@ function movePath(f, w, h){
     f.x = w/2 - f.size/2 + Math.cos(f.t) * rx;
     f.y = h/2 - f.size/2 + Math.sin(f.t) * ry;
     // すすむ むきに あわせて 体の むきを かえる
-    const goingLeft = Math.sin(f.t) < 0;
-    f.el.style.transform = `translate(${f.x}px, ${f.y}px)` + (goingLeft ? " scaleX(-1)" : "");
+    f.el.style.transform = `translate(${f.x}px, ${f.y}px)` + orientStr(f, -Math.sin(f.t), Math.cos(f.t) * (ry/rx), true, 35);
     return;
   }
   f.x += f.vx * sp;
@@ -2653,8 +3541,7 @@ function movePath(f, w, h){
   if(f.vx < 0 && f.x < -m)    f.x = w + 10;
   if(f.vy > 0 && f.y > h + m) f.y = -f.size - 10;
   if(f.vy < 0 && f.y < -m)    f.y = h + 10;
-  if(f.vy !== 0 && f.vx === 0) rot = f.vy > 0 ? 90 : -90;   // たては 体も たてむきに
-  f.el.style.transform = `translate(${f.x}px, ${f.y}px) rotate(${rot}deg)` + (f.vx < 0 ? " scaleX(-1)" : "");
+  f.el.style.transform = `translate(${f.x}px, ${f.y}px)` + orientStr(f, f.vx, f.vy, false, 90);
 }
 function startBubbles(){
   swimBubbleTimer = setInterval(()=>{
@@ -2725,17 +3612,26 @@ function onFishTap(f, ev){
     sfx.click();
     return;   // ちがう子は しずかにスルー
   }
-  // F. その ばしょで よろこんで とまる（よいんを あじわう）
+  // その ばしょで とまって、ひかり・あわ → とくいな うごき＋こうかおん
+  const T = PERF[f.c.id] ? PERF[f.c.id].t : 1500;
+  const DELAY = 500;
   f.resting = true;
-  f.restUntil = performance.now() + 2000;
+  f.restUntil = performance.now() + DELAY + T + 250;
   const inner = f.el.querySelector(".fish-inner");
-  inner.classList.remove("happy"); void inner.offsetWidth; inner.classList.add("happy");
+  inner.classList.remove("tapPop"); void inner.offsetWidth; inner.classList.add("tapPop");
   sfx.sharan();
   celebrateFish(f);
+  const svg = f.el.querySelector("svg");
+  setTimeout(()=>{
+    if(!svg.isConnected) return;
+    svg.classList.remove("sw");
+    if(!performAct(f.el, f.c.id)) playSig(f.c.id);
+  }, DELAY);
+  setTimeout(()=>{ if(svg.isConnected) svg.classList.add("sw"); }, DELAY + T + 80);
   if(swimMode === "find"){
-    setTimeout(nextFindTarget, 1900);
+    setTimeout(nextFindTarget, DELAY + T + 300);
   }else if(swimMode === "touch"){
-    setTimeout(()=>swapTouchFish(f), 1900);
+    setTimeout(()=>swapTouchFish(f), DELAY + T + 300);
   }
 }
 function pickCreatures(n){
@@ -2768,7 +3664,7 @@ function startSwim(){
     if(swimMode === "touch"){
       tankTask.classList.remove("show");
       // 1匹が がめんの なかを ゆったり まわりつづける（そとに でない）
-      makeFish(pickCreatures(1)[0], { loop:true, depth:0.85 });
+      makeFish(pickCreatures(1)[0], { loop:true, depth:0.85, reloc:true });
       startBubbles();
     }else if(swimMode === "watch"){
       pickCreatures(swimCount).forEach((c,i)=>makeFish(c, { depth: i/Math.max(1,swimCount-1) }));
@@ -2788,7 +3684,7 @@ function startSwim(){
       else if(followDir === "du"){ Object.assign(opt, { x:w*0.5-base/2, y:h+base, vx:0, vy:-1 }); }
       else if(followDir === "diag"){ Object.assign(opt, { x:-base, y:-base, vx:0.8, vy:0.6 }); }
       else { Object.assign(opt, { x:w*0.5, y:h*0.5 }); }   // circle
-      const f = makeFish(pickCreatures(1)[0], opt);
+      const f = makeFish(pickZone(["mid","low"], 1)[0], opt);
       f.y = opt.y;
       startBubbles();
     }
@@ -2797,14 +3693,19 @@ function startSwim(){
 }
 /* タッチモード：タッチできたら つぎの子に こうたい */
 function swapTouchFish(f){
-  f.resting = false;
-  f.el.querySelector(".fish-inner").classList.remove("happy");
-  const nc = pickCreatures(1)[0];
-  f.c = nc;
-  f.el.querySelector(".fish-inner").innerHTML = artHTML(nc);
-  f.el.dataset.id = nc.id;
-  f.dir = Math.random() < 0.5 ? 1 : -1;
-  f.turnAt = performance.now() + rand(4000, 9000);
+  const i = swimFishes.indexOf(f);
+  if(i < 0 || swimMode !== "touch") return;
+  let nc = pickCreatures(1)[0];
+  if(nc.id === f.c.id) nc = pickCreatures(1)[0];
+  f.el.style.opacity = "0";
+  setTimeout(()=>{
+    if(swimMode !== "touch" || swimFishes.indexOf(f) < 0) return;
+    f.el.remove();
+    swimFishes.splice(swimFishes.indexOf(f), 1);
+    const nf = makeFish(nc, { loop:true, depth:0.85, reloc:true });
+    nf.el.style.opacity = "0";
+    requestAnimationFrame(()=>{ nf.el.style.opacity = "1"; });
+  }, 420);
 }
 
 
@@ -2911,6 +3812,8 @@ function doStamp(){
   if(!missionSel || missionStamped.has(missionSel)) return;
   missionStamped.add(missionSel);
   sfx.pop();
+  const sigId = missionSel;
+  setTimeout(()=>playSig(sigId), 350);
   const picked = CREATURES.filter(c=>missionPicked.has(c.id));
   if(picked.length && picked.every(x=>missionStamped.has(x.id))){
     sfx.complete();
@@ -3021,8 +3924,15 @@ function renderDetail(){
   detailEl.className = "detail show hab-" + (HABITAT[c.id] || "lagoon");
   detailArt.innerHTML = artHTML(c);
   detailArt.className = "creature-art";
+  detailArt.dataset.id = c.id;
   void detailArt.offsetWidth;
-  detailArt.classList.add("anim-" + (ANIM[c.id] || "pop"));
+  if(PERF[c.id]){
+    detailArt.classList.add("anim-perf");
+    setTimeout(()=>performAct(detailArt, c.id), 450);
+  }else{
+    detailArt.classList.add("anim-" + (ANIM[c.id] || "pop"));
+    setTimeout(()=>playSig(c.id), 250);
+  }
   detailName.textContent = c.name;
   detailStars.textContent = "⭐".repeat(c.rarity);
   $("dPlace").textContent = c.place;
@@ -3032,6 +3942,7 @@ function renderDetail(){
 }
 $("prevBtn").addEventListener("click", ()=>{ sfx.click(); detailIndex=(detailIndex+CREATURES.length-1)%CREATURES.length; renderDetail(); });
 $("nextBtn").addEventListener("click", ()=>{ sfx.click(); detailIndex=(detailIndex+1)%CREATURES.length; renderDetail(); });
+detailArt.addEventListener("click", ()=>replayCreature(detailArt, detailArt.dataset.id, "creature-art"));
 $("closeDetail").addEventListener("click", ()=>{ sfx.click(); detailEl.classList.remove("show"); });
 $("detailBtn").addEventListener("click", ()=>{ if(shownC){ sfx.click(); openDetail(shownC.id); } });
 
@@ -3078,7 +3989,18 @@ function markPreset(){
                                  : "いまは「じぶんで ちょうせい」した せっていです";
 }
 /* すべての スイッチ・ボタンを いまの せっていに あわせる */
+function applyViewClasses(){
+  document.body.classList.toggle("clear-view", !!settings.clearView);
+  document.body.classList.toggle("nudge-on", !!settings.nudge);
+  document.body.classList.toggle("outline-on", !!settings.outline);
+}
 function syncSettingsUI(){
+  $("optClear").checked = settings.clearView;
+  $("optNudge").checked = settings.nudge;
+  $("optOutline").checked = settings.outline;
+  $("optSig").checked = settings.sigSound;
+  $("optChant").checked = settings.chant;
+  applyViewClasses();
   $("optFullTap").checked = settings.fullTap;
   $("optNewFirst").checked = settings.newFirst;
   $("optCoin").checked = settings.coinMode;
@@ -3100,6 +4022,16 @@ function applyPreset(k){
   updateHint();
   saveState();
 }
+[["optClear","clearView"],["optNudge","nudge"],["optOutline","outline"],["optSig","sigSound"],["optChant","chant"]]
+  .forEach(([id,key])=>{
+    $(id).addEventListener("change", function(){
+      settings[key] = this.checked;
+      applyViewClasses();
+      saveState();
+      if(key === "sigSound" && this.checked) playSig("penguin");   // ためしに ならす
+      if(key === "chant" && this.checked){ sfx.gacha(); }
+    });
+  });
 $("presetRow").addEventListener("click", (e)=>{
   const b = e.target.closest(".preset-btn");
   if(!b) return;
@@ -3229,6 +4161,7 @@ $("soundBtn").addEventListener("click", function(){
 const CONF = ["#FF8FB0","#FFD447","#7FD4E8","#A6E86C","#C9A6FF","#FF8A5C","#fff"];
 function confetti(n){
   if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if(settings.clearView) return;
   for(let i=0;i<n;i++){
     const d = document.createElement("div");
     d.className = "confetti";
@@ -3418,7 +4351,9 @@ function saveState(){
       settings: { fullTap: settings.fullTap, newFirst: settings.newFirst, coinMode: settings.coinMode,
                   showAll: settings.showAll, feelings: settings.feelings, studentName: settings.studentName,
                   quizLevel: settings.quizLevel, quizPick: settings.quizPick,
-                  swimSpeed: settings.swimSpeed, swimCount: settings.swimCount, fishSize: settings.fishSize },
+                  swimSpeed: settings.swimSpeed, swimCount: settings.swimCount, fishSize: settings.fishSize,
+                  clearView: settings.clearView, nudge: settings.nudge, outline: settings.outline,
+                  sigSound: settings.sigSound, chant: settings.chant },
       missionFeel: missionFeel,
       soundOn: soundOn,
       missionTarget: missionTarget,
@@ -3447,6 +4382,9 @@ function loadState(){
       if([1,2,3].includes(s.settings.swimSpeed)) settings.swimSpeed = s.settings.swimSpeed;
       if(typeof s.settings.swimCount === "number") settings.swimCount = Math.min(8,Math.max(3,s.settings.swimCount));
       if([1,2,3].includes(s.settings.fishSize)) settings.fishSize = s.settings.fishSize;
+      ["clearView","nudge","outline","sigSound","chant"].forEach(k=>{
+        if(typeof s.settings[k] === "boolean") settings[k] = s.settings[k];
+      });
     }
     if(typeof s.soundOn === "boolean") soundOn = s.soundOn;
     if(typeof s.missionTarget === "number") missionTarget = s.missionTarget;
