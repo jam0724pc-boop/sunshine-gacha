@@ -52,9 +52,18 @@
   /* ---------- header ---------- */
   header{
     position:relative;z-index:2;
-    display:flex;align-items:center;justify-content:space-between;
-    padding:10px 22px 4px;
+    display:flex;align-items:center;justify-content:space-between;gap:14px;
+    padding:10px 84px 4px 22px;
   }
+  header h1{flex:1;min-width:0;}
+  /* どの がめんも おなじ「⬅ もどる」 */
+  .pill-btn.back-btn{
+    background:#FFFFFF;color:var(--ink);
+    border:3px solid var(--sea-mid);
+    flex:0 0 auto;
+  }
+  .reveal-back{position:absolute;top:14px;left:22px;z-index:3;display:none;}
+  .reveal.phase-result .reveal-back{display:block;}
   h1{
     font-size:clamp(16px,2vw,24px);
     font-weight:900;color:#fff;
@@ -480,7 +489,7 @@
     padding:16px 26px 20px;
   }
   .zukan.show{display:flex;}
-  .zukan-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+  .zukan-head{display:flex;align-items:center;justify-content:flex-start;gap:16px;margin-bottom:12px;padding-right:70px;}
   .zukan-head h2{color:#fff;font-size:clamp(22px,3vw,34px);font-weight:900;}
   .zukan-head h2 span{font-size:.6em;background:var(--sun);color:var(--ink);
     border-radius:999px;padding:4px 16px;margin-left:14px;vertical-align:middle;}
@@ -740,7 +749,7 @@
     background:linear-gradient(180deg,#C2EAF5,#7FC9E4);
   }
   .detail.show{display:flex;}
-  .detail-close{position:absolute;top:14px;right:22px;z-index:2;}
+  .detail-close{position:absolute;top:14px;left:22px;z-index:2;}
   .detail-body{
     flex:1;display:flex;align-items:center;justify-content:center;
     gap:clamp(16px,4vw,50px);min-height:0;
@@ -768,19 +777,27 @@
     display:none;flex-direction:column;padding:14px 22px 16px;
   }
   .swim.show{display:flex;}
-  .swim-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;position:relative;z-index:3;}
+  .swim-head{display:flex;align-items:center;justify-content:flex-start;gap:16px;margin-bottom:6px;position:relative;z-index:3;padding-right:70px;}
   .swim-head h2{color:#fff;font-size:clamp(20px,2.8vw,30px);font-weight:900;text-shadow:0 2px 0 rgba(14,94,140,.4);}
   .swim-head-btns{display:flex;gap:10px;}
   .swim .swim-select{display:none;}
   .swim.ph-select .swim-select{display:flex;}
+  .swim .swim-dir{display:none;}
+  .swim.ph-dir .swim-dir{display:flex;}
   .swim .swim-tank{display:none;}
   .swim.ph-play .swim-tank{display:block;}
   .swim .swim-back{display:none;}
-  .swim.ph-play .swim-back{display:block;}
-  .swim-select{
+  .swim.ph-play .swim-back,.swim.ph-dir .swim-back{display:block;}
+  .swim-select,.swim-dir{
     flex:1;align-items:center;justify-content:center;
-    gap:clamp(16px,3vw,40px);flex-wrap:wrap;
+    gap:clamp(12px,2.2vw,28px);flex-wrap:wrap;
   }
+  .swim-dir .smode-btn{
+    width:clamp(125px,15vw,175px);
+    padding:clamp(12px,2.2vh,20px) 8px;
+    font-size:clamp(13px,1.6vw,17px);
+  }
+  .swim-dir .sm-ico{font-size:clamp(26px,4.5vh,40px);}
   .smode-btn{
     border:none;cursor:pointer;font-family:inherit;font-weight:900;
     background:var(--cream);color:var(--ink);
@@ -801,15 +818,70 @@
   .swim.ph-play .swim-tank{height:auto;}
   .swim-fish{
     position:absolute;cursor:pointer;
-    width:clamp(90px,15vh,150px);height:clamp(90px,15vh,150px);
     display:flex;align-items:center;justify-content:center;
     will-change:transform;
     -webkit-tap-highlight-color:transparent;
+    transition:filter .3s;
   }
+  .swim-fish.far{filter:brightness(.86) saturate(.85) blur(.4px);}
   .swim-fish svg{width:100%;height:100%;filter:drop-shadow(0 4px 6px rgba(0,20,40,.3));}
-  .swim-fish.flip{transform:scaleX(-1);}
+  .swim-fish{display:block;}
   .swim-fish.caught{animation:caughtPop .6s ease;}
   @keyframes caughtPop{0%{transform:scale(1);}40%{transform:scale(1.35);}100%{transform:scale(1);}}
+  .ripple{
+    position:absolute;pointer-events:none;z-index:7;
+    width:40px;height:40px;margin:-20px 0 0 -20px;
+    border-radius:50%;
+    border:5px solid rgba(255,255,255,.95);
+    box-shadow:0 0 14px rgba(255,255,255,.7);
+    animation:rippleOut .85s cubic-bezier(.2,.7,.4,1) forwards;
+  }
+  .ripple.r2{animation-delay:.14s;border-color:rgba(255,244,190,.9);}
+  .ripple.r3{animation-delay:.28s;border-color:rgba(190,240,255,.85);}
+  @keyframes rippleOut{
+    0%{transform:scale(.3);opacity:.95;}
+    100%{transform:scale(5.5);opacity:0;}
+  }
+  .glow-ring{
+    position:absolute;pointer-events:none;z-index:6;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(255,246,200,.85) 0%, rgba(255,232,150,.45) 40%, rgba(255,232,150,0) 70%);
+    animation:glowOut 1s ease-out forwards;
+  }
+  @keyframes glowOut{
+    0%{transform:scale(.4);opacity:0;}
+    25%{opacity:1;}
+    100%{transform:scale(2.6);opacity:0;}
+  }
+  .sparkle{
+    position:absolute;pointer-events:none;z-index:8;
+    border-radius:50%;
+    background:radial-gradient(circle at 32% 30%, rgba(255,255,255,.95), rgba(255,255,255,.35) 55%, rgba(255,255,255,.12));
+    border:1.5px solid rgba(255,255,255,.75);
+    animation:sparkleFloat 1.6s ease-out forwards;
+  }
+  @keyframes sparkleFloat{
+    0%{transform:translate(0,0) scale(.2);opacity:0;}
+    18%{opacity:.95;transform:translate(calc(var(--dx) * .4), calc(var(--dy) * .3)) scale(1);}
+    100%{transform:translate(var(--dx), var(--dy)) scale(.85);opacity:0;}
+  }
+  .swim-fish > .fish-inner{
+    width:100%;height:100%;
+    display:flex;align-items:center;justify-content:center;
+    transform-origin:50% 50%;
+  }
+  .swim-fish > .fish-inner > svg{width:100%;height:100%;}
+  .fish-inner.happy{animation:happyWiggle 1.9s ease;}
+  @keyframes happyWiggle{
+    0%{transform:scale(1) rotate(0);}
+    12%{transform:scale(1.3) rotate(-10deg);}
+    24%{transform:scale(1.22) rotate(10deg);}
+    36%{transform:scale(1.26) rotate(-8deg);}
+    48%{transform:scale(1.2) rotate(8deg);}
+    62%{transform:scale(1.22) rotate(-5deg);}
+    76%{transform:scale(1.18) rotate(5deg);}
+    100%{transform:scale(1) rotate(0);}
+  }
   .tank-bubble{
     position:absolute;bottom:-30px;border-radius:50%;
     background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(255,255,255,.2));
@@ -851,7 +923,7 @@
     padding:14px 26px 16px;
   }
   .quiz.show{display:flex;}
-  .quiz-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+  .quiz-head{display:flex;align-items:center;justify-content:flex-start;gap:16px;margin-bottom:6px;padding-right:70px;}
   .quiz-head h2{color:#fff;font-size:clamp(20px,2.8vw,30px);font-weight:900;}
   .quiz-head h2 span{font-size:.6em;background:var(--sun);color:var(--ink);
     border-radius:999px;padding:4px 14px;margin-left:12px;vertical-align:middle;}
@@ -968,6 +1040,70 @@
   .toggle input:checked + .tr{background:#4CAF7D;}
   .toggle input:checked + .tr::after{left:32px;}
   .settings-btns{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;justify-content:center;}
+  .set-top{display:flex;align-items:center;gap:14px;margin-bottom:6px;}
+  /* ---------- つかいかた（？） ---------- */
+  .help-btn{
+    position:fixed;top:12px;right:14px;z-index:27;
+    width:54px;height:54px;border-radius:50%;
+    border:3px solid #fff;cursor:pointer;
+    background:var(--sun);color:var(--ink);
+    font-family:inherit;font-weight:900;font-size:28px;line-height:1;
+    box-shadow:0 4px 0 rgba(14,94,140,.35);
+  }
+  .help-btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(14,94,140,.35);}
+  .help{
+    position:fixed;inset:0;z-index:29;
+    background:rgba(16,48,76,.62);
+    display:none;align-items:center;justify-content:center;padding:20px;
+  }
+  .help.show{display:flex;}
+  .help-card{
+    background:var(--cream);border-radius:26px;
+    width:min(620px,92vw);max-height:88vh;overflow:auto;
+    padding:22px 28px 20px;
+    box-shadow:0 14px 34px rgba(0,0,0,.3);
+    display:flex;flex-direction:column;align-items:center;gap:12px;
+  }
+  .help-title{font-size:clamp(20px,2.6vw,26px);font-weight:900;color:var(--ink);text-align:center;}
+  .help-steps{list-style:none;padding:0;margin:0;width:100%;display:flex;flex-direction:column;gap:10px;counter-reset:hs;}
+  .help-steps li{
+    counter-increment:hs;
+    display:flex;align-items:center;gap:12px;
+    background:#fff;border-radius:16px;padding:10px 14px;
+    font-weight:900;font-size:clamp(15px,1.9vw,19px);line-height:1.55;color:var(--ink);
+  }
+  .help-steps li::before{
+    content:counter(hs);flex:0 0 auto;
+    width:32px;height:32px;border-radius:50%;
+    background:var(--sea-mid);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:17px;
+  }
+  .help-steps li .h-ico{font-size:28px;flex:0 0 auto;}
+  .help-tip{font-size:clamp(13px,1.6vw,15px);font-weight:700;color:#33698C;text-align:center;line-height:1.6;}
+  .set-top h2{margin:0;}
+  .preset-row{display:flex;gap:12px;margin-top:6px;}
+  .preset-btn{
+    flex:1;border:3px solid transparent;cursor:pointer;font-family:inherit;
+    background:#F2F9FD;color:var(--ink);border-radius:20px;
+    padding:12px 8px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;
+    box-shadow:0 4px 0 rgba(14,94,140,.18);
+  }
+  .preset-btn b{font-size:18px;font-weight:900;}
+  .preset-btn small{font-size:11.5px;font-weight:700;color:#557089;line-height:1.55;text-align:center;}
+  .pr-ico{font-size:30px;line-height:1;}
+  .preset-btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(14,94,140,.18);}
+  .preset-btn.on{border-color:#4CAF7D;background:#EAF8F0;}
+  .preset-btn.on b::after{content:" ✔";color:#4CAF7D;}
+  .preset-now{text-align:center;font-size:13px;font-weight:900;color:#33698C;min-height:1.4em;margin-top:8px;}
+  .sgh-child{background:#E6A23C;}
+  .adv-toggle{
+    display:block;width:100%;margin-top:14px;
+    border:2px dashed #9CC8DD;background:#fff;cursor:pointer;
+    font-family:inherit;font-weight:900;font-size:15px;color:#33698C;
+    padding:12px;border-radius:14px;
+  }
+  .adv{display:none;}
+  .adv.open{display:block;}
   .sg{background:#F2F9FD;border-radius:16px;padding:2px 16px 6px;margin-top:14px;}
   .sg-head{
     display:inline-block;transform:translateY(-12px);
@@ -1025,14 +1161,10 @@
 <div class="ambient" id="ambient" aria-hidden="true"></div>
 
 <header>
+  <button class="pill-btn back-btn" id="homeBtn" aria-label="はじめの がめんに もどる">⬅ もどる</button>
   <h1>🐠 すいぞくかん ガチャガチャ<small>サンシャインすいぞくかんの なかまたち</small></h1>
   <div class="head-btns">
-    <button class="pill-btn" id="homeBtn" aria-label="ホームにもどる">🏠 ホーム</button>
     <button class="pill-btn" id="soundBtn" aria-label="おとのオン・オフ">🔊 おと</button>
-    <button class="pill-btn" id="swimBtn" aria-label="およぐおさかなをひらく">🐟 おさかな</button>
-    <button class="pill-btn" id="missionBtn" aria-label="たんけんカードをひらく">🎒 たんけん</button>
-    <button class="pill-btn" id="quizBtn" aria-label="シルエットクイズであそぶ">❓ クイズ</button>
-    <button class="pill-btn" id="zukanBtn" aria-label="ずかんをひらく">📖 ずかん <span class="badge" id="countBadge">0/12</span></button>
   </div>
 </header>
 
@@ -1119,8 +1251,8 @@
 <!-- ずかん -->
 <div class="zukan" id="zukan" role="dialog" aria-label="うみのなかまずかん">
   <div class="zukan-head">
+    <button class="pill-btn back-btn" id="closeZukan">⬅ もどる</button>
     <h2>📖 うみのなかま ずかん<span id="zukanCount">0/12</span></h2>
-    <button class="pill-btn" id="closeZukan">✖ とじる</button>
   </div>
   <p class="over-note">あつめた子を タップすると、くわしい せつめいが みられるよ📖</p>
   <div class="zukan-grid" id="zukanGrid"></div>
@@ -1130,6 +1262,7 @@
 <!-- カプセルおひろめ（全画面） -->
 <div class="reveal" id="reveal">
   <div class="reveal-rays" aria-hidden="true"></div>
+  <button class="pill-btn back-btn reveal-back" id="rBackBtn">⬅ もどる</button>
   <button class="reveal-capsule" id="revealCapsule" aria-label="カプセルをあける">
     <div class="cap-wrap big" id="rCapWrap">
       <div class="cap-top" id="rCapTop"></div>
@@ -1151,7 +1284,6 @@
         <button class="big-btn btn-again" id="rAgainBtn">🔁 もういっかい！</button>
         <button class="big-btn btn-zukan" id="rDetailBtn">📖 くわしく</button>
         <button class="big-btn btn-zukan" id="rZukanBtn">🐚 ずかんをみる</button>
-        <button class="big-btn btn-zukan" id="rBackBtn">⬅ もどる</button>
       </div>
     </div>
   </div>
@@ -1169,7 +1301,7 @@
   <p class="home-sub">🚌 とうきょう・いけぶくろの「てんくうのオアシス」で うみの なかまに あいに いこう</p>
   <div class="home-menu">
     <button class="home-btn" id="goGacha"><span class="hb-ico" data-ico="gacha"></span>ガチャで<br>なかまを あつめる</button>
-    <button class="home-btn" id="goZukan"><span class="hb-ico" data-ico="zukan"></span>うみのなかま<br>ずかん</button>
+    <button class="home-btn" id="goZukan"><span class="hb-ico" data-ico="zukan"></span>うみのなかま<br>ずかん <span class="badge" id="countBadge">0/12</span></button>
     <button class="home-btn" id="goMission"><span class="hb-ico" data-ico="mission"></span>たんけん<br>カード</button>
     <button class="home-btn" id="goQuiz"><span class="hb-ico" data-ico="quiz"></span>だれかな？<br>クイズ</button>
     <button class="home-btn" id="goSwim"><span class="hb-ico" data-ico="swim"></span>およぐ<br>おさかな</button>
@@ -1180,11 +1312,22 @@
 <!-- せんせいボタン（がめんのすみ） -->
 <button class="teacher-btn" id="teacherBtn" aria-label="せんせいメニューをひらく">⚙️</button>
 
+<!-- つかいかた（？） -->
+<button class="help-btn" id="helpBtn" aria-label="この がめんの つかいかた">？</button>
+<div class="help" id="help" role="dialog" aria-label="つかいかた">
+  <div class="help-card">
+    <div class="help-title" id="helpTitle"></div>
+    <ol class="help-steps" id="helpSteps"></ol>
+    <p class="help-tip" id="helpTip"></p>
+    <button class="big-btn btn-again" id="helpClose">✔ わかった</button>
+  </div>
+</div>
+
 <!-- たんけんカード -->
 <div class="mission" id="mission" role="dialog" aria-label="たんけんカード">
   <div class="zukan-head">
+    <button class="pill-btn back-btn" id="closeMission">⬅ もどる</button>
     <h2 id="missionTitle" style="color:#fff;font-size:clamp(20px,2.8vw,30px);font-weight:900;">🎒 たんけんカード</h2>
-    <button class="pill-btn" id="closeMission">✖ とじる</button>
   </div>
   <p class="over-note" id="missionNote"></p>
   <div class="mission-grid" id="missionGrid"></div>
@@ -1203,7 +1346,7 @@
 
 <!-- いきものはかせ（くわしい せつめい） -->
 <div class="detail" id="detail" role="dialog" aria-label="いきもののせつめい">
-  <button class="pill-btn detail-close" id="closeDetail">✖ とじる</button>
+  <button class="pill-btn back-btn detail-close" id="closeDetail">⬅ もどる</button>
   <div class="detail-body">
     <div class="detail-left">
       <div class="creature-art" id="detailArt"></div>
@@ -1228,17 +1371,22 @@
 <!-- およぐ おさかな（目で追う学習） -->
 <div class="swim" id="swim" role="dialog" aria-label="およぐ おさかな">
   <div class="swim-head">
+    <button class="pill-btn back-btn" id="closeSwim">⬅ もどる</button>
     <h2 id="swimTitle">🐟 およぐ おさかな</h2>
-    <div class="swim-head-btns">
-      <button class="pill-btn swim-back" id="swimBackBtn">🔁 モードを えらぶ</button>
-      <button class="pill-btn" id="closeSwim">✖ おわる</button>
-    </div>
   </div>
   <div class="swim-select" id="swimSelect">
     <button class="smode-btn" data-smode="touch"><span class="sm-ico">👆</span>タッチ<br>モード</button>
     <button class="smode-btn" data-smode="watch"><span class="sm-ico">🌊</span>みるだけ<br>モード</button>
     <button class="smode-btn" data-smode="find"><span class="sm-ico">🔍</span>さがしっこ<br>モード</button>
     <button class="smode-btn" data-smode="follow"><span class="sm-ico">➡️</span>おいかけ<br>モード</button>
+  </div>
+  <div class="swim-dir" id="swimDir">
+    <button class="smode-btn" data-dir="lr"><span class="sm-ico">➡️</span>よこ<br>ひだり→みぎ</button>
+    <button class="smode-btn" data-dir="rl"><span class="sm-ico">⬅️</span>よこ<br>みぎ→ひだり</button>
+    <button class="smode-btn" data-dir="ud"><span class="sm-ico">⬇️</span>たて<br>うえ→した</button>
+    <button class="smode-btn" data-dir="du"><span class="sm-ico">⬆️</span>たて<br>した→うえ</button>
+    <button class="smode-btn" data-dir="diag"><span class="sm-ico">↘️</span>ななめ</button>
+    <button class="smode-btn" data-dir="circle"><span class="sm-ico">🔄</span>ぐるぐる</button>
   </div>
   <div class="swim-tank" id="swimTank">
     <div class="tank-task" id="tankTask"></div>
@@ -1249,11 +1397,8 @@
 <!-- クイズ -->
 <div class="quiz" id="quiz" role="dialog" aria-label="クイズ">
   <div class="quiz-head">
+    <button class="pill-btn back-btn" id="closeQuiz">⬅ もどる</button>
     <h2><span id="quizTitle">❓ クイズで あそぼう</span><span id="quizNum"></span><span id="quizScore">せいかい 0</span></h2>
-    <div class="quiz-head-btns">
-      <button class="pill-btn quiz-back" id="quizBackBtn">🔁 クイズを えらぶ</button>
-      <button class="pill-btn" id="closeQuiz">✖ おわる</button>
-    </div>
   </div>
   <div class="quiz-select" id="quizSelect">
     <button class="qtype-btn" data-qtype="ox"><span class="qt-ico"><b class="ic-maru">○</b><b class="ic-batu">×</b></span>まるばつ<br>クイズ</button>
@@ -1292,15 +1437,53 @@
     <p class="cert-text">たんけんミッション だいせいこう！<br>さがしていた なかまに ぜんいん あえました。<br>りっぱな「すいぞくかん たんけんたい」に にんていします！</p>
     <div class="cert-animals" id="certAnimals"></div>
     <div class="cert-date" id="certDate"></div>
-    <button class="big-btn btn-again" id="closeCert">✔ とじる</button>
+    <button class="big-btn btn-zukan" id="closeCert">⬅ もどる</button>
   </div>
 </div>
 
-<!-- せんせいメニュー（タイトルをながおしでひらく） -->
+<!-- せんせいメニュー（ひだり下の ⚙ で ひらく） -->
 <div class="settings" id="settings" role="dialog" aria-label="せんせいメニュー">
   <div class="settings-card">
-    <h2>⚙️ せんせいメニュー</h2>
-    <p class="note">このメニューは、ひだり下の ⚙ボタン か、タイトルの「ながおし」で ひらきます。</p>
+    <div class="set-top">
+      <button class="pill-btn back-btn" id="closeSettingsTop">⬅ もどる</button>
+      <h2>⚙️ せんせいメニュー</h2>
+    </div>
+    <p class="note">まずは 下の 3つから えらぶだけで OK です。こまかく かえたい ときは「くわしい せってい」を ひらいてください。</p>
+
+    <div class="preset-row" id="presetRow">
+      <button class="preset-btn" data-preset="easy">
+        <span class="pr-ico">🌱</span><b>やさしい</b>
+        <small>1タップで まわる<br>クイズ⭐・ゆっくり<br>ずかん ぜんぶ ひらく</small>
+      </button>
+      <button class="preset-btn" data-preset="normal">
+        <span class="pr-ico">🌿</span><b>ふつう</b>
+        <small>コインを いれて まわす<br>クイズ⭐⭐<br>ふつうの はやさ</small>
+      </button>
+      <button class="preset-btn" data-preset="challenge">
+        <span class="pr-ico">🌳</span><b>チャレンジ</b>
+        <small>ハンドルを ねらう<br>クイズ⭐⭐⭐・はやい<br>ちいさめの さかな</small>
+      </button>
+    </div>
+    <p class="preset-now" id="presetNow"></p>
+
+    <div class="sg">
+      <div class="sg-head sgh-child">👤 この iPad を つかう子</div>
+      <div class="setting-row">
+        <span>おなまえ<span class="hint">いれておくと、たんけんカードの しょうじょうに 「○○さん」と でます</span></span>
+        <input class="name-input" id="optName" type="text" maxlength="10" placeholder="なまえ">
+      </div>
+      <div class="setting-row">
+        <span>たんけんカードで さがす数<span class="hint">おこさまの じったいに あわせて どうぞ</span></span>
+        <div class="counter">
+          <button class="cnt-btn" id="cntMinus" aria-label="へらす">−</button>
+          <span id="cntVal">3</span>
+          <button class="cnt-btn" id="cntPlus" aria-label="ふやす">＋</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="adv-toggle" id="advToggle" aria-expanded="false">🔧 くわしい せってい を ひらく ▼</button>
+    <div class="adv" id="advSettings">
 
     <div class="sg">
       <div class="sg-head sgh-gacha">🎡 ガチャ</div>
@@ -1337,20 +1520,8 @@
     <div class="sg">
       <div class="sg-head sgh-mission">🎒 たんけんカード</div>
       <div class="setting-row">
-        <span>さがす数<span class="hint">この iPadで えらべる 生きものの かず。おこさまの じったいに あわせて どうぞ</span></span>
-        <div class="counter">
-          <button class="cnt-btn" id="cntMinus" aria-label="へらす">−</button>
-          <span id="cntVal">3</span>
-          <button class="cnt-btn" id="cntPlus" aria-label="ふやす">＋</button>
-        </div>
-      </div>
-      <div class="setting-row">
         <span>きもちスタンプ<span class="hint">みつけた子に「😊たのしかった」などの きもちを つけられます（当日でも あとからでも）</span></span>
         <label class="toggle"><input type="checkbox" id="optFeel"><span class="tr"></span></label>
-      </div>
-      <div class="setting-row">
-        <span>おなまえ<span class="hint">いれておくと、コンプリートの しょうじょうに 「○○さん」と でます</span></span>
-        <input class="name-input" id="optName" type="text" maxlength="10" placeholder="なまえ">
       </div>
       <div class="setting-row">
         <span>カードを つくりなおす<span class="hint">えらんだ子・スタンプ・きもちを けして、さいしょから えらべます</span></span>
@@ -1376,6 +1547,14 @@
           <button class="cnt-btn" id="fishPlus" aria-label="ふやす">＋</button>
         </div>
       </div>
+      <div class="setting-row">
+        <span>おさかなの おおきさ<span class="hint">目で おいかけやすい おおきさに できます</span></span>
+        <div class="lv-seg" id="fishSizeSeg">
+          <button class="sp-btn" data-sz="1">ちいさめ</button>
+          <button class="sp-btn on" data-sz="2">ふつう</button>
+          <button class="sp-btn" data-sz="3">おおきい</button>
+        </div>
+      </div>
     </div>
 
     <div class="sg">
@@ -1394,8 +1573,10 @@
       </div>
     </div>
 
+    </div><!-- /adv -->
+
     <div class="settings-btns">
-      <button class="big-btn btn-again" id="closeSettings">✔ とじる</button>
+      <button class="big-btn btn-zukan" id="closeSettings">⬅ もどる</button>
     </div>
   </div>
 </div>
@@ -1710,7 +1891,7 @@ let shownC = null;
 let busy = false;
 let soundOn = true;
 let resultShownAt = 0;
-const settings = { fullTap:true, newFirst:true, coinMode:true, showAll:false, feelings:false, studentName:"", quizLevel:2, quizPick:true, swimSpeed:2, swimCount:5 };
+const settings = { fullTap:true, newFirst:true, coinMode:true, showAll:false, feelings:false, studentName:"", quizLevel:2, quizPick:true, swimSpeed:2, swimCount:5, fishSize:2 };
 
 /* ===================== 音（Web Audio） ===================== */
 let actx = null;
@@ -1736,6 +1917,12 @@ const sfx = {
   kira(){ [523,659,784,1047,1319,1568].forEach((f,i)=>tone(f,.3,"triangle",.16,i*.1)); },
   drum(){ for(let i=0;i<8;i++){ tone(i%2 ? 200 : 150, .05, "square", .055, i*.06); } },
   pinpon(){ tone(784,.3,"sine",.2); tone(1047,.5,"sine",.2,.16); },
+  sharan(){
+    [1047,1319,1568,2093,2637].forEach((f,i)=>{
+      tone(f, .85, "triangle", .12, i*.055);
+    });
+    tone(3136, .6, "sine", .05, .3);
+  },
   coin(){ tone(1568,.35,"triangle",.16); tone(2093,.45,"sine",.11,.04); tone(1175,.12,"triangle",.09,.01); },
   wrong(){ tone(260,.15,"triangle",.14); tone(190,.22,"triangle",.14,.1); },
   complete(){ [523,523,784,784,1047,1319,1568].forEach((f,i)=>tone(f,.3,"sine",.15,i*.14)); }
@@ -2101,7 +2288,6 @@ quizLevelSel.addEventListener("click", (e)=>{
   quizLevel = parseInt(b.dataset.lv, 10);
   startQuestions();
 });
-$("quizBackBtn").addEventListener("click", ()=>{ sfx.click(); showQuizSelect(); });
 
 function startQuestions(){
   quizScore = 0;
@@ -2269,8 +2455,11 @@ function answerPick(btn, o){
     showNextBtn();
   }
 }
-$("quizBtn").addEventListener("click", openQuiz);
-$("closeQuiz").addEventListener("click", ()=>{ sfx.click(); quizEl.className = "quiz"; });
+$("closeQuiz").addEventListener("click", ()=>{
+  sfx.click();
+  if(quizEl.classList.contains("ph-select")){ quizEl.className = "quiz"; return; }
+  showQuizSelect();   // とちゅう・けっか → クイズえらびへ
+});
 $("qrRetryBtn").addEventListener("click", ()=>{ sfx.click(); startQuestions(); });
 $("qrSelectBtn").addEventListener("click", ()=>{ sfx.click(); showQuizSelect(); });
 
@@ -2278,8 +2467,9 @@ $("qrSelectBtn").addEventListener("click", ()=>{ sfx.click(); showQuizSelect(); 
 const swimEl=$("swim"), swimTank=$("swimTank"), swimSelectEl=$("swimSelect"),
       swimTitleEl=$("swimTitle"), tankTask=$("tankTask"), tankPraise=$("tankPraise");
 let swimMode=null, swimRAF=null, swimFishes=[], swimTarget=null, swimBubbleTimer=null;
-let swimSpeed=2, swimCount=5;
+let swimSpeed=2, swimCount=5, followDir="lr";
 const SPEED_PX = {1:0.9, 2:1.7, 3:2.9};
+const FISH_SIZE = {1:0.75, 2:1, 3:1.35};
 
 function openSwim(){
   sfx.click();
@@ -2298,7 +2488,7 @@ function stopSwim(){
   if(swimBubbleTimer){ clearInterval(swimBubbleTimer); swimBubbleTimer=null; }
   swimFishes.forEach(f=>f.el.remove());
   swimFishes = [];
-  swimTank.querySelectorAll(".tank-bubble").forEach(b=>b.remove());
+  swimTank.querySelectorAll(".tank-bubble, .ripple, .glow-ring, .sparkle").forEach(b=>b.remove());
   tankTask.classList.remove("show");
   tankPraise.classList.remove("show");
 }
@@ -2307,51 +2497,159 @@ swimSelectEl.addEventListener("click", (e)=>{
   if(!b) return;
   sfx.click();
   swimMode = b.dataset.smode;
+  if(swimMode === "follow"){
+    // おいかけモードは むきを えらんでから
+    stopSwim();
+    swimEl.className = "swim show ph-dir";
+    swimTitleEl.textContent = "➡️ どの むきで およぐ？";
+    return;
+  }
   startSwim();
 });
-$("swimBackBtn").addEventListener("click", ()=>{ sfx.click(); showSwimSelect(); });
-$("closeSwim").addEventListener("click", ()=>{ sfx.click(); stopSwim(); swimEl.className = "swim"; });
-$("swimBtn").addEventListener("click", openSwim);
+$("swimDir").addEventListener("click", (e)=>{
+  const b = e.target.closest(".smode-btn");
+  if(!b) return;
+  sfx.click();
+  followDir = b.dataset.dir;
+  startSwim();
+});
+/* ⬅ もどる：あそんでいる → えらぶ → とじる の じゅんに 1だんずつ もどる */
+$("closeSwim").addEventListener("click", ()=>{
+  sfx.click();
+  if(swimMode === "follow" && swimEl.classList.contains("ph-play")){
+    stopSwim();
+    swimEl.className = "swim show ph-dir";
+    swimTitleEl.textContent = "➡️ どの むきで およぐ？";
+    return;
+  }
+  if(swimEl.classList.contains("ph-play") || swimEl.classList.contains("ph-dir")){
+    showSwimSelect();
+    return;
+  }
+  stopSwim();
+  swimEl.className = "swim";
+});
 
 function rand(a,b){ return a + Math.random()*(b-a); }
 function tankSize(){ return { w: swimTank.clientWidth, h: swimTank.clientHeight }; }
 
+function baseFishPx(){
+  const { h } = tankSize();
+  const base = Math.max(80, Math.min(160, h * 0.19));
+  return base * (FISH_SIZE[settings.fishSize] || 1);
+}
 function makeFish(c, opts){
+  opts = opts || {};
   const el = document.createElement("div");
   el.className = "swim-fish";
-  el.innerHTML = artHTML(c);
+  el.innerHTML = '<div class="fish-inner">' + artHTML(c) + '</div>';
   el.dataset.id = c.id;
   swimTank.appendChild(el);
-  const size = el.clientWidth || 120;
   const { w, h } = tankSize();
-  const sp = SPEED_PX[swimSpeed] * rand(0.8, 1.2);
-  const dir = (opts && opts.dir) || (Math.random() < 0.5 ? 1 : -1);
+  // 奥行き：0（奥・小さい）〜1（手前・大きい）
+  const depth = opts.depth != null ? opts.depth : rand(0, 1);
+  const size = baseFishPx() * (0.62 + depth * 0.55);
+  el.style.width = size + "px";
+  el.style.height = size + "px";
+  el.style.zIndex = String(2 + Math.round(depth * 6));
+  el.classList.toggle("far", depth < 0.4);
+  const sp = SPEED_PX[swimSpeed] * (0.6 + depth * 0.7) * rand(0.85, 1.15);
+  const dir = opts.dir || (Math.random() < 0.5 ? 1 : -1);
   const fish = {
-    el, c, size, sp, dir,
-    x: (opts && opts.x != null) ? opts.x : rand(0, Math.max(1, w - size)),
-    y: (opts && opts.y != null) ? opts.y : rand(0, Math.max(1, h - size)),
-    phase: rand(0, Math.PI*2),
-    amp: rand(8, 22),
+    el, c, size, sp, dir, depth,
+    x: opts.x != null ? opts.x : rand(0, Math.max(1, w - size)),
     baseY: 0,
-    straight: !!(opts && opts.straight)
+    phase: rand(0, Math.PI*2),
+    amp: rand(10, 26),
+    wobble: rand(0.010, 0.020),
+    turnAt: performance.now() + rand(4000, 9000),
+    pauseUntil: 0,
+    straight: !!opts.straight,
+    loop: !!opts.loop,           // 画面内を まわりつづける（タッチ・さがしっこ用）
+    path: opts.path || null,     // "lr","rl","ud","du","diag","circle"
+    vx: opts.vx || 0,
+    vy: opts.vy || 0,
+    t: 0
   };
-  fish.baseY = fish.y;
-  el.addEventListener("click", ()=>onFishTap(fish));
+  fish.baseY = opts.y != null ? opts.y : rand(0, Math.max(1, h - size));
+  fish.y = fish.baseY;
+  el.addEventListener("click", (ev)=>onFishTap(fish, ev));
   swimFishes.push(fish);
   return fish;
 }
 function layoutFrame(){
   const { w, h } = tankSize();
+  const now = performance.now();
   for(const f of swimFishes){
-    f.x += f.sp * f.dir;
-    if(f.dir > 0 && f.x > w + 10){ f.x = -f.size - 10; if(!f.straight){ f.baseY = rand(0, Math.max(1,h-f.size)); } }
-    if(f.dir < 0 && f.x < -f.size - 10){ f.x = w + 10; if(!f.straight){ f.baseY = rand(0, Math.max(1,h-f.size)); } }
+    const maxY = Math.max(1, h - f.size);
+    if(f.resting){
+      if(now > f.restUntil){
+        f.resting = false;
+        const fi = f.el.querySelector(".fish-inner");
+        if(fi) fi.classList.remove("happy");
+      }else{
+        continue;   // よろこんでいる あいだは その ばしょで じっとする
+      }
+    }
+    if(f.path){ movePath(f, w, h); continue; }
+    if(!f.straight && now > f.pauseUntil){
+      // ときどき ゆっくり止まって、むきを かえる（しぜんな およぎ）
+      if(now > f.turnAt){
+        f.pauseUntil = now + rand(500, 1200);
+        f.turnAt = now + rand(5000, 11000);
+        if(!f.loop || Math.random() < 0.7) f.dir *= -1;
+      }
+      f.x += f.sp * f.dir;
+    }else if(f.straight){
+      f.x += f.sp * f.dir;
+    }
+    if(f.loop){
+      // 画面の中を まわりつづける（外に出ない）
+      if(f.x > w - f.size){ f.x = w - f.size; f.dir = -1; f.turnAt = now + rand(4000,9000); }
+      if(f.x < 0){ f.x = 0; f.dir = 1; f.turnAt = now + rand(4000,9000); }
+    }else{
+      if(f.dir > 0 && f.x > w + 10){ f.x = -f.size - 10; f.baseY = rand(0, maxY); }
+      if(f.dir < 0 && f.x < -f.size - 10){ f.x = w + 10; f.baseY = rand(0, maxY); }
+    }
     let y = f.baseY;
-    if(!f.straight){ f.phase += 0.02; y = f.baseY + Math.sin(f.phase) * f.amp; }
-    f.el.style.transform = `translate(${f.x}px, ${y}px)`;
-    f.el.classList.toggle("flip", f.dir < 0);
+    if(!f.straight){
+      f.phase += f.wobble;
+      y = f.baseY + Math.sin(f.phase) * f.amp;
+      // ゆるやかに たてにも いどう（カーブ）
+      f.baseY += Math.sin(f.phase * 0.23) * 0.35;
+      if(f.baseY < 0) f.baseY = 0;
+      if(f.baseY > maxY) f.baseY = maxY;
+    }
+    const tilt = f.straight ? 0 : Math.sin(f.phase) * 5;
+    f.el.style.transform = `translate(${f.x}px, ${y}px) rotate(${tilt}deg)` + (f.dir < 0 ? " scaleX(-1)" : "");
   }
   swimRAF = requestAnimationFrame(layoutFrame);
+}
+/* おいかけモード：えらんだ むきに ゆっくり すすむ */
+function movePath(f, w, h){
+  const sp = SPEED_PX[swimSpeed] * 0.85;
+  const m = f.size + 20;
+  let rot = 0;
+  if(f.path === "circle"){
+    f.t += 0.004 * (swimSpeed === 1 ? 0.65 : swimSpeed === 3 ? 1.7 : 1);
+    const rx = Math.max(40, (w - f.size)/2 * 0.82);
+    const ry = Math.max(30, (h - f.size)/2 * 0.78);
+    f.x = w/2 - f.size/2 + Math.cos(f.t) * rx;
+    f.y = h/2 - f.size/2 + Math.sin(f.t) * ry;
+    // すすむ むきに あわせて 体の むきを かえる
+    const goingLeft = Math.sin(f.t) < 0;
+    f.el.style.transform = `translate(${f.x}px, ${f.y}px)` + (goingLeft ? " scaleX(-1)" : "");
+    return;
+  }
+  f.x += f.vx * sp;
+  f.y += f.vy * sp;
+  // はしまで いったら はんたいがわから また とうじょう
+  if(f.vx > 0 && f.x > w + m) f.x = -f.size - 10;
+  if(f.vx < 0 && f.x < -m)    f.x = w + 10;
+  if(f.vy > 0 && f.y > h + m) f.y = -f.size - 10;
+  if(f.vy < 0 && f.y < -m)    f.y = h + 10;
+  if(f.vy !== 0 && f.vx === 0) rot = f.vy > 0 ? 90 : -90;   // たては 体も たてむきに
+  f.el.style.transform = `translate(${f.x}px, ${f.y}px) rotate(${rot}deg)` + (f.vx < 0 ? " scaleX(-1)" : "");
 }
 function startBubbles(){
   swimBubbleTimer = setInterval(()=>{
@@ -2364,24 +2662,75 @@ function startBubbles(){
     setTimeout(()=>b.remove(), 9000);
   }, 700);
 }
+/* A. さわった ばしょに はもんを ひろげる */
+function showRipple(clientX, clientY){
+  const r = swimTank.getBoundingClientRect();
+  const x = clientX - r.left, y = clientY - r.top;
+  for(let i=0;i<3;i++){
+    const d = document.createElement("div");
+    d.className = "ripple" + (i===1 ? " r2" : i===2 ? " r3" : "");
+    d.style.left = x + "px";
+    d.style.top = y + "px";
+    swimTank.appendChild(d);
+    setTimeout(()=>d.remove(), 1400);
+  }
+}
+/* A. ひかりの わ / B. あわ */
+function celebrateFish(f){
+  const cx = f.x + f.size/2;
+  const cy = (parseFloat(f.el.style.top) || 0) + 0;   // transformで動くため下で補正
+  const rect = f.el.getBoundingClientRect();
+  const tank = swimTank.getBoundingClientRect();
+  const x = rect.left - tank.left + rect.width/2;
+  const y = rect.top - tank.top + rect.height/2;
+
+  // A. ひかりの わ
+  const g = document.createElement("div");
+  const gs = f.size * 1.7;
+  g.className = "glow-ring";
+  g.style.cssText = `left:${x - gs/2}px;top:${y - gs/2}px;width:${gs}px;height:${gs}px;`;
+  swimTank.appendChild(g);
+  setTimeout(()=>g.remove(), 1200);
+
+  // B. あわが ふわ〜っと 上へ のぼる
+  const n = 10;
+  for(let i=0;i<n;i++){
+    const s = document.createElement("div");
+    s.className = "sparkle";
+    const size = f.size * rand(0.07, 0.17);
+    const dx = rand(-f.size*0.45, f.size*0.45);
+    const dy = -f.size * rand(0.7, 1.35);        // 上へ のぼる
+    s.style.cssText = `left:${x - size/2}px;top:${y - size/2}px;width:${size}px;height:${size}px;` +
+                      `--dx:${dx}px;--dy:${dy}px;animation-delay:${i*0.05}s;`;
+    swimTank.appendChild(s);
+    setTimeout(()=>s.remove(), 2000);
+  }
+}
 function praise(text){
   tankPraise.textContent = text;
   tankPraise.classList.remove("show");
   void tankPraise.offsetWidth;
   tankPraise.classList.add("show");
 }
-function onFishTap(f){
+function onFishTap(f, ev){
   if(swimMode === "watch" || swimMode === "follow") return;  // タッチ不要モード
+  if(f.resting) return;
+  if(ev) showRipple(ev.clientX, ev.clientY);
   if(swimMode === "find" && f.c.id !== swimTarget) {
     sfx.click();
     return;   // ちがう子は しずかにスルー
   }
-  f.el.classList.remove("caught"); void f.el.offsetWidth; f.el.classList.add("caught");
-  sfx.get();
-  confetti(24);
-  praise("よく見てるね！ " + f.c.name + " だよ！");
+  // F. その ばしょで よろこんで とまる（よいんを あじわう）
+  f.resting = true;
+  f.restUntil = performance.now() + 2000;
+  const inner = f.el.querySelector(".fish-inner");
+  inner.classList.remove("happy"); void inner.offsetWidth; inner.classList.add("happy");
+  sfx.sharan();
+  celebrateFish(f);
   if(swimMode === "find"){
-    setTimeout(nextFindTarget, 1400);
+    setTimeout(nextFindTarget, 1900);
+  }else if(swimMode === "touch"){
+    setTimeout(()=>swapTouchFish(f), 1900);
   }
 }
 function pickCreatures(n){
@@ -2402,42 +2751,56 @@ function startSwim(){
   swimEl.className = "swim show ph-play";
   swimSpeed = settings.swimSpeed;
   swimCount = settings.swimCount;
+  const DIRNAME = {lr:"➡️ ひだり→みぎ", rl:"⬅️ みぎ→ひだり", ud:"⬇️ うえ→した",
+                   du:"⬆️ した→うえ", diag:"↘️ ななめ", circle:"🔄 ぐるぐる"};
   swimTitleEl.textContent =
     swimMode==="touch" ? "👆 タッチモード" :
     swimMode==="watch" ? "🌊 みるだけモード" :
-    swimMode==="find"  ? "🔍 さがしっこモード" : "➡️ おいかけモード";
+    swimMode==="find"  ? "🔍 さがしっこモード" :
+    "おいかけモード（" + (DIRNAME[followDir]||"") + "）";
   // レイアウトが確定してから 生成
   requestAnimationFrame(()=>{
     if(swimMode === "touch"){
-      pickCreatures(1).forEach(c=>makeFish(c));
-      // タッチモードは 1匹が渡りきったら つぎの子に
+      tankTask.classList.remove("show");
+      // 1匹が がめんの なかを ゆったり まわりつづける（そとに でない）
+      makeFish(pickCreatures(1)[0], { loop:true, depth:0.85 });
       startBubbles();
     }else if(swimMode === "watch"){
-      pickCreatures(swimCount).forEach(c=>makeFish(c));
+      pickCreatures(swimCount).forEach((c,i)=>makeFish(c, { depth: i/Math.max(1,swimCount-1) }));
       startBubbles();
     }else if(swimMode === "find"){
-      pickCreatures(Math.max(3, swimCount)).forEach(c=>makeFish(c));
+      const n = Math.max(3, swimCount);
+      pickCreatures(n).forEach((c,i)=>makeFish(c, { loop:true, depth: 0.45 + (i%3)*0.27 }));
       startBubbles();
       nextFindTarget();
     }else if(swimMode === "follow"){
       const { w, h } = tankSize();
-      makeFish(pickCreatures(1)[0], { straight:true, x:-140, y:h*0.42, dir:1 });
+      const base = baseFishPx() * 1.17;   // depth 0.95 相当
+      const opt = { straight:true, depth:0.95, path:followDir };
+      if(followDir === "lr"){ Object.assign(opt, { x:-base, y:h*0.42, vx:1, vy:0 }); }
+      else if(followDir === "rl"){ Object.assign(opt, { x:w+base, y:h*0.42, vx:-1, vy:0 }); }
+      else if(followDir === "ud"){ Object.assign(opt, { x:w*0.5-base/2, y:-base, vx:0, vy:1 }); }
+      else if(followDir === "du"){ Object.assign(opt, { x:w*0.5-base/2, y:h+base, vx:0, vy:-1 }); }
+      else if(followDir === "diag"){ Object.assign(opt, { x:-base, y:-base, vx:0.8, vy:0.6 }); }
+      else { Object.assign(opt, { x:w*0.5, y:h*0.5 }); }   // circle
+      const f = makeFish(pickCreatures(1)[0], opt);
+      f.y = opt.y;
       startBubbles();
     }
     swimRAF = requestAnimationFrame(layoutFrame);
   });
 }
-// タッチモード：1匹が画面外に出たら 別の子に入れかえ
-setInterval(()=>{
-  if(swimMode !== "touch" || !swimEl.classList.contains("show")) return;
-  const { w } = tankSize();
-  for(const f of swimFishes){
-    if((f.dir>0 && f.x < -f.size) || (f.dir<0 && f.x > w)){
-      const nc = pickCreatures(1)[0];
-      f.c = nc; f.el.innerHTML = artHTML(nc); f.el.dataset.id = nc.id;
-    }
-  }
-}, 400);
+/* タッチモード：タッチできたら つぎの子に こうたい */
+function swapTouchFish(f){
+  f.resting = false;
+  f.el.querySelector(".fish-inner").classList.remove("happy");
+  const nc = pickCreatures(1)[0];
+  f.c = nc;
+  f.el.querySelector(".fish-inner").innerHTML = artHTML(nc);
+  f.el.dataset.id = nc.id;
+  f.dir = Math.random() < 0.5 ? 1 : -1;
+  f.turnAt = performance.now() + rand(4000, 9000);
+}
 
 
 /* ===================== たんけんカード ===================== */
@@ -2570,6 +2933,7 @@ stampBtn.addEventListener("click", ()=>{
 missionEl.addEventListener("click", (e)=>{
   if(e.target.closest(".m-card, button")) return;
   if(!missionDecided) return;
+  if(!settings.fullTap) return;
   if(missionSel && !missionStamped.has(missionSel)) doStamp();
 });
 decideBtn.addEventListener("click", ()=>{
@@ -2581,7 +2945,6 @@ decideBtn.addEventListener("click", ()=>{
   renderMission();
 });
 function openMission(){ sfx.click(); cancelGacha(); missionSel = null; renderMission(); missionEl.classList.add("show"); }
-$("missionBtn").addEventListener("click", openMission);
 $("closeMission").addEventListener("click", ()=>{ sfx.click(); missionEl.classList.remove("show"); });
 
 /* ===================== きもちスタンプ と にんていしょう ===================== */
@@ -2670,7 +3033,8 @@ $("detailBtn").addEventListener("click", ()=>{ if(shownC){ sfx.click(); openDeta
 /* ===================== がめんぜんぶボタン ===================== */
 document.addEventListener("click", (e)=>{
   if(!settings.fullTap) return;
-  if(e.target.closest("button, header, .zukan, .settings, .quiz, .mission, .detail, .home, .reveal, .cert, .swim")) return;
+  if(e.target.closest("button, header, .zukan, .settings, .quiz, .mission, .detail, .home, .reveal, .cert, .swim, .help")) return;
+  if(helpEl.classList.contains("show")) return;
   if(zukan.classList.contains("show") || settingsEl.classList.contains("show") ||
      quizEl.classList.contains("show") || missionEl.classList.contains("show") ||
      detailEl.classList.contains("show") || homeEl.classList.contains("show") ||
@@ -2685,20 +3049,71 @@ document.addEventListener("click", (e)=>{
   if(!busy) handle.click();
 });
 
-/* ===================== せんせいメニュー（タイトルをながおし） ===================== */
+/* ===================== せんせいメニュー（ひだり下の ⚙ で ひらく） ===================== */
 const settingsEl = $("settings");
-let lpTimer = null;
-const titleEl = document.querySelector("h1");
-titleEl.addEventListener("pointerdown", ()=>{
-  clearTimeout(lpTimer);
-  lpTimer = setTimeout(()=>{ cancelGacha(); settingsEl.classList.add("show"); }, 700);
-});
-["pointerup","pointerleave","pointercancel"].forEach(ev=>
-  titleEl.addEventListener(ev, ()=>clearTimeout(lpTimer))
-);
-titleEl.addEventListener("contextmenu", e=>e.preventDefault());
+function closeSettings(){ sfx.click(); settingsEl.classList.remove("show"); }
+$("closeSettings").addEventListener("click", closeSettings);
+$("closeSettingsTop").addEventListener("click", closeSettings);
 
-$("closeSettings").addEventListener("click", ()=>{ sfx.click(); settingsEl.classList.remove("show"); });
+/* おまかせ せってい */
+const PRESETS = {
+  easy:      { fullTap:true,  coinMode:false, newFirst:true,  showAll:true,  quizLevel:1, quizPick:false, swimSpeed:1, swimCount:3, fishSize:3 },
+  normal:    { fullTap:true,  coinMode:true,  newFirst:true,  showAll:false, quizLevel:2, quizPick:true,  swimSpeed:2, swimCount:5, fishSize:2 },
+  challenge: { fullTap:false, coinMode:true,  newFirst:false, showAll:false, quizLevel:3, quizPick:false, swimSpeed:3, swimCount:8, fishSize:1 }
+};
+const PRESET_NAME = { easy:"🌱 やさしい", normal:"🌿 ふつう", challenge:"🌳 チャレンジ" };
+function currentPreset(){
+  return Object.keys(PRESETS).find(k =>
+    Object.entries(PRESETS[k]).every(([key,val]) => settings[key] === val)) || null;
+}
+function markPreset(){
+  const k = currentPreset();
+  document.querySelectorAll("#presetRow .preset-btn").forEach(b=>b.classList.toggle("on", b.dataset.preset === k));
+  $("presetNow").textContent = k ? "いまは「" + PRESET_NAME[k] + "」に なっています"
+                                 : "いまは「じぶんで ちょうせい」した せっていです";
+}
+/* すべての スイッチ・ボタンを いまの せっていに あわせる */
+function syncSettingsUI(){
+  $("optFullTap").checked = settings.fullTap;
+  $("optNewFirst").checked = settings.newFirst;
+  $("optCoin").checked = settings.coinMode;
+  $("optShowAll").checked = settings.showAll;
+  $("optFeel").checked = settings.feelings;
+  $("optName").value = settings.studentName || "";
+  $("optQuizPick").checked = settings.quizPick;
+  document.querySelectorAll(".lv-seg .lv-btn").forEach(x=>x.classList.toggle("on", parseInt(x.dataset.lv,10)===settings.quizLevel));
+  document.querySelectorAll("#swimSpeedSeg .sp-btn").forEach(x=>x.classList.toggle("on", parseInt(x.dataset.sp,10)===settings.swimSpeed));
+  document.querySelectorAll("#fishSizeSeg .sp-btn").forEach(x=>x.classList.toggle("on", parseInt(x.dataset.sz,10)===settings.fishSize));
+  $("fishVal").textContent = settings.swimCount;
+  $("cntVal").textContent = missionTarget;
+  markPreset();
+}
+function applyPreset(k){
+  Object.assign(settings, PRESETS[k]);
+  coinIn = false;
+  syncSettingsUI();
+  updateHint();
+  saveState();
+}
+$("presetRow").addEventListener("click", (e)=>{
+  const b = e.target.closest(".preset-btn");
+  if(!b) return;
+  sfx.get();
+  applyPreset(b.dataset.preset);
+});
+/* くわしい せってい を ひらく／とじる */
+$("advToggle").addEventListener("click", function(){
+  sfx.click();
+  const adv = $("advSettings");
+  const open = !adv.classList.contains("open");
+  adv.classList.toggle("open", open);
+  this.setAttribute("aria-expanded", String(open));
+  this.textContent = open ? "🔧 くわしい せってい を とじる ▲" : "🔧 くわしい せってい を ひらく ▼";
+});
+/* くわしい せっていを さわったら、おまかせの ✔ を こうしん */
+["click","change","input"].forEach(ev=>
+  settingsEl.addEventListener(ev, ()=>setTimeout(markPreset, 0))
+);
 $("optFullTap").addEventListener("change", function(){ settings.fullTap = this.checked; saveState(); });
 $("optNewFirst").addEventListener("change", function(){ settings.newFirst = this.checked; saveState(); });
 $("optCoin").addEventListener("change", function(){
@@ -2743,6 +3158,14 @@ function setFish(v){
 }
 $("fishMinus").addEventListener("click", ()=>{ sfx.click(); setFish(settings.swimCount-1); });
 $("fishPlus").addEventListener("click", ()=>{ sfx.click(); setFish(settings.swimCount+1); });
+$("fishSizeSeg").addEventListener("click", (e)=>{
+  const b = e.target.closest(".sp-btn");
+  if(!b) return;
+  sfx.click();
+  settings.fishSize = parseInt(b.dataset.sz,10);
+  document.querySelectorAll("#fishSizeSeg .sp-btn").forEach(x=>x.classList.toggle("on", x===b));
+  saveState();
+});
 $("optName").addEventListener("input", function(){
   settings.studentName = this.value;
   saveState();
@@ -2780,7 +3203,6 @@ function renderZukan(){
 }
 function updateCount(){ $("countBadge").textContent = `${collected.size}/${CREATURES.length}`; }
 
-$("zukanBtn").addEventListener("click", ()=>{ sfx.click(); cancelGacha(); renderZukan(); zukan.classList.add("show"); });
 $("toZukanBtn").addEventListener("click", ()=>{ sfx.click(); renderZukan(); zukan.classList.add("show"); });
 $("closeZukan").addEventListener("click", ()=>{ sfx.click(); zukan.classList.remove("show"); });
 zukanGrid.addEventListener("click", (e)=>{
@@ -2893,7 +3315,94 @@ $("todayBtn").addEventListener("click", openMission);
 $("goSwim").addEventListener("click", openSwim);
 
 /* せんせいボタン（がめんのすみ） */
-$("teacherBtn").addEventListener("click", ()=>{ cancelGacha(); settingsEl.classList.add("show"); });
+$("teacherBtn").addEventListener("click", ()=>{ sfx.click(); cancelGacha(); syncSettingsUI(); settingsEl.classList.add("show"); });
+
+/* ===================== つかいかた（？） ===================== */
+const helpEl = $("help");
+function currentScreen(){
+  if(certEl.classList.contains("show")) return "cert";
+  if(detailEl.classList.contains("show")) return "detail";
+  if(missionEl.classList.contains("show")) return missionDecided ? "missionStamp" : "missionPick";
+  if(quizEl.classList.contains("show")) return "quiz";
+  if(swimEl.classList.contains("show")) return "swim";
+  if(zukan.classList.contains("show")) return "zukan";
+  if(revealEl.classList.contains("show")) return "reveal";
+  if(homeEl.classList.contains("show")) return "home";
+  return "gacha";
+}
+function helpContent(s){
+  const tapWhere = settings.fullTap ? "がめんの どこか" : "ハンドル";
+  switch(s){
+  case "home": return { t:"🏠 はじめの がめん", steps:[
+      ["👆","やりたい ことの ボタンを タップしてね"],
+      ["🚌","とうじつは「すいぞくかんに ついたよ！」で たんけんカードが すぐ ひらくよ"],
+      ["⚙️","ひだり下の ⚙ は せんせい用。「やさしい・ふつう・チャレンジ」を えらべるよ"]],
+    tip:"どの がめんでも、ひだり上の「⬅ もどる」で ひとつ まえに もどれます" };
+  case "gacha": {
+    const st = settings.coinMode
+      ? [["🪙", tapWhere + "を タップして 100えんを いれる"],
+         ["🎡","もういちど タップすると ハンドルが まわる"]]
+      : [["🎡", tapWhere + "を タップすると ハンドルが まわる"]];
+    st.push(["💊","でてきた カプセルを タップして あけよう"]);
+    return { t:"🎡 ガチャ", steps:st,
+      tip:"コインの あり・なしは ⚙ の「やさしい（なし）／ふつう（あり）」で かえられます" };
+  }
+  case "reveal": return { t:"🎉 でてきた なかま", steps:[
+      ["🔁","「もういっかい」で つぎの ガチャ"],
+      ["📖","「くわしく」で その子の せつめい"],
+      ["🐚","「ずかんを みる」で あつめた子の いちらん"]],
+    tip:"ひだり上の「⬅ もどる」で ガチャの がめんに もどります" };
+  case "zukan": return { t:"📖 ずかん", steps:[
+      ["👆","あつめた子を タップすると、くわしい せつめいが みられるよ"],
+      ["❔","「？？？」は まだ ガチャで あっていない子"],
+      ["⚙️","さいしょから ぜんぶ みせたい ときは ⚙ の「🌱やさしい」"]],
+    tip:"" };
+  case "detail": return { t:"📖 いきものの せつめい", steps:[
+      ["◀▶","「まえ」「つぎ」で ほかの 子に めくれるよ"],
+      ["📍","「どこに いる？」を みて、とうじつ さがしてみよう"]],
+    tip:"" };
+  case "missionPick": return { t:"🎒 たんけんカードを つくる", steps:[
+      ["👆","さがしたい 子を タップして えらぶ（せんせいが えらんでも OK）"],
+      ["✨","ぜんぶ えらんだら「これに する！」を おす"],
+      ["🔢","えらぶ かずは ⚙ の「たんけんカードで さがす数」で かえられるよ"]],
+    tip:"" };
+  case "missionStamp": return { t:"🎒 たんけんカード（とうじつ）", steps:[
+      ["👆","ほんものに あえたら、その子の カードを タップして えらぶ"],
+      ["💮", settings.fullTap ? "がめんの どこかを タップすると スタンプ ポン！"
+                              : "「スタンプを おす！」ボタンで スタンプ ポン！"],
+      ["🗑","まちがえたら、その子を えらんで「スタンプを けす」"]],
+    tip:"ぜんぶ そろうと しょうじょうが でるよ 🏆" };
+  case "quiz": return { t:"❓ クイズ", steps:[
+      ["👆","あそびたい クイズを えらぶ"],
+      ["⭐", settings.quizPick ? "むずかしさを えらぶ" : "むずかしさは ⚙ で きめた ものに なるよ"],
+      ["🏅","10もん こたえると メダルが もらえるよ"]],
+    tip:"「⬅ もどる」で クイズえらびへ。もういちど おすと おわります" };
+  case "swim": return { t:"🐟 およぐ おさかな", steps:[
+      ["👆","タッチ … およぐ 子を タッチ"],
+      ["🌊","みるだけ … ながめて めで おいかける"],
+      ["🔍","さがしっこ … おだいの 子を さがして タッチ"],
+      ["➡️","おいかけ … むきを えらんで めで おいかける"]],
+    tip:"はやさ・かず・おおきさは ⚙ で かえられます" };
+  case "cert": return { t:"🏆 しょうじょう", steps:[
+      ["🎉","たんけんミッション だいせいこう！"],
+      ["⬅","「もどる」で たんけんカードに もどるよ"]],
+    tip:"" };
+  }
+  return { t:"", steps:[], tip:"" };
+}
+function openHelp(){
+  sfx.click();
+  const c = helpContent(currentScreen());
+  $("helpTitle").textContent = c.t;
+  $("helpSteps").innerHTML = c.steps.map(([ico,txt]) =>
+    '<li><span class="h-ico">' + escapeHTML(ico) + '</span><span>' + escapeHTML(txt) + '</span></li>').join("");
+  $("helpTip").textContent = c.tip || "";
+  $("helpTip").style.display = c.tip ? "" : "none";
+  helpEl.classList.add("show");
+}
+$("helpBtn").addEventListener("click", openHelp);
+$("helpClose").addEventListener("click", ()=>{ sfx.click(); helpEl.classList.remove("show"); });
+helpEl.addEventListener("click", (e)=>{ if(e.target === helpEl) helpEl.classList.remove("show"); });
 
 /* ===================== ほぞん（この iPad の中だけに きろく） ===================== */
 const STORE_KEY = "sunshine-gacha-v1";
@@ -2904,7 +3413,7 @@ function saveState(){
       settings: { fullTap: settings.fullTap, newFirst: settings.newFirst, coinMode: settings.coinMode,
                   showAll: settings.showAll, feelings: settings.feelings, studentName: settings.studentName,
                   quizLevel: settings.quizLevel, quizPick: settings.quizPick,
-                  swimSpeed: settings.swimSpeed, swimCount: settings.swimCount },
+                  swimSpeed: settings.swimSpeed, swimCount: settings.swimCount, fishSize: settings.fishSize },
       missionFeel: missionFeel,
       soundOn: soundOn,
       missionTarget: missionTarget,
@@ -2932,6 +3441,7 @@ function loadState(){
       if(typeof s.settings.quizPick === "boolean") settings.quizPick = s.settings.quizPick;
       if([1,2,3].includes(s.settings.swimSpeed)) settings.swimSpeed = s.settings.swimSpeed;
       if(typeof s.settings.swimCount === "number") settings.swimCount = Math.min(8,Math.max(3,s.settings.swimCount));
+      if([1,2,3].includes(s.settings.fishSize)) settings.fishSize = s.settings.fishSize;
     }
     if(typeof s.soundOn === "boolean") soundOn = s.soundOn;
     if(typeof s.missionTarget === "number") missionTarget = s.missionTarget;
@@ -2946,17 +3456,7 @@ function loadState(){
   }catch(e){}
 }
 loadState();
-$("optFullTap").checked = settings.fullTap;
-$("optNewFirst").checked = settings.newFirst;
-$("optCoin").checked = settings.coinMode;
-$("optShowAll").checked = settings.showAll;
-$("optFeel").checked = settings.feelings;
-$("optName").value = settings.studentName || "";
-$("optQuizPick").checked = settings.quizPick;
-document.querySelectorAll(".lv-seg .lv-btn").forEach(x=>x.classList.toggle("on", parseInt(x.dataset.lv,10)===settings.quizLevel));
-document.querySelectorAll("#swimSpeedSeg .sp-btn").forEach(x=>x.classList.toggle("on", parseInt(x.dataset.sp,10)===settings.swimSpeed));
-$("fishVal").textContent = settings.swimCount;
-$("cntVal").textContent = missionTarget;
+syncSettingsUI();
 $("soundBtn").textContent = soundOn ? "🔊 おと" : "🔇 おと";
 updateHint();
 updateCount();
