@@ -566,7 +566,7 @@
   .h-art:nth-child(4){animation:hopS 2.6s ease-in-out .5s infinite;}
   .home h2{
     text-align:center;color:#fff;font-weight:900;
-    font-size:clamp(24px,min(4.4vw,6.4vh),52px);line-height:1.25;
+    font-size:clamp(20px,min(4.4vw,7vh),52px);line-height:1.25;white-space:nowrap;
     text-shadow:0 4px 0 rgba(14,94,140,.4);
     letter-spacing:.05em;
   }
@@ -1633,7 +1633,7 @@
   .home-scene .hs-a{position:absolute;filter:drop-shadow(0 6px 8px rgba(8,50,80,.25));}
   .home-scene .hs-a svg{width:100%;height:100%;}
   .hs-kurage{left:3%;top:9%;width:13vh;height:13vh;animation:bobLoop 4.4s ease-in-out infinite;}
-  .hs-penguin{right:4%;top:22%;width:14vh;height:14vh;animation:hsPeng 7s ease-in-out infinite;}
+  .hs-penguin{right:11%;top:1.5%;width:14vh;height:14vh;animation:hsPeng 7s ease-in-out infinite;}
   @keyframes hsPeng{0%,100%{transform:translate(0,0) rotate(-4deg)}50%{transform:translate(-2vw,-3vh) rotate(5deg)}}
   .hs-ei{top:3%;width:12vh;height:12vh;animation:hsEi 34s linear infinite;}
   @keyframes hsEi{0%{left:104%;transform:rotate(-90deg) translateX(0)}25%{transform:rotate(-90deg) translateX(-2vh)}50%{transform:rotate(-90deg) translateX(0)}75%{transform:rotate(-90deg) translateX(2vh)}100%{left:-16%;transform:rotate(-90deg) translateX(0)}}
@@ -1789,6 +1789,74 @@
   .swim-tank{box-shadow:inset 0 0 60px rgba(0,40,70,.3),inset 0 0 0 6px rgba(255,255,255,.65),0 10px 26px rgba(8,50,80,.25);}
   body.clear-view .ov-scene{display:none;}
   .quiz-head h2 span:empty{display:none;}
+
+  /* ================= きょうの ながれ ================= */
+  .home-bottom{display:flex;gap:clamp(10px,1.6vw,20px);align-items:center;justify-content:center;flex-wrap:nowrap;margin-bottom:auto;}
+  .home-bottom .today-btn{margin-top:0;}
+  .flow-btn{border:4px solid #fff;cursor:pointer;font-family:inherit;font-weight:900;color:var(--ink);
+    background:linear-gradient(180deg,#FFFFFF,#EAF7FD);font-size:clamp(16px,min(2.3vw,3.2vh),24px);
+    padding:clamp(9px,1.8vh,15px) 28px;border-radius:999px;white-space:nowrap;
+    box-shadow:0 7px 0 #1B6F98,0 14px 22px rgba(8,50,80,.28);}
+  .flow-btn:active{transform:translateY(4px);box-shadow:0 2px 0 #1B6F98;}
+  .flow{position:fixed;inset:0;z-index:20;display:none;flex-direction:column;padding:16px 22px 16px;
+    background:linear-gradient(180deg,#3FA0D0 0%,#1F77AC 50%,#155684 100%);overflow-y:auto;-webkit-overflow-scrolling:touch;}
+  .flow.show{display:flex;}
+  .flow-head h2{text-shadow:2px 0 0 #0F4A74,-2px 0 0 #0F4A74,0 2px 0 #0F4A74,0 -2px 0 #0F4A74,0 5px 0 rgba(0,30,60,.3);}
+  .flow-tools{margin-left:auto;display:flex;gap:10px;align-items:center;}
+  .grp-seg{display:flex;background:rgba(255,255,255,.25);border-radius:999px;padding:4px;gap:4px;}
+  .grp-btn{border:none;cursor:pointer;font-family:inherit;font-weight:900;font-size:clamp(13px,1.6vw,17px);
+    padding:8px 14px;border-radius:999px;background:transparent;color:#fff;white-space:nowrap;}
+  .grp-btn.on.red{background:#fff;color:#D2382E;box-shadow:0 3px 0 #D2382E;}
+  .grp-btn.on.blue{background:#fff;color:#1F6FC4;box-shadow:0 3px 0 #1F6FC4;}
+  #timeBtn.off{opacity:.75;}
+  .flow-grid{flex:1;display:grid;grid-template-columns:repeat(7,1fr);gap:clamp(10px,1.6vw,18px) clamp(14px,2vw,24px);
+    align-content:center;min-height:0;padding:6px 4px;}
+  .flow-grid.few{grid-template-columns:repeat(7,1fr);}
+  .fc{position:relative;background:var(--cream);border:3px solid #fff;border-radius:22px;
+    box-shadow:0 6px 0 rgba(8,50,80,.28),0 10px 18px rgba(8,50,80,.2);
+    display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+    padding:10px 6px 10px;min-height:clamp(150px,30vh,230px);cursor:pointer;transition:transform .2s,opacity .3s;}
+  .flow-grid.few .fc{min-height:clamp(200px,42vh,320px);}
+  .fc::after{content:"▶";position:absolute;right:calc(-1 * clamp(14px,2vw,24px) + 1px);top:50%;transform:translateY(-50%);
+    color:rgba(255,255,255,.85);font-size:clamp(11px,1.4vw,16px);}
+  .fc:nth-child(7n)::after,.fc:last-child::after{display:none;}
+  .fc-no{position:absolute;top:-10px;left:-8px;width:30px;height:30px;border-radius:50%;background:#1B4965;color:#fff;
+    font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center;border:3px solid #fff;}
+  .fc-time{font-weight:900;font-size:clamp(14px,1.8vw,20px);color:#1B6F98;min-height:1.3em;letter-spacing:.02em;}
+  .flow.no-time .fc-time{visibility:hidden;}
+  .fc-ico{font-size:clamp(40px,7.2vh,64px);line-height:1.1;margin:2px 0;}
+  .flow-grid.few .fc-ico{font-size:clamp(56px,11vh,96px);}
+  .fc-lab{font-weight:900;font-size:clamp(13px,1.6vw,18px);text-align:center;line-height:1.35;color:var(--ink);word-break:keep-all;overflow-wrap:anywhere;}
+  .fc-sub{word-break:keep-all;overflow-wrap:anywhere;}
+  .fc-ord{font-weight:900;font-size:clamp(12px,1.5vw,16px);color:#fff;border-radius:999px;padding:1px 10px;min-height:1.3em;}
+  .fc-ord.red{background:#E0473D;} .fc-ord.blue{background:#2F7FD6;}
+  .flow-grid.few .fc-lab{font-size:clamp(15px,2vw,22px);}
+  .fc-sub{font-size:clamp(11px,1.3vw,14px);font-weight:800;color:#33698C;text-align:center;margin-top:2px;}
+  .fc-arts{display:flex;justify-content:center;gap:2px;margin-top:4px;}
+  .fc-arts span{width:clamp(28px,5vh,44px);height:clamp(28px,5vh,44px);display:block;}
+  .fc-arts svg{width:100%;height:100%;}
+  .fc-arts .km-anem,.fc-arts .ut-rockF{display:none;}
+  .fc-route{display:flex;flex-direction:column;gap:3px;margin-top:6px;width:100%;align-items:center;}
+  .fc-route b{font-size:clamp(12px,1.4vw,15px);background:#fff;border-radius:999px;padding:2px 10px;border:2px solid #CFE6F2;white-space:nowrap;}
+  .fc.floor.red{border-color:#FFB3AC;} .fc.floor.blue{border-color:#A9CCF2;}
+  .fc.done{opacity:.5;transform:scale(.94);}
+  .fc.done::before{content:"✔";position:absolute;right:6px;top:4px;width:30px;height:30px;border-radius:50%;
+    background:#4CAF7D;color:#fff;font-weight:900;display:flex;align-items:center;justify-content:center;font-size:17px;z-index:2;}
+  .fc.now{background:linear-gradient(180deg,#FFFBEA,#FFF1B8);box-shadow:0 0 0 6px #FFC933,0 0 26px 8px rgba(255,220,90,.75),0 8px 0 rgba(8,50,80,.25);
+    transform:translateY(-4px) scale(1.05);z-index:2;}
+  .fc .now-tag{display:none;position:absolute;top:-30px;left:50%;transform:translateX(-50%);background:#FF5D8F;color:#fff;
+    font-weight:900;font-size:clamp(12px,1.4vw,15px);padding:3px 12px;border-radius:999px;white-space:nowrap;border:3px solid #fff;
+    animation:nowHop 1.2s ease-in-out infinite;}
+  .fc.now .now-tag{display:block;}
+  @keyframes nowHop{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-6px)}}
+  .fc.tapped{animation:zTap .38s ease-out;}
+  .flow-foot{display:flex;justify-content:center;gap:16px;align-items:center;margin-top:10px;}
+  .flow-done{font-size:clamp(20px,2.6vw,28px);padding:14px 44px;}
+  .flow-undo{font-size:clamp(14px,1.6vw,17px);min-height:46px;padding:8px 18px;}
+  .flow-fin{display:none;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5;
+    background:#fff;border:6px solid #FFC933;border-radius:30px;padding:26px 40px;font-weight:900;color:var(--ink);
+    font-size:clamp(22px,3.2vw,36px);box-shadow:0 12px 30px rgba(0,0,0,.3);text-align:center;}
+  .flow-fin.show{display:block;animation:popIn .6s cubic-bezier(.3,1.6,.5,1);}
 </style>
 </head>
 <body>
@@ -1958,7 +2026,7 @@
     <div class="h-art" data-svg="kumanomi"></div>
     <div class="h-art" data-svg="kawauso"></div>
   </div>
-  <h2>サンシャインすいぞくかんへ<br>いこう！</h2>
+  <h2>サンシャインすいぞくかんへ いこう！</h2>
   <p class="home-sub">🚌 とうきょう・いけぶくろの「てんくうのオアシス」で うみの なかまに あいに いこう</p>
   <div class="home-menu">
     <button class="home-btn" id="goGacha"><span class="hb-ico" data-ico="gacha"></span>ガチャで<br>なかまを あつめる</button>
@@ -1967,7 +2035,10 @@
     <button class="home-btn" id="goQuiz"><span class="hb-ico" data-ico="quiz"></span>だれかな？<br>クイズ</button>
     <button class="home-btn" id="goSwim"><span class="hb-ico" data-ico="swim"></span>およぐ<br>おさかな</button>
   </div>
-  <button class="today-btn" id="todayBtn">🚌 すいぞくかんに ついたよ！<span>（たんけんカードが ひらきます）</span></button>
+  <div class="home-bottom">
+    <button class="flow-btn" id="goFlow">📅 きょうの ながれ</button>
+    <button class="today-btn" id="todayBtn">🚌 すいぞくかんに ついたよ！<span>（たんけんカードが ひらきます）</span></button>
+  </div>
 </div>
 
 <!-- せんせいボタン（がめんのすみ） -->
@@ -2004,6 +2075,28 @@
     <button class="big-btn btn-again" id="certBtn" style="display:none">🏆 しょうじょうを みる</button>
     <div class="complete-banner" id="missionBanner">🎉 ミッション コンプリート！ ぜんぶ みつけたね！！ 🎉</div>
   </div>
+</div>
+
+<!-- きょうの ながれ -->
+<div class="flow" id="flow" role="dialog" aria-label="きょうの ながれ">
+  <div class="zukan-head flow-head">
+    <button class="pill-btn back-btn" id="closeFlow">⬅ もどる</button>
+    <h2>📅 きょうの ながれ</h2>
+    <div class="flow-tools">
+      <div class="grp-seg" id="grpSeg">
+        <button class="grp-btn red" data-g="red">🔴 あか</button>
+        <button class="grp-btn blue" data-g="blue">🔵 あお</button>
+      </div>
+      <button class="pill-btn" id="timeBtn">🕘 じかん</button>
+    </div>
+  </div>
+  <div class="flow-grid" id="flowGrid"></div>
+  <div class="flow-foot">
+    <button class="big-btn btn-zukan flow-undo" id="flowUndo">↩ もどす</button>
+    <button class="big-btn btn-again flow-done" id="flowDone">✔ おわった！</button>
+    <button class="big-btn btn-zukan" id="flowMission" style="display:none">🎒 たんけんカード</button>
+  </div>
+  <div class="flow-fin" id="flowFin">🎉 きょうも いっぱい がんばったね！ 🎉</div>
 </div>
 
 <!-- いきものはかせ（くわしい せつめい） -->
@@ -2248,6 +2341,10 @@
       <div class="setting-row">
         <span>なまえの よみあげ<span class="hint">ずかんや ガチャで 生きものに さわると、iPadの こえで なまえを よみあげます</span></span>
         <label class="toggle"><input type="checkbox" id="optReadName" checked><span class="tr"></span></label>
+      </div>
+      <div class="setting-row">
+        <span>きょうの ながれ：くわしく<span class="hint">オン＝14まい（トイレ・しゃしん・かいごとの けんがく など）／オフ＝7まいの かんたんな ながれ</span></span>
+        <label class="toggle"><input type="checkbox" id="optFlowDetail" checked><span class="tr"></span></label>
       </div>
     </div>
 
@@ -2866,7 +2963,7 @@ let shownC = null;
 let busy = false;
 let soundOn = true;
 let resultShownAt = 0;
-const settings = { fullTap:true, newFirst:true, coinMode:true, showAll:false, feelings:false, studentName:"", quizLevel:2, quizPick:true, swimSpeed:2, swimCount:5, fishSize:2, clearView:false, nudge:true, outline:true, sigSound:true, chant:true, swimBgm:true, readName:true, zukanSolo:false };
+const settings = { fullTap:true, newFirst:true, coinMode:true, showAll:false, feelings:false, studentName:"", quizLevel:2, quizPick:true, swimSpeed:2, swimCount:5, fishSize:2, clearView:false, nudge:true, outline:true, sigSound:true, chant:true, swimBgm:true, readName:true, zukanSolo:false, flowDetail:true, flowTime:true, flowGroup:"red" };
 
 /* ===================== 音（Web Audio） ===================== */
 let actx = null;
@@ -3468,7 +3565,9 @@ quizLevelSel.addEventListener("click", (e)=>{
   startQuestions();
 });
 
+let quizUsed = new Set();   // 1セットの なかで つかった もんだい（かぶらないように）
 function startQuestions(){
+  quizUsed = new Set();
   quizScore = 0;
   quizQNum = 0;
   quizScoreEl.textContent = "せいかい 0";
@@ -3490,8 +3589,13 @@ function nextQuestion(){
 
   if(quizType === "ox"){
     const pool = OXQ.filter(q => quizLevel > 1 || q.e);
-    let q;
-    do{ q = pool[Math.floor(Math.random()*pool.length)]; }while(pool.length>1 && q.t===quizLastKey);
+    let cand = pool.filter(x => !quizUsed.has(x.t));
+    if(!cand.length){ quizUsed.clear(); cand = pool.slice(); }
+    const lastId = quizCurrent && quizCurrent.id;
+    const notSame = cand.filter(x => x.id !== lastId && x.t !== quizLastKey);
+    if(notSame.length) cand = notSame;
+    const q = cand[Math.floor(Math.random()*cand.length)];
+    quizUsed.add(q.t);
     quizLastKey = q.t;
     quizCurrent = q;
     const c = CREATURES.find(x=>x.id===q.id);
@@ -3508,8 +3612,10 @@ function nextQuestion(){
     });
   }else{
     const pool = CREATURES.slice();
-    let c;
-    do{ c = pool[Math.floor(Math.random()*pool.length)]; }while(pool.length>1 && c.id===quizLastKey);
+    let cand = pool.filter(x => !quizUsed.has(x.id));
+    if(!cand.length){ quizUsed.clear(); cand = pool.filter(x => x.id !== quizLastKey); }
+    const c = cand[Math.floor(Math.random()*cand.length)];
+    quizUsed.add(c.id);
     quizLastKey = c.id;
     quizCurrent = c;
     if(quizType === "sil"){
@@ -4562,7 +4668,8 @@ $("detailBtn").addEventListener("click", ()=>{ if(shownC){ sfx.click(); openDeta
 /* ===================== がめんぜんぶボタン ===================== */
 document.addEventListener("click", (e)=>{
   if(!settings.fullTap) return;
-  if(e.target.closest("button, header, .zukan, .settings, .quiz, .mission, .detail, .home, .reveal, .cert, .swim, .help")) return;
+  if(e.target.closest("button, header, .zukan, .settings, .quiz, .mission, .detail, .home, .reveal, .cert, .swim, .help, .flow")) return;
+  if(document.getElementById("flow").classList.contains("show")) return;
   if(helpEl.classList.contains("show")) return;
   if(zukan.classList.contains("show") || settingsEl.classList.contains("show") ||
      quizEl.classList.contains("show") || missionEl.classList.contains("show") ||
@@ -4615,6 +4722,7 @@ function syncSettingsUI(){
   $("optChant").checked = settings.chant;
   $("optSwimBgm").checked = settings.swimBgm !== false;
   $("optReadName").checked = settings.readName !== false;
+  $("optFlowDetail").checked = !!settings.flowDetail;
   applyViewClasses();
   $("optFullTap").checked = settings.fullTap;
   $("optNewFirst").checked = settings.newFirst;
@@ -4637,7 +4745,7 @@ function applyPreset(k){
   updateHint();
   saveState();
 }
-[["optClear","clearView"],["optNudge","nudge"],["optOutline","outline"],["optSig","sigSound"],["optChant","chant"],["optSwimBgm","swimBgm"],["optReadName","readName"]]
+[["optClear","clearView"],["optNudge","nudge"],["optOutline","outline"],["optSig","sigSound"],["optChant","chant"],["optSwimBgm","swimBgm"],["optReadName","readName"],["optFlowDetail","flowDetail"]]
   .forEach(([id,key])=>{
     $(id).addEventListener("change", function(){
       settings[key] = this.checked;
@@ -4924,7 +5032,7 @@ function farFish(host, n){
 })();
 /* おもさ たいさく：うしろに かくれた 背景の アニメを とめる */
 setInterval(()=>{
-  const cover = document.querySelector("#home.show, .zukan.show, .quiz.show, .mission.show, .swim.show, .detail.show, .reveal.show");
+  const cover = document.querySelector("#home.show, .flow.show, .zukan.show, .quiz.show, .mission.show, .swim.show, .detail.show, .reveal.show");
   document.body.classList.toggle("covered", !!cover);
   document.body.classList.toggle("detail-open", !!document.querySelector(".detail.show"));
 }, 400);
@@ -4990,6 +5098,138 @@ $("goZukan").addEventListener("click", ()=>{ sfx.click(); renderZukan(); zukan.c
 $("goMission").addEventListener("click", openMission);
 $("goQuiz").addEventListener("click", openQuiz);
 $("todayBtn").addEventListener("click", openMission);
+/* ===================== きょうの ながれ ===================== */
+let flowIdx = { d:0, s:0 };
+const FLOORS = {
+  roof:{ ico:"🌤️", l:"おくじょう", sub:"そとの マリンガーデン", arts:["penguin","kawauso","pelican"], say:"おくじょう。ペンギン、カワウソ、ペリカンが いるよ" },
+  f1:  { ico:"🐠", l:"1かい", sub:"おおきな すいそう・くらげ", arts:["same","kurage","chinanago"], say:"1かい。サメや クラゲ、チンアナゴが いるよ" },
+  f2:  { ico:"🦭", l:"2かい", sub:"みずべの たび", arts:["azarashi","utsubo"], say:"2かい。アザラシや ウツボが いるよ" }
+};
+const ROUTE = { red:["roof","f1","f2"], blue:["f1","f2","roof"] };
+function flowSteps(){
+  const g = settings.flowGroup === "blue" ? "blue" : "red";
+  if(settings.flowDetail){
+    const floors = ROUTE[g].map((k,i)=>Object.assign({ kind:"floor", key:k, no:i+1 }, FLOORS[k]));
+    return [
+      { t:"8:50",  ico:"🏫", l:"がっこうに つく" },
+      { t:"9:30",  ico:"🚻", l:"トイレ・おみず" },
+      { t:"9:40",  ico:"🚌", l:"バスで しゅっぱつ" },
+      { t:"10:20", ico:"🏙️", l:"サンシャインシティに つく" },
+      { t:"10:30", ico:"📷", l:"みんなで しゃしん", sub:"⬆️ エレベーターで おくじょうへ" },
+      ...floors,
+      { ico:"🎁", l:"ガチャで おみやげ", sub:"2かい" },
+      { t:"11:35", ico:"🚩", l:"でぐちに あつまる" },
+      { t:"12:00", ico:"🍱", l:"おひるごはん" },
+      { t:"12:50", ico:"🙏", l:"ごちそうさま・トイレ" },
+      { t:"13:15", ico:"🚌", l:"バスで かえる" },
+      { t:"13:55", ico:"🏫", l:"がっこうに つく" }
+    ];
+  }
+  return [
+    { t:"8:50",  ico:"🏫", l:"がっこう" },
+    { t:"9:40",  ico:"🚌", l:"バスで しゅっぱつ" },
+    { t:"10:30", ico:"🐧", l:"すいぞくかん", kind:"aq" },
+    { ico:"🎁", l:"ガチャで おみやげ" },
+    { t:"12:00", ico:"🍱", l:"おひるごはん" },
+    { t:"13:15", ico:"🚌", l:"バスで かえる" },
+    { t:"13:55", ico:"🏫", l:"がっこうに つく" }
+  ];
+}
+function curFlowIdx(){ return settings.flowDetail ? flowIdx.d : flowIdx.s; }
+function setFlowIdx(v){ if(settings.flowDetail) flowIdx.d = v; else flowIdx.s = v; }
+function flowSay(st){
+  if(st.kind === "floor") return st.say;
+  if(st.kind === "aq"){
+    const g = settings.flowGroup === "blue" ? "blue" : "red";
+    return "すいぞくかん。" + ROUTE[g].map(k=>FLOORS[k].l).join("、") + " の じゅんに みるよ";
+  }
+  return st.l;
+}
+function speakText(t, delay){
+  if(!t || settings.readName === false || !soundOn || !("speechSynthesis" in window)) return;
+  const go = ()=>{ try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(t);
+    u.lang = "ja-JP"; u.rate = 0.85; u.pitch = 1.1;
+    if(jaVoice) u.voice = jaVoice;
+    speechSynthesis.speak(u);
+  }catch(e){} };
+  if(delay) setTimeout(go, delay); else go();
+}
+function renderFlow(){
+  const steps = flowSteps();
+  const g = settings.flowGroup === "blue" ? "blue" : "red";
+  let idx = Math.max(0, Math.min(curFlowIdx(), steps.length));
+  setFlowIdx(idx);
+  const grid = $("flowGrid");
+  grid.classList.toggle("few", steps.length <= 7);
+  $("flow").classList.toggle("no-time", !settings.flowTime);
+  $("timeBtn").textContent = settings.flowTime ? "🕘 じかん：みせる" : "🕘 じかん：かくす";
+  $("timeBtn").classList.toggle("off", !settings.flowTime);
+  document.querySelectorAll(".grp-btn").forEach(b=>b.classList.toggle("on", b.dataset.g === g));
+  grid.innerHTML = steps.map((st,i)=>{
+    const cls = "fc" + (st.kind === "floor" ? " floor " + g : "") + (i < idx ? " done" : i === idx ? " now" : "");
+    let inner = '<div class="fc-no">' + (i+1) + '</div><div class="now-tag">いま ここ</div>'
+      + (st.kind === "floor" ? '<div class="fc-ord ' + g + '">' + st.no + ' ばんめ</div>' : '<div class="fc-time">' + (st.t || "") + '</div>')
+      + '<div class="fc-ico">' + st.ico + '</div>'
+      + '<div class="fc-lab">' + escapeHTML(st.l) + '</div>';
+    if(st.sub && st.kind !== "floor") inner += '<div class="fc-sub">' + escapeHTML(st.sub) + '</div>';
+    if(st.arts) inner += '<div class="fc-arts">' + st.arts.map(a=>'<span>' + (SVG[a]||"") + '</span>').join("") + '</div>';
+    if(st.kind === "aq") inner += '<div class="fc-route">' + ROUTE[g].map((k,n)=>'<b>' + (n+1) + '. ' + FLOORS[k].l + '</b>').join("") + '</div>';
+    return '<div class="' + cls + '" data-i="' + i + '">' + inner + '</div>';
+  }).join("");
+  const now = steps[idx];
+  $("flowMission").style.display = now && (now.kind === "floor" || now.kind === "aq") ? "" : "none";
+  $("flowDone").style.display = idx < steps.length ? "" : "none";
+  $("flowUndo").style.visibility = idx > 0 ? "visible" : "hidden";
+}
+function openFlow(){
+  sfx.click();
+  $("flowFin").classList.remove("show");
+  renderFlow();
+  $("flow").classList.add("show");
+  const st = flowSteps()[curFlowIdx()];
+  if(st) speakText("つぎは、" + flowSay(st), 350);
+}
+$("goFlow").addEventListener("click", openFlow);
+$("closeFlow").addEventListener("click", ()=>{ sfx.click(); $("flow").classList.remove("show"); speechSynthesis && speechSynthesis.cancel && speechSynthesis.cancel(); });
+$("flowGrid").addEventListener("click", (e)=>{
+  const c = e.target.closest(".fc"); if(!c) return;
+  const st = flowSteps()[+c.dataset.i]; if(!st) return;
+  sfx.click();
+  c.classList.remove("tapped"); void c.offsetWidth; c.classList.add("tapped");
+  speakText(flowSay(st));
+});
+$("flowDone").addEventListener("click", ()=>{
+  const steps = flowSteps();
+  const i = curFlowIdx();
+  if(i >= steps.length) return;
+  setFlowIdx(i + 1);
+  saveState();
+  sfx.pinpon();
+  renderFlow();
+  if(i + 1 >= steps.length){
+    $("flowFin").classList.add("show");
+    confetti(80);
+    speakText("きょうも いっぱい がんばったね", 500);
+    setTimeout(()=>$("flowFin").classList.remove("show"), 4200);
+  }else{
+    speakText("つぎは、" + flowSay(steps[i+1]), 600);
+  }
+});
+$("flowUndo").addEventListener("click", ()=>{
+  const i = curFlowIdx(); if(i <= 0) return;
+  sfx.click(); setFlowIdx(i - 1); saveState(); renderFlow();
+});
+$("timeBtn").addEventListener("click", ()=>{ sfx.click(); settings.flowTime = !settings.flowTime; saveState(); renderFlow(); });
+$("grpSeg").addEventListener("click", (e)=>{
+  const b = e.target.closest(".grp-btn"); if(!b) return;
+  sfx.click(); settings.flowGroup = b.dataset.g; saveState(); renderFlow();
+  speakText(b.dataset.g === "red" ? "あか グループ" : "あお グループ");
+});
+$("flowMission").addEventListener("click", ()=>{ openMission(); });
+$("optFlowDetail").addEventListener("change", ()=>{ if($("flow").classList.contains("show")) renderFlow(); });
+
 $("goSwim").addEventListener("click", openSwim);
 
 /* せんせいボタン（がめんのすみ） */
@@ -5000,6 +5240,8 @@ const helpEl = $("help");
 function currentScreen(){
   if(certEl.classList.contains("show")) return "cert";
   if(detailEl.classList.contains("show")) return "detail";
+  if(missionEl.classList.contains("show") && document.getElementById("flow").classList.contains("show")) return missionDecided ? "missionStamp" : "missionPick";
+  if(document.getElementById("flow").classList.contains("show")) return "flow";
   if(missionEl.classList.contains("show")) return missionDecided ? "missionStamp" : "missionPick";
   if(quizEl.classList.contains("show")) return "quiz";
   if(swimEl.classList.contains("show")) return "swim";
@@ -5011,6 +5253,12 @@ function currentScreen(){
 function helpContent(s){
   const tapWhere = settings.fullTap ? "がめんの どこか" : "ハンドル";
   switch(s){
+  case "flow": return { t:"📅 きょうの ながれ", steps:[
+      ["👆","カードに さわると、なにを するか よみあげるよ"],
+      ["✔","おわったら「✔ おわった！」。「いま ここ」が つぎへ すすむよ"],
+      ["🔴","みぎ上で あか・あおの グループを えらぶと、すいぞくかんを まわる じゅんばんが かわるよ"],
+      ["🕘","「じかん」ボタンで、じこくを みせる・かくすを きりかえられるよ"]],
+    tip:"「くわしい（14まい）」と「かんたん（7まい）」は ⚙ せんせいメニューで きりかえます" };
   case "home": return { t:"🏠 はじめの がめん", steps:[
       ["👆","やりたい ことの ボタンを タップしてね"],
       ["🚌","とうじつは「すいぞくかんに ついたよ！」で たんけんカードが すぐ ひらくよ"],
@@ -5094,7 +5342,9 @@ function saveState(){
                   swimSpeed: settings.swimSpeed, swimCount: settings.swimCount, fishSize: settings.fishSize,
                   clearView: settings.clearView, nudge: settings.nudge, outline: settings.outline,
                   sigSound: settings.sigSound, chant: settings.chant, swimBgm: settings.swimBgm,
-                  readName: settings.readName, zukanSolo: settings.zukanSolo },
+                  readName: settings.readName, zukanSolo: settings.zukanSolo,
+                  flowDetail: settings.flowDetail, flowTime: settings.flowTime, flowGroup: settings.flowGroup },
+      flowIdx: flowIdx,
       missionFeel: missionFeel,
       soundOn: soundOn,
       missionTarget: missionTarget,
@@ -5123,11 +5373,13 @@ function loadState(){
       if([1,2,3].includes(s.settings.swimSpeed)) settings.swimSpeed = s.settings.swimSpeed;
       if(typeof s.settings.swimCount === "number") settings.swimCount = Math.min(8,Math.max(3,s.settings.swimCount));
       if([1,2,3].includes(s.settings.fishSize)) settings.fishSize = s.settings.fishSize;
-      ["clearView","nudge","outline","sigSound","chant","swimBgm","readName","zukanSolo"].forEach(k=>{
+      if(s.settings.flowGroup === "red" || s.settings.flowGroup === "blue") settings.flowGroup = s.settings.flowGroup;
+      ["clearView","nudge","outline","sigSound","chant","swimBgm","readName","zukanSolo","flowDetail","flowTime"].forEach(k=>{
         if(typeof s.settings[k] === "boolean") settings[k] = s.settings[k];
       });
     }
     if(typeof s.soundOn === "boolean") soundOn = s.soundOn;
+    if(s.flowIdx && typeof s.flowIdx.d === "number" && typeof s.flowIdx.s === "number") flowIdx = { d:s.flowIdx.d, s:s.flowIdx.s };
     if(typeof s.missionTarget === "number") missionTarget = s.missionTarget;
     (s.missionPicked || []).filter(id=>valid.has(id)).forEach(id=>missionPicked.add(id));
     (s.missionStamped || []).filter(id=>valid.has(id)).forEach(id=>missionStamped.add(id));
