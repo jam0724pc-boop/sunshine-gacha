@@ -1914,6 +1914,33 @@
   .flow .flow-grid.few .fc{grid-template-columns:5.2em 3.4em 1fr;}
   body.split .flow .fc, body.split .flow .flow-grid.few .fc{grid-template-columns:4.6em 2.4em 1fr;}
   body.split .flow .fc-ord{font-size:clamp(11px,1.3vw,14px);padding:2px 4px;}
+
+  /* ===== その場で かえられる せってい（⚙） ===== */
+  .qpanel{position:fixed;left:10px;bottom:68px;z-index:40;width:min(380px,calc(100vw - 20px));max-height:calc(100vh - 90px);
+    display:none;flex-direction:column;background:#FFFDF6;border:4px solid #fff;border-radius:22px;
+    box-shadow:0 10px 0 rgba(8,50,80,.25),0 18px 40px rgba(8,50,80,.35);color:var(--ink);overflow:hidden;}
+  .qpanel.show{display:flex;animation:qpIn .22s ease-out;}
+  @keyframes qpIn{from{transform:translateY(12px) scale(.96);opacity:0}to{transform:none;opacity:1}}
+  .qp-head{display:flex;align-items:center;justify-content:space-between;padding:10px 12px 8px 16px;background:#EAF6FB;}
+  .qp-head b{font-size:16px;font-weight:900;}
+  .qp-x{border:none;background:#fff;color:var(--ink);width:36px;height:36px;border-radius:50%;font-size:18px;font-weight:900;cursor:pointer;box-shadow:0 2px 0 rgba(0,0,0,.15);}
+  .qp-body{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:6px 14px 4px;}
+  .qp-sec{font-size:12px;font-weight:900;color:#5A8AA8;margin:8px 0 2px;}
+  .qp-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed #D5E6EF;}
+  .qp-row:last-child{border-bottom:none;}
+  .qp-row>span{font-size:14px;font-weight:900;line-height:1.35;}
+  .qp-sw{position:relative;width:58px;height:34px;flex:0 0 auto;border:none;border-radius:999px;background:#B9C7D1;cursor:pointer;transition:.2s;}
+  .qp-sw::after{content:"";position:absolute;top:3px;left:3px;width:28px;height:28px;border-radius:50%;background:#fff;box-shadow:0 2px 3px rgba(0,0,0,.2);transition:.2s;}
+  .qp-sw.on{background:#4CAF7D;}
+  .qp-sw.on::after{left:27px;}
+  .qp-seg{display:flex;gap:4px;flex:0 0 auto;}
+  .qp-seg button{border:none;cursor:pointer;font-family:inherit;font-weight:900;font-size:13px;padding:7px 9px;border-radius:12px;background:#E3EEF4;color:var(--ink);white-space:nowrap;}
+  .qp-seg button.on{background:var(--sea-mid);color:#fff;}
+  .qp-cnt{display:flex;align-items:center;gap:8px;flex:0 0 auto;}
+  .qp-cnt button{border:none;cursor:pointer;width:38px;height:38px;border-radius:50%;background:#E3EEF4;font-size:20px;font-weight:900;color:var(--ink);}
+  .qp-cnt b{min-width:1.6em;text-align:center;font-size:18px;}
+  .qp-name{width:140px;font-family:inherit;font-weight:900;font-size:15px;padding:7px 10px;border:2px solid #CFE0EA;border-radius:12px;}
+  .qp-all{margin:6px 12px 12px;border:none;cursor:pointer;font-family:inherit;font-weight:900;font-size:15px;padding:10px;border-radius:14px;background:#EAF6FB;color:var(--ink);}
 </style>
 </head>
 <body>
@@ -2101,6 +2128,11 @@
 <!-- せんせいボタン（がめんのすみ） -->
 <div class="chant-word" id="chantWord" aria-hidden="true"></div>
 <button class="teacher-btn" id="teacherBtn" aria-label="せんせいメニューをひらく">⚙️</button>
+<div class="qpanel" id="qpanel" role="dialog" aria-label="この がめんの せってい">
+  <div class="qp-head"><b id="qpTitle">⚙️ この がめんの せってい</b><button class="qp-x" id="qpClose" aria-label="とじる">✕</button></div>
+  <div class="qp-body" id="qpBody"></div>
+  <button class="qp-all" id="qpAll">⚙️ すべての せってい</button>
+</div>
 
 <!-- つかいかた（？） -->
 <button class="help-btn" id="helpBtn" aria-label="この がめんの つかいかた">？</button>
@@ -4729,7 +4761,7 @@ $("detailBtn").addEventListener("click", ()=>{ if(shownC){ sfx.click(); openDeta
 /* ===================== がめんぜんぶボタン ===================== */
 document.addEventListener("click", (e)=>{
   if(!settings.fullTap) return;
-  if(e.target.closest("button, header, .zukan, .settings, .quiz, .mission, .detail, .home, .reveal, .cert, .swim, .help, .flow")) return;
+  if(e.target.closest("button, header, .zukan, .settings, .quiz, .mission, .detail, .home, .reveal, .cert, .swim, .help, .flow, .qpanel")) return;
   if(document.getElementById("flow").classList.contains("show")) return;
   if(helpEl.classList.contains("show")) return;
   if(zukan.classList.contains("show") || settingsEl.classList.contains("show") ||
@@ -5316,7 +5348,121 @@ $("optFlowDetail").addEventListener("change", ()=>{ if($("flow").classList.conta
 $("goSwim").addEventListener("click", openSwim);
 
 /* せんせいボタン（がめんのすみ） */
-$("teacherBtn").addEventListener("click", ()=>{ sfx.click(); cancelGacha(); syncSettingsUI(); settingsEl.classList.add("show"); });
+
+/* ===================== ⚙ この がめんの せってい（その場で かえる） =====================
+   ほんものの せんせいメニューの ボタンを うしろで おして、おなじ しくみで かえる */
+function qpScreens(){
+  if(document.body.classList.contains("split") && $("flow").classList.contains("show")) return ["flow","mission"];
+  const sc = currentScreen();
+  if(sc === "missionStamp" || sc === "missionPick") return ["mission"];
+  if(sc === "reveal") return ["gacha"];
+  if(sc === "detail") return ["zukan"];
+  return [sc];
+}
+const QP_TITLE = { home:"🏠 はじめの がめん", gacha:"🎡 ガチャ", zukan:"📖 ずかん", quiz:"❓ クイズ", mission:"🎒 たんけんカード",
+  swim:"🐟 およぐ おさかな", flow:"📅 きょうの ながれ", cert:"🏆 しょうじょう" };
+function qpToggle(label, id){ return { type:"sw", label, get:()=>$(id).checked, act:()=>{ const el=$(id); el.checked=!el.checked; el.dispatchEvent(new Event("change")); } }; }
+const QP_ITEMS = {
+  home:[ { type:"preset" } ],
+  gacha:[ qpToggle("かならず あたらしい子","optNewFirst"), qpToggle("コインの えんしゅつ","optCoin"),
+          qpToggle("がめん どこでも タップ","optFullTap"), qpToggle("かけごえ（ガチャ・ガチャ・ポン）","optChant"),
+          qpToggle("生きものの しるしの おと","optSig") ],
+  zukan:[ qpToggle("まだの子も ずかんに だす","optShowAll"), qpToggle("なまえの よみあげ","optReadName"),
+          qpToggle("生きものの しるしの おと","optSig") ],
+  quiz:[ { type:"seg", label:"むずかしさ", opts:[["⭐","1"],["⭐⭐","2"],["⭐⭐⭐","3"]],
+           get:()=>String(settings.quizLevel), act:(v)=>{ const b=document.querySelector('#settings .lv-seg .lv-btn[data-lv="'+v+'"]'); if(b) b.click(); } },
+         qpToggle("こどもが むずかしさを えらぶ","optQuizPick") ],
+  mission:[ { type:"cnt", label:"さがす かず", get:()=>missionTarget, minus:"cntMinus", plus:"cntPlus" },
+            qpToggle("きもちスタンプ","optFeel"), qpToggle("がめん どこでも スタンプ","optFullTap"),
+            qpToggle("なまえの よみあげ","optReadName"), { type:"name" } ],
+  swim:[ { type:"seg", label:"はやさ", opts:[["🐢","1"],["ふつう","2"],["🐇","3"]],
+           get:()=>String(settings.swimSpeed), act:(v)=>{ const b=document.querySelector('#swimSpeedSeg .sp-btn[data-sp="'+v+'"]'); if(b) b.click(); } },
+         { type:"cnt", label:"おさかなの かず", get:()=>settings.swimCount, minus:"fishMinus", plus:"fishPlus" },
+         { type:"seg", label:"おおきさ", opts:[["小","1"],["中","2"],["大","3"]],
+           get:()=>String(settings.fishSize), act:(v)=>{ const b=document.querySelector('#fishSizeSeg .sp-btn[data-sz="'+v+'"]'); if(b) b.click(); } },
+         qpToggle("みずの おと","optSwimBgm") ],
+  flow:[ qpToggle("くわしく（14まい）","optFlowDetail"), qpToggle("なまえ・ことばの よみあげ","optReadName") ],
+  cert:[ { type:"name" } ]
+};
+const QP_COMMON = [
+  { type:"sw", label:"🔊 おと", get:()=>soundOn, act:()=>$("soundBtn").click() },
+  qpToggle("👀 みやすさモード（すっきり）","optClear")
+];
+let qpList = [];
+function renderQP(){
+  const scs = qpScreens();
+  $("qpTitle").textContent = "⚙️ " + scs.map(k=>QP_TITLE[k]||"").join("・");
+  qpList = [];
+  let html = "";
+  scs.forEach(k=>{
+    const items = QP_ITEMS[k] || [];
+    if(!items.length) return;
+    if(scs.length > 1) html += '<div class="qp-sec">' + (QP_TITLE[k]||"") + '</div>';
+    items.forEach(it=>{ html += qpRow(it); });
+  });
+  html += '<div class="qp-sec">みんな きょうつう</div>';
+  QP_COMMON.forEach(it=>{ html += qpRow(it); });
+  $("qpBody").innerHTML = html;
+}
+function qpRow(it){
+  const i = qpList.push(it) - 1;
+  if(it.type === "sw") return '<div class="qp-row"><span>' + it.label + '</span><button class="qp-sw' + (it.get() ? " on" : "") + '" data-i="' + i + '" aria-label="' + it.label + '"></button></div>';
+  if(it.type === "seg") return '<div class="qp-row"><span>' + it.label + '</span><div class="qp-seg">' + it.opts.map(([t,v])=>'<button data-i="' + i + '" data-v="' + v + '"' + (it.get()===v ? ' class="on"' : '') + '>' + t + '</button>').join("") + '</div></div>';
+  if(it.type === "cnt") return '<div class="qp-row"><span>' + it.label + '</span><div class="qp-cnt"><button data-i="' + i + '" data-d="-1">−</button><b>' + it.get() + '</b><button data-i="' + i + '" data-d="1">＋</button></div></div>';
+  if(it.type === "name") return '<div class="qp-row"><span>おなまえ（しょうじょう）</span><input class="qp-name" id="qpName" maxlength="10" placeholder="なまえ" value="' + escapeHTML(settings.studentName || "") + '"></div>';
+  if(it.type === "preset"){
+    const cur = currentPreset();
+    return '<div class="qp-row"><span>おまかせ</span><div class="qp-seg">' + [["🌱 やさしい","easy"],["🌿 ふつう","normal"],["🌳 チャレンジ","challenge"]]
+      .map(([t,v])=>'<button data-i="' + i + '" data-p="' + v + '"' + (cur===v ? ' class="on"' : '') + '>' + t + '</button>').join("") + '</div></div>';
+  }
+  return "";
+}
+/* かえた あとに、いま みている がめんへ すぐ はんえい */
+function qpApply(kind){
+  if(zukan.classList.contains("show")) renderZukan();
+  if(missionEl.classList.contains("show")) renderMission();
+  if($("flow").classList.contains("show")){ renderFlow(); setTimeout(scrollFlowNow, 30); }
+  if(quizEl.classList.contains("show") && !settings.quizPick) quizLevel = settings.quizLevel;
+  if(swimEl.classList.contains("ph-play") && (kind === "swim")) startSwim();
+  if(swimEl.classList.contains("ph-play") && kind === "bgm"){ if(settings.swimBgm) startSwimBgm(); else stopSwimBgm(); }
+  if(typeof updateHint === "function") updateHint();
+}
+$("qpBody").addEventListener("click", (e)=>{
+  const b = e.target.closest("button[data-i]"); if(!b) return;
+  const it = qpList[+b.dataset.i]; if(!it) return;
+  let kind = "";
+  if(it.type === "sw"){ it.act(); if(it.label === "みずの おと") kind = "bgm"; }
+  else if(it.type === "seg"){ it.act(b.dataset.v); if(it.label === "はやさ" || it.label === "おおきさ") kind = "swim"; }
+  else if(it.type === "cnt"){ $(+b.dataset.d < 0 ? it.minus : it.plus).click(); if(it.label === "おさかなの かず") kind = "swim"; }
+  else if(it.type === "preset"){ const pb = document.querySelector('#presetRow .preset-btn[data-preset="' + b.dataset.p + '"]'); if(pb) pb.click(); kind = "swim"; }
+  syncSettingsUI();
+  qpApply(kind);
+  renderQP();
+});
+$("qpBody").addEventListener("input", (e)=>{
+  if(e.target.id !== "qpName") return;
+  const n = $("optName"); n.value = e.target.value; n.dispatchEvent(new Event("input"));
+});
+function closeQP(){ $("qpanel").classList.remove("show"); }
+$("qpClose").addEventListener("click", ()=>{ sfx.click(); closeQP(); });
+$("qpAll").addEventListener("click", ()=>{ sfx.click(); closeQP(); cancelGacha(); syncSettingsUI(); settingsEl.classList.add("show"); });
+let qpSwallow = false;
+document.addEventListener("pointerdown", (e)=>{
+  if(!$("qpanel").classList.contains("show")) return;
+  if(e.target.closest("#qpanel, #teacherBtn")) return;
+  closeQP(); qpSwallow = true;   // パネルを とじる タップでは、うしろの ボタンは うごかさない
+}, true);
+document.addEventListener("click", (e)=>{
+  if(!qpSwallow) return;
+  qpSwallow = false; e.stopPropagation(); e.preventDefault();
+}, true);
+$("teacherBtn").addEventListener("click", ()=>{
+  sfx.click();
+  if(settingsEl.classList.contains("show")) return;
+  const qp = $("qpanel");
+  if(qp.classList.contains("show")){ closeQP(); return; }
+  syncSettingsUI(); renderQP(); qp.classList.add("show");
+});
 
 /* ===================== つかいかた（？） ===================== */
 const helpEl = $("help");
@@ -5346,7 +5492,7 @@ function helpContent(s){
   case "home": return { t:"🏠 はじめの がめん", steps:[
       ["👆","やりたい ことの ボタンを タップしてね"],
       ["🚌","とうじつは「すいぞくかんに ついたよ！」で、ひだりに きょうの ながれ・みぎに たんけんカードが ひらくよ"],
-      ["⚙️","ひだり下の ⚙ は せんせい用。「やさしい・ふつう・チャレンジ」を えらべるよ"]],
+      ["⚙️","ひだり下の ⚙ は せんせい用。どの がめんでも、その がめんの せっていを すぐ かえられるよ"]],
     tip:"どの がめんでも、ひだり上の「⬅ もどる」で ひとつ まえに もどれます" };
   case "gacha": {
     const st = settings.coinMode
