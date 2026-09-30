@@ -1941,6 +1941,67 @@
   .qp-cnt b{min-width:1.6em;text-align:center;font-size:18px;}
   .qp-name{width:140px;font-family:inherit;font-weight:900;font-size:15px;padding:7px 10px;border:2px solid #CFE0EA;border-radius:12px;}
   .qp-all{margin:6px 12px 12px;border:none;cursor:pointer;font-family:inherit;font-weight:900;font-size:15px;padding:10px;border-radius:14px;background:#EAF6FB;color:var(--ink);}
+
+  /* ===== きょうの ながれ：いま・つぎ を おおきく ===== */
+  .flow .flow-grid{display:flex;flex-direction:column;gap:12px;overflow:hidden;max-width:780px;padding:8px 6px 6px;}
+  .c-school{--cc:#3E9E6B;--ct:#E1F4E8;} .c-toilet{--cc:#8E6BD6;--ct:#EEE7FB;} .c-move{--cc:#2F7FD6;--ct:#E0EDFB;}
+  .c-aq{--cc:#15A2B5;--ct:#DDF5F8;} .c-gift{--cc:#E3A600;--ct:#FFF3CC;} .c-meal{--cc:#F28C28;--ct:#FFE9D4;}
+  .fl-done{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.2);border-radius:16px;padding:6px 10px;flex:0 0 auto;}
+  .fl-done-lab{color:#fff;font-weight:900;font-size:clamp(12px,1.5vw,15px);white-space:nowrap;}
+  .fl-done-n{color:#fff;font-weight:900;font-size:clamp(12px,1.4vw,14px);margin-left:auto;white-space:nowrap;opacity:.9;}
+  .fl-chips{display:flex;gap:5px;flex-wrap:wrap;min-width:0;}
+  .fl-chip{width:clamp(30px,4.6vh,40px);height:clamp(30px,4.6vh,40px);border-radius:50%;border:3px solid var(--cc);background:var(--ct);
+    font-size:clamp(15px,2.4vh,20px);line-height:1;display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer;opacity:.85;position:relative;}
+  .fl-chip::after{content:"✔";position:absolute;right:-5px;bottom:-5px;width:16px;height:16px;border-radius:50%;background:#4CAF7D;color:#fff;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center;}
+  .fl-now,.fl-next{position:relative;display:flex;align-items:center;gap:clamp(10px,2vw,22px);background:#FFFDF4;border-radius:24px;
+    border:4px solid #fff;border-left:14px solid var(--cc);cursor:pointer;flex:0 0 auto;}
+  .fl-now{padding:clamp(12px,2.4vh,22px) clamp(14px,2vw,24px);min-height:clamp(170px,32vh,260px);
+    box-shadow:0 0 0 5px #FFC933,0 0 28px 8px rgba(255,220,90,.7),0 8px 0 rgba(8,50,80,.25);}
+  .fl-next{padding:10px clamp(12px,1.6vw,18px);min-height:clamp(80px,13vh,110px);opacity:.96;box-shadow:0 6px 0 rgba(8,50,80,.25);}
+  .fl-tag{position:absolute;top:-14px;left:14px;font-weight:900;color:#fff;border-radius:999px;padding:2px 14px;border:3px solid #fff;font-size:clamp(14px,1.8vw,18px);}
+  .fl-tag.now{background:#FF5D8F;animation:nowHop2 1.2s ease-in-out infinite;font-size:clamp(16px,2.1vw,22px);}
+  .fl-tag.next{background:#5A8AA8;}
+  .fl-ico{display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--ct);flex:0 0 auto;line-height:1;}
+  .fl-ico.big{width:clamp(110px,22vh,170px);height:clamp(110px,22vh,170px);font-size:clamp(64px,13vh,104px);box-shadow:inset 0 -6px 0 rgba(0,0,0,.05);}
+  .fl-ico.mid{width:clamp(58px,10vh,80px);height:clamp(58px,10vh,80px);font-size:clamp(34px,6vh,48px);}
+  .fl-ico.sm{width:34px;height:34px;font-size:20px;}
+  .fl-body{display:flex;flex-direction:column;gap:6px;min-width:0;flex:1;}
+  .fl-lab{font-weight:900;color:var(--ink);line-height:1.25;word-break:keep-all;overflow-wrap:anywhere;}
+  .fl-lab.big{font-size:clamp(26px,4.2vw,44px);}
+  .fl-lab.mid{font-size:clamp(18px,2.5vw,26px);}
+  .fl-lab.sm{font-size:clamp(13px,1.6vw,16px);flex:1;min-width:0;}
+  .fl-time{display:flex;align-items:center;gap:8px;color:#1B6F98;font-weight:900;}
+  .fl-time b{font-size:clamp(18px,2.4vw,26px);}
+  .fl-next .fl-time b{font-size:clamp(15px,1.9vw,20px);}
+  .fl-clock{width:clamp(38px,6.4vh,54px);height:clamp(38px,6.4vh,54px);flex:0 0 auto;}
+  .fl-next .fl-clock{width:clamp(30px,5vh,40px);height:clamp(30px,5vh,40px);}
+  .flow.no-time .fl-time{display:none;}
+  .fl-sub{font-size:clamp(14px,1.8vw,19px);font-weight:900;color:#33698C;}
+  .fl-arts{display:flex;gap:6px;}
+  .fl-arts span{width:clamp(44px,8vh,64px);height:clamp(44px,8vh,64px);display:block;}
+  .fl-arts svg{width:100%;height:100%;}
+  .fl-arts .km-anem,.fl-arts .ut-rockF{display:none;}
+  .fl-route{display:flex;gap:6px;flex-wrap:wrap;}
+  .fl-route b{font-size:clamp(14px,1.8vw,18px);background:#fff;border:2px solid var(--cc);border-radius:999px;padding:3px 12px;white-space:nowrap;}
+  .fl-ord{display:inline-block;font-size:.55em;color:#fff;border-radius:999px;padding:2px 10px;margin-right:8px;vertical-align:middle;}
+  .fl-ord.red{background:#E0473D;} .fl-ord.blue{background:#2F7FD6;}
+  .fl-later{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;background:rgba(255,255,255,.14);border-radius:18px;padding:6px 10px 8px;}
+  .fl-later-lab{color:#fff;font-weight:900;font-size:13px;margin:0 0 4px 4px;opacity:.9;}
+  .fl-row{display:flex;align-items:center;gap:10px;background:rgba(255,253,244,.92);border-radius:12px;border-left:8px solid var(--cc);padding:4px 10px;margin-bottom:5px;cursor:pointer;}
+  .fl-row .fl-time.sm b{font-size:clamp(12px,1.4vw,15px);}
+  .fl-allend{background:#fff;border-radius:24px;border:5px solid #FFC933;text-align:center;font-weight:900;font-size:clamp(24px,3.4vw,38px);padding:30px;color:var(--ink);}
+  /* とうじつ（ひだり がわ） */
+  body.split .fl-now{min-height:clamp(150px,30vh,230px);gap:10px;padding:14px 12px;border-left-width:10px;}
+  body.split .fl-ico.big{width:clamp(80px,15vh,112px);height:clamp(80px,15vh,112px);font-size:clamp(46px,9vh,68px);}
+  body.split .fl-lab.big{font-size:clamp(20px,2.6vw,30px);}
+  body.split .fl-lab.mid{font-size:clamp(15px,1.8vw,19px);}
+  body.split .fl-ico.mid{width:clamp(46px,8vh,60px);height:clamp(46px,8vh,60px);font-size:clamp(26px,4.6vh,36px);}
+  body.split .fl-arts span{width:clamp(34px,6vh,48px);height:clamp(34px,6vh,48px);}
+  body.split .fl-route b{font-size:clamp(12px,1.4vw,15px);padding:2px 8px;}
+  body.split .fl-time b{font-size:clamp(15px,1.8vw,20px);}
+  body.split .fl-clock{width:clamp(30px,5vh,42px);height:clamp(30px,5vh,42px);}
+  body.split .fl-done-lab{display:none;}
+  body.split .fl-chip{width:30px;height:30px;font-size:15px;}
 </style>
 </head>
 <body>
@@ -5215,30 +5276,30 @@ const ROUTE = { red:["roof","f1","f2"], blue:["f1","f2","roof"] };
 function flowSteps(){
   const g = settings.flowGroup === "blue" ? "blue" : "red";
   if(settings.flowDetail){
-    const floors = ROUTE[g].map((k,i)=>Object.assign({ kind:"floor", key:k, no:i+1 }, FLOORS[k]));
+    const floors = ROUTE[g].map((k,i)=>Object.assign({ kind:"floor", key:k, no:i+1, c:"aq" }, FLOORS[k]));
     return [
-      { t:"8:50",  ico:"🏫", l:"がっこうに つく" },
-      { t:"9:30",  ico:"🚻", l:"トイレ・おみず" },
-      { t:"9:40",  ico:"🚌", l:"バスで しゅっぱつ" },
-      { t:"10:20", ico:"🏙️", l:"サンシャインシティに つく" },
-      { t:"10:30", ico:"📷", l:"みんなで しゃしん", sub:"⬆️ エレベーターで おくじょうへ" },
+      { t:"8:50",  ico:"🏫", l:"がっこうに つく", c:"school" },
+      { t:"9:30",  ico:"🚻", l:"トイレ・おみず", c:"toilet" },
+      { t:"9:40",  ico:"🚌", l:"バスで しゅっぱつ", c:"move" },
+      { t:"10:20", ico:"🏙️", l:"サンシャインシティに つく", c:"move" },
+      { t:"10:30", ico:"📷", l:"みんなで しゃしん", sub:"⬆️ エレベーターで おくじょうへ", c:"aq" },
       ...floors,
-      { ico:"🎁", l:"ガチャで おみやげ", sub:"2かい" },
-      { t:"11:35", ico:"🚩", l:"でぐちに あつまる" },
-      { t:"12:00", ico:"🍱", l:"おひるごはん" },
-      { t:"12:50", ico:"🙏", l:"ごちそうさま・トイレ" },
-      { t:"13:15", ico:"🚌", l:"バスで かえる" },
-      { t:"13:55", ico:"🏫", l:"がっこうに つく" }
+      { ico:"🎁", l:"ガチャで おみやげ", sub:"2かい", c:"gift" },
+      { t:"11:35", ico:"🚩", l:"でぐちに あつまる", c:"aq" },
+      { t:"12:00", ico:"🍱", l:"おひるごはん", c:"meal" },
+      { t:"12:50", ico:"🙏", l:"ごちそうさま・トイレ", c:"toilet" },
+      { t:"13:15", ico:"🚌", l:"バスで かえる", c:"move" },
+      { t:"13:55", ico:"🏫", l:"がっこうに つく", c:"school" }
     ];
   }
   return [
-    { t:"8:50",  ico:"🏫", l:"がっこう" },
-    { t:"9:40",  ico:"🚌", l:"バスで しゅっぱつ" },
-    { t:"10:30", ico:"🐧", l:"すいぞくかん", kind:"aq" },
-    { ico:"🎁", l:"ガチャで おみやげ" },
-    { t:"12:00", ico:"🍱", l:"おひるごはん" },
-    { t:"13:15", ico:"🚌", l:"バスで かえる" },
-    { t:"13:55", ico:"🏫", l:"がっこうに つく" }
+    { t:"8:50",  ico:"🏫", l:"がっこう", c:"school" },
+    { t:"9:40",  ico:"🚌", l:"バスで しゅっぱつ", c:"move" },
+    { t:"10:30", ico:"🐧", l:"すいぞくかん", kind:"aq", c:"aq" },
+    { ico:"🎁", l:"ガチャで おみやげ", c:"gift" },
+    { t:"12:00", ico:"🍱", l:"おひるごはん", c:"meal" },
+    { t:"13:15", ico:"🚌", l:"バスで かえる", c:"move" },
+    { t:"13:55", ico:"🏫", l:"がっこうに つく", c:"school" }
   ];
 }
 function curFlowIdx(){ return settings.flowDetail ? flowIdx.d : flowIdx.s; }
@@ -5262,29 +5323,69 @@ function speakText(t, delay){
   }catch(e){} };
   if(delay) setTimeout(go, delay); else go();
 }
+/* D. とけいの え */
+function clockSVG(t){
+  if(!t) return "";
+  const [h,m] = t.split(":").map(Number);
+  const ma = m * 6, ha = (h % 12) * 30 + m * 0.5;
+  let ticks = "";
+  for(let k=0;k<12;k++){ const a = k*30*Math.PI/180; const r1 = k%3 ? 40 : 36;
+    ticks += '<line x1="' + (50+Math.sin(a)*r1).toFixed(1) + '" y1="' + (50-Math.cos(a)*r1).toFixed(1) + '" x2="' + (50+Math.sin(a)*44).toFixed(1) + '" y2="' + (50-Math.cos(a)*44).toFixed(1) + '" stroke="#1B4965" stroke-width="' + (k%3?2:4) + '" stroke-linecap="round"/>'; }
+  return '<svg class="fl-clock" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="#fff" stroke="#1B4965" stroke-width="5"/>' + ticks
+    + '<line x1="50" y1="50" x2="50" y2="26" stroke="#1B4965" stroke-width="7" stroke-linecap="round" transform="rotate(' + ha + ' 50 50)"/>'
+    + '<line x1="50" y1="50" x2="50" y2="14" stroke="#E0473D" stroke-width="4.5" stroke-linecap="round" transform="rotate(' + ma + ' 50 50)"/>'
+    + '<circle cx="50" cy="50" r="5" fill="#1B4965"/></svg>';
+}
+function flTime(st){ return st.t ? '<span class="fl-time">' + clockSVG(st.t) + '<b>' + st.t + '</b></span>' : ''; }
+function flLabel(st, g){
+  if(st.kind === "floor") return '<span class="fl-ord ' + g + '">' + st.no + ' ばんめ</span>' + escapeHTML(st.l) + ' を みる';
+  return escapeHTML(st.l);
+}
 function renderFlow(){
   const steps = flowSteps();
   const g = settings.flowGroup === "blue" ? "blue" : "red";
   let idx = Math.max(0, Math.min(curFlowIdx(), steps.length));
   setFlowIdx(idx);
   const grid = $("flowGrid");
-  grid.classList.toggle("few", steps.length <= 7);
   $("flow").classList.toggle("no-time", !settings.flowTime);
   $("timeBtn").textContent = settings.flowTime ? "🕘 じかん：みせる" : "🕘 じかん：かくす";
   $("timeBtn").classList.toggle("off", !settings.flowTime);
   document.querySelectorAll(".grp-btn").forEach(b=>b.classList.toggle("on", b.dataset.g === g));
-  grid.innerHTML = steps.map((st,i)=>{
-    const cls = "fc" + (st.kind === "floor" ? " floor " + g : "") + (i < idx ? " done" : i === idx ? " now" : "");
-    let inner = '<div class="fc-no">' + (i+1) + '</div><div class="now-tag">いま ここ</div>'
-      + (st.kind === "floor" ? '<div class="fc-ord ' + g + '">' + st.no + ' ばんめ</div>' : '<div class="fc-time">' + (st.t || "") + '</div>')
-      + '<div class="fc-ico">' + st.ico + '</div>'
-      + '<div class="fc-lab">' + escapeHTML(st.l) + '</div>';
-    if(st.sub && st.kind !== "floor") inner += '<div class="fc-sub">' + escapeHTML(st.sub) + '</div>';
-    if(st.arts) inner += '<div class="fc-arts">' + st.arts.map(a=>'<span>' + (SVG[a]||"") + '</span>').join("") + '</div>';
-    if(st.kind === "aq") inner += '<div class="fc-route">' + ROUTE[g].map((k,n)=>'<b>' + (n+1) + '. ' + FLOORS[k].l + '</b>').join("") + '</div>';
-    return '<div class="' + cls + '" data-i="' + i + '">' + inner + '</div>';
-  }).join("");
-  const now = steps[idx];
+  let html = "";
+  // B. おわった もの（ちいさく まとめる）
+  if(idx > 0){
+    html += '<div class="fl-done"><span class="fl-done-lab">✔ おわった</span><div class="fl-chips">'
+      + steps.slice(0, idx).map((st,k)=>'<button class="fl-chip c-' + (st.c||"aq") + '" data-i="' + k + '">' + st.ico + '</button>').join("")
+      + '</div><span class="fl-done-n">' + idx + ' / ' + steps.length + '</span></div>';
+  }
+  const now = steps[idx], next = steps[idx+1];
+  // A. いま（おおきく）
+  if(now){
+    let extra = "";
+    if(now.sub && now.kind !== "floor") extra += '<div class="fl-sub">' + escapeHTML(now.sub) + '</div>';
+    if(now.arts) extra += '<div class="fl-arts">' + now.arts.map(a=>'<span>' + (SVG[a]||"") + '</span>').join("") + '</div>';
+    if(now.kind === "aq") extra += '<div class="fl-route">' + ROUTE[g].map((k,n)=>'<b>' + (n+1) + '. ' + FLOORS[k].ico + ' ' + FLOORS[k].l + '</b>').join("") + '</div>';
+    html += '<div class="fl-now c-' + (now.c||"aq") + '" data-i="' + idx + '">'
+      + '<div class="fl-tag now">いま</div>'
+      + '<div class="fl-ico big">' + now.ico + '</div>'
+      + '<div class="fl-body">' + flTime(now) + '<div class="fl-lab big">' + flLabel(now, g) + '</div>' + extra + '</div></div>';
+  }
+  // A. つぎ（ちゅうくらい）
+  if(next){
+    html += '<div class="fl-next c-' + (next.c||"aq") + '" data-i="' + (idx+1) + '">'
+      + '<div class="fl-tag next">つぎ</div>'
+      + '<div class="fl-ico mid">' + next.ico + '</div>'
+      + '<div class="fl-body">' + flTime(next) + '<div class="fl-lab mid">' + flLabel(next, g) + '</div></div></div>';
+  }
+  // そのあと（ちいさく）
+  const later = steps.slice(idx+2);
+  if(later.length){
+    html += '<div class="fl-later"><div class="fl-later-lab">そのあと</div>'
+      + later.map((st,k)=>'<div class="fl-row c-' + (st.c||"aq") + '" data-i="' + (idx+2+k) + '"><span class="fl-ico sm">' + st.ico + '</span><span class="fl-lab sm">' + flLabel(st, g) + '</span>' + (st.t ? '<span class="fl-time sm"><b>' + st.t + '</b></span>' : '') + '</div>').join("")
+      + '</div>';
+  }
+  if(!now) html += '<div class="fl-allend">🎉 ぜんぶ おわったよ！</div>';
+  grid.innerHTML = html;
   $("flowMission").style.display = now && (now.kind === "floor" || now.kind === "aq") ? "" : "none";
   $("flowDone").style.display = idx < steps.length ? "" : "none";
   $("flowUndo").style.visibility = idx > 0 ? "visible" : "hidden";
@@ -5301,7 +5402,7 @@ function openFlow(){
 $("goFlow").addEventListener("click", openFlow);
 $("closeFlow").addEventListener("click", ()=>{ sfx.click(); if(document.body.classList.contains("split")){ closeDay(); return; } $("flow").classList.remove("show"); speechSynthesis && speechSynthesis.cancel && speechSynthesis.cancel(); });
 $("flowGrid").addEventListener("click", (e)=>{
-  const c = e.target.closest(".fc"); if(!c) return;
+  const c = e.target.closest("[data-i]"); if(!c) return;
   const st = flowSteps()[+c.dataset.i]; if(!st) return;
   sfx.click();
   c.classList.remove("tapped"); void c.offsetWidth; c.classList.add("tapped");
@@ -5337,12 +5438,7 @@ $("grpSeg").addEventListener("click", (e)=>{
 });
 $("flowMission").addEventListener("click", ()=>{ openDay(); });
 /* 「いま ここ」が みえる ように スクロール */
-function scrollFlowNow(){
-  const g = $("flowGrid"), n = g.querySelector(".fc.now") || g.querySelector(".fc:last-child");
-  if(!n) return;
-  const top = n.offsetTop - g.clientHeight/2 + n.offsetHeight/2;
-  g.scrollTop = Math.max(0, top);
-}
+function scrollFlowNow(){ const g = $("flowGrid"); if(g) g.scrollTop = 0; const l = g && g.querySelector(".fl-later"); if(l) l.scrollTop = 0; }
 $("optFlowDetail").addEventListener("change", ()=>{ if($("flow").classList.contains("show")) renderFlow(); });
 
 $("goSwim").addEventListener("click", openSwim);
