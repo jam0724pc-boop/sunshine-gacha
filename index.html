@@ -2002,6 +2002,68 @@
   body.split .fl-clock{width:clamp(30px,5vh,42px);height:clamp(30px,5vh,42px);}
   body.split .fl-done-lab{display:none;}
   body.split .fl-chip{width:30px;height:30px;font-size:15px;}
+
+  /* ===== ながれ：A アイコン・C よこながの ならび・D すごろく・G クイズ ===== */
+  .fl-ico svg{width:78%;height:78%;display:block;}
+  .fl-ico.sm svg{width:88%;height:88%;}
+  .fl-ico .km-anem,.fl-ico .ut-rockF{display:none;}
+  .flow .flow-grid{max-width:none;gap:10px;}
+  .fl-road{display:flex;align-items:center;gap:10px;flex:0 0 auto;background:rgba(255,255,255,.18);border-radius:18px;padding:22px 14px 8px;}
+  .fl-track{position:relative;flex:1;display:flex;justify-content:space-between;align-items:center;min-width:0;}
+  .fl-line{position:absolute;left:14px;right:14px;top:50%;height:8px;margin-top:-4px;background:rgba(255,255,255,.55);border-radius:99px;overflow:hidden;}
+  .fl-line i{display:block;height:100%;background:#FFC933;border-radius:99px;transition:width .5s;}
+  .fl-stop{position:relative;z-index:1;width:clamp(26px,4.6vh,40px);height:clamp(26px,4.6vh,40px);border-radius:50%;padding:0;cursor:pointer;
+    border:3px solid var(--cc);background:#fff;display:flex;align-items:center;justify-content:center;}
+  .fl-stop-ico{width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
+  .fl-stop-ico svg{width:78%;height:78%;}
+  .fl-stop.done{background:var(--cc);opacity:.8;}
+  .fl-stop.done .fl-stop-ico{opacity:.35;}
+  .fl-stop.done::after{content:"✔";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:clamp(12px,2vh,17px);}
+  .fl-stop.now{transform:scale(1.35);box-shadow:0 0 0 4px #FFC933,0 0 14px 4px rgba(255,220,90,.9);background:var(--ct);}
+  .fl-bus{position:absolute;left:50%;bottom:100%;width:clamp(30px,5vh,40px);height:clamp(30px,5vh,40px);transform:translate(-50%,2px);animation:busHop 1.1s ease-in-out infinite;pointer-events:none;}
+  .fl-bus svg{width:100%;height:100%;}
+  @keyframes busHop{0%,100%{transform:translate(-50%,2px)}50%{transform:translate(-50%,-3px)}}
+  .fl-q{font-size:clamp(14px,2.4vh,20px);color:#E0473D;}
+  .fl-count{color:#fff;font-weight:900;font-size:clamp(13px,1.6vw,17px);white-space:nowrap;}
+  .fl-main{flex:1;min-height:0;display:grid;grid-template-columns:1.2fr 1fr;gap:16px;padding-top:12px;}
+  .fl-colL,.fl-colR{display:flex;flex-direction:column;gap:14px;min-height:0;}
+  .fl-colL .fl-now{flex:1;flex-direction:column;justify-content:center;text-align:center;}
+  .fl-colL .fl-now .fl-body{align-items:center;flex:0 0 auto;}
+  .fl-colL .fl-ico.big{width:clamp(140px,28vh,220px);height:clamp(140px,28vh,220px);}
+  .fl-colL .fl-arts,.fl-colL .fl-route{justify-content:center;}
+  .fl-quiz{background:rgba(255,255,255,.95);border:4px solid #fff;border-radius:24px;padding:12px 14px;flex:1 1 auto;min-height:0;display:flex;flex-direction:column;gap:10px;
+    box-shadow:0 0 0 4px #FF5D8F,0 8px 0 rgba(8,50,80,.25);}
+  .fl-quiz-t{font-weight:900;font-size:clamp(20px,2.8vw,30px);color:#D23C6E;text-align:center;}
+  .fl-opts{display:flex;flex-direction:column;gap:10px;flex:1;justify-content:center;}
+  .fl-opt{display:flex;align-items:center;gap:14px;border:4px solid var(--cc);background:var(--ct);border-radius:20px;padding:8px 14px;cursor:pointer;font-family:inherit;text-align:left;
+    box-shadow:0 5px 0 rgba(8,50,80,.2);}
+  .fl-opt:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(8,50,80,.2);}
+  .fl-opt .fl-ico.mid{background:#fff;}
+  .fl-opt-l{font-weight:900;font-size:clamp(17px,2.3vw,24px);color:var(--ink);}
+  .fl-opt.wrong{opacity:.4;filter:grayscale(.6);}
+  .fl-next.solved{box-shadow:0 0 0 4px #4CAF7D,0 6px 0 rgba(8,50,80,.25);}
+  .fl-next.solved .fl-tag.next{background:#4CAF7D;}
+  #quizNextBtn.on{background:linear-gradient(180deg,#FFE0EA,#FFC2D5);color:#B8275A;}
+  /* とうじつ（ひだり がわ）は たて ならび */
+  body.split .fl-main{display:flex;flex-direction:column;gap:12px;padding-top:8px;}
+  body.split .fl-colL .fl-now{flex:0 0 auto;flex-direction:row;text-align:left;}
+  body.split .fl-colL .fl-now .fl-body{align-items:flex-start;}
+  body.split .fl-colL .fl-ico.big{width:clamp(80px,15vh,112px);height:clamp(80px,15vh,112px);}
+  body.split .fl-colL .fl-arts,body.split .fl-colL .fl-route{justify-content:flex-start;}
+  body.split .fl-colR{flex:1;}
+  body.split #quizNextBtn{display:none;}
+  body.split .fl-road{padding:18px 8px 6px;gap:6px;}
+  body.split .fl-stop{width:clamp(20px,3.4vh,26px);height:clamp(20px,3.4vh,26px);border-width:2px;}
+  body.split .fl-stop-ico{display:none;}
+  body.split .fl-stop.now .fl-stop-ico{display:flex;}
+  body.split .fl-bus{width:26px;height:26px;}
+  body.split .fl-count{font-size:12px;}
+  body.split .fl-colL .fl-now .fl-body{flex:1 1 auto;min-width:0;}
+  body.split .fl-colL .fl-now{padding:14px 12px 12px;}
+  body.split .fl-colL .fl-lab.big{font-size:clamp(19px,2.4vw,28px);}
+  body.split .fl-stop{width:19px;height:19px;}
+  body.split .fl-stop.done::after{font-size:10px;}
+  body.split .fl-stop.now{transform:scale(1.5);}
 </style>
 </head>
 <body>
@@ -2237,6 +2299,7 @@
         <button class="grp-btn red" data-g="red">🔴 あか</button>
         <button class="grp-btn blue" data-g="blue">🔵 あお</button>
       </div>
+      <button class="pill-btn" id="quizNextBtn">❓ つぎは なにかな</button>
       <button class="pill-btn" id="timeBtn">🕘 じかん</button>
     </div>
   </div>
@@ -5268,11 +5331,33 @@ $("todayBtn").addEventListener("click", openDay);
 /* ===================== きょうの ながれ ===================== */
 let flowIdx = { d:0, s:0 };
 const FLOORS = {
-  roof:{ ico:"🌤️", l:"おくじょう", sub:"そとの マリンガーデン", arts:["penguin","kawauso","pelican"], say:"おくじょう。ペンギン、カワウソ、ペリカンが いるよ" },
+  roof:{ ico:"🌤️", l:"おそと", sub:"マリンガーデン", arts:["penguin","kawauso","pelican"], say:"おそとの マリンガーデン。ペンギン、カワウソ、ペリカンが いるよ" },
   f1:  { ico:"🐠", l:"1かい", sub:"おおきな すいそう・くらげ", arts:["same","kurage","chinanago"], say:"1かい。サメや クラゲ、チンアナゴが いるよ" },
   f2:  { ico:"🦭", l:"2かい", sub:"みずべの たび", arts:["azarashi","utsubo"], say:"2かい。アザラシや ウツボが いるよ" }
 };
 const ROUTE = { red:["roof","f1","f2"], blue:["f1","f2","roof"] };
+/* A. 絵カード風の アイコン */
+const PICS = {"school": "<svg viewBox=\"0 0 100 100\">   <path d=\"M10 44 L50 16 L90 44 Z\" fill=\"#3E9E6B\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <rect x=\"18\" y=\"42\" width=\"64\" height=\"44\" fill=\"#FFF4DC\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <circle cx=\"50\" cy=\"34\" r=\"8\" fill=\"#fff\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M50 30 V34 L53 36\" stroke=\"#1B4965\" stroke-width=\"2.5\" fill=\"none\" stroke-linecap=\"round\"/>   <rect x=\"24\" y=\"50\" width=\"14\" height=\"12\" rx=\"2\" fill=\"#9FD8F0\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><rect x=\"62\" y=\"50\" width=\"14\" height=\"12\" rx=\"2\" fill=\"#9FD8F0\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <rect x=\"41\" y=\"62\" width=\"18\" height=\"24\" rx=\"2\" fill=\"#C98A4B\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <path d=\"M6 88 H94\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linecap=\"round\"/> </svg>", "toilet": "<svg viewBox=\"0 0 100 100\">   <rect x=\"22\" y=\"14\" width=\"30\" height=\"24\" rx=\"5\" fill=\"#fff\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <path d=\"M14 42 H60 Q60 66 44 70 L46 86 H28 L30 70 Q14 66 14 42 Z\" fill=\"#fff\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <path d=\"M14 42 H60\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <path d=\"M78 30 C70 44 66 50 66 57 A12 12 0 0 0 90 57 C90 50 86 44 78 30 Z\" fill=\"#6EC6F0\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <circle cx=\"73\" cy=\"56\" r=\"3\" fill=\"#fff\"/> </svg>", "bus_go": "<svg viewBox=\"0 0 100 100\">   <rect x=\"8\" y=\"30\" width=\"78\" height=\"42\" rx=\"9\" fill=\"#FFC933\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <rect x=\"15\" y=\"37\" width=\"14\" height=\"13\" rx=\"2\" fill=\"#BFE8F7\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><rect x=\"33\" y=\"37\" width=\"14\" height=\"13\" rx=\"2\" fill=\"#BFE8F7\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><rect x=\"51\" y=\"37\" width=\"14\" height=\"13\" rx=\"2\" fill=\"#BFE8F7\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <path d=\"M70 37 H78 Q84 37 84 45 V56 H70 Z\" fill=\"#BFE8F7\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <path d=\"M8 60 H86\" stroke=\"#1B4965\" stroke-width=\"3\"/>   <circle cx=\"26\" cy=\"74\" r=\"8\" fill=\"#555\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"68\" cy=\"74\" r=\"8\" fill=\"#555\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <path d=\"M60 14 H86 M78 6 L88 14 L78 22\" stroke=\"#E0473D\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/> </svg>", "bus_back": "<svg viewBox=\"0 0 100 100\">   <rect x=\"14\" y=\"30\" width=\"78\" height=\"42\" rx=\"9\" fill=\"#FFC933\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <rect x=\"53\" y=\"37\" width=\"14\" height=\"13\" rx=\"2\" fill=\"#BFE8F7\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><rect x=\"71\" y=\"37\" width=\"14\" height=\"13\" rx=\"2\" fill=\"#BFE8F7\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><rect x=\"35\" y=\"37\" width=\"14\" height=\"13\" rx=\"2\" fill=\"#BFE8F7\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <path d=\"M30 37 H22 Q16 37 16 45 V56 H30 Z\" fill=\"#BFE8F7\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <path d=\"M14 60 H92\" stroke=\"#1B4965\" stroke-width=\"3\"/>   <circle cx=\"32\" cy=\"74\" r=\"8\" fill=\"#555\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"74\" cy=\"74\" r=\"8\" fill=\"#555\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <path d=\"M40 14 H14 M22 6 L12 14 L22 22\" stroke=\"#3E9E6B\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/> </svg>", "city": "<svg viewBox=\"0 0 100 100\">   <rect x=\"40\" y=\"8\" width=\"26\" height=\"80\" rx=\"3\" fill=\"#7FB8E0\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <path d=\"M46 16 V82 M53 16 V82 M60 16 V82\" stroke=\"#fff\" stroke-width=\"2.5\" opacity=\".8\"/>   <rect x=\"12\" y=\"46\" width=\"30\" height=\"42\" rx=\"3\" fill=\"#B9DDF2\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <rect x=\"64\" y=\"38\" width=\"26\" height=\"50\" rx=\"3\" fill=\"#CFE8F5\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <rect x=\"18\" y=\"54\" width=\"7\" height=\"7\" fill=\"#fff\" stroke=\"#1B4965\" stroke-width=\"2\"/><rect x=\"29\" y=\"54\" width=\"7\" height=\"7\" fill=\"#fff\" stroke=\"#1B4965\" stroke-width=\"2\"/>   <rect x=\"70\" y=\"46\" width=\"6\" height=\"6\" fill=\"#fff\" stroke=\"#1B4965\" stroke-width=\"2\"/><rect x=\"79\" y=\"46\" width=\"6\" height=\"6\" fill=\"#fff\" stroke=\"#1B4965\" stroke-width=\"2\"/>   <path d=\"M6 88 H94\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linecap=\"round\"/> </svg>", "photo": "<svg viewBox=\"0 0 100 100\">   <path d=\"M36 26 L42 16 H58 L64 26 Z\" fill=\"#9AA9B5\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <rect x=\"10\" y=\"26\" width=\"80\" height=\"54\" rx=\"10\" fill=\"#5A6B78\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <circle cx=\"50\" cy=\"53\" r=\"19\" fill=\"#fff\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"50\" cy=\"53\" r=\"11\" fill=\"#2F7FD6\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><circle cx=\"46\" cy=\"49\" r=\"3.5\" fill=\"#fff\"/>   <rect x=\"72\" y=\"32\" width=\"10\" height=\"6\" rx=\"2\" fill=\"#FFD447\"/> </svg>", "roof": "<svg viewBox=\"0 0 100 100\">   <circle cx=\"84\" cy=\"22\" r=\"9\" fill=\"#FFB938\" />   <path d=\"M2 30 L28 16 L54 30 Z\" fill=\"#9FB8C8\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <rect x=\"4\" y=\"30\" width=\"48\" height=\"27\" fill=\"#E3F1F8\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <rect x=\"4\" y=\"57\" width=\"48\" height=\"29\" fill=\"#E3F1F8\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <text x=\"28\" y=\"48\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"900\" fill=\"#1B4965\" font-family=\"sans-serif\">2かい</text>   <text x=\"28\" y=\"77\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"900\" fill=\"#1B4965\" font-family=\"sans-serif\">1かい</text>   <rect x=\"52\" y=\"60\" width=\"45\" height=\"26\" rx=\"3\" fill=\"#FFD447\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <path d=\"M56 60 V52 M65 60 V52 M74 60 V52 M83 60 V52 M54 52 H94\" stroke=\"#1B4965\" stroke-width=\"3\" stroke-linecap=\"round\" fill=\"none\"/>   <path d=\"M90 60 V42\" stroke=\"#8A5A33\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><circle cx=\"90\" cy=\"40\" r=\"7\" fill=\"#58B981\" stroke=\"#1B4965\" stroke-width=\"2.5\"/>   <text x=\"74\" y=\"78\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"900\" fill=\"#1B4965\" font-family=\"sans-serif\">おそと</text>   <path d=\"M2 86 H98\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linecap=\"round\"/> </svg>", "f2": "<svg viewBox=\"0 0 100 100\">   <circle cx=\"84\" cy=\"22\" r=\"9\" fill=\"#FFB938\" opacity=\".35\"/>   <path d=\"M2 30 L28 16 L54 30 Z\" fill=\"#9FB8C8\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <rect x=\"4\" y=\"30\" width=\"48\" height=\"27\" fill=\"#FFD447\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <rect x=\"4\" y=\"57\" width=\"48\" height=\"29\" fill=\"#E3F1F8\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <text x=\"28\" y=\"48\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"900\" fill=\"#1B4965\" font-family=\"sans-serif\">2かい</text>   <text x=\"28\" y=\"77\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"900\" fill=\"#1B4965\" font-family=\"sans-serif\">1かい</text>   <rect x=\"52\" y=\"60\" width=\"45\" height=\"26\" rx=\"3\" fill=\"#DFF3E4\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <path d=\"M56 60 V52 M65 60 V52 M74 60 V52 M83 60 V52 M54 52 H94\" stroke=\"#1B4965\" stroke-width=\"3\" stroke-linecap=\"round\" fill=\"none\"/>   <path d=\"M90 60 V42\" stroke=\"#8A5A33\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><circle cx=\"90\" cy=\"40\" r=\"7\" fill=\"#58B981\" stroke=\"#1B4965\" stroke-width=\"2.5\"/>   <text x=\"74\" y=\"78\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"900\" fill=\"#1B4965\" font-family=\"sans-serif\">おそと</text>   <path d=\"M2 86 H98\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linecap=\"round\"/> </svg>", "f1": "<svg viewBox=\"0 0 100 100\">   <circle cx=\"84\" cy=\"22\" r=\"9\" fill=\"#FFB938\" opacity=\".35\"/>   <path d=\"M2 30 L28 16 L54 30 Z\" fill=\"#9FB8C8\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <rect x=\"4\" y=\"30\" width=\"48\" height=\"27\" fill=\"#E3F1F8\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <rect x=\"4\" y=\"57\" width=\"48\" height=\"29\" fill=\"#FFD447\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <text x=\"28\" y=\"48\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"900\" fill=\"#1B4965\" font-family=\"sans-serif\">2かい</text>   <text x=\"28\" y=\"77\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"900\" fill=\"#1B4965\" font-family=\"sans-serif\">1かい</text>   <rect x=\"52\" y=\"60\" width=\"45\" height=\"26\" rx=\"3\" fill=\"#DFF3E4\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <path d=\"M56 60 V52 M65 60 V52 M74 60 V52 M83 60 V52 M54 52 H94\" stroke=\"#1B4965\" stroke-width=\"3\" stroke-linecap=\"round\" fill=\"none\"/>   <path d=\"M90 60 V42\" stroke=\"#8A5A33\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><circle cx=\"90\" cy=\"40\" r=\"7\" fill=\"#58B981\" stroke=\"#1B4965\" stroke-width=\"2.5\"/>   <text x=\"74\" y=\"78\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"900\" fill=\"#1B4965\" font-family=\"sans-serif\">おそと</text>   <path d=\"M2 86 H98\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linecap=\"round\"/> </svg>", "gift": "<svg viewBox=\"0 0 100 100\">   <circle cx=\"50\" cy=\"52\" r=\"34\" fill=\"#fff\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <path d=\"M16 52 A34 34 0 0 1 84 52 Z\" fill=\"#FF7FA5\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <path d=\"M16 52 H84\" stroke=\"#1B4965\" stroke-width=\"4\"/>   <ellipse cx=\"36\" cy=\"36\" rx=\"8\" ry=\"5\" fill=\"#fff\" opacity=\".7\" transform=\"rotate(-30 36 36)\"/>   <path d=\"M78 12 l3 7 7 1 -5 5 1 7 -6 -3 -6 3 1 -7 -5 -5 7 -1 z\" fill=\"#FFD447\" stroke=\"#1B4965\" stroke-width=\"2\"/> </svg>", "gather": "<svg viewBox=\"0 0 100 100\">   <path d=\"M30 88 V10\" stroke=\"#1B4965\" stroke-width=\"5\" stroke-linecap=\"round\"/>   <path d=\"M32 12 H74 L64 24 L74 36 H32 Z\" fill=\"#E0473D\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <circle cx=\"52\" cy=\"58\" r=\"8\" fill=\"#FFD9B8\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M42 86 Q42 70 52 70 Q62 70 62 86 Z\" fill=\"#2F7FD6\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <circle cx=\"76\" cy=\"58\" r=\"8\" fill=\"#FFD9B8\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M66 86 Q66 70 76 70 Q86 70 86 86 Z\" fill=\"#3E9E6B\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <circle cx=\"14\" cy=\"60\" r=\"7\" fill=\"#FFD9B8\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M5 86 Q5 72 14 72 Q23 72 23 86 Z\" fill=\"#FF8A5C\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/> </svg>", "lunch": "<svg viewBox=\"0 0 100 100\">   <rect x=\"10\" y=\"24\" width=\"80\" height=\"58\" rx=\"8\" fill=\"#2B2B2B\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <rect x=\"16\" y=\"30\" width=\"38\" height=\"46\" rx=\"4\" fill=\"#fff\"/>   <circle cx=\"35\" cy=\"53\" r=\"6\" fill=\"#E0473D\"/>   <rect x=\"58\" y=\"30\" width=\"26\" height=\"22\" rx=\"4\" fill=\"#FFD447\"/>   <rect x=\"58\" y=\"54\" width=\"26\" height=\"22\" rx=\"4\" fill=\"#7BC96F\"/>   <path d=\"M62 64 q5 -6 10 0 t10 0\" stroke=\"#3E8E3A\" stroke-width=\"3\" fill=\"none\"/>   <path d=\"M24 14 L76 8\" stroke=\"#C98A4B\" stroke-width=\"4\" stroke-linecap=\"round\"/><path d=\"M24 20 L76 14\" stroke=\"#C98A4B\" stroke-width=\"4\" stroke-linecap=\"round\"/> </svg>", "gochiso": "<svg viewBox=\"0 0 100 100\">   <rect x=\"14\" y=\"44\" width=\"72\" height=\"40\" rx=\"8\" fill=\"#2B2B2B\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <rect x=\"10\" y=\"36\" width=\"80\" height=\"14\" rx=\"6\" fill=\"#E0473D\" stroke=\"#1B4965\" stroke-width=\"4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>   <path d=\"M40 30 C40 14 60 14 60 30\" stroke=\"#1B4965\" stroke-width=\"4\" fill=\"none\"/>   <path d=\"M22 16 l3 -8 3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 z\" fill=\"#FFD447\" stroke=\"#1B4965\" stroke-width=\"2\"/>   <path d=\"M76 18 l2 -5 2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 z\" fill=\"#FFD447\" stroke=\"#1B4965\" stroke-width=\"2\"/>   <path d=\"M34 64 L46 74 L68 54\" stroke=\"#7BC96F\" stroke-width=\"8\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/> </svg>"};
+const PIC_BY_L = {"がっこうに つく":"school","がっこう":"school","トイレ・おみず":"toilet","バスで しゅっぱつ":"bus_go",
+  "サンシャインシティに つく":"city","みんなで しゃしん":"photo","ガチャで おみやげ":"gift","でぐちに あつまる":"gather",
+  "おひるごはん":"lunch","ごちそうさま・トイレ":"gochiso","バスで かえる":"bus_back"};
+function icoHTML(st){
+  if(st.kind === "floor") return PICS[st.key] || st.ico;
+  if(st.kind === "aq") return SVG.penguin || st.ico;
+  return PICS[PIC_BY_L[st.l]] || st.ico;
+}
+let flowQ = { idx:-1, key:"", opts:[], solved:false, wrong:[] };
+function flowQuizOn(){ return !!settings.flowQuiz && !document.body.classList.contains("split"); }
+function shuffleA(a){ a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function prepFlowQuiz(steps, idx){
+  const next = steps[idx+1]; if(!next) return;
+  const key = idx + "|" + (settings.flowDetail?"d":"s") + "|" + settings.flowGroup;
+  if(flowQ.key === key) return;
+  const now = steps[idx];
+  const seen = new Set([next.l, now && now.l]);
+  const pool = shuffleA(steps.filter(x=>{ if(seen.has(x.l)) return false; seen.add(x.l); return true; }));
+  flowQ = { idx, key, opts: shuffleA([next].concat(pool.slice(0,2))), solved:false, wrong:[] };
+}
 function flowSteps(){
   const g = settings.flowGroup === "blue" ? "blue" : "red";
   if(settings.flowDetail){
@@ -5282,7 +5367,7 @@ function flowSteps(){
       { t:"9:30",  ico:"🚻", l:"トイレ・おみず", c:"toilet" },
       { t:"9:40",  ico:"🚌", l:"バスで しゅっぱつ", c:"move" },
       { t:"10:20", ico:"🏙️", l:"サンシャインシティに つく", c:"move" },
-      { t:"10:30", ico:"📷", l:"みんなで しゃしん", sub:"⬆️ エレベーターで おくじょうへ", c:"aq" },
+      { t:"10:30", ico:"📷", l:"みんなで しゃしん", sub:"⬆️ エレベーターで すいぞくかんへ", c:"aq" },
       ...floors,
       { ico:"🎁", l:"ガチャで おみやげ", sub:"2かい", c:"gift" },
       { t:"11:35", ico:"🚩", l:"でぐちに あつまる", c:"aq" },
@@ -5347,44 +5432,64 @@ function renderFlow(){
   let idx = Math.max(0, Math.min(curFlowIdx(), steps.length));
   setFlowIdx(idx);
   const grid = $("flowGrid");
+  const split = document.body.classList.contains("split");
   $("flow").classList.toggle("no-time", !settings.flowTime);
   $("timeBtn").textContent = settings.flowTime ? "🕘 じかん：みせる" : "🕘 じかん：かくす";
   $("timeBtn").classList.toggle("off", !settings.flowTime);
+  $("quizNextBtn").classList.toggle("on", !!settings.flowQuiz);
+  $("quizNextBtn").textContent = settings.flowQuiz ? "❓ つぎは なにかな：オン" : "❓ つぎは なにかな";
   document.querySelectorAll(".grp-btn").forEach(b=>b.classList.toggle("on", b.dataset.g === g));
-  let html = "";
-  // B. おわった もの（ちいさく まとめる）
-  if(idx > 0){
-    html += '<div class="fl-done"><span class="fl-done-lab">✔ おわった</span><div class="fl-chips">'
-      + steps.slice(0, idx).map((st,k)=>'<button class="fl-chip c-' + (st.c||"aq") + '" data-i="' + k + '">' + st.ico + '</button>').join("")
-      + '</div><span class="fl-done-n">' + idx + ' / ' + steps.length + '</span></div>';
-  }
   const now = steps[idx], next = steps[idx+1];
-  // A. いま（おおきく）
+  const quiz = flowQuizOn() && now && next;
+  if(quiz) prepFlowQuiz(steps, idx);
+  const hideNext = quiz && !flowQ.solved;
+  let html = "";
+  // D. すごろくの みち
+  const n = steps.length;
+  const pct = n > 1 ? Math.min(100, idx / (n-1) * 100) : 0;
+  html += '<div class="fl-road"><div class="fl-track"><div class="fl-line"><i style="width:' + pct.toFixed(1) + '%"></i></div>'
+    + steps.map((st,k)=>{
+        const state = k < idx ? "done" : k === idx ? "now" : "todo";
+        const q = hideNext && k === idx+1;
+        return '<button class="fl-stop ' + state + ' c-' + (st.c||"aq") + '" data-i="' + (q ? "" : k) + '">'
+          + (q ? '<b class="fl-q">？</b>' : '<span class="fl-stop-ico">' + icoHTML(st) + '</span>')
+          + (k === idx ? '<span class="fl-bus">' + PICS.bus_go + '</span>' : '') + '</button>';
+      }).join("")
+    + '</div><span class="fl-count">' + Math.min(idx, n) + ' / ' + n + '</span></div>';
+  html += '<div class="fl-main">';
+  // A. いま（ひだり・おおきく）
+  html += '<div class="fl-colL">';
   if(now){
     let extra = "";
     if(now.sub && now.kind !== "floor") extra += '<div class="fl-sub">' + escapeHTML(now.sub) + '</div>';
     if(now.arts) extra += '<div class="fl-arts">' + now.arts.map(a=>'<span>' + (SVG[a]||"") + '</span>').join("") + '</div>';
-    if(now.kind === "aq") extra += '<div class="fl-route">' + ROUTE[g].map((k,n)=>'<b>' + (n+1) + '. ' + FLOORS[k].ico + ' ' + FLOORS[k].l + '</b>').join("") + '</div>';
+    if(now.kind === "aq") extra += '<div class="fl-route">' + ROUTE[g].map((k,m)=>'<b>' + (m+1) + '. ' + FLOORS[k].l + '</b>').join("") + '</div>';
     html += '<div class="fl-now c-' + (now.c||"aq") + '" data-i="' + idx + '">'
       + '<div class="fl-tag now">いま</div>'
-      + '<div class="fl-ico big">' + now.ico + '</div>'
+      + '<div class="fl-ico big">' + icoHTML(now) + '</div>'
       + '<div class="fl-body">' + flTime(now) + '<div class="fl-lab big">' + flLabel(now, g) + '</div>' + extra + '</div></div>';
+  }else{
+    html += '<div class="fl-allend">🎉 ぜんぶ おわったよ！</div>';
   }
-  // A. つぎ（ちゅうくらい）
-  if(next){
-    html += '<div class="fl-next c-' + (next.c||"aq") + '" data-i="' + (idx+1) + '">'
-      + '<div class="fl-tag next">つぎ</div>'
-      + '<div class="fl-ico mid">' + next.ico + '</div>'
+  html += '</div><div class="fl-colR">';
+  // G. つぎは なにかな？
+  if(hideNext){
+    html += '<div class="fl-quiz"><div class="fl-quiz-t">❓ つぎは なにかな？</div><div class="fl-opts">'
+      + flowQ.opts.map((o,k)=>'<button class="fl-opt c-' + (o.c||"aq") + (flowQ.wrong.includes(k) ? ' wrong' : '') + '" data-opt="' + k + '"><span class="fl-ico mid">' + icoHTML(o) + '</span><span class="fl-opt-l">' + (o.kind === "floor" ? escapeHTML(o.l) + ' を みる' : escapeHTML(o.l)) + '</span></button>').join("")
+      + '</div></div>';
+  }else if(next){
+    html += '<div class="fl-next c-' + (next.c||"aq") + (quiz ? ' solved' : '') + '" data-i="' + (idx+1) + '">'
+      + '<div class="fl-tag next">' + (quiz ? '⭕ せいかい！ つぎ' : 'つぎ') + '</div>'
+      + '<div class="fl-ico mid">' + icoHTML(next) + '</div>'
       + '<div class="fl-body">' + flTime(next) + '<div class="fl-lab mid">' + flLabel(next, g) + '</div></div></div>';
   }
-  // そのあと（ちいさく）
   const later = steps.slice(idx+2);
-  if(later.length){
+  if(later.length && !hideNext){
     html += '<div class="fl-later"><div class="fl-later-lab">そのあと</div>'
-      + later.map((st,k)=>'<div class="fl-row c-' + (st.c||"aq") + '" data-i="' + (idx+2+k) + '"><span class="fl-ico sm">' + st.ico + '</span><span class="fl-lab sm">' + flLabel(st, g) + '</span>' + (st.t ? '<span class="fl-time sm"><b>' + st.t + '</b></span>' : '') + '</div>').join("")
+      + later.map((st,k)=>'<div class="fl-row c-' + (st.c||"aq") + '" data-i="' + (idx+2+k) + '"><span class="fl-ico sm">' + icoHTML(st) + '</span><span class="fl-lab sm">' + flLabel(st, g) + '</span>' + (st.t ? '<span class="fl-time sm"><b>' + st.t + '</b></span>' : '') + '</div>').join("")
       + '</div>';
   }
-  if(!now) html += '<div class="fl-allend">🎉 ぜんぶ おわったよ！</div>';
+  html += '</div></div>';
   grid.innerHTML = html;
   $("flowMission").style.display = now && (now.kind === "floor" || now.kind === "aq") ? "" : "none";
   $("flowDone").style.display = idx < steps.length ? "" : "none";
@@ -5402,7 +5507,23 @@ function openFlow(){
 $("goFlow").addEventListener("click", openFlow);
 $("closeFlow").addEventListener("click", ()=>{ sfx.click(); if(document.body.classList.contains("split")){ closeDay(); return; } $("flow").classList.remove("show"); speechSynthesis && speechSynthesis.cancel && speechSynthesis.cancel(); });
 $("flowGrid").addEventListener("click", (e)=>{
-  const c = e.target.closest("[data-i]"); if(!c) return;
+  const ob = e.target.closest("[data-opt]");
+  if(ob){
+    const k = +ob.dataset.opt, steps = flowSteps(), idx = curFlowIdx(), right = steps[idx+1];
+    const o = flowQ.opts[k]; if(!o || !right) return;
+    if(o === right || o.l === right.l){
+      flowQ.solved = true; sfx.pinpon(); confetti(30);
+      speakText("せいかい！ つぎは、" + flowSay(right));
+      renderFlow();
+    }else{
+      if(!flowQ.wrong.includes(k)) flowQ.wrong.push(k);
+      sfx.wrong();
+      ob.classList.add("wrong","shakeX");
+      speakText("ちがうよ。もう いちど えらんでね");
+    }
+    return;
+  }
+  const c = e.target.closest("[data-i]"); if(!c || c.dataset.i === "") return;
   const st = flowSteps()[+c.dataset.i]; if(!st) return;
   sfx.click();
   c.classList.remove("tapped"); void c.offsetWidth; c.classList.add("tapped");
@@ -5423,8 +5544,13 @@ $("flowDone").addEventListener("click", ()=>{
     speakText("きょうも いっぱい がんばったね", 500);
     setTimeout(()=>$("flowFin").classList.remove("show"), 4200);
   }else{
-    speakText("つぎは、" + flowSay(steps[i+1]), 600);
+    if(flowQuizOn() && steps[i+2]) speakText("いまは、" + flowSay(steps[i+1]) + "。つぎは なにかな？", 600);
+    else speakText("つぎは、" + flowSay(steps[i+1]), 600);
   }
+});
+$("quizNextBtn").addEventListener("click", ()=>{
+  sfx.click(); settings.flowQuiz = !settings.flowQuiz; flowQ.key = ""; renderFlow();
+  if(settings.flowQuiz) speakText("つぎは なにかな？");
 });
 $("flowUndo").addEventListener("click", ()=>{
   const i = curFlowIdx(); if(i <= 0) return;
