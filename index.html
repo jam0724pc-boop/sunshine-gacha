@@ -2064,6 +2064,108 @@
   body.split .fl-stop{width:19px;height:19px;}
   body.split .fl-stop.done::after{font-size:10px;}
   body.split .fl-stop.now{transform:scale(1.5);}
+
+  .cal-ico{width:1.35em;height:1.35em;vertical-align:-0.28em;margin-right:.3em;flex:0 0 auto;}
+  .flow-btn{display:flex;align-items:center;gap:2px;}
+  .flow-title{display:flex;align-items:center;}
+  .fl-lab{overflow-wrap:normal;word-break:keep-all;}
+  .fl-body{overflow:hidden;}
+  body.split .fl-colL .fl-now{min-height:0;}
+  body.split .fl-colL .fl-ico.big{width:clamp(72px,13vh,100px);height:clamp(72px,13vh,100px);}
+  body.split .fl-colR{min-height:0;}
+  body.split .fl-later{min-height:120px;}
+
+  .cal-ico,.cal-ico text{text-shadow:none;}
+  .fl-body>.fl-lab{max-width:100%;}
+  .flow-foot .big-btn{white-space:nowrap;}
+  body.split .flow-foot{gap:10px;padding-left:40px;}
+  body.split .flow-undo{padding:8px 12px;font-size:clamp(13px,1.5vw,16px);}
+  body.split .flow-done{padding:10px 18px;font-size:clamp(16px,2vw,21px);}
+  body.split .mission .complete-banner{font-size:clamp(14px,1.9vw,20px);}
+
+  .flow-title{white-space:nowrap;}
+  .flow-head .flow-tools .pill-btn,.flow-head .grp-btn{font-size:clamp(12px,1.45vw,17px);}
+  .flow-head{gap:12px;}
+  body.split .fl-stop.now{transform:scale(1.25);}
+  body:not(.split) .flow-head .flow-tools{margin-right:62px;}
+
+  /* ===== あたらしい 5ひき ===== */
+  .ent-ashika{--ent:entJump 1.1s cubic-bezier(.3,1,.5,1);}
+  .ent-iwashi{--ent:entGlide 1.7s cubic-bezier(.2,.8,.4,1);}
+  .ent-kame,.ent-iguana{--ent:entCrawl 2s linear;}
+  .ent-kaeru{--ent:entJump 1.1s cubic-bezier(.3,1,.5,1);}
+  .as-head{transform-origin:20% 90%;} .as-finL{transform-origin:90% 10%;} .as-finR{transform-origin:10% 10%;}
+  .as-all{transform-origin:50% 100%;} .as-tail{transform-origin:50% 0%;}
+  .iw-all{transform-origin:50% 50%;} .iw-f{transform-origin:50% 50%;}
+  .tt-head{transform-origin:0% 60%;} .tt-legF,.tt-legB{transform-origin:50% 0%;} .tt-all{transform-origin:50% 100%;}
+  .ig-head{transform-origin:0% 80%;} .ig-tail{transform-origin:100% 80%;} .ig-dew{transform-origin:50% 0%;} .ig-all{transform-origin:50% 100%;}
+  .kf-all{transform-origin:50% 100%;} .kf-throat{transform-origin:50% 50%;}
+  svg.perf .as-head{animation:asHead 2.6s ease-in-out;}
+  svg.perf .as-finL{animation:asFinL 2.6s ease-in-out;}
+  svg.perf .as-finR{animation:asFinR 2.6s ease-in-out;}
+  svg.perf .as-all{animation:asAll 2.6s ease-in-out;}
+  @keyframes asHead{0%,100%{transform:rotate(0)}9%{transform:rotate(-14deg)}18%{transform:rotate(0)}29%{transform:rotate(-14deg)}38%,100%{transform:rotate(0)}}
+  @keyframes asFinL{0%,54%,100%{transform:rotate(0)}60%{transform:rotate(-30deg)}66%{transform:rotate(0)}72%{transform:rotate(-30deg)}78%{transform:rotate(0)}84%{transform:rotate(-30deg)}90%{transform:rotate(0)}}
+  @keyframes asFinR{0%,54%,100%{transform:rotate(0)}60%{transform:rotate(30deg)}66%{transform:rotate(0)}72%{transform:rotate(30deg)}78%{transform:rotate(0)}84%{transform:rotate(30deg)}90%{transform:rotate(0)}}
+  @keyframes asAll{0%,100%{transform:none}10%,30%{transform:translateY(-3px)}20%,40%{transform:none}}
+  svg.perf .iw-all{animation:iwSwirl 2.6s ease-in-out;}
+  svg.perf .iw-a{animation:iwPop 2.6s ease-in-out;}
+  svg.perf .iw-b{animation:iwPop 2.6s ease-in-out .1s;}
+  svg.perf .iw-c{animation:iwPop 2.6s ease-in-out .2s;}
+  @keyframes iwSwirl{0%{transform:rotate(0) scale(1)}45%{transform:rotate(200deg) scale(.86)}80%{transform:rotate(360deg) scale(1.04)}100%{transform:rotate(360deg) scale(1)}}
+  @keyframes iwPop{0%,100%{transform:none}50%{transform:scale(1.15)}}
+  svg.perf .tt-head{animation:ttHead 3s ease-in-out;}
+  svg.perf .tt-legF{animation:ttLeg 3s ease-in-out;}
+  svg.perf .tt-legB{animation:ttLeg 3s ease-in-out .15s;}
+  @keyframes ttHead{0%{transform:none}14%,56%{transform:translateX(-17px) scale(.8)}66%{transform:translateX(3px) rotate(-8deg)}74%{transform:rotate(4deg)}82%,100%{transform:none}}
+  @keyframes ttLeg{0%,76%,100%{transform:none}82%{transform:translateX(3px) translateY(-2px)}88%{transform:none}94%{transform:translateX(3px) translateY(-2px)}}
+  svg.perf .ig-head{animation:igHead 2.8s ease-in-out;}
+  svg.perf .ig-dew{animation:igDew 2.8s ease-in-out;}
+  svg.perf .ig-tail{animation:igTail 2.8s ease-in-out;}
+  @keyframes igHead{0%,64%,100%{transform:none}10%,20%,30%,40%,50%,60%{transform:none}5%,15%,25%,35%,45%,55%{transform:translateY(-6px) rotate(-6deg)}}
+  @keyframes igDew{0%,20%,80%,100%{transform:scale(1)}35%,65%{transform:scale(1.35,1.6)}}
+  @keyframes igTail{0%,70%,100%{transform:rotate(0)}78%{transform:rotate(10deg)}86%{transform:rotate(-8deg)}94%{transform:rotate(5deg)}}
+  svg.perf .kf-all{animation:kfJump 2.4s ease-in-out;}
+  svg.perf .kf-throat{animation:kfPuff 2.4s ease-in-out;}
+  @keyframes kfJump{0%,100%{transform:none}10%{transform:scale(1.1,.85)}28%{transform:translateY(-34px) scale(.95,1.08)}44%{transform:translateY(0) scale(1.12,.86)}54%{transform:none}}
+  @keyframes kfPuff{0%,62%,100%{opacity:0;transform:scale(.6)}70%,78%{opacity:.95;transform:scale(1.5)}74%,84%{opacity:.6;transform:scale(1.1)}90%{opacity:.95;transform:scale(1.5)}}
+  svg.sw .as-finL{animation:swFinL 1.1s ease-in-out infinite alternate;}
+  svg.sw .as-finR{animation:swFinR 1.1s ease-in-out -.55s infinite alternate;}
+  svg.sw .as-head{animation:swRot4 2.6s ease-in-out infinite alternate;}
+  svg.sw .iw-a{animation:iwWig 1s ease-in-out infinite alternate;}
+  svg.sw .iw-b{animation:iwWig 1s ease-in-out -.33s infinite alternate;}
+  svg.sw .iw-c{animation:iwWig 1s ease-in-out -.66s infinite alternate;}
+  @keyframes iwWig{from{transform:translate(0,-2px)}to{transform:translate(3px,2px)}}
+  svg.sw .tt-legF{animation:swLeg 1.3s ease-in-out infinite alternate;}
+  svg.sw .tt-legB{animation:swLeg 1.3s ease-in-out -.65s infinite alternate;}
+  svg.sw .tt-head{animation:swRot2 3s ease-in-out infinite alternate;}
+  svg.sw .ig-tail{animation:swRot8 1.9s ease-in-out infinite alternate;}
+  svg.sw .ig-head{animation:swRot2 3s ease-in-out infinite alternate;}
+  svg.sw .kf-throat{animation:kfPuffLoop 2.8s ease-in-out infinite;}
+  @keyframes kfPuffLoop{0%,60%,100%{opacity:0;transform:scale(.6)}75%{opacity:.8;transform:scale(1.4)}}
+  /* 14ひき：ならべかた */
+  .zukan-grid{grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(3,1fr);}
+  .mission-grid:not(.stamp){grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(3,1fr);}
+  body.split .mission .mission-grid:not(.stamp){grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);}
+
+  /* ===== たんけんマップ ===== */
+  .mapov{position:fixed;inset:0;z-index:22;display:none;flex-direction:column;padding:14px 20px 14px;
+    background:linear-gradient(180deg,#EAF7FD,#CFEAF6);}
+  .mapov.show{display:flex;}
+  .map-head{padding-right:70px;}
+  .map-head h2{color:#1B4965 !important;text-shadow:none !important;}
+  .map-head .grp-seg{margin-left:auto;background:rgba(27,73,101,.12);}
+  .map-head .grp-btn{color:#1B4965;}
+  .map-box{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;}
+  .map-box svg.tmap{width:100%;height:100%;max-height:100%;}
+  .map-cr{cursor:pointer;}
+  .map-area{cursor:pointer;}
+  .map-home-btn{padding-left:20px;padding-right:20px;}
+  body.split #flowMap{display:none;}
+
+  .home-bottom{max-width:96vw;}
+  .home-bottom .flow-btn,.home-bottom .today-btn{font-size:clamp(13px,min(1.9vw,3.2vh),24px);padding-left:clamp(12px,1.8vw,28px);padding-right:clamp(12px,1.8vw,28px);}
+  @media (max-width:1150px){ .home-bottom .today-btn span{display:none;} }
 </style>
 </head>
 <body>
@@ -2175,7 +2277,7 @@
 <div class="zukan" id="zukan" role="dialog" aria-label="うみのなかまずかん">
   <div class="zukan-head">
     <button class="pill-btn back-btn" id="closeZukan">⬅ もどる</button>
-    <h2>📖 うみのなかま ずかん<span id="zukanCount">0/12</span></h2>
+    <h2>📖 うみのなかま ずかん<span id="zukanCount">0/14</span></h2>
     <button class="pill-btn zview-btn" id="zViewBtn">🔍 1ぴきずつ</button>
   </div>
   <p class="over-note" id="zukanNote">あつめた子を タップすると、くわしい せつめいが みられるよ📖</p>
@@ -2243,7 +2345,8 @@
     <button class="home-btn" id="goSwim"><span class="hb-ico" data-ico="swim"></span>およぐ<br>おさかな</button>
   </div>
   <div class="home-bottom">
-    <button class="flow-btn" id="goFlow">📅 きょうの ながれ</button>
+    <button class="flow-btn map-home-btn" id="goMap">🗺 マップ</button>
+    <button class="flow-btn" id="goFlow"><svg class="cal-ico" viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="8" width="56" height="52" rx="9" fill="#fff" stroke="#1B4965" stroke-width="4"/><path d="M4 17 Q4 8 13 8 H51 Q60 8 60 17 V24 H4 Z" fill="#E0473D" stroke="#1B4965" stroke-width="4" stroke-linejoin="round"/><rect x="16" y="2" width="6" height="12" rx="3" fill="#1B4965"/><rect x="42" y="2" width="6" height="12" rx="3" fill="#1B4965"/><text x="32" y="21" text-anchor="middle" font-size="12" font-weight="900" fill="#fff" font-family="sans-serif">10がつ</text><text x="32" y="53" text-anchor="middle" font-size="28" font-weight="900" fill="#1B4965" font-family="sans-serif">20</text></svg>きょうの ながれ</button>
     <button class="today-btn" id="todayBtn">🚌 すいぞくかんに ついたよ！<span>（ながれと たんけんカード）</span></button>
   </div>
 </div>
@@ -2289,16 +2392,30 @@
   </div>
 </div>
 
+<!-- たんけんマップ -->
+<div class="mapov" id="mapOv" role="dialog" aria-label="たんけんマップ">
+  <div class="zukan-head map-head">
+    <button class="pill-btn back-btn" id="closeMap">⬅ もどる</button>
+    <h2>🗺 たんけんマップ</h2>
+    <div class="grp-seg" id="mapGrp">
+      <button class="grp-btn red" data-g="red">🔴 あか</button>
+      <button class="grp-btn blue" data-g="blue">🔵 あお</button>
+    </div>
+  </div>
+  <div class="map-box" id="mapBox"></div>
+</div>
+
 <!-- きょうの ながれ -->
 <div class="flow" id="flow" role="dialog" aria-label="きょうの ながれ">
   <div class="zukan-head flow-head">
     <button class="pill-btn back-btn" id="closeFlow">⬅ もどる</button>
-    <h2>📅 きょうの ながれ</h2>
+    <h2 class="flow-title"><svg class="cal-ico" viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="8" width="56" height="52" rx="9" fill="#fff" stroke="#1B4965" stroke-width="4"/><path d="M4 17 Q4 8 13 8 H51 Q60 8 60 17 V24 H4 Z" fill="#E0473D" stroke="#1B4965" stroke-width="4" stroke-linejoin="round"/><rect x="16" y="2" width="6" height="12" rx="3" fill="#1B4965"/><rect x="42" y="2" width="6" height="12" rx="3" fill="#1B4965"/><text x="32" y="21" text-anchor="middle" font-size="12" font-weight="900" fill="#fff" font-family="sans-serif">10がつ</text><text x="32" y="53" text-anchor="middle" font-size="28" font-weight="900" fill="#1B4965" font-family="sans-serif">20</text></svg>きょうの ながれ</h2>
     <div class="flow-tools">
       <div class="grp-seg" id="grpSeg">
         <button class="grp-btn red" data-g="red">🔴 あか</button>
         <button class="grp-btn blue" data-g="blue">🔵 あお</button>
       </div>
+      <button class="pill-btn" id="flowMap">🗺 マップ</button>
       <button class="pill-btn" id="quizNextBtn">❓ つぎは なにかな</button>
       <button class="pill-btn" id="timeBtn">🕘 じかん</button>
     </div>
@@ -2460,7 +2577,7 @@
     <div class="sg">
       <div class="sg-head sgh-gacha">🎡 ガチャ</div>
       <div class="setting-row">
-        <span>かならず あたらしい子<span class="hint">おなじ子が ダブりません。12かい まわすと ぜんいんに 会えます</span></span>
+        <span>かならず あたらしい子<span class="hint">おなじ子が ダブりません。14かい まわすと ぜんいんに 会えます</span></span>
         <label class="toggle"><input type="checkbox" id="optNewFirst" checked><span class="tr"></span></label>
       </div>
       <div class="setting-row">
@@ -3035,11 +3152,270 @@ const SVG = {
     <circle cx="24" cy="112" r="2.4" fill="#6F757D"/><circle cx="58" cy="110" r="2" fill="#6F757D"/><circle cx="86" cy="114" r="2.2" fill="#6F757D"/>
   </g>
 </svg>`,
-  nishiki: `<svg aria-hidden="true" class="cr" viewBox="0 0 120 120"><ellipse cx="60" cy="106" rx="52" ry="13" fill="#F0DCA8"/><g class="pt ns-eel"><path d="M53 106 C50 82 47 60 50 46 C53 32 62 24 72 27" fill="none" stroke="#E0B98A" stroke-width="15.2" stroke-linecap="round"/><path d="M53 106 C50 82 47 60 50 46 C53 32 62 24 72 27" fill="none" stroke="#FFF8EC" stroke-width="13" stroke-linecap="round"/><path d="M59.1 102.2 L46.2 103.8" stroke="#F07A2A" stroke-width="3.4"/><path d="M58.4 96.7 L45.5 98.3" stroke="#F07A2A" stroke-width="3.4"/><path d="M57.7 91.1 L44.8 92.7" stroke="#F07A2A" stroke-width="3.4"/><path d="M57.1 85.6 L44.1 87.1" stroke="#F07A2A" stroke-width="3.4"/><path d="M56.5 80.1 L43.5 81.4" stroke="#F07A2A" stroke-width="3.4"/><path d="M56.0 74.7 L43.0 75.7" stroke="#F07A2A" stroke-width="3.4"/><path d="M55.6 69.2 L42.6 70.0" stroke="#F07A2A" stroke-width="3.4"/><path d="M55.3 63.8 L42.3 64.2" stroke="#F07A2A" stroke-width="3.4"/><path d="M55.3 58.5 L42.3 58.3" stroke="#F07A2A" stroke-width="3.4"/><path d="M55.5 53.4 L42.6 52.3" stroke="#F07A2A" stroke-width="3.4"/><path d="M56.1 48.5 L43.4 46.1" stroke="#F07A2A" stroke-width="3.4"/><path d="M57.3 43.9 L44.9 39.8" stroke="#F07A2A" stroke-width="3.4"/><path d="M59.0 39.8 L47.6 33.6" stroke="#F07A2A" stroke-width="3.4"/><path d="M61.3 36.3 L51.5 27.8" stroke="#F07A2A" stroke-width="3.4"/><path d="M64.1 34.0 L57.3 22.9" stroke="#F07A2A" stroke-width="3.4"/><path d="M56.6 105.5 L56.4 103.6 L56.1 101.6 L55.9 99.6 L55.6 97.6 L55.4 95.6 L55.1 93.7 L54.9 91.7 L54.7 89.7 L54.4 87.7 L54.2 85.7 L54.0 83.8 L53.8 81.8 L53.6 79.8 L53.4 77.8 L53.2 75.9 L53.0 73.9 L52.9 71.9 L52.7 70.0 L52.6 68.0 L52.5 66.1 L52.5 64.1 L52.4 62.2 L52.4 60.2 L52.4 58.3 L52.5 56.4 L52.6 54.5 L52.7 52.6 L52.9 50.7 L53.2 48.8 L53.5 47.0 L53.9 45.3 L54.4 43.5 L55.0 41.8 L55.7 40.2 L56.4 38.6 L57.3 37.1 L58.2 35.6 L59.3 34.3 L60.4 33.2 L61.7 32.2 L62.9 31.3 L64.3 30.7" fill="none" stroke="#D9661C" stroke-width="4.2" stroke-linecap="round" opacity="0.7"/><g transform="translate(73 28) rotate(-18)"><ellipse cx="0" cy="0" rx="10.1" ry="8.1" fill="#FFF8EC" stroke="#E0B98A" stroke-width="1.1"/><circle cx="-0.7" cy="-2.1" r="2.9" fill="#1B1B1B"/><circle cx="0.4" cy="-3.1" r="1.10" fill="#FFFFFF"/><path d="M5.5 2.3 q2.6 -0.3 4.4 -3.6" stroke="#3A3A3A" stroke-width="1.2" fill="none" stroke-linecap="round"/></g><path d="M77 26.5 C80 27 82 29 82.5 31" stroke="#F07A2A" stroke-width="2.4" fill="none" stroke-linecap="round"/></g><path d="M6 107 Q60 97 114 107 L114 120 L6 120 Z" fill="#F0DCA8"/><circle cx="26" cy="110" r="2" fill="#D9BC7E"/><circle cx="84" cy="112" r="2.4" fill="#D9BC7E"/><circle cx="40" cy="114" r="1.6" fill="#D9BC7E"/><path d="M18 106 q3 -3 6 0 q-3 -1 -6 0 Z" fill="#F7F0DC"/><ellipse cx="53" cy="103.5" rx="10" ry="2.6" fill="#D9BC7E"/></svg>`
+  nishiki: `<svg aria-hidden="true" class="cr" viewBox="0 0 120 120"><ellipse cx="60" cy="106" rx="52" ry="13" fill="#F0DCA8"/><g class="pt ns-eel"><path d="M53 106 C50 82 47 60 50 46 C53 32 62 24 72 27" fill="none" stroke="#E0B98A" stroke-width="15.2" stroke-linecap="round"/><path d="M53 106 C50 82 47 60 50 46 C53 32 62 24 72 27" fill="none" stroke="#FFF8EC" stroke-width="13" stroke-linecap="round"/><path d="M59.1 102.2 L46.2 103.8" stroke="#F07A2A" stroke-width="3.4"/><path d="M58.4 96.7 L45.5 98.3" stroke="#F07A2A" stroke-width="3.4"/><path d="M57.7 91.1 L44.8 92.7" stroke="#F07A2A" stroke-width="3.4"/><path d="M57.1 85.6 L44.1 87.1" stroke="#F07A2A" stroke-width="3.4"/><path d="M56.5 80.1 L43.5 81.4" stroke="#F07A2A" stroke-width="3.4"/><path d="M56.0 74.7 L43.0 75.7" stroke="#F07A2A" stroke-width="3.4"/><path d="M55.6 69.2 L42.6 70.0" stroke="#F07A2A" stroke-width="3.4"/><path d="M55.3 63.8 L42.3 64.2" stroke="#F07A2A" stroke-width="3.4"/><path d="M55.3 58.5 L42.3 58.3" stroke="#F07A2A" stroke-width="3.4"/><path d="M55.5 53.4 L42.6 52.3" stroke="#F07A2A" stroke-width="3.4"/><path d="M56.1 48.5 L43.4 46.1" stroke="#F07A2A" stroke-width="3.4"/><path d="M57.3 43.9 L44.9 39.8" stroke="#F07A2A" stroke-width="3.4"/><path d="M59.0 39.8 L47.6 33.6" stroke="#F07A2A" stroke-width="3.4"/><path d="M61.3 36.3 L51.5 27.8" stroke="#F07A2A" stroke-width="3.4"/><path d="M64.1 34.0 L57.3 22.9" stroke="#F07A2A" stroke-width="3.4"/><path d="M56.6 105.5 L56.4 103.6 L56.1 101.6 L55.9 99.6 L55.6 97.6 L55.4 95.6 L55.1 93.7 L54.9 91.7 L54.7 89.7 L54.4 87.7 L54.2 85.7 L54.0 83.8 L53.8 81.8 L53.6 79.8 L53.4 77.8 L53.2 75.9 L53.0 73.9 L52.9 71.9 L52.7 70.0 L52.6 68.0 L52.5 66.1 L52.5 64.1 L52.4 62.2 L52.4 60.2 L52.4 58.3 L52.5 56.4 L52.6 54.5 L52.7 52.6 L52.9 50.7 L53.2 48.8 L53.5 47.0 L53.9 45.3 L54.4 43.5 L55.0 41.8 L55.7 40.2 L56.4 38.6 L57.3 37.1 L58.2 35.6 L59.3 34.3 L60.4 33.2 L61.7 32.2 L62.9 31.3 L64.3 30.7" fill="none" stroke="#D9661C" stroke-width="4.2" stroke-linecap="round" opacity="0.7"/><g transform="translate(73 28) rotate(-18)"><ellipse cx="0" cy="0" rx="10.1" ry="8.1" fill="#FFF8EC" stroke="#E0B98A" stroke-width="1.1"/><circle cx="-0.7" cy="-2.1" r="2.9" fill="#1B1B1B"/><circle cx="0.4" cy="-3.1" r="1.10" fill="#FFFFFF"/><path d="M5.5 2.3 q2.6 -0.3 4.4 -3.6" stroke="#3A3A3A" stroke-width="1.2" fill="none" stroke-linecap="round"/></g><path d="M77 26.5 C80 27 82 29 82.5 31" stroke="#F07A2A" stroke-width="2.4" fill="none" stroke-linecap="round"/></g><path d="M6 107 Q60 97 114 107 L114 120 L6 120 Z" fill="#F0DCA8"/><circle cx="26" cy="110" r="2" fill="#D9BC7E"/><circle cx="84" cy="112" r="2.4" fill="#D9BC7E"/><circle cx="40" cy="114" r="1.6" fill="#D9BC7E"/><path d="M18 106 q3 -3 6 0 q-3 -1 -6 0 Z" fill="#F7F0DC"/><ellipse cx="53" cy="103.5" rx="10" ry="2.6" fill="#D9BC7E"/></svg>`,
+  ashika: `<svg aria-hidden="true" class="cr" viewBox="0 0 120 120">
+  <ellipse cx="58" cy="108" rx="44" ry="5" fill="#1B4965" opacity="0.13"/>
+  <g class="pt as-all">
+    <g class="pt as-finL">
+      <path d="M58 74 C58 86 62 96 70 103 C65 106 58 104 54 98 C50 90 51 80 54 74 Z" fill="#35241A"/>
+      <path d="M57 94 C60 98 63 101 66 102" stroke="#20150E" stroke-width="1" fill="none" opacity="0.7"/>
+    </g>
+    <g class="pt as-tail">
+      <path d="M34 100 C26 101 16 104 9 104 C6 101 12 96 20 95 C26 94 31 95 34 96 Z" fill="#3A281C"/>
+      <path d="M12 102 L18 99 M15 104 L21 101" stroke="#22170F" stroke-width="1" stroke-linecap="round"/>
+    </g>
+    <path d="M24 102 C18 95 22 84 30 74 C38 63 44 50 52 40 C57 33 64 30 70 33 C77 37 79 46 77 56 C75 68 76 82 80 95 C82 102 77 106 67 106 L34 106 C29 106 26 105 24 102 Z" fill="#5C3F2B"/>
+    <path d="M26 98 C24 88 30 78 36 70 C43 60 48 49 55 40 C50 52 45 64 40 76 C36 86 34 94 36 104 C31 104 27 102 26 98 Z" fill="#3F2A1D" opacity="0.75"/>
+    <path d="M66 42 C72 52 71 66 72 80 C73 90 76 98 79 102 C72 100 67 92 66 80 C65 68 64 54 66 42 Z" fill="#8E6849" opacity="0.8"/>
+    <path d="M56 46 C60 60 60 78 58 96 C55 84 54 64 56 46 Z" fill="#6E4D35" opacity="0.6"/>
+    <path d="M46 60 C44 70 40 80 36 88" stroke="#FFFFFF" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.18"/>
+    <path d="M70 44 C73 52 73 60 73 66" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.25"/>
+    <g class="pt as-finR">
+      <path d="M72 70 C77 80 85 91 95 99 C98 103 94 106 87 105 C80 103 73 95 68 86 C66 80 67 74 72 70 Z" fill="#3E2A1D"/>
+      <path d="M76 82 C81 90 87 96 93 100" stroke="#5A3E2A" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.8"/>
+      <path d="M88 104 L90 101 M92 104.5 L93.5 101.5" stroke="#1E140D" stroke-width="1" stroke-linecap="round"/>
+    </g>
+    <g class="pt as-head">
+      <path d="M54 32 C53 21 61 13 72 13 C80 13 86 17 90 22 C94 24 99 26 101 30 C102 35 97 38 91 38 C85 38 79 40 73 42 C63 45 55 41 54 32 Z" fill="#6B4A33"/>
+      <path d="M58 24 C62 17 70 15 77 16 C69 18 64 22 61 28 Z" fill="#94704F" opacity="0.8"/>
+      <path d="M58 36 C63 40 70 41 76 40 C70 43 62 43 58 36 Z" fill="#4A3223" opacity="0.7"/>
+      <path d="M86 25 C92 25 99 27 101 31 C100 35 95 37 89 36 C86 33 85 28 86 25 Z" fill="#8C6649"/>
+      <ellipse cx="98.8" cy="29.6" rx="2.5" ry="1.9" fill="#1A110B"/>
+      <circle cx="98" cy="28.9" r="0.6" fill="#FFFFFF" opacity="0.6"/>
+      <path d="M88 36.4 C92 37.4 96 37 99 34.6" stroke="#2A1B12" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+      <path d="M90 32 C84 31 80 30 76 30 M90 33.6 C85 34 81 35 77 36 M91 30.6 C86 29 83 27.6 80 26" stroke="#E9DDCC" stroke-width="0.8" fill="none" stroke-linecap="round" stroke-dasharray="1.3 0.9"/>
+      <g fill="#3B2A1E"><circle cx="89" cy="31.4" r="0.55"/><circle cx="90.6" cy="33" r="0.55"/><circle cx="88.4" cy="33.4" r="0.55"/></g>
+      <circle cx="76" cy="23.6" r="4.4" fill="#140D08"/>
+      <circle cx="77.6" cy="22" r="1.6" fill="#FFFFFF"/>
+      <circle cx="74.8" cy="25.4" r="0.7" fill="#FFFFFF" opacity="0.8"/>
+      <path d="M71.5 21 C73 19.4 76 18.8 79 19.6" stroke="#3A2618" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <path d="M64 27 C62.4 25.6 61.8 23.2 62.8 21.8 C64.6 22.6 65.6 24.8 65.4 27 Z" fill="#3B281B"/>
+    </g>
+  </g>
+</svg>`,
+  iwashi: `<svg aria-hidden="true" class="cr" viewBox="0 0 120 120">
+  <ellipse cx="60" cy="110" rx="36" ry="3.5" fill="#1B4965" opacity="0.08"/>
+  <g class="pt iw-all">
+    <ellipse cx="60" cy="58" rx="50" ry="46" fill="#CFEAF6" opacity="0.28"/>
+    <path d="M22 20 L44 104 M60 10 L70 106 M96 18 L86 104" stroke="#FFFFFF" stroke-width="6" opacity="0.12" stroke-linecap="round"/>
+<g class="pt iw-f iw-b" opacity="0.7"><g transform="translate(66,24) scale(0.85)">
+      <path d="M-15 -1 L-22 -6 L-20 -0.5 L-22 5 Z" fill="#6E8FA8"/>
+      <path d="M-16 0 C-11 -6.4 5 -7.2 13.6 -2.4 C16.4 -0.8 16.6 1 13.8 2.8 C5 7 -11 6.2 -16 0 Z" fill="#E7EEF3"/>
+      <path d="M-16 0 C-11 -6.4 5 -7.2 13.6 -2.4 C7 -3.4 -6 -3.2 -16 -0.2 Z" fill="#2F5F8C"/>
+      <path d="M-15 -0.4 C-8 -2.6 4 -2.8 12.6 -1.4 C4 -1.6 -7 -1.2 -15 0.6 Z" fill="#8FB0C8" opacity="0.9"/>
+      <path d="M-13 2.2 C-5 4.2 5 4 12.6 2" stroke="#FFFFFF" stroke-width="0.9" fill="none" opacity="0.9"/>
+      <g fill="#1F3E57"><circle cx="-6" cy="-0.6" r="0.75"/><circle cx="-2.6" cy="-0.7" r="0.75"/><circle cx="0.8" cy="-0.7" r="0.75"/><circle cx="4" cy="-0.6" r="0.7"/></g>
+      <path d="M7.6 -3.6 C6.2 -1 6.2 1.8 7.8 4" stroke="#9DB6C9" stroke-width="0.8" fill="none"/>
+      <path d="M-2 -5.6 L0 -8.4 L3 -5.8 Z" fill="#6E8FA8"/>
+      <circle cx="10.8" cy="-0.6" r="1.8" fill="#1A2733"/><circle cx="11.3" cy="-1.1" r="0.6" fill="#FFFFFF"/>
+    </g></g><g class="pt iw-f iw-c" opacity="0.65"><g transform="translate(36,32) scale(0.8)">
+      <path d="M-15 -1 L-22 -6 L-20 -0.5 L-22 5 Z" fill="#6E8FA8"/>
+      <path d="M-16 0 C-11 -6.4 5 -7.2 13.6 -2.4 C16.4 -0.8 16.6 1 13.8 2.8 C5 7 -11 6.2 -16 0 Z" fill="#E7EEF3"/>
+      <path d="M-16 0 C-11 -6.4 5 -7.2 13.6 -2.4 C7 -3.4 -6 -3.2 -16 -0.2 Z" fill="#2F5F8C"/>
+      <path d="M-15 -0.4 C-8 -2.6 4 -2.8 12.6 -1.4 C4 -1.6 -7 -1.2 -15 0.6 Z" fill="#8FB0C8" opacity="0.9"/>
+      <path d="M-13 2.2 C-5 4.2 5 4 12.6 2" stroke="#FFFFFF" stroke-width="0.9" fill="none" opacity="0.9"/>
+      <g fill="#1F3E57"><circle cx="-6" cy="-0.6" r="0.75"/><circle cx="-2.6" cy="-0.7" r="0.75"/><circle cx="0.8" cy="-0.7" r="0.75"/><circle cx="4" cy="-0.6" r="0.7"/></g>
+      <path d="M7.6 -3.6 C6.2 -1 6.2 1.8 7.8 4" stroke="#9DB6C9" stroke-width="0.8" fill="none"/>
+      <path d="M-2 -5.6 L0 -8.4 L3 -5.8 Z" fill="#6E8FA8"/>
+      <circle cx="10.8" cy="-0.6" r="1.8" fill="#1A2733"/><circle cx="11.3" cy="-1.1" r="0.6" fill="#FFFFFF"/>
+    </g></g><g class="pt iw-f iw-a" opacity="0.7"><g transform="translate(92,34) scale(0.85)">
+      <path d="M-15 -1 L-22 -6 L-20 -0.5 L-22 5 Z" fill="#6E8FA8"/>
+      <path d="M-16 0 C-11 -6.4 5 -7.2 13.6 -2.4 C16.4 -0.8 16.6 1 13.8 2.8 C5 7 -11 6.2 -16 0 Z" fill="#E7EEF3"/>
+      <path d="M-16 0 C-11 -6.4 5 -7.2 13.6 -2.4 C7 -3.4 -6 -3.2 -16 -0.2 Z" fill="#2F5F8C"/>
+      <path d="M-15 -0.4 C-8 -2.6 4 -2.8 12.6 -1.4 C4 -1.6 -7 -1.2 -15 0.6 Z" fill="#8FB0C8" opacity="0.9"/>
+      <path d="M-13 2.2 C-5 4.2 5 4 12.6 2" stroke="#FFFFFF" stroke-width="0.9" fill="none" opacity="0.9"/>
+      <g fill="#1F3E57"><circle cx="-6" cy="-0.6" r="0.75"/><circle cx="-2.6" cy="-0.7" r="0.75"/><circle cx="0.8" cy="-0.7" r="0.75"/><circle cx="4" cy="-0.6" r="0.7"/></g>
+      <path d="M7.6 -3.6 C6.2 -1 6.2 1.8 7.8 4" stroke="#9DB6C9" stroke-width="0.8" fill="none"/>
+      <path d="M-2 -5.6 L0 -8.4 L3 -5.8 Z" fill="#6E8FA8"/>
+      <circle cx="10.8" cy="-0.6" r="1.8" fill="#1A2733"/><circle cx="11.3" cy="-1.1" r="0.6" fill="#FFFFFF"/>
+    </g></g><g class="pt iw-f iw-a" opacity="1"><g transform="translate(60,44) scale(1.1)">
+      <path d="M-15 -1 L-22 -6 L-20 -0.5 L-22 5 Z" fill="#6E8FA8"/>
+      <path d="M-16 0 C-11 -6.4 5 -7.2 13.6 -2.4 C16.4 -0.8 16.6 1 13.8 2.8 C5 7 -11 6.2 -16 0 Z" fill="#E7EEF3"/>
+      <path d="M-16 0 C-11 -6.4 5 -7.2 13.6 -2.4 C7 -3.4 -6 -3.2 -16 -0.2 Z" fill="#2F5F8C"/>
+      <path d="M-15 -0.4 C-8 -2.6 4 -2.8 12.6 -1.4 C4 -1.6 -7 -1.2 -15 0.6 Z" fill="#8FB0C8" opacity="0.9"/>
+      <path d="M-13 2.2 C-5 4.2 5 4 12.6 2" stroke="#FFFFFF" stroke-width="0.9" fill="none" opacity="0.9"/>
+      <g fill="#1F3E57"><circle cx="-6" cy="-0.6" r="0.75"/><circle cx="-2.6" cy="-0.7" r="0.75"/><circle cx="0.8" cy="-0.7" r="0.75"/><circle cx="4" cy="-0.6" r="0.7"/></g>
+      <path d="M7.6 -3.6 C6.2 -1 6.2 1.8 7.8 4" stroke="#9DB6C9" stroke-width="0.8" fill="none"/>
+      <path d="M-2 -5.6 L0 -8.4 L3 -5.8 Z" fill="#6E8FA8"/>
+      <circle cx="10.8" cy="-0.6" r="1.8" fill="#1A2733"/><circle cx="11.3" cy="-1.1" r="0.6" fill="#FFFFFF"/>
+    </g></g><g class="pt iw-f iw-b" opacity="0.95"><g transform="translate(28,54) scale(1.0)">
+      <path d="M-15 -1 L-22 -6 L-20 -0.5 L-22 5 Z" fill="#6E8FA8"/>
+      <path d="M-16 0 C-11 -6.4 5 -7.2 13.6 -2.4 C16.4 -0.8 16.6 1 13.8 2.8 C5 7 -11 6.2 -16 0 Z" fill="#E7EEF3"/>
+      <path d="M-16 0 C-11 -6.4 5 -7.2 13.6 -2.4 C7 -3.4 -6 -3.2 -16 -0.2 Z" fill="#2F5F8C"/>
+      <path d="M-15 -0.4 C-8 -2.6 4 -2.8 12.6 -1.4 C4 -1.6 -7 -1.2 -15 0.6 Z" fill="#8FB0C8" opacity="0.9"/>
+      <path d="M-13 2.2 C-5 4.2 5 4 12.6 2" stroke="#FFFFFF" stroke-width="0.9" fill="none" opacity="0.9"/>
+      <g fill="#1F3E57"><circle cx="-6" cy="-0.6" r="0.75"/><circle cx="-2.6" cy="-0.7" r="0.75"/><circle cx="0.8" cy="-0.7" r="0.75"/><circle cx="4" cy="-0.6" r="0.7"/></g>
+      <path d="M7.6 -3.6 C6.2 -1 6.2 1.8 7.8 4" stroke="#9DB6C9" stroke-width="0.8" fill="none"/>
+      <path d="M-2 -5.6 L0 -8.4 L3 -5.8 Z" fill="#6E8FA8"/>
+      <circle cx="10.8" cy="-0.6" r="1.8" fill="#1A2733"/><circle cx="11.3" cy="-1.1" r="0.6" fill="#FFFFFF"/>
+    </g></g><g class="pt iw-f iw-c" opacity="0.95"><g transform="translate(94,56) scale(0.95)">
+      <path d="M-15 -1 L-22 -6 L-20 -0.5 L-22 5 Z" fill="#6E8FA8"/>
+      <path d="M-16 0 C-11 -6.4 5 -7.2 13.6 -2.4 C16.4 -0.8 16.6 1 13.8 2.8 C5 7 -11 6.2 -16 0 Z" fill="#E7EEF3"/>
+      <path d="M-16 0 C-11 -6.4 5 -7.2 13.6 -2.4 C7 -3.4 -6 -3.2 -16 -0.2 Z" fill="#2F5F8C"/>
+      <path d="M-15 -0.4 C-8 -2.6 4 -2.8 12.6 -1.4 C4 -1.6 -7 -1.2 -15 0.6 Z" fill="#8FB0C8" opacity="0.9"/>
+      <path d="M-13 2.2 C-5 4.2 5 4 12.6 2" stroke="#FFFFFF" stroke-width="0.9" fill="none" opacity="0.9"/>
+      <g fill="#1F3E57"><circle cx="-6" cy="-0.6" r="0.75"/><circle cx="-2.6" cy="-0.7" r="0.75"/><circle cx="0.8" cy="-0.7" r="0.75"/><circle cx="4" cy="-0.6" r="0.7"/></g>
+      <path d="M7.6 -3.6 C6.2 -1 6.2 1.8 7.8 4" stroke="#9DB6C9" stroke-width="0.8" fill="none"/>
+      <path d="M-2 -5.6 L0 -8.4 L3 -5.8 Z" fill="#6E8FA8"/>
+      <circle cx="10.8" cy="-0.6" r="1.8" fill="#1A2733"/><circle cx="11.3" cy="-1.1" r="0.6" fill="#FFFFFF"/>
+    </g></g><g class="pt iw-f iw-c" opacity="1"><g transform="translate(62,66) scale(1.15)">
+      <path d="M-15 -1 L-22 -6 L-20 -0.5 L-22 5 Z" fill="#6E8FA8"/>
+      <path d="M-16 0 C-11 -6.4 5 -7.2 13.6 -2.4 C16.4 -0.8 16.6 1 13.8 2.8 C5 7 -11 6.2 -16 0 Z" fill="#E7EEF3"/>
+      <path d="M-16 0 C-11 -6.4 5 -7.2 13.6 -2.4 C7 -3.4 -6 -3.2 -16 -0.2 Z" fill="#2F5F8C"/>
+      <path d="M-15 -0.4 C-8 -2.6 4 -2.8 12.6 -1.4 C4 -1.6 -7 -1.2 -15 0.6 Z" fill="#8FB0C8" opacity="0.9"/>
+      <path d="M-13 2.2 C-5 4.2 5 4 12.6 2" stroke="#FFFFFF" stroke-width="0.9" fill="none" opacity="0.9"/>
+      <g fill="#1F3E57"><circle cx="-6" cy="-0.6" r="0.75"/><circle cx="-2.6" cy="-0.7" r="0.75"/><circle cx="0.8" cy="-0.7" r="0.75"/><circle cx="4" cy="-0.6" r="0.7"/></g>
+      <path d="M7.6 -3.6 C6.2 -1 6.2 1.8 7.8 4" stroke="#9DB6C9" stroke-width="0.8" fill="none"/>
+      <path d="M-2 -5.6 L0 -8.4 L3 -5.8 Z" fill="#6E8FA8"/>
+      <circle cx="10.8" cy="-0.6" r="1.8" fill="#1A2733"/><circle cx="11.3" cy="-1.1" r="0.6" fill="#FFFFFF"/>
+    </g></g><g class="pt iw-f iw-a" opacity="1"><g transform="translate(34,78) scale(1.0)">
+      <path d="M-15 -1 L-22 -6 L-20 -0.5 L-22 5 Z" fill="#6E8FA8"/>
+      <path d="M-16 0 C-11 -6.4 5 -7.2 13.6 -2.4 C16.4 -0.8 16.6 1 13.8 2.8 C5 7 -11 6.2 -16 0 Z" fill="#E7EEF3"/>
+      <path d="M-16 0 C-11 -6.4 5 -7.2 13.6 -2.4 C7 -3.4 -6 -3.2 -16 -0.2 Z" fill="#2F5F8C"/>
+      <path d="M-15 -0.4 C-8 -2.6 4 -2.8 12.6 -1.4 C4 -1.6 -7 -1.2 -15 0.6 Z" fill="#8FB0C8" opacity="0.9"/>
+      <path d="M-13 2.2 C-5 4.2 5 4 12.6 2" stroke="#FFFFFF" stroke-width="0.9" fill="none" opacity="0.9"/>
+      <g fill="#1F3E57"><circle cx="-6" cy="-0.6" r="0.75"/><circle cx="-2.6" cy="-0.7" r="0.75"/><circle cx="0.8" cy="-0.7" r="0.75"/><circle cx="4" cy="-0.6" r="0.7"/></g>
+      <path d="M7.6 -3.6 C6.2 -1 6.2 1.8 7.8 4" stroke="#9DB6C9" stroke-width="0.8" fill="none"/>
+      <path d="M-2 -5.6 L0 -8.4 L3 -5.8 Z" fill="#6E8FA8"/>
+      <circle cx="10.8" cy="-0.6" r="1.8" fill="#1A2733"/><circle cx="11.3" cy="-1.1" r="0.6" fill="#FFFFFF"/>
+    </g></g><g class="pt iw-f iw-b" opacity="1"><g transform="translate(88,80) scale(1.05)">
+      <path d="M-15 -1 L-22 -6 L-20 -0.5 L-22 5 Z" fill="#6E8FA8"/>
+      <path d="M-16 0 C-11 -6.4 5 -7.2 13.6 -2.4 C16.4 -0.8 16.6 1 13.8 2.8 C5 7 -11 6.2 -16 0 Z" fill="#E7EEF3"/>
+      <path d="M-16 0 C-11 -6.4 5 -7.2 13.6 -2.4 C7 -3.4 -6 -3.2 -16 -0.2 Z" fill="#2F5F8C"/>
+      <path d="M-15 -0.4 C-8 -2.6 4 -2.8 12.6 -1.4 C4 -1.6 -7 -1.2 -15 0.6 Z" fill="#8FB0C8" opacity="0.9"/>
+      <path d="M-13 2.2 C-5 4.2 5 4 12.6 2" stroke="#FFFFFF" stroke-width="0.9" fill="none" opacity="0.9"/>
+      <g fill="#1F3E57"><circle cx="-6" cy="-0.6" r="0.75"/><circle cx="-2.6" cy="-0.7" r="0.75"/><circle cx="0.8" cy="-0.7" r="0.75"/><circle cx="4" cy="-0.6" r="0.7"/></g>
+      <path d="M7.6 -3.6 C6.2 -1 6.2 1.8 7.8 4" stroke="#9DB6C9" stroke-width="0.8" fill="none"/>
+      <path d="M-2 -5.6 L0 -8.4 L3 -5.8 Z" fill="#6E8FA8"/>
+      <circle cx="10.8" cy="-0.6" r="1.8" fill="#1A2733"/><circle cx="11.3" cy="-1.1" r="0.6" fill="#FFFFFF"/>
+    </g></g><g class="pt iw-f iw-a" opacity="0.9"><g transform="translate(58,90) scale(0.95)">
+      <path d="M-15 -1 L-22 -6 L-20 -0.5 L-22 5 Z" fill="#6E8FA8"/>
+      <path d="M-16 0 C-11 -6.4 5 -7.2 13.6 -2.4 C16.4 -0.8 16.6 1 13.8 2.8 C5 7 -11 6.2 -16 0 Z" fill="#E7EEF3"/>
+      <path d="M-16 0 C-11 -6.4 5 -7.2 13.6 -2.4 C7 -3.4 -6 -3.2 -16 -0.2 Z" fill="#2F5F8C"/>
+      <path d="M-15 -0.4 C-8 -2.6 4 -2.8 12.6 -1.4 C4 -1.6 -7 -1.2 -15 0.6 Z" fill="#8FB0C8" opacity="0.9"/>
+      <path d="M-13 2.2 C-5 4.2 5 4 12.6 2" stroke="#FFFFFF" stroke-width="0.9" fill="none" opacity="0.9"/>
+      <g fill="#1F3E57"><circle cx="-6" cy="-0.6" r="0.75"/><circle cx="-2.6" cy="-0.7" r="0.75"/><circle cx="0.8" cy="-0.7" r="0.75"/><circle cx="4" cy="-0.6" r="0.7"/></g>
+      <path d="M7.6 -3.6 C6.2 -1 6.2 1.8 7.8 4" stroke="#9DB6C9" stroke-width="0.8" fill="none"/>
+      <path d="M-2 -5.6 L0 -8.4 L3 -5.8 Z" fill="#6E8FA8"/>
+      <circle cx="10.8" cy="-0.6" r="1.8" fill="#1A2733"/><circle cx="11.3" cy="-1.1" r="0.6" fill="#FFFFFF"/>
+    </g></g>
+    <g fill="#FFFFFF" opacity="0.75"><circle cx="16" cy="24" r="1.8"/><circle cx="106" cy="30" r="1.4"/><circle cx="104" cy="98" r="2"/><circle cx="14" cy="92" r="1.4"/></g>
+  </g>
+</svg>`,
+  kame: `<svg aria-hidden="true" class="cr" viewBox="0 0 120 120">
+  <ellipse cx="62" cy="105" rx="50" ry="6" fill="#1B4965" opacity="0.14"/>
+  <g class="pt tt-all">
+    <g class="pt tt-legB">
+      <path d="M26 82 C22 92 22 100 29 101 C35 102 38 97 38 88 Z" fill="#A58E5A"/>
+      <path d="M84 84 C84 93 86 100 92 100 C97 99 97 92 93 84 Z" fill="#A58E5A"/>
+      <g fill="#7E6A3E"><circle cx="28" cy="90" r="1.3"/><circle cx="32" cy="95" r="1.3"/><circle cx="89" cy="91" r="1.3"/><circle cx="92" cy="96" r="1.2"/></g>
+    </g>
+    <g class="pt tt-head">
+      <path d="M96 76 C98 68 104 63 110 64 C116 65 119 71 117 76 C115 81 109 83 103 82 C99 81 96 79 96 76 Z" fill="#B69E62"/>
+      <path d="M101 68 C105 65 111 65 114 68 C109 68 105 69 102 72 Z" fill="#D4BE82" opacity="0.8"/>
+      <g fill="#6D5A30" opacity="0.7"><circle cx="106" cy="69" r="1.1"/><circle cx="102" cy="73" r="1"/><circle cx="110" cy="68" r="0.9"/><circle cx="99" cy="77" r="1"/></g>
+      <path d="M112 79.6 C114.6 79 116.8 77.6 117.4 75.6" stroke="#4A3C1E" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+      <circle cx="110.6" cy="72" r="2.8" fill="#1C170E"/>
+      <circle cx="111.5" cy="71.1" r="0.95" fill="#FFFFFF"/>
+      <path d="M107.4 69.4 C109 68.2 111.8 68.2 113.4 69.6" stroke="#6D5A30" stroke-width="0.9" fill="none"/>
+      <path d="M92 80 C94 76 96 74 99 73" stroke="#9E884F" stroke-width="7" stroke-linecap="round" fill="none"/>
+    </g>
+    <path d="M12 80 C12 49 33 29 60 29 C87 29 108 49 108 80 Z" fill="#20160B"/>
+    <ellipse cx="41" cy="45" rx="11.5" ry="9.9" fill="#3E2C16" stroke="#1A1209" stroke-width="1.4"/><ellipse cx="38.7" cy="41.5" rx="6.3" ry="3.4" fill="#FFFFFF" opacity="0.08"/><ellipse cx="41" cy="45" rx="3.2" ry="2.6" fill="#EFCB5E"/><path d="M43.8 45 L50.4 45" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M42.8 46.8 L46.9 50.9" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M40.4 47.3 L38.9 52.4" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M38.5 46 L32.5 48.3" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M38.5 44 L32.5 41.7" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M40.4 42.7 L38.9 37.6" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M42.8 43.2 L46.9 39.1" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="60" cy="41" rx="12" ry="10.3" fill="#3E2C16" stroke="#1A1209" stroke-width="1.4"/><ellipse cx="57.6" cy="37.4" rx="6.6" ry="3.6" fill="#FFFFFF" opacity="0.08"/><ellipse cx="60" cy="41" rx="3.3" ry="2.8" fill="#EFCB5E"/><path d="M62.7 42 L69.1 44.1" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M60.8 43.4 L62.6 48.6" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M58.3 43 L54.2 47.4" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M57.1 41.1 L50.2 41.4" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M58.1 39.2 L53.5 35.1" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M60.5 38.6 L61.7 33.3" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M62.6 39.8 L68.7 37.3" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="79" cy="45" rx="11.5" ry="9.9" fill="#3E2C16" stroke="#1A1209" stroke-width="1.4"/><ellipse cx="76.7" cy="41.5" rx="6.3" ry="3.4" fill="#FFFFFF" opacity="0.08"/><ellipse cx="79" cy="45" rx="3.2" ry="2.6" fill="#EFCB5E"/><path d="M81 46.7 L85.6 50.4" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M78.6 47.3 L77.8 52.5" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M76.6 46.2 L70.9 48.9" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M76.3 44.2 L70.2 42.4" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M78.1 42.8 L76 37.8" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M80.5 43 L84.2 38.7" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M81.8 44.8 L88.4 44.3" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="24" cy="65" rx="9.5" ry="8.2" fill="#3E2C16" stroke="#1A1209" stroke-width="1.4"/><ellipse cx="22.1" cy="62.1" rx="5.2" ry="2.9" fill="#FFFFFF" opacity="0.08"/><ellipse cx="24" cy="65" rx="2.6" ry="2.2" fill="#EFCB5E"/><path d="M26.2 65.6 L31.4 66.9" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M24.8 66.8 L26.7 70.8" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M22.8 66.7 L20 70.3" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M21.7 65.3 L16.3 65.8" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M22.3 63.7 L18.4 60.7" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M24.2 63.1 L24.7 58.8" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M26 63.9 L30.5 61.6" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="42" cy="63" rx="10.5" ry="9" fill="#3E2C16" stroke="#1A1209" stroke-width="1.4"/><ellipse cx="39.9" cy="59.9" rx="5.8" ry="3.1" fill="#FFFFFF" opacity="0.08"/><ellipse cx="42" cy="63" rx="2.9" ry="2.4" fill="#EFCB5E"/><path d="M43.9 64.4 L48.5 67.5" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M41.9 65.2 L41.6 69.9" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M39.9 64.3 L35 67.1" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M39.5 62.4 L33.7 61.2" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M41 61 L38.6 56.7" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M43.2 61.1 L46.1 56.9" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M44.5 62.6 L50.5 61.8" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="60" cy="62" rx="10.5" ry="9" fill="#3E2C16" stroke="#1A1209" stroke-width="1.4"/><ellipse cx="57.9" cy="58.9" rx="5.8" ry="3.1" fill="#FFFFFF" opacity="0.08"/><ellipse cx="60" cy="62" rx="2.9" ry="2.4" fill="#EFCB5E"/><path d="M62.5 62.5 L68.4 63.5" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M61.1 63.9 L63.7 68.2" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M58.9 63.9 L56.2 68.2" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M57.5 62.5 L51.6 63.5" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M58 60.7 L53.3 57.7" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M60 59.8 L60 55.1" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M62 60.7 L66.7 57.7" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="78" cy="63" rx="10.5" ry="9" fill="#3E2C16" stroke="#1A1209" stroke-width="1.4"/><ellipse cx="75.9" cy="59.9" rx="5.8" ry="3.1" fill="#FFFFFF" opacity="0.08"/><ellipse cx="78" cy="63" rx="2.9" ry="2.4" fill="#EFCB5E"/><path d="M80.1 64.3 L85 67" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M78.1 65.2 L78.4 69.9" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M76.1 64.4 L71.5 67.5" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M75.5 62.6 L69.5 61.8" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M76.8 61.1 L73.9 56.9" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M79 61 L81.4 56.7" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M80.5 62.4 L86.3 61.2" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="96" cy="65" rx="9.5" ry="8.2" fill="#3E2C16" stroke="#1A1209" stroke-width="1.4"/><ellipse cx="94.1" cy="62.1" rx="5.2" ry="2.9" fill="#FFFFFF" opacity="0.08"/><ellipse cx="96" cy="65" rx="2.6" ry="2.2" fill="#EFCB5E"/><path d="M98.3 65.3 L103.7 65.9" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M97.2 66.7 L100 70.4" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M95.2 66.8 L93.2 70.8" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M93.8 65.6 L88.6 66.9" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M94.1 63.9 L89.5 61.5" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M95.8 63.1 L95.3 58.8" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/><path d="M97.7 63.7 L101.7 60.7" stroke="#EFCB5E" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M24 46 C32 37 44 33 56 32 C45 36 36 42 30 50 Z" fill="#FFFFFF" opacity="0.14"/>
+    <path d="M8 80 H112 C112 86 106 90 100 90 H20 C14 90 8 86 8 80 Z" fill="#6E5630"/>
+    <g fill="#EFCB5E" opacity="0.9">
+      <path d="M14 81 l4 7 l4 -7 z"/><path d="M26 81 l4 7 l4 -7 z"/><path d="M38 81 l4 7 l4 -7 z"/><path d="M50 81 l4 7 l4 -7 z"/>
+      <path d="M62 81 l4 7 l4 -7 z"/><path d="M74 81 l4 7 l4 -7 z"/><path d="M86 81 l4 7 l4 -7 z"/><path d="M98 81 l4 7 l4 -7 z"/>
+    </g>
+    <path d="M8 80 H112" stroke="#2A1D0E" stroke-width="1.4"/>
+    <g class="pt tt-legF">
+      <path d="M20 86 C16 95 16 102 23 102.5 C30 103 32 97 32 88 Z" fill="#B59C63"/>
+      <path d="M76 86 C76 95 78 102.5 85 102.5 C91 102 90 94 86 86 Z" fill="#B59C63"/>
+      <g fill="#8A7443"><circle cx="22" cy="92" r="1.4"/><circle cx="27" cy="96" r="1.3"/><circle cx="24" cy="98.6" r="1.2"/><circle cx="80" cy="92" r="1.4"/><circle cx="84" cy="96" r="1.3"/><circle cx="81" cy="99" r="1.2"/></g>
+      <path d="M18 102 l-1.4 2 M22 103 l-0.4 2.2 M26 102.8 l0.8 2 M80 102.8 l-0.8 2 M84 103 l0.4 2.2 M88 102 l1.4 2" stroke="#4A3C1E" stroke-width="1.2" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>`,
+  iguana: `<svg aria-hidden="true" class="cr" viewBox="0 0 120 120">
+  <ellipse cx="60" cy="105" rx="52" ry="5" fill="#1B4965" opacity="0.13"/>
+  <path d="M2 96 C30 91 72 93 118 88" stroke="#7A4E2C" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <path d="M8 94 C30 91 70 92 112 88" stroke="#9C6A40" stroke-width="2.4" stroke-linecap="round" fill="none" opacity="0.8"/>
+  <path d="M20 96 l6 -1 M50 95 l8 -0.5 M84 92.6 l7 -0.6" stroke="#5A391F" stroke-width="1.2" stroke-linecap="round"/>
+  <g class="pt ig-all">
+    <g class="pt ig-tail">
+      <path d="M28 82 C16 83 7 78 5 67 C4 58 9 51 16 51 C12 58 12 66 17 72 C21 76 28 78 35 78 Z" fill="#4E9A4A"/>
+      <path d="M8 64 C9 60 11 56 14 53" stroke="#8ED47D" stroke-width="1.6" fill="none" opacity="0.7"/>
+      <g fill="#2E5E30" opacity="0.9"><path d="M6 60 l6.4 1 -0.8 4 -6.2 -1.2 z"/><path d="M8.4 70 l6 -2 1.4 3.8 -6 1.8 z"/><path d="M15 76 l5 -3.4 2.4 3.4 -5 3 z"/><path d="M24 79 l4.6 -2.6 1.6 3.6 -4.8 2 z"/></g>
+    </g>
+    <path d="M40 88 C38 93 36 97 32 99 M38 98 l-3 1.6 M36 98 l-1 2.4" stroke="#3E8A3E" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <path d="M24 84 C28 72 44 66 62 66 C76 66 86 70 90 78 C90 86 80 90 64 90 C46 90 30 90 24 84 Z" fill="#5DB35A"/>
+    <path d="M30 80 C38 72 52 70 66 70 C54 72 42 76 34 84 Z" fill="#94D883" opacity="0.7"/>
+    <path d="M36 88 C50 91 68 91 84 86 C72 93 50 94 36 88 Z" fill="#3E8A3E" opacity="0.85"/>
+    <g fill="#2F6B34" opacity="0.55"><path d="M44 72 l5 -2 1 16 -5 1 z"/><path d="M58 68 l5 -1 0.6 18 -5 0.4 z"/><path d="M72 69 l4 0 -0.4 16 -4 -0.4 z"/></g>
+    <ellipse cx="40" cy="74" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><ellipse cx="47" cy="74" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><ellipse cx="54" cy="74" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><ellipse cx="61" cy="74" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><ellipse cx="68" cy="74" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><ellipse cx="75" cy="74" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><ellipse cx="82" cy="74" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><ellipse cx="43.5" cy="79" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><ellipse cx="50.5" cy="79" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><ellipse cx="57.5" cy="79" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><ellipse cx="64.5" cy="79" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><ellipse cx="71.5" cy="79" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><ellipse cx="78.5" cy="79" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><ellipse cx="85.5" cy="79" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><ellipse cx="40" cy="84" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><ellipse cx="47" cy="84" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><ellipse cx="54" cy="84" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><ellipse cx="61" cy="84" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><ellipse cx="68" cy="84" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><ellipse cx="75" cy="84" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><ellipse cx="82" cy="84" rx="1.6" ry="1.1" fill="#3F8E3E" opacity="0.45"/><path d="M30 77 L32.5 69.6 L35 74 L37.5 66 L40 71.3 L42.5 63.1 L45 69.8 L47.5 61 L50 68.4 L52.5 59.5 L55 67.9 L57.5 58.8 L60 67.3 L62.5 58.4 L65 67.2 L67.5 59 L70 67.4 L72.5 59.7 L75 67.9 L77.5 61.5 L80 69.2 L82.5 63.7 L85 70.3 Z" fill="#D3E9A6" stroke="#7DB866" stroke-width="0.9" stroke-linejoin="round"/>
+    <path d="M76 88 C80 93 82 97 86 99 M86 99 l3 1.4 M85 99.6 l1 2.4" stroke="#3E8A3E" stroke-width="4" stroke-linecap="round" fill="none"/>
+    <g class="pt ig-head">
+      <g class="pt ig-dew">
+        <path d="M88 73 C87 83 91 91 98 92 C102 88 103 81 101 75 Z" fill="#8FD07F"/>
+        <path d="M89 76 l-2 1 M89.6 80 l-2.2 1 M90.6 84 l-2 1.2 M92.6 88 l-1.6 1.6" stroke="#E7F2C8" stroke-width="1.2" stroke-linecap="round"/>
+      </g>
+      <path d="M84 70 C86 58 94 52 104 54 C112 56 116 62 114 68 C112 74 104 76 96 76 C90 76 86 74 84 70 Z" fill="#62B85C"/>
+      <path d="M90 58 C96 54 104 54 108 57 C100 57 94 60 90 64 Z" fill="#A6E192" opacity="0.8"/>
+      <path d="M86 64 L88 57 L91 60 L93 53 L96 57 L99 52 L101 56 Z" fill="#D3E9A6" stroke="#7DB866" stroke-width="0.9" stroke-linejoin="round"/>
+      <circle cx="94" cy="69" r="4.4" fill="#DDECC6"/>
+      <circle cx="94" cy="69" r="4.4" fill="none" stroke="#8CBF74" stroke-width="0.9"/>
+      <g fill="#3F8E3E" opacity="0.5"><circle cx="100" cy="72" r="0.9"/><circle cx="103" cy="72.6" r="0.9"/><circle cx="106" cy="72" r="0.9"/><circle cx="109" cy="70.6" r="0.9"/></g>
+      <circle cx="104" cy="62" r="4.6" fill="#E7A53A"/>
+      <circle cx="104" cy="62" r="2.9" fill="#1D1A10"/>
+      <circle cx="105.1" cy="60.9" r="1.1" fill="#FFFFFF"/>
+      <path d="M99.6 58.4 C102 56.6 106 56.6 108.4 58.4" stroke="#3E8A3E" stroke-width="1" fill="none"/>
+      <circle cx="112.4" cy="63.6" r="0.9" fill="#2E5E2C"/>
+      <path d="M100 70.4 C104 71.4 109 70.4 113.4 67.2" stroke="#2E5E2C" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>`,
+  kaeru: `<svg aria-hidden="true" class="cr" viewBox="0 0 120 120">
+  <ellipse cx="60" cy="106" rx="38" ry="5" fill="#1B4965" opacity="0.14"/>
+  <path d="M6 98 C26 84 86 82 114 96 C92 108 30 108 6 98 Z" fill="#4E9A4A"/>
+  <path d="M10 97 C40 92 80 92 110 96" stroke="#7EC46B" stroke-width="1.6" fill="none"/>
+  <path d="M30 94 l-6 -5 M48 93 l-4 -6 M68 93 l4 -6 M88 94 l6 -5" stroke="#7EC46B" stroke-width="1.2" stroke-linecap="round"/>
+  <g class="pt kf-all">
+    <g class="pt kf-legs">
+      <path d="M36 84 C24 82 16 88 18 96 C22 100 32 99 40 95 Z" fill="#1E4E9E"/>
+      <path d="M84 84 C96 82 104 88 102 96 C98 100 88 99 80 95 Z" fill="#1E4E9E"/>
+      <g fill="#0F1A2E"><ellipse cx="24" cy="90" rx="2.4" ry="1.8"/><ellipse cx="96" cy="90" rx="2.4" ry="1.8"/></g>
+      <g fill="#2B62C0"><circle cx="15" cy="97" r="2.6"/><circle cx="20" cy="100" r="2.6"/><circle cx="26" cy="100.6" r="2.4"/><circle cx="105" cy="97" r="2.6"/><circle cx="100" cy="100" r="2.6"/><circle cx="94" cy="100.6" r="2.4"/></g>
+    </g>
+    <path d="M28 82 C24 64 36 44 60 42 C84 44 96 64 92 82 C90 94 76 99 60 99 C44 99 30 94 28 82 Z" fill="#2F74D0"/>
+    <path d="M34 64 C38 52 48 46 60 45 C50 50 43 56 40 66 Z" fill="#7DB3F2" opacity="0.7"/>
+    <path d="M30 84 C34 94 46 98 60 98 C74 98 86 94 90 84 C84 92 74 95 60 95 C46 95 36 92 30 84 Z" fill="#1D4E9C" opacity="0.8"/>
+    <g fill="#0E1726">
+      <ellipse cx="42" cy="70" rx="3.6" ry="2.8"/><ellipse cx="74" cy="78" rx="3.2" ry="2.5"/><ellipse cx="56" cy="86" rx="2.8" ry="2.1"/>
+      <ellipse cx="80" cy="64" rx="2.4" ry="1.9"/><ellipse cx="35" cy="81" rx="2.3" ry="1.9"/><ellipse cx="64" cy="62" rx="2" ry="1.6"/>
+      <ellipse cx="50" cy="76" rx="1.6" ry="1.3"/><ellipse cx="84" cy="74" rx="1.8" ry="1.4"/>
+    </g>
+    <path d="M44 56 C50 52 58 51 64 52" stroke="#FFFFFF" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.45"/>
+    <g class="pt kf-throat"><ellipse cx="60" cy="86" rx="12" ry="6" fill="#86BDF5" opacity="0"/></g>
+    <path d="M42 86 C38 93 38 99 44 100 C49 100 51 95 49 88 Z" fill="#2465C2"/>
+    <path d="M78 86 C82 93 82 99 76 100 C71 100 69 95 71 88 Z" fill="#2465C2"/>
+    <g fill="#3B7BD9"><circle cx="39" cy="100.6" r="2.3"/><circle cx="44" cy="101.8" r="2.3"/><circle cx="49" cy="101" r="2.1"/><circle cx="81" cy="100.6" r="2.3"/><circle cx="76" cy="101.8" r="2.3"/><circle cx="71" cy="101" r="2.1"/></g>
+    <circle cx="43" cy="49" r="10.5" fill="#2F74D0"/>
+    <circle cx="77" cy="49" r="10.5" fill="#2F74D0"/>
+    <circle cx="43" cy="48" r="7.2" fill="#0B1220"/>
+    <circle cx="77" cy="48" r="7.2" fill="#0B1220"/>
+    <circle cx="45.6" cy="45.4" r="2.4" fill="#FFFFFF"/>
+    <circle cx="79.6" cy="45.4" r="2.4" fill="#FFFFFF"/>
+    <circle cx="41" cy="51" r="0.9" fill="#FFFFFF" opacity="0.8"/>
+    <circle cx="75" cy="51" r="0.9" fill="#FFFFFF" opacity="0.8"/>
+    <circle cx="55" cy="58" r="0.9" fill="#0E1726"/><circle cx="65" cy="58" r="0.9" fill="#0E1726"/>
+    <path d="M44 63 C52 67 68 67 76 63" stroke="#123364" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>`
 };
 
 /* D. 生きものの 絵を しあげる（つや・まばたき） */
-const EYES = {penguin:[16,17], kawauso:[11,12], pelican:[4], azarashi:[3,4], kurage:[2,3],
+const EYES = {ashika:[6], kame:[9], iguana:[29], kaeru:[26,27], penguin:[16,17], kawauso:[11,12], pelican:[4], azarashi:[3,4], kurage:[2,3],
   chinanago:[50,72], nishiki:[2], kumanomi:[2], same:[24], ei:[7,16], utsubo:[20], gusoku:{p:[42,43]}};
 (function polishArt(){
   const holder = document.createElement("div");
@@ -3089,52 +3465,34 @@ const EYES = {penguin:[16,17], kawauso:[11,12], pelican:[4], azarashi:[3,4], kur
 const CREATURES = [
   {id:"penguin", name:"ケープペンギン", svg:"penguin", rarity:1,
    desc:"みずのなかを とぶように およぐよ。50わくらいの なかまが いるんだって！",
-   place:"そとの マリンガーデン「てんくうのペンギン」すいそう",
+   place:"そとの マリンガーデン「てんくうの ペンギン」と「そうげんの ペンギン」",
    size:"ランドセルより すこし おおきいくらい",
    secret:"アフリカに すんでいる ただひとつの ペンギンだよ。そらは とべないけれど、みずのなかでは とっても はやいんだ！",
    watch:"あたまの うえを ペンギンが スイ〜ッと とんでいくよ。したから みあげてみてね！"},
+  {id:"ashika", name:"カリフォルニアアシカ", svg:"ashika", rarity:1,
+   desc:"おそとの わっかの すいそうで、あたまの うえを そらを とぶように およぐよ。",
+   place:"そとの マリンガーデン「サンシャインアクアリング」（あたまの うえの わっか）と「アシカたちの すなはま」",
+   size:"おとなの ひとより すこし おおきいくらい",
+   secret:"アザラシと ちがって、ちいさな みみが あるよ。まえあしで からだを ささえて あるけるんだ。",
+   watch:"あたまの うえの すいそうを みあげてね。おなかや てあしが みえるよ！"},
   {id:"kawauso", name:"コツメカワウソ", svg:"kawauso", rarity:1,
    desc:"ちいさな つめと みずかきが じまん。てさきが とっても きようだよ。",
-   place:"そとの マリンガーデンに いるよ",
+   place:"そとの マリンガーデン「カワウソたちの みずべ」",
    size:"ねこさんと おなじくらい",
    secret:"せかいで いちばん ちいさい なかまの カワウソ。てさきが きようで、ちいさな いしも じょうずに つかめるんだ。",
    watch:"おててを つかって あそぶ すがたに ちゅうもく！ なかまと おいかけっこも するよ。"},
   {id:"pelican", name:"モモイロペリカン", svg:"pelican", rarity:1,
    desc:"おおきな くちばしの ふくろで、おさかなを すくって たべるよ。つばさを ひろげると とっても おおきいんだ。",
-   place:"そとの マリンガーデンに いるよ",
+   place:"そとの マリンガーデン「てんくうパス」",
    size:"つばさを ひろげると きょうしつの ドアより おおきい！",
    secret:"くちばしの したの ふくろで、おみずごと おさかなを バケツみたいに すくうんだよ。",
    watch:"おおきな くちばしを パカッと あけたら チャンス！ よ〜く みてみてね。"},
-  {id:"azarashi", name:"バイカルアザラシ", svg:"azarashi", rarity:1,
-   desc:"まんまるボディに おおきな おめめ。みずうみで くらす アザラシだよ。",
-   place:"2かいの「みずべのたび」エリア",
-   size:"しょうがくせいの みんなと おなじくらい",
-   secret:"うみじゃなくて『みずうみ』に すむ、せかいで ただひとつの アザラシなんだよ。",
-   watch:"まんまるボディで クルクル まわりながら およぐよ。おおきな おめめと めが あうかも！"},
   {id:"kurage", name:"ミズクラゲ", svg:"kurage", rarity:1,
    desc:"ふわふわ〜っと みずに ただよって いるよ。みていると こころが おちつくね。",
    place:"1かいの「くらげくうかん」",
    size:"おとなの てのひらより すこし おおきいくらい",
    secret:"からだの ほとんどが おみず！ しんぞうも ほねも ないのに いきているよ。ふしぎだね。",
    watch:"かさの なかの まるい もようは いくつ あるかな？ かぞえてみてね（こたえは 4つ！）。"},
-  {id:"chinanago", name:"チンアナゴ", svg:"chinanago", rarity:1,
-   desc:"すなの なかから ひょっこり かおを だすよ。なんびき みつけられるかな？",
-   place:"1かいの すなの すいそう",
-   size:"30センチものさし 1ぽんぶん",
-   secret:"からだの はんぶんは いつも すなの なか。びっくりすると シュッと かくれちゃうよ。",
-   watch:"すなから なんびき かおを だしているか かぞえてみてね。おとなりさんと けんかも するよ。"},
-  {id:"nishiki", name:"ニシキアナゴ", svg:"nishiki", rarity:1,
-   desc:"オレンジの しましまが おしゃれだね。チンアナゴと おなじ すいそうに いるよ。どっちが どっちか わかるかな？",
-   place:"1かいの すなの すいそう（チンアナゴの おとなり）",
-   size:"30センチものさしより すこし ながい",
-   secret:"チンアナゴは みずたまもよう、ニシキアナゴは しましま。もようで みわけられるんだ。",
-   watch:"しましまさんと みずたまさん、どっちが おおいかな？ みくらべてみてね。"},
-  {id:"kumanomi", name:"カクレクマノミ", svg:"kumanomi", rarity:1,
-   desc:"オレンジと しろの しましまが かわいいね。イソギンチャクと なかよしだよ。",
-   place:"2かいの「みずべのたび」エリア",
-   size:"せんせいの ゆび 1ぽんぶん",
-   secret:"イソギンチャクには どくが あるけれど、クマノミだけは へいき。とくべつな からだなんだ。",
-   watch:"イソギンチャクの なかで かくれんぼ しているよ。ひょっこり でてくるのを まってみてね。"},
   {id:"same", name:"トラフザメ", svg:"same", rarity:1,
    desc:"おっとり やさしい サメだよ。ながい しっぽが かっこいい！",
    place:"1かいの おおきな すいそう「サンシャインラグーン」",
@@ -3147,25 +3505,55 @@ const CREATURES = [
    size:"かさを ひろげたくらいの おおきさ",
    secret:"おくちは おなかがわに あるんだよ。おなかの『かお』みたいに みえるのは、じつは はなと おくちなんだ。",
    watch:"ガラスの ちかくに きたら おなかがわを チェック！ にっこり わらって みえるよ。"},
-  {id:"utsubo", name:"ウツボ", svg:"utsubo", rarity:1,
-   desc:"いわの すきまが だいすき。おくちは おおきいけれど、ほんとうは はずかしがりやさんなんだ。",
-   place:"1かいの おおきな すいそう「サンシャインラグーン」",
-   size:"せんせいの うでを 2ほん つなげたくらい",
-   secret:"おくちを パクパク あけているのは、おこっているんじゃなくて『いき』を しているんだよ。",
-   watch:"いわの すきまから かおを だしているよ。ダイバーさんと なかよしな ところも みられるかも！"},
-  {id:"gusoku", name:"ダイオウグソクムシ", svg:"gusoku", rarity:1,
-   desc:"ふかい ふかい うみの アイドル！ ダンゴムシの おおきな なかまだよ。",
-   place:"たてものの なかの「しんかい」コーナー",
+  {id:"iwashi", name:"マイワシ", svg:"iwashi", rarity:1,
+   desc:"なんぜんびきも あつまって、ぎんいろの おおきな むれで およぐよ。",
+   place:"1かいの「せいめいの やくどう」",
+   size:"1ぴきは 30センチものさしより すこし みじかいくらい",
+   secret:"みんなで おなじ むきに およぐと、おおきな いきものに みえて、てきから みを まもれるんだよ。",
+   watch:"むれが くるっと まわる ところを みてみてね。キラキラ ひかるよ！"},
+  {id:"kumanomi", name:"カクレクマノミ", svg:"kumanomi", rarity:1,
+   desc:"オレンジと しろの しましまが かわいいね。イソギンチャクと なかよしだよ。",
+   place:"2かいの「クマノミと イソギンチャクの うみ」",
+   size:"せんせいの ゆび 1ぽんぶん",
+   secret:"イソギンチャクには どくが あるけれど、クマノミだけは へいき。とくべつな からだなんだ。",
+   watch:"イソギンチャクの なかで かくれんぼ しているよ。ひょっこり でてくるのを まってみてね。"},
+  {id:"chinanago", name:"チンアナゴ", svg:"chinanago", rarity:1,
+   desc:"すなの なかから ひょっこり かおを だすよ。なんびき みつけられるかな？",
+   place:"1かいの「サンゴしょうの うみ」の すなの ところ",
    size:"30センチものさし 1ぽんぶん",
-   secret:"ダンゴムシの おおきな なかま。なんねんも ごはんを たべなくても へいきなことが あるんだって！",
-   watch:"じっとしていても ちゃんと いきているよ。うごいているところが みられたら とっても ラッキー！"}
+   secret:"からだの はんぶんは いつも すなの なか。びっくりすると シュッと かくれちゃうよ。",
+   watch:"すなから なんびき かおを だしているか かぞえてみてね。おとなりさんと けんかも するよ。"},
+  {id:"azarashi", name:"バイカルアザラシ", svg:"azarashi", rarity:1,
+   desc:"まんまるボディに おおきな おめめ。みずうみで くらす アザラシだよ。",
+   place:"2かいの「みずうみに すむ アザラシ」",
+   size:"しょうがくせいの みんなと おなじくらい",
+   secret:"うみじゃなくて『みずうみ』に すむ、せかいで ただひとつの アザラシなんだよ。",
+   watch:"まんまるボディで クルクル まわりながら およぐよ。おおきな おめめと めが あうかも！"},
+  {id:"kame", name:"ビルマホシガメ", svg:"kame", rarity:1,
+   desc:"こうらに ほしみたいな もようが ある、りくに すむ カメだよ。",
+   place:"2かいの「うろこを まとった いきもの 〜はちゅうるいの せかい〜」",
+   size:"30センチものさし 1ぽんぶんくらい",
+   secret:"りくに すむ カメなので、およがないよ。あしは ゾウさんみたいに ずっしり ふといんだ。",
+   watch:"こうらの ほしもようを さがしてね。ゆっくり あるく すがたも みられるかも。"},
+  {id:"iguana", name:"イグアナ", svg:"iguana", rarity:1,
+   desc:"せなかに トゲトゲが ならぶ、きょうりゅうみたいな トカゲの なかまだよ。",
+   place:"2かいの「うろこを まとった いきもの 〜はちゅうるいの せかい〜」",
+   size:"しっぽまで いれると、しょうがくせいの みんなと おなじくらい",
+   secret:"くびの したの ひらひらを ひろげたり、あたまを こくこく ふったりして、なかまに あいさつするよ。",
+   watch:"あたまを こくこく ふる『あいさつ』が みられるかも！ しっぽの しましまも みてね。"},
+  {id:"kaeru", name:"ヤドクガエル", svg:"kaeru", rarity:1,
+   desc:"あおい からだに くろい もよう。ちいさくて とっても きれいな カエルだよ。",
+   place:"2かいの「みずから りくへ 〜りょうせいるいの せかい〜」",
+   size:"おとなの ゆびの さきくらい（とっても ちいさい！）",
+   secret:"はでな いろは『たべたら あぶないよ』の あいず。だから てきに たべられにくいんだ。",
+   watch:"はっぱや いしの うえを よく みてね。ちいさいけど、いろが めだつよ！"}
 ];
 
 /* 生きものごとの とうじょうアニメと すみかの色 */
-const ANIM = {penguin:"jump", kawauso:"wiggle", pelican:"flap", azarashi:"bounce",
+const ANIM = {ashika:"bounce", iwashi:"swim", kame:"crawl", iguana:"crawl", kaeru:"jump", penguin:"jump", kawauso:"wiggle", pelican:"flap", azarashi:"bounce",
   kurage:"float", chinanago:"nyoki", nishiki:"nyoki", utsubo:"nyoki",
   kumanomi:"swim", same:"glide", ei:"flutter", gusoku:"crawl"};
-const HABITAT = {penguin:"sky", pelican:"sky", kawauso:"garden", azarashi:"ice",
+const HABITAT = {ashika:"sky", iwashi:"lagoon", kame:"garden", iguana:"garden", kaeru:"garden", penguin:"sky", pelican:"sky", kawauso:"garden", azarashi:"ice",
   kurage:"jelly", chinanago:"sand", nishiki:"sand", kumanomi:"lagoon",
   same:"lagoon", ei:"lagoon", utsubo:"lagoon", gusoku:"deep"};
 
@@ -3211,6 +3599,11 @@ function slide(f1, f2, dur, type="sine", vol=0.14, when=0){
 }
 /* D. 生きもの ごとの しるしの おと */
 const SIG = {
+  ashika(){ slide(320,170,.16,"sawtooth",.08); slide(320,170,.16,"sawtooth",.08,.24); },                     // オウッ オウッ
+  iwashi(){ [1400,1700,2000,2300].forEach((f,i)=>tone(f,.07,"triangle",.07,i*.07)); noise(.3,.04,0,3000,.8); }, // キラキラ
+  kame(){ tone(160,.18,"sine",.16); tone(140,.18,"sine",.16,.32); },                                         // のそ のそ
+  iguana(){ [0,.18,.36].forEach(w=>tone(220,.07,"square",.07,w)); },                                         // こくこく
+  kaeru(){ [0,.18].forEach(w=>{ slide(500,900,.08,"square",.06,w); slide(900,500,.06,"square",.05,w+.08); }); }, // ケロケロ
   penguin(){ tone(330,.08,"square",.1); tone(330,.08,"square",.1,.2); tone(392,.1,"square",.1,.4); },          // ペタペタ
   kawauso(){ slide(1100,1500,.09,"sine",.13); slide(1100,1600,.09,"sine",.13,.16); },                         // キュッキュッ
   pelican(){ tone(240,.1,"square",.12); tone(170,.14,"square",.12,.12); },                                     // パクッ
@@ -3258,6 +3651,28 @@ function noise(dur, vol=0.15, when=0, freq=1200, q=1){
 }
 /* 生きもの ごとの うごきと おとの だいほん（t = ながさ ミリびょう） */
 const PERF = {
+  ashika:{ t:2600, snd(){
+    [0.25,0.78].forEach(w=>{ slide(330,170,.17,"sawtooth",.09,w); noise(.1,.05,w,700,1); });           // オウッ オウッ
+    [1.5,1.72,1.94,2.16].forEach(w=>noise(.05,.13,w,2600,1.5));                                         // パチパチ
+  }},
+  iwashi:{ t:2600, snd(){
+    noise(.9,.06,0,1600,.7);                                                                             // ザーッ
+    [1400,1700,2000,2300,2600].forEach((f,i)=>tone(f,.08,"triangle",.06,1.0+i*.12));                    // キラキラ
+  }},
+  kame:{ t:3000, snd(){
+    slide(500,240,.16,"sine",.1,.1);                                                                     // スッ（かくれる）
+    slide(380,900,.12,"sine",.12,1.9);                                                                   // ぴょこっ
+    [2.3,2.62].forEach(w=>tone(150,.12,"sine",.13,w));                                                   // のそ のそ
+  }},
+  iguana:{ t:2800, snd(){
+    [0.28,0.56,0.84,1.12,1.4,1.68].forEach(w=>tone(210,.07,"square",.06,w));                            // こくこく
+    noise(.4,.05,2.0,5000,1);                                                                            // シャー
+  }},
+  kaeru:{ t:2400, snd(){
+    slide(300,900,.25,"sine",.12,.3);                                                                    // ぴょーん
+    tone(180,.09,"sine",.13,.85);                                                                        // ぺたっ
+    [1.6,1.85].forEach(w=>{ slide(500,900,.08,"square",.06,w); slide(900,500,.06,"square",.05,w+.08); });  // ケロケロ
+  }},
   penguin:{ t:2400, snd(){
     [0.15,0.45,0.75,1.05].forEach(w=>{ tone(330,.07,"square",.1,w); noise(.05,.05,w,900,2); });   // ペタペタ
     slide(560,420,.2,"sawtooth",.07,1.39); slide(560,400,.24,"sawtooth",.07,1.63);                    // アー！アー！
@@ -3340,7 +3755,7 @@ function performAct(container, id, silent){
   return true;
 }
 /* ① その子らしい 出かた（ガチャ・せつめい） */
-const ENT_T = {penguin:1100, kawauso:1200, pelican:1300, azarashi:1100, kurage:1800, chinanago:150, nishiki:150, utsubo:150, kumanomi:1100, same:1700, ei:1500, gusoku:2000};
+const ENT_T = {ashika:1100, iwashi:1700, kame:2000, iguana:2000, kaeru:1100, penguin:1100, kawauso:1200, pelican:1300, azarashi:1100, kurage:1800, chinanago:150, nishiki:150, utsubo:150, kumanomi:1100, same:1700, ei:1500, gusoku:2000};
 const ENT_NOSIG = {chinanago:1, nishiki:1, utsubo:1};   // すなから でる子は うごきの おとで
 function enterArt(el, c, baseClass, opts){
   opts = opts || {};
@@ -3686,6 +4101,11 @@ function kwHTML(s){
 
 /* ぶんしょうクイズの ヒント文（こたえの なまえは 入れない） */
 const QHINT = {
+  ashika:"おそとの 《わっかの すいそう》で、あたまの うえを およぐよ。《ちいさな みみ》が あるよ。",
+  iwashi:"なんぜんびきも 《むれ》で およぐ、《ぎんいろ》の さかなだよ。",
+  kame:"こうらに 《ほしもよう》が ある、《りく》に すむ カメだよ。",
+  iguana:"せなかが 《トゲトゲ》の、《きょうりゅう》みたいな トカゲの なかまだよ。",
+  kaeru:"《あおい》からだに 《くろい もよう》の、ちいさな カエルだよ。",
   penguin:"とべない とりだよ。《みずのなか》を とぶように およぐよ。",
   kawauso:"《てさき》が とっても きような、ちいさな どうぶつだよ。",
   pelican:"おおきな 《くちばしの ふくろ》で、おさかなを すくうよ。",
@@ -3702,6 +4122,16 @@ const QHINT = {
 
 /* まるばつクイズの もんだい（e:true は かんたんモードでも でる） */
 const OXQ = [
+  {id:"ashika", t:"アシカには ちいさな 《みみ》が ある", a:true, e:true, why:"ちいさな みみが あるよ。アザラシには みえる みみが ないんだ"},
+  {id:"ashika", t:"アシカは 《あたまの うえ》の すいそうで およぐ", a:true, e:false, why:"ドーナツみたいな わっかの すいそうで、あたまの うえを およぐよ"},
+  {id:"iwashi", t:"イワシは 《ひとりぼっち》で およぐ", a:false, e:true, why:"たくさんの なかまと むれで およぐよ"},
+  {id:"iwashi", t:"イワシの むれは 《キラキラ》 ひかる", a:true, e:false, why:"ぎんいろの からだが ひかりを はねかえすんだ"},
+  {id:"kame", t:"ホシガメの こうらには 《ほし》みたいな もようが ある", a:true, e:true, why:"きいろい ほしみたいな もようが ならんでいるよ"},
+  {id:"kame", t:"ホシガメは うみを すいすい 《およぐ》", a:false, e:false, why:"りくに すむ カメだから、およがないよ"},
+  {id:"iguana", t:"イグアナの せなかには 《トゲトゲ》が ある", a:true, e:true, why:"きょうりゅうみたいな トゲトゲが ならんでいるよ"},
+  {id:"iguana", t:"イグアナは 《さかな》の なかまだ", a:false, e:false, why:"トカゲの なかま（はちゅうるい）だよ"},
+  {id:"kaeru", t:"ヤドクガエルは とっても 《おおきい》", a:false, e:true, why:"おとなの ゆびさきくらいの ちいさな カエルだよ"},
+  {id:"kaeru", t:"ヤドクガエルの はでな いろは 《あぶないよ》の あいず", a:true, e:false, why:"『たべたら あぶないよ』と てきに しらせているんだ"},
   {id:"penguin", t:"ケープペンギンは 《とり》の なかまだ", a:true, e:true, why:"とりだけど、そらじゃなくて みずのなかを とぶように およぐんだよ"},
   {id:"penguin", t:"ケープペンギンは 《そら》を とべる", a:false, e:true, why:"とべないよ。そのかわり みずのなかを ビュンと とぶんだ"},
   {id:"kawauso", t:"コツメカワウソは 《てさき》が きようだ", a:true, e:true, why:"ちいさな いしも じょうずに つかめるよ"},
@@ -3730,13 +4160,15 @@ const OXQ = [
 
 /* にている子（⭐⭐⭐で まぜる／⭐では ださない） */
 const SIMILAR = {
-  chinanago:["nishiki","utsubo"], nishiki:["chinanago","kumanomi"],
-  same:["ei","utsubo"], ei:["same","gusoku"], utsubo:["chinanago","same"],
-  penguin:["pelican","azarashi"], pelican:["penguin","kawauso"],
-  azarashi:["kawauso","penguin"], kawauso:["azarashi","pelican"],
-  kumanomi:["nishiki","same"], kurage:["ei","gusoku"], gusoku:["kurage","utsubo"]
+  penguin:["pelican","ashika"], pelican:["penguin","kawauso"], ashika:["azarashi","penguin"],
+  kawauso:["ashika","azarashi"], azarashi:["ashika","kawauso"],
+  kurage:["ei","iwashi"], same:["ei","iwashi"], ei:["same","kurage"], iwashi:["same","kumanomi"],
+  kumanomi:["iwashi","chinanago"], chinanago:["iwashi","kumanomi"],
+  kame:["iguana","kaeru"], iguana:["kame","kaeru"], kaeru:["iguana","kame"]
 };
 
+/* いまの 14ひきに いない 子の もんだいは つかわない */
+for(let q = OXQ.length - 1; q >= 0; q--){ if(!CREATURES.some(c=>c.id === OXQ[q].id)) OXQ.splice(q, 1); }
 function shuffle(a){
   for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
   return a;
@@ -3972,6 +4404,11 @@ const SPEED_PX = {1:0.5, 2:1.0, 3:1.7};
 const FISH_SIZE = {1:0.75, 2:1, 3:1.35};
 /* すむ場所（zone）・進み方（style）・絵の向き（orient） ／ face: 絵が もともと むいている むき（1=みぎ -1=ひだり） */
 const SWIM_PROF = {
+  ashika:   {zone:"mid",   spd:1.3,  style:"playful", orient:"side", face:1},
+  iwashi:   {zone:"mid",   spd:1.2,  style:"cruise",  orient:"side", face:1},
+  kame:     {zone:"floor", spd:0.3,  style:"walk",    orient:"side", face:1},
+  iguana:   {zone:"floor", spd:0.35, style:"walk",    orient:"side", face:1},
+  kaeru:    {zone:"floor", spd:0.25, style:"walk",    orient:"none"},
   penguin:  {zone:"mid",   spd:1.5,  style:"cruise",  orient:"front"},
   kawauso:  {zone:"mid",   spd:1.1,  style:"playful", orient:"front"},
   pelican:  {zone:"top",   spd:0.45, style:"float",   orient:"side", face:1},
@@ -4188,7 +4625,7 @@ function buildScene(){
 }
 function tankSize(){ return { w: swimTank.clientWidth, h: swimTank.clientHeight }; }
 
-const SIZE_MUL = {same:1.35, pelican:1.35, azarashi:1.3, ei:1.3, utsubo:1.1, kawauso:1.05, penguin:1.05, gusoku:0.9, chinanago:0.9, nishiki:0.9, kurage:0.75, kumanomi:0.7};
+const SIZE_MUL = {ashika:1.3, iwashi:1.1, kame:0.95, iguana:1.3, kaeru:0.6, same:1.35, pelican:1.35, azarashi:1.3, ei:1.3, utsubo:1.1, kawauso:1.05, penguin:1.05, gusoku:0.9, chinanago:0.9, nishiki:0.9, kurage:0.75, kumanomi:0.7};
 function baseFishPx(){
   const { h } = tankSize();
   const base = Math.max(80, Math.min(160, h * 0.19));
@@ -4613,6 +5050,9 @@ let missionFeel = {};     // きもちスタンプ（id → fun/wow/love）
 const FEEL = { fun:"😊", wow:"😲", love:"❤️" };
 
 const SPOT = {
+  ashika:{x:64,y:24,r:9,t:"ちいさな みみ"}, iwashi:{x:60,y:58,r:28,t:"ぎんいろの むれ"},
+  kame:{x:60,y:54,r:20,t:"こうらの ほしもよう"}, iguana:{x:56,y:67,r:16,t:"トゲトゲの せなか"},
+  kaeru:{x:60,y:76,r:22,t:"あおい からだ"},
   penguin:{x:60,y:80,r:20,t:"むねの てんてん"}, kawauso:{x:60,y:76,r:15,t:"じょうずな おてて"},
   pelican:{x:97,y:37,r:17,t:"くちばしの ふくろ"}, azarashi:{x:60,y:54,r:24,t:"おおきな おめめ"},
   kurage:{x:60,y:38,r:17,t:"まるい もよう 4つ"}, chinanago:{x:48,y:62,r:16,t:"みずたま もよう"},
@@ -4830,6 +5270,11 @@ function openDetail(id){
 
 /* ② きみと おおきさくらべ（ほんとうの おおきさ cm。 m:"h"=たかさ "w"=ながさ ／ vb=絵の はんい） */
 const REAL = {
+  ashika:{cm:120, m:"h", vb:[6,12,98,96]},
+  iwashi:{cm:20, m:"w", vb:[36,36,46,16]},
+  kame:{cm:30, m:"w", vb:[6,28,114,78]},
+  iguana:{cm:150, m:"w", vb:[4,50,112,56]},
+  kaeru:{cm:4, m:"w", vb:[6,38,108,70]},
   penguin:{cm:65, m:"h", vb:[25,12,70,103]},
   kawauso:{cm:80, m:"w", vb:[25,15,90,100]},
   pelican:{cm:140,m:"h", vb:[8,14,110,101]},
@@ -4885,7 +5330,7 @@ $("detailBtn").addEventListener("click", ()=>{ if(shownC){ sfx.click(); openDeta
 /* ===================== がめんぜんぶボタン ===================== */
 document.addEventListener("click", (e)=>{
   if(!settings.fullTap) return;
-  if(e.target.closest("button, header, .zukan, .settings, .quiz, .mission, .detail, .home, .reveal, .cert, .swim, .help, .flow, .qpanel")) return;
+  if(e.target.closest("button, header, .zukan, .settings, .quiz, .mission, .detail, .home, .reveal, .cert, .swim, .help, .flow, .qpanel, .mapov")) return;
   if(document.getElementById("flow").classList.contains("show")) return;
   if(helpEl.classList.contains("show")) return;
   if(zukan.classList.contains("show") || settingsEl.classList.contains("show") ||
@@ -5231,7 +5676,7 @@ function farFish(host, n){
   });
   const put = (cls, id, sw)=> '<div class="hs-a ' + cls + '">' + (SVG[id]||"").replace('class="cr"', 'class="cr' + (sw ? ' sw' : '') + '"') + '</div>';
   html += put("hs-kurage","kurage",1) + put("hs-penguin","penguin",1) + put("hs-ei","ei",0) + put("hs-same","same",0)
-        + put("hs-chin","chinanago",0) + put("hs-nishi","nishiki",0) + put("hs-guso","gusoku",0) + put("hs-kuma","kumanomi",0);
+        + put("hs-chin","chinanago",0) + put("hs-nishi","kaeru",0) + put("hs-guso","kame",0) + put("hs-kuma","kumanomi",0);
   hs.insertAdjacentHTML("beforeend", html);
 })();
 
@@ -5247,9 +5692,114 @@ function farFish(host, n){
     if(n) farFish(sc, n);
   });
 })();
+
+/* ===================== たんけんマップ（こうしき パンフレットの いちかんけいを もとに かんたんに かいた もの） ===================== */
+const MAP_SPOTS = {
+  penguin:{a:"roof", x:92,  y:430}, kawauso:{a:"roof", x:250, y:400}, pelican:{a:"roof", x:190, y:530}, ashika:{a:"roof", x:398, y:436},
+  chinanago:{a:"f1", x:906, y:360}, iwashi:{a:"f1", x:912, y:480}, same:{a:"f1", x:740, y:430}, ei:{a:"f1", x:810, y:520}, kurage:{a:"f1", x:620, y:560},
+  kaeru:{a:"f2", x:692, y:100}, kumanomi:{a:"f2", x:900, y:100}, kame:{a:"f2", x:700, y:190}, iguana:{a:"f2", x:800, y:190}, azarashi:{a:"f2", x:910, y:190}
+};
+const MAP_AREA = {
+  roof:{x:24,  y:282, w:456, h:348, fill:"#FFE8C2", st:"#F29B38", name:"おそと", sub:"マリンガーデン", lx:98, ly:324},
+  f1:  {x:520, y:282, w:456, h:348, fill:"#D6ECFA", st:"#3A93D6", name:"1かい", sub:"たてものの なか", lx:594, ly:324},
+  f2:  {x:520, y:14,  w:456, h:236, fill:"#D9F2E2", st:"#38A865", name:"2かい", sub:"うえの かい", lx:594, ly:56}
+};
+function mapIcon(kind, x, y){
+  const bg = '<circle cx="' + x + '" cy="' + y + '" r="19" fill="#fff" stroke="#1B4965" stroke-width="3"/>';
+  const t = (tx)=>'<text x="' + x + '" y="' + (y+7) + '" text-anchor="middle" font-size="20">' + tx + '</text>';
+  return bg + t(kind);
+}
+function buildMapSVG(group, hi, opts){
+  opts = opts || {};
+  const g = group === "blue" ? "blue" : "red";
+  const col = g === "red" ? "#E0473D" : "#2F7FD6";
+  const order = ROUTE[g];
+  let o = '<svg class="tmap" viewBox="0 0 1000 672" xmlns="http://www.w3.org/2000/svg" font-family="\'Zen Maru Gothic\',\'Hiragino Maru Gothic ProN\',sans-serif">';
+  o += '<defs><marker id="arrM' + g + '" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="' + col + '"/></marker></defs>';
+  // エリア
+  for(const k of ["roof","f1","f2"]){
+    const A = MAP_AREA[k], on = hi === k;
+    o += '<g class="map-area" data-area="' + k + '">'
+      + '<rect x="' + A.x + '" y="' + A.y + '" width="' + A.w + '" height="' + A.h + '" rx="26" fill="' + A.fill + '" stroke="' + (on ? "#FFC933" : A.st) + '" stroke-width="' + (on ? 12 : 5) + '"/>'
+      + '<text x="' + A.lx + '" y="' + A.ly + '" font-size="34" font-weight="900" fill="' + A.st + '">' + A.name + '</text>'
+      + '<text x="' + (A.lx + (A.name.length*34) + 10) + '" y="' + (A.ly - 2) + '" font-size="17" font-weight="900" fill="#1B4965" opacity=".75">' + A.sub + '</text>';
+    const ord = order.indexOf(k) + 1;
+    o += '<circle cx="' + (A.x + 44) + '" cy="' + (A.y + 38) + '" r="25" fill="' + col + '" stroke="#fff" stroke-width="4"/>'
+      + '<text x="' + (A.x + 44) + '" y="' + (A.y + 48) + '" text-anchor="middle" font-size="30" font-weight="900" fill="#fff">' + ord + '</text>';
+    if(on) o += '<text x="' + (A.x + A.w - 70) + '" y="' + (A.y + A.h - 16) + '" text-anchor="end" font-size="22" font-weight="900" fill="#E0473D">★ いま ここ</text>';
+    o += '</g>';
+  }
+  // おそとの けしき（くさ・みず）
+  o += '<path d="M40 600 C120 580 200 612 280 592 C340 576 400 600 464 588" stroke="#9BD17F" stroke-width="10" fill="none" stroke-linecap="round" opacity=".7"/>';
+  o += '<ellipse cx="620" cy="470" rx="0" ry="0"/>';
+  // いどう（1かい⇔2かい エレベーター、2かい→おそと かいだん）
+  o += '<g><rect x="548" y="253" width="56" height="26" rx="8" fill="#fff" stroke="#1B4965" stroke-width="2.5"/><text x="576" y="272" text-anchor="middle" font-size="15" font-weight="900" fill="#1B4965">♿ EV</text></g>';
+  o += '<path d="M520 200 C492 214 476 248 470 282" stroke="#8AA4B6" stroke-width="5" stroke-dasharray="3 8" stroke-linecap="round" fill="none"/>';
+  o += '<text x="330" y="270" font-size="14" font-weight="900" fill="#5A7A8E">かいだん（2かい→おそと）</text>';
+  // いりぐち・でぐち・トイレ・ガチャ
+  o += '<g><rect x="452" y="624" width="96" height="40" rx="12" fill="#1B4965"/><text x="500" y="651" text-anchor="middle" font-size="21" font-weight="900" fill="#fff">いりぐち</text></g>';
+  o += '<g><rect x="100" y="624" width="96" height="40" rx="12" fill="#E0473D"/><text x="148" y="651" text-anchor="middle" font-size="21" font-weight="900" fill="#fff">でぐち</text></g>';
+  o += '<text x="204" y="652" font-size="15" font-weight="900" fill="#1B4965">🛗 エレベーターで したへ</text>';
+  o += mapIcon("🚻", 60, 570) + mapIcon("🚻", 596, 200);
+  o += '<g>' + mapIcon("🎁", 590, 110) + '<text x="590" y="150" text-anchor="middle" font-size="15" font-weight="900" fill="#B8461F">ガチャ</text></g>';
+  // じゅんばんの や（エリアの あいだに）
+  const ARW = { "roof>f1":[462,456,540,456], "f1>roof":[540,500,462,500], "f1>f2":[690,296,690,236], "f2>f1":[730,236,730,296], "f2>roof":[512,196,468,276], "roof>f2":[468,276,512,196] };
+  const legs = order.map((k,i)=>i < order.length-1 ? k + ">" + order[i+1] : null).filter(Boolean);
+  if(order[order.length-1] === "f2") legs.push("f2>roof");
+  legs.forEach(k=>{ const a = ARW[k]; if(!a) return;
+    o += '<line x1="' + a[0] + '" y1="' + a[1] + '" x2="' + a[2] + '" y2="' + a[3] + '" stroke="#fff" stroke-width="20" stroke-linecap="round"/>'
+      + '<line x1="' + a[0] + '" y1="' + a[1] + '" x2="' + a[2] + '" y2="' + a[3] + '" stroke="' + col + '" stroke-width="11" stroke-linecap="round" marker-end="url(#arrM' + g + ')"/>'; });
+  // いきもの
+  for(const id in MAP_SPOTS){
+    const P = MAP_SPOTS[id], c = CREATURES.find(x=>x.id===id); if(!c) continue;
+    const sm = P.a === "f2", sz = sm ? 58 : 74, rr = sm ? 32 : 40, ly = sm ? 20 : 28, art = (SVG[c.svg]||"").replace('<svg ', '<svg x="' + (P.x - sz/2) + '" y="' + (P.y - sz/2 - 8) + '" width="' + sz + '" height="' + sz + '" ');
+    const NM = {penguin:"ペンギン", ashika:"アシカ", kawauso:"カワウソ", pelican:"ペリカン", kurage:"クラゲ", same:"サメ", ei:"エイ", iwashi:"イワシ", kumanomi:"クマノミ", chinanago:"チンアナゴ", azarashi:"アザラシ", kame:"カメ", iguana:"イグアナ", kaeru:"カエル"};
+    const nm = NM[id] || c.name;
+    o += '<g class="map-cr" data-id="' + id + '"><circle cx="' + P.x + '" cy="' + (P.y - 8) + '" r="' + rr + '" fill="#fff" opacity=".85"/>' + art
+      + '<rect x="' + (P.x - 42) + '" y="' + (P.y + ly) + '" width="84" height="24" rx="12" fill="#fff" stroke="#1B4965" stroke-width="2"/>'
+      + '<text x="' + P.x + '" y="' + (P.y + ly + 18) + '" text-anchor="middle" font-size="16" font-weight="900" fill="#1B4965">' + escapeHTML(nm) + '</text></g>';
+  }
+  // グループ
+  o += '<g><rect x="24" y="22" width="300" height="56" rx="18" fill="' + col + '"/><text x="174" y="60" text-anchor="middle" font-size="28" font-weight="900" fill="#fff">' + (g === "red" ? "あかグループ" : "あおグループ") + '</text></g>';
+  o += '<text x="28" y="112" font-size="20" font-weight="900" fill="#1B4965">まわる じゅんばん：</text>';
+  o += '<text x="28" y="144" font-size="24" font-weight="900" fill="' + col + '">' + order.map((k,i)=>(i+1) + ". " + MAP_AREA[k].name).join(" → ") + ' → でぐち</text>';
+  o += '<text x="28" y="182" font-size="14" font-weight="700" fill="#5A7A8E">※ こうしき パンフレットの いちを もとに かいた かんたんな ちずです</text>';
+  o += '<text x="28" y="208" font-size="14" font-weight="700" fill="#5A7A8E">♿ くるまいすは 2かい⇔1かいを EV（エレベーター）で。</text>';
+  o += '<text x="28" y="228" font-size="14" font-weight="700" fill="#5A7A8E">　 おそとへは いりぐちの ほうから はいります。</text>';
+  o += '</svg>';
+  return o;
+}
+function renderMap(){
+  const g = settings.flowGroup === "blue" ? "blue" : "red";
+  const steps = flowSteps(), now = steps[curFlowIdx()];
+  const hi = now && now.kind === "floor" ? now.key : null;
+  $("mapBox").innerHTML = buildMapSVG(g, hi);
+  document.querySelectorAll("#mapGrp .grp-btn").forEach(b=>b.classList.toggle("on", b.dataset.g === g));
+}
+function openMap(){ sfx.click(); renderMap(); $("mapOv").classList.add("show"); speakText("たんけんマップ"); }
+$("goMap").addEventListener("click", openMap);
+$("flowMap").addEventListener("click", openMap);
+$("closeMap").addEventListener("click", ()=>{ sfx.click(); $("mapOv").classList.remove("show"); });
+$("mapGrp").addEventListener("click", (e)=>{
+  const b = e.target.closest(".grp-btn"); if(!b) return;
+  sfx.click(); settings.flowGroup = b.dataset.g; saveState(); renderMap();
+  if($("flow").classList.contains("show")) renderFlow();
+  speakText(b.dataset.g === "red" ? "あか グループ" : "あお グループ");
+});
+$("mapBox").addEventListener("click", (e)=>{
+  const cr = e.target.closest(".map-cr");
+  if(cr){
+    const c = CREATURES.find(x=>x.id===cr.dataset.id); if(!c) return;
+    sfx.click(); speakName(c);
+    const sv = cr.querySelector("svg"); if(sv && PERF[c.id]){ performAct(cr, c.id, true); }
+    return;
+  }
+  const ar = e.target.closest(".map-area");
+  if(ar){ const A = MAP_AREA[ar.dataset.area]; sfx.click(); speakText(A.name); }
+});
 /* おもさ たいさく：うしろに かくれた 背景の アニメを とめる */
 setInterval(()=>{
-  const cover = document.querySelector("#home.show, .flow.show, .zukan.show, .quiz.show, .mission.show, .swim.show, .detail.show, .reveal.show");
+  const cover = document.querySelector("#home.show, .flow.show, .mapov.show, .zukan.show, .quiz.show, .mission.show, .swim.show, .detail.show, .reveal.show");
   document.body.classList.toggle("covered", !!cover);
   document.body.classList.toggle("detail-open", !!document.querySelector(".detail.show"));
 }, 400);
@@ -5331,9 +5881,9 @@ $("todayBtn").addEventListener("click", openDay);
 /* ===================== きょうの ながれ ===================== */
 let flowIdx = { d:0, s:0 };
 const FLOORS = {
-  roof:{ ico:"🌤️", l:"おそと", sub:"マリンガーデン", arts:["penguin","kawauso","pelican"], say:"おそとの マリンガーデン。ペンギン、カワウソ、ペリカンが いるよ" },
-  f1:  { ico:"🐠", l:"1かい", sub:"おおきな すいそう・くらげ", arts:["same","kurage","chinanago"], say:"1かい。サメや クラゲ、チンアナゴが いるよ" },
-  f2:  { ico:"🦭", l:"2かい", sub:"みずべの たび", arts:["azarashi","utsubo"], say:"2かい。アザラシや ウツボが いるよ" }
+  roof:{ ico:"🌤️", l:"おそと", sub:"マリンガーデン", arts:["penguin","ashika","kawauso"], say:"おそとの マリンガーデン。ペンギン、アシカ、カワウソ、ペリカンが いるよ" },
+  f1:  { ico:"🐠", l:"1かい", sub:"おおきな すいそう・くらげ", arts:["same","kurage","iwashi"], say:"1かい。サメや エイ、クラゲ、イワシ、チンアナゴが いるよ" },
+  f2:  { ico:"🦭", l:"2かい", sub:"みずべの たび", arts:["azarashi","kumanomi","kaeru"], say:"2かい。アザラシ、クマノミ、カメ、イグアナ、カエルが いるよ" }
 };
 const ROUTE = { red:["roof","f1","f2"], blue:["f1","f2","roof"] };
 /* A. 絵カード風の アイコン */
@@ -5494,7 +6044,18 @@ function renderFlow(){
   $("flowMission").style.display = now && (now.kind === "floor" || now.kind === "aq") ? "" : "none";
   $("flowDone").style.display = idx < steps.length ? "" : "none";
   $("flowUndo").style.visibility = idx > 0 ? "visible" : "hidden";
+  requestAnimationFrame(fitFlowLabels);
 }
+
+/* ながい ことばは、とちゅうで おらずに 文字を ちいさくして おさめる */
+function fitFlowLabels(){
+  document.querySelectorAll("#flowGrid .fl-lab.big, #flowGrid .fl-lab.mid, #flowGrid .fl-opt-l").forEach(el=>{
+    el.style.fontSize = "";
+    let fs = parseFloat(getComputedStyle(el).fontSize), guard = 0;
+    while(el.scrollWidth > el.clientWidth + 1 && fs > 12 && guard++ < 40){ fs -= 1; el.style.fontSize = fs + "px"; }
+  });
+}
+window.addEventListener("resize", ()=>{ if($("flow").classList.contains("show")) fitFlowLabels(); });
 function openFlow(){
   sfx.click();
   $("flowFin").classList.remove("show");
@@ -5582,7 +6143,7 @@ function qpScreens(){
   return [sc];
 }
 const QP_TITLE = { home:"🏠 はじめの がめん", gacha:"🎡 ガチャ", zukan:"📖 ずかん", quiz:"❓ クイズ", mission:"🎒 たんけんカード",
-  swim:"🐟 およぐ おさかな", flow:"📅 きょうの ながれ", cert:"🏆 しょうじょう" };
+  swim:"🐟 およぐ おさかな", flow:"🗓 きょうの ながれ（10/20）", cert:"🏆 しょうじょう" };
 function qpToggle(label, id){ return { type:"sw", label, get:()=>$(id).checked, act:()=>{ const el=$(id); el.checked=!el.checked; el.dispatchEvent(new Event("change")); } }; }
 const QP_ITEMS = {
   home:[ { type:"preset" } ],
@@ -5692,6 +6253,7 @@ function currentScreen(){
   if(certEl.classList.contains("show")) return "cert";
   if(detailEl.classList.contains("show")) return "detail";
   if(missionEl.classList.contains("show") && document.getElementById("flow").classList.contains("show")) return missionDecided ? "missionStamp" : "missionPick";
+  if(document.getElementById("mapOv") && document.getElementById("mapOv").classList.contains("show")) return "map";
   if(document.getElementById("flow").classList.contains("show")) return "flow";
   if(missionEl.classList.contains("show")) return missionDecided ? "missionStamp" : "missionPick";
   if(quizEl.classList.contains("show")) return "quiz";
@@ -5704,7 +6266,12 @@ function currentScreen(){
 function helpContent(s){
   const tapWhere = settings.fullTap ? "がめんの どこか" : "ハンドル";
   switch(s){
-  case "flow": return { t:"📅 きょうの ながれ", steps:[
+  case "map": return { t:"🗺 たんけんマップ", steps:[
+      ["🔴","みぎ上で あか・あおを えらぶと、まわる じゅんばんが かわるよ"],
+      ["👆","いきものに さわると、なまえを よみあげて うごくよ"],
+      ["★","きょうの ながれで いま みている ばしょが、きいろく ひかるよ"]],
+    tip:"こうしきの パンフレットの いちを もとに、かんたんに かいた ちずです" };
+  case "flow": return { t:"きょうの ながれ（10がつ 20にち）", steps:[
       ["👆","カードに さわると、なにを するか よみあげるよ"],
       ["✔","おわったら「✔ おわった！」。「いま ここ」が つぎへ すすむよ"],
       ["🔴","みぎ上で あか・あおの グループを えらぶと、すいぞくかんを まわる じゅんばんが かわるよ"],
