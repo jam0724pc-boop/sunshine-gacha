@@ -2227,6 +2227,11 @@
   .learn.no-time .lc-time{display:none;}
   .ln-cap.hide{visibility:hidden;}
   /* ふせた カード */
+  .ln-tcard{height:84%;aspect-ratio:3/4;background:#fff;border:7px solid #fff;border-radius:26px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:14px;
+    box-shadow:0 12px 26px rgba(0,0,0,.35);animation:lnTIn .6s cubic-bezier(.3,1.5,.5,1) both;}
+  .ln-tcard .pic{width:78%;aspect-ratio:1;}.ln-tcard .pic svg{width:100%;height:100%;}
+  .ln-tcard .lab{font-size:clamp(20px,3.6vh,34px);font-weight:900;text-align:center;line-height:1.2;}
+  @keyframes lnTIn{from{transform:scale(.3) rotate(-8deg);opacity:0}to{transform:none;opacity:1}}
   .ln-cover{position:absolute;inset:0;display:grid;place-items:center;perspective:1200px;background:radial-gradient(circle at 50% 45%,#2F8FCB,#15558C);}
   .ln-card{height:84%;aspect-ratio:3/4;position:relative;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,1.3,.5,1);}
   .ln-card.flip{transform:rotateY(180deg) scale(1.04);}
@@ -2378,26 +2383,26 @@
   .ln-feel button.on{background:#FFD447;transform:scale(1.1);}
   .ln-feel button.on span{animation:lnBob .6s ease-in-out 3;}
   .ln-feel .fq{position:absolute;top:-34px;left:50%;transform:translateX(-50%);color:#1B4965;background:#fff;border-radius:30px;padding:3px 20px;font-weight:900;font-size:clamp(18px,3vh,28px);white-space:nowrap;box-shadow:0 3px 0 rgba(0,0,0,.2);}
-  /* ===================== おもいで（事後学習） ===================== */
-  .omoide{position:fixed;inset:0;z-index:55;display:none;flex-direction:column;align-items:center;gap:12px;padding:12px 16px;overflow:auto;
-    background:linear-gradient(180deg,#FFF3D6,#FFE0B8);}
+  /* ===================== おもいで（事後学習）：すいぞくかん ふう ===================== */
+  .omoide{position:fixed;inset:0;z-index:55;display:none;flex-direction:column;align-items:center;gap:10px;padding:12px 16px 20px;overflow:auto;
+    background:linear-gradient(180deg,#1F7FBF 0%,#0F4C80 60%,#0A3460 100%);}
   .omoide.show{display:flex;}
+  .omo-scene{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+  .omoide > *:not(.omo-scene){position:relative;z-index:1;}
+  .omoide::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(circle at 12% 88%,rgba(255,255,255,.25) 0 5px,transparent 6px),radial-gradient(circle at 15% 80%,rgba(255,255,255,.2) 0 3px,transparent 4px),
+      radial-gradient(circle at 88% 70%,rgba(255,255,255,.22) 0 6px,transparent 7px),radial-gradient(circle at 91% 62%,rgba(255,255,255,.18) 0 3px,transparent 4px);}
   .omo-head{width:100%;display:flex;align-items:center;gap:10px;min-height:58px;}
-  .omo-title{flex:1;text-align:center;margin:0;font-size:clamp(22px,2.8vw,34px);font-weight:900;}
-  .omo-editbtn{font-size:clamp(12px,1.4vw,16px);}
-  .omoide[data-v="edit"] .omo-editbtn,.omoide[data-v="diary"] .omo-editbtn{visibility:hidden;}
-  .omo-top,.omo-edit,.omo-diary{display:none;width:100%;}
-  .omoide[data-v="top"] .omo-top{display:flex;flex:1;align-items:center;justify-content:center;gap:clamp(20px,4vw,60px);}
+  .omo-title{flex:1;text-align:center;margin:0;font-size:clamp(22px,2.8vw,34px);font-weight:900;color:#fff;text-shadow:0 3px 0 rgba(0,0,0,.25);}
+  .omo-tools{display:flex;gap:8px;}
+  .omo-tools .pill-btn{font-size:clamp(12px,1.4vw,16px);}
+  .omoide[data-v="edit"] #omoEdit{display:none;}
+  .omo-edit,.omo-diary{display:none;width:100%;}
   .omoide[data-v="edit"] .omo-edit{display:block;}
   .omoide[data-v="diary"] .omo-diary{display:block;}
-  .omo-big{width:min(38vw,380px);aspect-ratio:1;border:7px solid #fff;border-radius:40px;background:#fff;font-family:inherit;font-weight:900;color:var(--ink);
-    font-size:clamp(22px,3vw,36px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:0 10px 0 rgba(180,110,40,.35);cursor:pointer;}
-  .omo-big span{font-size:clamp(80px,12vw,150px);line-height:1;animation:bobLoop 2.4s ease-in-out infinite;}
-  #omoPlay{background:linear-gradient(180deg,#FFFFFF,#DDF3FB);}
-  #omoDiary{background:linear-gradient(180deg,#FFFFFF,#FFE7F0);}
   .omo-note{background:#fff;border-radius:16px;padding:10px 16px;font-size:15px;margin:0 0 10px;line-height:1.6;}
   .omo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;}
-  .oe-card{background:#fff;border-radius:18px;padding:10px;box-shadow:0 4px 0 rgba(0,0,0,.1);}
+  .oe-card{background:#fff;border-radius:18px;padding:10px;box-shadow:0 4px 0 rgba(0,0,0,.15);}
   .oe-h{display:flex;align-items:center;gap:8px;font-size:18px;margin-bottom:6px;}
   .oe-ico{width:42px;height:42px;flex:none;}.oe-ico svg{width:100%;height:100%;}
   .oe-ph{display:flex;flex-wrap:wrap;gap:6px;}
@@ -2405,35 +2410,57 @@
   .oe-th img{width:100%;height:100%;object-fit:cover;}
   .oe-x{position:absolute;right:2px;top:2px;width:26px;height:26px;border-radius:50%;border:none;background:rgba(224,71,61,.92);color:#fff;font-weight:900;}
   .oe-add{width:78px;height:78px;border-radius:10px;border:3px dashed #7FB8E0;display:grid;place-items:center;text-align:center;font-weight:900;color:#2F7FD6;font-size:14px;line-height:1.2;cursor:pointer;background:#F2FAFE;}
-  .dy-tools{display:flex;justify-content:flex-end;margin-bottom:8px;}
-  .diary-page{background:#fff;border-radius:18px;padding:18px 22px;max-width:1100px;margin:0 auto;box-shadow:0 6px 0 rgba(0,0,0,.1);}
-  .dy-head{display:flex;align-items:center;gap:16px;flex-wrap:wrap;border-bottom:4px dotted #FFB938;padding-bottom:8px;margin-bottom:12px;}
-  .dy-title{font-size:clamp(22px,2.6vw,32px);font-weight:900;flex:1;}
-  .dy-date{font-size:20px;font-weight:900;color:#E0473D;}
-  .dy-name{font-weight:900;font-size:18px;}
-  .dy-name input{font:inherit;border:none;border-bottom:3px solid #1B4965;width:9em;background:transparent;}
-  .dy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
-  .dy-cell{border:3px solid #E6EEF3;border-radius:14px;overflow:hidden;break-inside:avoid;}
-  .dy-cell img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
-  .dy-lab{display:flex;align-items:center;gap:6px;padding:4px 8px;font-weight:900;font-size:16px;}
-  .dy-ico{width:30px;height:30px;flex:none;}.dy-ico svg{width:100%;height:100%;}
-  .dy-feel{margin-left:auto;font-size:28px;}
-  .dy-sec{font-weight:900;font-size:20px;margin:14px 0 6px;}
-  .dy-mets{display:flex;flex-wrap:wrap;gap:10px;}
-  .dy-met{width:130px;text-align:center;font-weight:900;font-size:14px;}
-  .dy-met img{width:130px;height:100px;object-fit:cover;border-radius:12px;display:block;margin-bottom:2px;}
-  .diary-page textarea{width:100%;font:inherit;font-size:18px;border:3px solid #E6EEF3;border-radius:12px;padding:8px;box-sizing:border-box;}
+  /* えにっき */
+  .diary-page{background:#F4FBFE;border-radius:24px;overflow:hidden;max-width:1100px;margin:0 auto;box-shadow:0 10px 30px rgba(0,0,0,.35);padding-bottom:18px;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .dy-band{position:relative;background:linear-gradient(180deg,#2F9AD8,#1C6FA8);color:#1C6FA8;}
+  .dy-band-in{padding:16px 22px 4px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .dy-wave{display:block;width:100%;height:28px;margin-bottom:-1px;color:#1C6FA8;background:#F4FBFE;}
+  .dy-title{flex:1;white-space:nowrap;font-size:clamp(18px,2.4vw,30px);font-weight:900;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.2);}
+  .dy-sub{display:flex;align-items:center;gap:10px;}
+  .dy-date{background:#FFD447;color:#1B4965;font-weight:900;border-radius:999px;padding:4px 14px;font-size:18px;}
+  .dy-name{background:#fff;color:#1B4965;font-weight:900;border-radius:999px;padding:4px 14px;font-size:18px;display:flex;align-items:center;gap:6px;}
+  .dy-name input{font:inherit;border:none;border-bottom:2px dotted #7FB8E0;width:7em;background:transparent;color:#1B4965;}
+  .dy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:8px 20px 4px;}
+  .dy-cell{break-inside:avoid;}
+  .dy-frame{position:relative;border:7px solid #5BB8E8;border-radius:20px;overflow:hidden;background:#0F4C80;box-shadow:inset 0 0 0 3px #fff,0 4px 0 rgba(15,76,128,.25);}
+  .dy-frame img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
+  .dy-frame i{position:absolute;border-radius:50%;border:2px solid rgba(255,255,255,.85);background:rgba(255,255,255,.25);pointer-events:none;}
+  .dy-frame .b1{width:14px;height:14px;left:10px;bottom:14px;}.dy-frame .b2{width:9px;height:9px;left:24px;bottom:34px;}.dy-frame .b3{width:6px;height:6px;left:14px;bottom:48px;}
+  .dy-feel{position:absolute;right:8px;top:8px;width:54px;height:54px;border-radius:50%;border:3px solid #fff;background:rgba(255,255,255,.9);font-size:32px;line-height:1;display:grid;place-items:center;
+    box-shadow:0 3px 0 rgba(0,0,0,.2);cursor:pointer;font-family:inherit;color:#7FB8E0;font-weight:900;padding:0;}
+  .dy-feel.none{font-size:26px;opacity:.75;}
+  .dy-lab{display:inline-flex;align-items:center;gap:6px;margin:8px 0 0;padding:4px 14px 4px 6px;font-weight:900;font-size:16px;color:#fff;background:#1C6FA8;
+    border-radius:8px 22px 8px 22px;}
+  .dy-ico{width:30px;height:30px;flex:none;background:#fff;border-radius:50%;padding:2px;}.dy-ico svg{width:100%;height:100%;}
+  .dy-mets{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;padding:16px 20px 4px;}
+  .dy-met{width:118px;text-align:center;font-weight:900;font-size:14px;color:#1B4965;}
+  .dy-port{width:104px;height:104px;margin:0 auto 4px;border-radius:50%;border:8px solid #9AA9B5;box-shadow:inset 0 0 0 3px #fff,0 4px 0 rgba(0,0,0,.18);
+    background:radial-gradient(circle at 40% 35%,#DFF3FB,#9FD3EE);overflow:hidden;display:grid;place-items:center;}
+  .dy-port svg{width:86%;height:86%;}
+  .dy-port.ph img{width:100%;height:100%;object-fit:cover;}
+  .dy-free{margin:16px 20px 0;height:150px;overflow:hidden;border:4px dashed #7FB8E0;border-radius:22px;background:#fff;padding:10px 16px;box-sizing:border-box;
+    font-weight:900;color:#1B4965;line-height:1.35;outline:none;white-space:pre-wrap;word-break:break-all;font-size:44px;}
+  .dy-free:empty::before{content:"✏️ ここに じゆうに かけます";color:#AFC9D8;font-size:22px;}
   .dy-empty{padding:30px;text-align:center;color:#6A8597;font-weight:900;}
   @media print{
     @page{size:A4 landscape;margin:8mm;}
     body.printing-diary{background:#fff !important;}
     body.printing-diary > *:not(#omoide){display:none !important;}
     body.printing-diary #omoide{display:block !important;position:static !important;background:#fff !important;padding:0;overflow:visible;}
+    body.printing-diary #omoide::after{display:none;}
     body.printing-diary #omoide > *:not(.omo-diary){display:none !important;}
     body.printing-diary .omo-diary{display:block !important;}
-    body.printing-diary .dy-tools{display:none !important;}
-    body.printing-diary .diary-page{box-shadow:none;border-radius:0;padding:0;max-width:none;}
-    body.printing-diary .diary-page textarea{border:2px solid #ccc;resize:none;}
+    body.printing-diary .diary-page{box-shadow:none;border-radius:0;max-width:none;background:#fff;}
+    /* F. いんさつは うすい いろで */
+    body.printing-diary .dy-band{background:#DDF1FA;}
+    body.printing-diary .dy-wave{color:#DDF1FA;background:#fff;}
+    body.printing-diary .dy-title{color:#1B4965;text-shadow:none;}
+    body.printing-diary .dy-frame{border-color:#BFE3F5;background:#fff;}
+    body.printing-diary .dy-lab{background:#EAF6FC;color:#1B4965;}
+    body.printing-diary .dy-feel.none{display:none;}
+    body.printing-diary .dy-free{border-color:#BFE3F5;}
+    body.printing-diary .dy-free:empty::before{content:"";}
   }
   /* イ. あえたよ ずかん */
   .d-photo{margin-top:10px;display:flex;flex-direction:column;align-items:center;gap:6px;}
@@ -2451,6 +2478,29 @@
   .home-bottom2{margin-top:clamp(8px,1.6vh,16px);margin-bottom:auto !important;}
   .ln-home-btn{background:linear-gradient(180deg,#FFFFFF,#DDF3FB);}
   .omo-home-btn{background:linear-gradient(180deg,#FFFFFF,#FFE7F0);}
+
+  /* ===== とうじつ：おおきな とけい・カメラ ===== */
+  body.split .flow .flow-tools{display:none;}
+  .fl-bigclock{display:flex;align-items:center;justify-content:center;gap:14px;background:rgba(255,255,255,.92);border-radius:24px;padding:8px 14px;margin:2px 0 4px;box-shadow:0 5px 0 rgba(8,50,80,.2);}
+  .fl-bigclock svg{width:clamp(110px,19vh,160px);height:clamp(110px,19vh,160px);flex:none;}
+  .fl-bigclock .bc-txt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;}
+  .fl-bigclock .bc-tag{background:#1B4965;color:#fff;font-weight:900;border-radius:999px;padding:2px 14px;font-size:clamp(14px,1.7vw,18px);}
+  .fl-bigclock .bc-dig{font-size:clamp(30px,4vw,46px);font-weight:900;color:#1B4965;line-height:1.1;font-variant-numeric:tabular-nums;}
+  .flow.no-time .fl-bigclock .bc-dig{display:none;}
+  .fl-next.flash{animation:flFlash .5s ease-in-out 6 alternate;}
+  @keyframes flFlash{from{box-shadow:0 0 0 0 rgba(255,212,71,0)}to{box-shadow:0 0 0 10px rgba(255,212,71,.9);transform:scale(1.03)}}
+  .fl-cam,.m-cam{position:absolute;right:10px;top:10px;z-index:3;width:clamp(52px,8vh,64px);height:clamp(52px,8vh,64px);border-radius:50%;background:#fff;border:4px solid #1B4965;
+    display:grid;place-items:center;font-size:clamp(26px,4.4vh,34px);cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.2);}
+  .fl-cam:active,.m-cam:active{transform:scale(.92);}
+  .fl-camn:empty,.m-camn:empty{display:none;}
+  .fl-camn,.m-camn{position:absolute;right:-8px;top:-8px;min-width:24px;height:24px;border-radius:12px;background:#E0473D;color:#fff;font-size:14px;font-weight:900;display:grid;place-items:center;padding:0 5px;border:2px solid #fff;}
+  .m-cam{right:auto;left:8px;top:8px;width:52px;height:52px;font-size:26px;}
+  body.split .fl-now .fl-cam{position:relative;right:auto;top:auto;flex:none;align-self:center;margin-left:auto;order:3;}
+  body.split .fl-now .fl-body{flex:1;min-width:0;}
+  body.split .fl-colL .fl-now .fl-ico.big{width:clamp(64px,11vh,88px);height:clamp(64px,11vh,88px);}
+  body.split .fl-now .fl-cam{width:clamp(48px,7vh,58px);height:clamp(48px,7vh,58px);font-size:clamp(24px,3.8vh,30px);}
+  body.split .fl-now{gap:8px;padding:14px 10px;}
+
 </style>
 </head>
 <body>
@@ -2749,26 +2799,24 @@
     </div>
   </div>
 </div>
-<div class="omoide" id="omoide" data-v="top" role="dialog" aria-label="おもいで">
+<div class="omoide" id="omoide" data-v="diary" role="dialog" aria-label="おもいで">
+  <div class="omo-scene" id="omoScene" aria-hidden="true"></div>
   <div class="omo-head">
     <button class="pill-btn back-btn" id="omoClose">⬅ もどる</button>
-    <h2 class="omo-title">📷 おもいで</h2>
-    <button class="pill-btn omo-editbtn" id="omoEdit">✏️ しゃしんを いれる（せんせい）</button>
-  </div>
-  <div class="omo-top">
-    <button class="omo-big" id="omoPlay"><span>🎞</span>おもいでを みよう</button>
-    <button class="omo-big" id="omoDiary"><span>📔</span>えにっき</button>
+    <h2 class="omo-title" id="omoTitle">📔 おもいで えにっき</h2>
+    <div class="omo-tools">
+      <button class="pill-btn" id="omoEdit">✏️ しゃしんを いれる</button>
+      <button class="pill-btn" id="diaryPrint">🖨 いんさつ・PDF</button>
+    </div>
   </div>
   <div class="omo-edit">
-    <p class="omo-note">カードごとに しゃしんを いれてください（1まいに 6まいまで）。しゃしんは この iPad の なかだけに ほぞんされ、インターネットには でません。<br>いきものの しゃしんは「ずかん」の くわしい ページから いれられます。</p>
+    <p class="omo-note">カードごとに しゃしんを いれてください。「すいぞくかんに ついたよ」の 📷 で とった しゃしんも ここに はいります。しゃしんは この iPad の なかだけに ほぞんされ、インターネットには でません。<br>いきものの しゃしんは「ずかん」の くわしい ページから いれられます。</p>
     <div class="omo-grid" id="omoEditGrid"></div>
   </div>
   <div class="omo-diary">
-    <div class="dy-tools"><button class="pill-btn" id="diaryPrint">🖨 いんさつ・PDF</button></div>
     <div class="diary-page" id="diaryPage"></div>
   </div>
 </div>
-
 <!-- いきものはかせ（くわしい せつめい） -->
 <div class="detail" id="detail" role="dialog" aria-label="いきもののせつめい">
   <button class="pill-btn back-btn detail-close" id="closeDetail">⬅ もどる</button>
@@ -5477,7 +5525,8 @@ function mCard(c, extra){
     + '<div class="stamp-label">✔ みつけた！</div>'
     + (missionFeel[c.id] ? '<div class="feel-mark">' + FEEL[missionFeel[c.id]] + '</div>' : '')
     + '<div class="pick-mark">✔</div>'
-    + '<div class="stamp-mark">💮</div>';
+    + '<div class="stamp-mark">💮</div>'
+    + (missionDecided && document.body.classList.contains("split") ? '<label class="m-cam" data-zid="' + c.id + '" aria-label="しゃしんを とる">📷<span class="m-camn"></span><input type="file" accept="image/*" capture="environment" hidden></label>' : '');
   return d;
 }
 function renderMission(){
@@ -5523,7 +5572,8 @@ function renderMission(){
       let cls = missionStamped.has(c.id) ? "stamped" : "";
       if(missionSel === c.id) cls += " sel";
       const card = mCard(c, cls);
-      card.addEventListener("click", ()=>{
+      card.addEventListener("click", (e)=>{
+        if(e.target.closest(".m-cam")) return;
         missionSel = (missionSel === c.id) ? null : c.id;
         sfx.click();
         if(missionSel) speakName(c);
@@ -6382,7 +6432,7 @@ function clockSVG(t){
 }
 function flTime(st){ return st.t ? '<span class="fl-time">' + clockSVG(st.t) + '<b>' + st.t + '</b></span>' : ''; }
 function flLabel(st, g){
-  if(st.kind === "floor") return '<span class="fl-ord ' + g + '">' + st.no + ' ばんめ</span>' + escapeHTML(st.l) + ' を みる';
+  if(st.kind === "floor") return (document.body.classList.contains("split") ? '' : '<span class="fl-ord ' + g + '">' + st.no + ' ばんめ</span>') + escapeHTML(st.l) + ' を みる';
   return escapeHTML(st.l);
 }
 function renderFlow(){
@@ -6406,7 +6456,8 @@ function renderFlow(){
   // D. すごろくの みち
   const n = steps.length;
   const pct = n > 1 ? Math.min(100, idx / (n-1) * 100) : 0;
-  html += '<div class="fl-road"><div class="fl-track"><div class="fl-line"><i style="width:' + pct.toFixed(1) + '%"></i></div>'
+  if(split) html += '<div class="fl-bigclock" id="flBigClock"></div>';
+  else html += '<div class="fl-road"><div class="fl-track"><div class="fl-line"><i style="width:' + pct.toFixed(1) + '%"></i></div>'
     + steps.map((st,k)=>{
         const state = k < idx ? "done" : k === idx ? "now" : "todo";
         const q = hideNext && k === idx+1;
@@ -6425,6 +6476,7 @@ function renderFlow(){
     if(now.kind === "aq") extra += '<div class="fl-route">' + ROUTE[g].map((k,m)=>'<b>' + (m+1) + '. ' + FLOORS[k].l + '</b>').join("") + '</div>';
     html += '<div class="fl-now c-' + (now.c||"aq") + '" data-i="' + idx + '">'
       + '<div class="fl-tag now">いま</div>'
+      + (split ? '<label class="fl-cam" data-ck="' + stepKey(now, idx) + '" aria-label="しゃしんを とる">📷<span class="fl-camn"></span><input type="file" accept="image/*" capture="environment" hidden></label>' : '')
       + '<div class="fl-ico big">' + icoHTML(now) + '</div>'
       + '<div class="fl-body">' + flTime(now) + '<div class="fl-lab big">' + flLabel(now, g) + '</div>' + extra + '</div></div>';
   }else{
@@ -6442,7 +6494,7 @@ function renderFlow(){
       + '<div class="fl-ico mid">' + icoHTML(next) + '</div>'
       + '<div class="fl-body">' + flTime(next) + '<div class="fl-lab mid">' + flLabel(next, g) + '</div></div></div>';
   }
-  const later = steps.slice(idx+2);
+  const later = split ? steps.slice(idx+2, idx+4) : steps.slice(idx+2);
   if(later.length && !hideNext){
     html += '<div class="fl-later"><div class="fl-later-lab">そのあと</div>'
       + later.map((st,k)=>'<div class="fl-row c-' + (st.c||"aq") + '" data-i="' + (idx+2+k) + '"><span class="fl-ico sm">' + icoHTML(st) + '</span><span class="fl-lab sm">' + flLabel(st, g) + '</span>' + (st.t ? '<span class="fl-time sm"><b>' + st.t + '</b></span>' : '') + '</div>').join("")
@@ -6454,6 +6506,7 @@ function renderFlow(){
   $("flowDone").style.display = idx < steps.length ? "" : "none";
   $("flowUndo").style.visibility = idx > 0 ? "visible" : "hidden";
   requestAnimationFrame(fitFlowLabels);
+  if(split){ updateBigClock(true); setTimeout(fillCamCounts, 0); }
 }
 
 /* ながい ことばは、とちゅうで おらずに 文字を ちいさくして おさめる */
@@ -6477,6 +6530,7 @@ function openFlow(){
 $("goFlow").addEventListener("click", openFlow);
 $("closeFlow").addEventListener("click", ()=>{ sfx.click(); if(document.body.classList.contains("split")){ closeDay(); return; } $("flow").classList.remove("show"); speechSynthesis && speechSynthesis.cancel && speechSynthesis.cancel(); });
 $("flowGrid").addEventListener("click", (e)=>{
+  if(e.target.closest(".fl-cam")) return;
   const ob = e.target.closest("[data-opt]");
   if(ob){
     const k = +ob.dataset.opt, steps = flowSteps(), idx = curFlowIdx(), right = steps[idx+1];
@@ -6573,7 +6627,9 @@ const QP_ITEMS = {
          { type:"seg", label:"おおきさ", opts:[["小","1"],["中","2"],["大","3"]],
            get:()=>String(settings.fishSize), act:(v)=>{ const b=document.querySelector('#fishSizeSeg .sp-btn[data-sz="'+v+'"]'); if(b) b.click(); } },
          qpToggle("みずの おと","optSwimBgm") ],
-  flow:[ qpToggle("くわしく（14まい）","optFlowDetail"), qpToggle("なまえ・ことばの よみあげ","optReadName") ],
+  flow:[ { type:"seg", label:"グループ", opts:[["🔴 あか","red"],["🔵 あお","blue"]], get:()=>settings.flowGroup === "blue" ? "blue" : "red", act:(v)=>{ settings.flowGroup = v; saveState(); } },
+          { type:"sw", label:"じかんを みせる", get:()=>!!settings.flowTime, act:()=>{ settings.flowTime = !settings.flowTime; saveState(); } },
+          qpToggle("くわしく（14まい）","optFlowDetail"), qpToggle("なまえ・ことばの よみあげ","optReadName") ],
   cert:[ { type:"name" } ]
 };
 const QP_COMMON = [
@@ -7311,13 +7367,14 @@ function lnCap(show){
 }
 function lnCover(){
   lnClear();
-  ln.phase = "cover";
-  lnRoad(); lnCap(false);
+  ln.phase = "reveal";
+  lnRoad(); lnCap(true);
   const st = ln.steps[ln.i];
-  lnStage.innerHTML = '<div class="ln-cover"><div class="ln-card" id="lnCard"><div class="lc-b"><b>？</b><span>つぎは なにかな？</span></div>'
-    + '<div class="lc-f"><div class="pic">' + keyPic(ln.keys[ln.i]) + '</div><div class="lab">' + escapeHTML(st.kind === "floor" ? st.l + " を みる" : st.l) + '</div></div></div>'
-    + (ln.auto ? '' : '<div class="ln-hint">👆 どこでも さわってね</div>') + '</div>';
-  if(ln.auto) lnLater(2600, lnReveal);
+  /* 「つぎは なにかな？」は なし：えカードを みせて、すぐに アニメへ */
+  lnStage.innerHTML = '<div class="ln-cover"><div class="ln-tcard"><div class="pic">' + keyPic(ln.keys[ln.i]) + '</div><div class="lab">' + escapeHTML(st.kind === "floor" ? st.l + " を みる" : st.l) + '</div></div></div>';
+  sfx.pon();
+  lnSpeak();
+  lnLater(ln.voice[ln.keys[ln.i]] ? 2400 : 1600, lnPlay);
 }
 function lnSpeak(){
   const st = ln.steps[ln.i], k = ln.keys[ln.i];
@@ -7382,7 +7439,7 @@ function lnDone(){
     if(ln.auto) lnLater(6000, lnNext);
     return;
   }
-  lnStage.insertAdjacentHTML("beforeend", '<div class="ln-stamp">できた<br>ね！</div>');
+  if(!ln.auto) lnStage.insertAdjacentHTML("beforeend", '<div class="ln-hint">👆 さわると つぎへ</div>');
   sfx.pinpon();
   const s = $("lnRoad").querySelector('[data-j="' + ln.i + '"]');
   if(s){ s.classList.remove("now"); s.classList.add("done"); }
@@ -7433,8 +7490,8 @@ document.addEventListener("keydown", (e)=>{
 $("lnClose").addEventListener("click", ()=>{ sfx.click(); closeLearn(); });
 $("lnAutoBtn").addEventListener("click", ()=>{
   ln.auto = !ln.auto; settings.lnAuto = ln.auto; saveState(); sfx.click(); lnUpdateTools();
-  if(ln.auto){ if(ln.phase === "cover") lnLater(1500, lnReveal); else if(ln.phase === "done") lnLater(1500, lnNext); }
-  else{ lnClear(); if(ln.phase === "cover") lnCover(); }
+  if(ln.auto){ if(ln.phase === "done") lnLater(1500, lnNext); }
+  else{ if(ln.phase === "done"){ lnClear(); if(!lnStage.querySelector(".ln-hint")) lnStage.insertAdjacentHTML("beforeend", '<div class="ln-hint">👆 さわると つぎへ</div>'); } }
 });
 $("lnPrev").addEventListener("click", ()=>{ sfx.click(); if(ln.i > 0){ ln.i--; } lnCover(); });
 $("lnAgain").addEventListener("click", ()=>{ sfx.click(); if(ln.i < ln.steps.length){ lnCap(true); lnPlay(); } });
@@ -7493,13 +7550,17 @@ $("recDel").addEventListener("click", async ()=>{
 const omoEl = $("omoide");
 function omoView(v){
   omoEl.dataset.v = v;
+  $("omoTitle").textContent = v === "edit" ? "✏️ しゃしんを いれる" : "📔 おもいで えにっき";
   if(v === "edit") renderOmoEdit();
   if(v === "diary") renderDiary();
 }
-$("goOmoide").addEventListener("click", ()=>{ sfx.click(); omoView("top"); omoEl.classList.add("show"); });
-$("omoClose").addEventListener("click", ()=>{ sfx.click(); if(omoEl.dataset.v !== "top"){ omoView("top"); return; } omoEl.classList.remove("show"); });
-$("omoPlay").addEventListener("click", ()=>openLearn("memory"));
-$("omoDiary").addEventListener("click", ()=>{ sfx.click(); omoView("diary"); });
+let omoSceneOn = false;
+$("goOmoide").addEventListener("click", ()=>{
+  sfx.click();
+  if(!omoSceneOn){ omoSceneOn = true; try{ sceneLights($("omoScene")); farFish($("omoScene"), 4); }catch(e){} }
+  omoView("diary"); omoEl.classList.add("show");
+});
+$("omoClose").addEventListener("click", ()=>{ sfx.click(); if(omoEl.dataset.v === "edit"){ omoView("diary"); return; } omoEl.classList.remove("show"); });
 $("omoEdit").addEventListener("click", ()=>{ sfx.click(); omoView("edit"); });
 async function renderOmoEdit(){
   const box = $("omoEditGrid");
@@ -7508,7 +7569,7 @@ async function renderOmoEdit(){
     const list = await MDB.get("photo:" + k) || [];
     html += '<div class="oe-card"><div class="oe-h"><span class="oe-ico">' + keyPic(k) + '</span><b>' + escapeHTML(keyLabel(k)) + '</b></div><div class="oe-ph">'
       + list.map((b,j)=>'<div class="oe-th"><img data-blob="' + k + ':' + j + '" alt=""><button class="oe-x" data-del="' + k + ':' + j + '" aria-label="けす">✕</button></div>').join("")
-      + (list.length < 6 ? '<label class="oe-add">＋<br>しゃしん<input type="file" accept="image/*" multiple data-add="' + k + '" hidden></label>' : '')
+      + '<label class="oe-add">＋<br>しゃしん<input type="file" accept="image/*" multiple data-add="' + k + '" hidden></label>'
       + '</div></div>';
   }
   box.innerHTML = html;
@@ -7521,7 +7582,7 @@ $("omoEditGrid").addEventListener("change", async (e)=>{
   const inp = e.target.closest("[data-add]"); if(!inp || !inp.files.length) return;
   const k = inp.dataset.add;
   const list = await MDB.get("photo:" + k) || [];
-  for(const f of [...inp.files].slice(0, 6 - list.length)) list.push(await shrinkImage(f));
+  for(const f of [...inp.files]) list.push(await shrinkImage(f));
   await MDB.set("photo:" + k, list);
   sfx.pon();
   renderOmoEdit();
@@ -7535,6 +7596,7 @@ $("omoEditGrid").addEventListener("click", async (e)=>{
   sfx.click();
   renderOmoEdit();
 });
+const DY_WAVE = '<svg class="dy-wave" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0 H1000 V18 C930 38 860 38 790 20 C720 2 650 2 580 20 C510 38 440 38 370 20 C300 2 230 2 160 20 C100 36 40 36 0 22 Z" fill="currentColor"/></svg>';
 async function renderDiary(){
   const box = $("diaryPage");
   let cells = "";
@@ -7542,28 +7604,52 @@ async function renderDiary(){
     const list = await MDB.get("photo:" + k) || [];
     if(!list.length) continue;
     const f = FEELS.find(x=>x.k === omo.feel[k]);
-    cells += '<div class="dy-cell"><img data-dk="' + k + '" alt=""><div class="dy-lab"><span class="dy-ico">' + keyPic(k) + '</span>' + escapeHTML(keyLabel(k)) + (f ? '<span class="dy-feel">' + f.e + '</span>' : '') + '</div></div>';
+    cells += '<div class="dy-cell"><div class="dy-frame"><img data-dk="' + k + '" alt=""><i class="b1"></i><i class="b2"></i><i class="b3"></i>'
+      + '<button class="dy-feel' + (f ? '' : ' none') + '" data-fk="' + k + '" aria-label="きもち">' + (f ? f.e : '＋') + '</button></div>'
+      + '<div class="dy-lab"><span class="dy-ico">' + keyPic(k) + '</span>' + escapeHTML(keyLabel(k)) + '</div></div>';
   }
-  let met = "";
+  const metIds = [];
   for(const c of CREATURES){
     const b = await MDB.get("zphoto:" + c.id);
-    if(b) met += '<div class="dy-met"><img data-zk="' + c.id + '" alt=""><span>' + escapeHTML(c.name) + '</span></div>';
+    if(b || (typeof missionStamped !== "undefined" && missionStamped.has(c.id))) metIds.push([c, b]);
   }
-  box.innerHTML = '<div class="dy-head"><div class="dy-title">🐧 サンシャインすいぞくかんに いったよ！</div><div class="dy-date">10がつ 20にち</div>'
-    + '<label class="dy-name">なまえ：<input id="dyName" value="' + escapeHTML(settings.studentName || "") + '" placeholder="なまえ"></label></div>'
-    + (cells ? '<div class="dy-grid">' + cells + '</div>' : '<div class="dy-empty">「✏️ しゃしんを いれる」から しゃしんを いれると、ここに ならびます</div>')
-    + (met ? '<div class="dy-sec">📷 あえた なかま</div><div class="dy-mets">' + met + '</div>' : '')
-    + '<div class="dy-sec">✏️ せんせいから</div><textarea id="dyComment" rows="3" placeholder="ひとこと">' + escapeHTML(omo.comment || "") + '</textarea>';
+  const met = metIds.map(([c,b])=>'<div class="dy-met"><div class="dy-port' + (b ? ' ph' : '') + '">' + (b ? '<img data-zk="' + c.id + '" alt="">' : (SVG[c.svg] || '')) + '</div><span>' + escapeHTML(c.name) + '</span></div>').join("");
+  box.innerHTML = '<div class="dy-band"><div class="dy-band-in"><div class="dy-title">🐧 サンシャインすいぞくかんに いったよ！</div>'
+    + '<div class="dy-sub"><span class="dy-date">10がつ 20にち</span><label class="dy-name">なまえ <input id="dyName" value="' + escapeHTML(settings.studentName || "") + '" placeholder="　"></label></div></div>' + DY_WAVE + '</div>'
+    + (cells ? '<div class="dy-grid">' + cells + '</div>' : '<div class="dy-empty">「✏️ しゃしんを いれる」や、とうじつの 📷 で とった しゃしんが ここに ならびます</div>')
+    + (met ? '<div class="dy-mets">' + met + '</div>' : '')
+    + '<div class="dy-free" id="dyFree" contenteditable="true" role="textbox" aria-label="じゆうに かける スペース"></div>';
+  $("dyFree").innerText = omo.comment || "";
+  fitFree();
   for(const k of MEM_KEYS){ const im = box.querySelector('[data-dk="' + k + '"]'); if(im){ const l = await MDB.get("photo:" + k); im.src = URL.createObjectURL(l[0]); } }
   for(const c of CREATURES){ const im = box.querySelector('[data-zk="' + c.id + '"]'); if(im){ im.src = URL.createObjectURL(await MDB.get("zphoto:" + c.id)); } }
   $("dyName").addEventListener("change", (e)=>{ settings.studentName = e.target.value; saveState(); });
-  $("dyComment").addEventListener("input", (e)=>{ omo.comment = e.target.value; saveOmo(); });
 }
+/* じゆうに かける スペース：もじの かずで おおきさを じどうで かえる */
+function fitFree(){
+  const el = $("dyFree"); if(!el) return;
+  let fs = 44; el.style.fontSize = fs + "px";
+  let g = 0;
+  while(el.scrollHeight > el.clientHeight + 1 && fs > 12 && g++ < 40){ fs -= 2; el.style.fontSize = fs + "px"; }
+}
+$("diaryPage").addEventListener("input", (e)=>{
+  if(e.target.id !== "dyFree") return;
+  omo.comment = e.target.innerText; saveOmo(); fitFree();
+});
+$("diaryPage").addEventListener("click", (e)=>{
+  const b = e.target.closest("[data-fk]"); if(!b) return;
+  const k = b.dataset.fk, cur = FEELS.findIndex(x=>x.k === omo.feel[k]);
+  const nx = cur + 1 < FEELS.length ? FEELS[cur + 1] : null;
+  if(nx) omo.feel[k] = nx.k; else delete omo.feel[k];
+  saveOmo(); sfx.pon();
+  b.textContent = nx ? nx.e : "＋"; b.classList.toggle("none", !nx);
+  if(nx) speakText(nx.l);
+});
 $("diaryPrint").addEventListener("click", ()=>{
   sfx.click();
-  const ta = $("dyComment");
+  if(omoEl.dataset.v !== "diary") omoView("diary");
   document.body.classList.add("printing-diary");
-  setTimeout(()=>{ window.print(); setTimeout(()=>document.body.classList.remove("printing-diary"), 500); }, 300);
+  setTimeout(()=>{ window.print(); setTimeout(()=>document.body.classList.remove("printing-diary"), 500); }, 400);
 });
 
 /* イ. あえたよ ずかん（ほんものの しゃしん） */
@@ -7596,6 +7682,89 @@ renderZukan = function(){
     if(b && card && !card.querySelector(".z-photo")) card.insertAdjacentHTML("beforeend", '<div class="z-photo">📷 あえたよ</div>');
   });
 };
+
+
+/* ===================== とうじつ：おおきな とけい（A・B・C） ===================== */
+function clkNow(){ const d = window.__fakeNow ? new Date(window.__fakeNow) : new Date(); return d.getHours()*60 + d.getMinutes() + d.getSeconds()/60; }
+function tmin(t){ const [h,m] = t.split(":").map(Number); return h*60 + m; }
+let clkDone = new Set();
+function clkTarget(){
+  const steps = flowSteps(), idx = curFlowIdx();
+  for(let k=idx+1;k<steps.length;k++) if(steps[k].t) return { st:steps[k], k, m:tmin(steps[k].t) };
+  return null;
+}
+function bigClockSVG(nowM, tgt){
+  const h = Math.floor(nowM/60), m = nowM - h*60;
+  const ma = m * 6, ha = (h % 12) * 30 + m * 0.5;
+  let sector = "";
+  if(tgt){
+    const d = tgt.m - nowM;
+    if(d > 0){
+      let a1, a2, r = 44;
+      if(d <= 60){ a1 = ma; a2 = ma + d * 6; }
+      else { a1 = ha; a2 = ha + d * 0.5; r = 30; }
+      const pt = a=>[50 + Math.sin(a*Math.PI/180)*r, 50 - Math.cos(a*Math.PI/180)*r];
+      const [x1,y1] = pt(a1), [x2,y2] = pt(a2);
+      sector = '<path d="M50 50 L' + x1.toFixed(2) + ' ' + y1.toFixed(2) + ' A' + r + ' ' + r + ' 0 ' + ((a2-a1) > 180 ? 1 : 0) + ' 1 ' + x2.toFixed(2) + ' ' + y2.toFixed(2) + ' Z" fill="#FFD447" opacity=".75"/>';
+    }
+  }
+  let ticks = "";
+  for(let k=0;k<12;k++){ const a = k*30*Math.PI/180; const r1 = k%3 ? 40 : 36;
+    ticks += '<line x1="' + (50+Math.sin(a)*r1).toFixed(1) + '" y1="' + (50-Math.cos(a)*r1).toFixed(1) + '" x2="' + (50+Math.sin(a)*44).toFixed(1) + '" y2="' + (50-Math.cos(a)*44).toFixed(1) + '" stroke="#1B4965" stroke-width="' + (k%3?2:4) + '" stroke-linecap="round"/>'; }
+  return '<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="#fff" stroke="#1B4965" stroke-width="5"/>' + sector + ticks
+    + '<line x1="50" y1="50" x2="50" y2="26" stroke="#1B4965" stroke-width="7" stroke-linecap="round" transform="rotate(' + ha.toFixed(1) + ' 50 50)"/>'
+    + '<line x1="50" y1="50" x2="50" y2="14" stroke="#E0473D" stroke-width="4.5" stroke-linecap="round" transform="rotate(' + ma.toFixed(1) + ' 50 50)"/>'
+    + '<circle cx="50" cy="50" r="5" fill="#1B4965"/></svg>';
+}
+function updateBigClock(fresh){
+  const box = document.getElementById("flBigClock"); if(!box) return;
+  const nowM = clkNow(), tgt = clkTarget();
+  if(fresh){ flowSteps().forEach(st=>{ if(st.t && tmin(st.t) <= nowM) clkDone.add(st.t + st.l); }); }
+  const hh = Math.floor(nowM/60), mm = Math.floor(nowM % 60);
+  box.innerHTML = bigClockSVG(nowM, tgt) + '<div class="bc-txt"><span class="bc-tag">いまの じかん</span><span class="bc-dig">' + hh + ':' + String(mm).padStart(2,"0") + '</span></div>';
+  // C. じかんに なったら しらせる
+  if(tgt && nowM >= tgt.m && !clkDone.has(tgt.st.t + tgt.st.l)){
+    clkDone.add(tgt.st.t + tgt.st.l);
+    const nx = document.querySelector("#flowGrid .fl-next");
+    if(nx){ nx.classList.remove("flash"); void nx.offsetWidth; nx.classList.add("flash"); }
+    sfx.pinpon();
+    speakText("じかんだよ。つぎは、" + flowSay(tgt.st), 300);
+  }
+}
+setInterval(()=>{ if(document.body.classList.contains("split") && $("flow").classList.contains("show")) updateBigClock(false); }, 10000);
+
+/* ===================== とうじつ：カメラ（H・I・J） ===================== */
+async function fillCamCounts(){
+  for(const el of document.querySelectorAll("#flowGrid .fl-cam")){
+    const l = await MDB.get("photo:" + el.dataset.ck) || [];
+    el.querySelector(".fl-camn").textContent = l.length ? l.length : "";
+  }
+  for(const el of document.querySelectorAll("#missionGrid .m-cam")){
+    const b = await MDB.get("zphoto:" + el.dataset.zid);
+    el.querySelector(".m-camn").textContent = b ? "✔" : "";
+  }
+}
+$("flowGrid").addEventListener("change", async (e)=>{
+  const cam = e.target.closest(".fl-cam"); if(!cam) return;
+  const f = e.target.files && e.target.files[0]; if(!f) return;
+  const k = cam.dataset.ck;
+  const list = await MDB.get("photo:" + k) || [];
+  list.push(await shrinkImage(f));
+  await MDB.set("photo:" + k, list);
+  e.target.value = "";
+  sfx.coin(); speakText("しゃしん、とれたよ");
+  fillCamCounts();
+});
+missionGrid.addEventListener("change", async (e)=>{
+  const cam = e.target.closest(".m-cam"); if(!cam) return;
+  const f = e.target.files && e.target.files[0]; if(!f) return;
+  await MDB.set("zphoto:" + cam.dataset.zid, await shrinkImage(f));
+  e.target.value = "";
+  sfx.coin(); speakText("しゃしん、とれたよ。ずかんに はいったよ");
+  fillCamCounts();
+});
+const _renderMission0 = renderMission;
+renderMission = function(){ _renderMission0(); if(document.body.classList.contains("split")) setTimeout(fillCamCounts, 0); };
 
 </script>
 </body>
