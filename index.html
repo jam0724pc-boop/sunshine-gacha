@@ -2626,6 +2626,18 @@
   .omoide.shot .de-page{border-radius:0;box-shadow:none;}
   .omoide.shot .ph-empty,.omoide.shot .tx-ph{display:none !important;}
   body.de-shot-on #teacherBtn, body.de-shot-on #helpBtn, body.de-shot-on .qpanel{display:none !important;}
+
+  /* よみあげ オン・オフ（がめんごと） */
+  .read-btn{position:fixed;right:10px;bottom:10px;z-index:97;width:56px;height:56px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
+    border:3px solid #fff;background:#FFD447;color:var(--ink);font-family:inherit;font-weight:900;box-shadow:0 3px 0 rgba(0,0,0,.2);cursor:pointer;padding:0;line-height:1.05;}
+  .read-btn .rb-i{font-size:20px;}
+  .read-btn .rb-t{font-size:9.5px;letter-spacing:-.5px;}
+  .read-btn.off{background:#CBD5DC;color:#55697A;}
+  body.de-shot-on .read-btn{display:none;}
+  .learn .ln-foot{padding-right:76px;}
+  .omoide .de-bar{padding-right:64px;flex-wrap:nowrap;}
+  .omoide .de-bar button{padding:8px clamp(8px,1vw,14px);font-size:clamp(13px,1.5vw,17px);}
+  body.split .flow-foot{padding-right:0;}
 </style>
 </head>
 <body>
@@ -2825,6 +2837,7 @@
 </div>
 
 <!-- つかいかた（？） -->
+<button class="read-btn" id="readBtn" aria-label="よみあげの オン・オフ"><span class="rb-i">🗣</span><span class="rb-t">よみあげ</span></button>
 <button class="help-btn" id="helpBtn" aria-label="この がめんの つかいかた">？</button>
 <div class="help" id="help" role="dialog" aria-label="つかいかた">
   <div class="help-card">
@@ -4588,7 +4601,7 @@ function pickVoice(){
 }
 if("speechSynthesis" in window){ pickVoice(); try{ speechSynthesis.onvoiceschanged = pickVoice; }catch(e){} }
 function speakName(c, delay){
-  if(!c || settings.readName === false || !soundOn || !("speechSynthesis" in window)) return;
+  if(!c || settings.readName === false || !soundOn || !readOn() || !("speechSynthesis" in window)) return;
   const go = ()=>{
     try{
       speechSynthesis.cancel();
@@ -6546,7 +6559,7 @@ function flowSay(st){
   return st.l;
 }
 function speakText(t, delay){
-  if(!t || settings.readName === false || !soundOn || !("speechSynthesis" in window)) return;
+  if(!t || settings.readName === false || !soundOn || !readOn() || !("speechSynthesis" in window)) return;
   const go = ()=>{ try{
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(t);
@@ -6965,7 +6978,7 @@ function saveState(){
                   swimSpeed: settings.swimSpeed, swimCount: settings.swimCount, fishSize: settings.fishSize,
                   clearView: settings.clearView, nudge: settings.nudge, outline: settings.outline,
                   sigSound: settings.sigSound, chant: settings.chant, swimBgm: settings.swimBgm,
-                  readName: settings.readName, zukanSolo: settings.zukanSolo,
+                  readName: settings.readName, readOff: settings.readOff || {}, zukanSolo: settings.zukanSolo,
                   flowDetail: settings.flowDetail, flowTime: settings.flowTime, flowGroup: settings.flowGroup },
       flowIdx: flowIdx,
       missionFeel: missionFeel,
@@ -6985,6 +6998,7 @@ function loadState(){
     const valid = new Set(CREATURES.map(c=>c.id));
     (s.collected || []).filter(id=>valid.has(id)).forEach(id=>collected.add(id));
     if(s.settings){
+      if(s.settings.readOff && typeof s.settings.readOff === "object") settings.readOff = s.settings.readOff;
       if(typeof s.settings.fullTap === "boolean") settings.fullTap = s.settings.fullTap;
       if(typeof s.settings.newFirst === "boolean") settings.newFirst = s.settings.newFirst;
       if(typeof s.settings.coinMode === "boolean") settings.coinMode = s.settings.coinMode;
@@ -7518,6 +7532,7 @@ function lnCover(){
 function lnSpeak(){
   const st = ln.steps[ln.i], k = ln.keys[ln.i];
   if(ln.audio){ try{ ln.audio.pause(); }catch(e){} ln.audio = null; }
+  if(!readOn()) return false;
   if(ln.voice[k] && soundOn){
     try{ speechSynthesis.cancel(); }catch(e){}
     ln.audio = new Audio(ln.voice[k]); ln.audio.play().catch(()=>{});
@@ -8275,6 +8290,39 @@ omoEl.addEventListener("pointerdown", (e)=>{
 deBindPage(); deBindUI();
 omoEl.addEventListener("scroll", ()=>{ if(omoEl.dataset.v === "diary" && omoEl.scrollTop) omoEl.scrollTop = 0; });
 
+
+
+/* ===================== よみあげ オン・オフ（がめんごと） ===================== */
+const READ_NAME = { home:"はじめの がめん", gacha:"ガチャ", zukan:"ずかん", quiz:"クイズ", mission:"たんけんカード", swim:"およぐ おさかな", flow:"きょうの ながれ",
+  cert:"しょうじょう", day:"すいぞくかんに ついたよ", learn:"ながれを アニメで", omoide:"おもいで えにっき", map:"マップ" };
+function readKey(){
+  if($("learn") && $("learn").classList.contains("show")) return "learn";
+  if($("omoide") && $("omoide").classList.contains("show")) return "omoide";
+  if($("mapOv") && $("mapOv").classList.contains("show")) return "map";
+  if(document.body.classList.contains("split") && $("flow").classList.contains("show")) return "day";
+  try{ return qpScreens()[0] || "home"; }catch(e){ return "home"; }
+}
+function readOn(){ return !(settings.readOff && settings.readOff[readKey()]); }
+function updateReadBtn(){
+  const on = readOn();
+  const b = $("readBtn");
+  b.classList.toggle("off", !on);
+  b.querySelector(".rb-i").textContent = on ? "🗣" : "🔇";
+  b.setAttribute("aria-pressed", on ? "true" : "false");
+  b.title = (READ_NAME[readKey()] || "") + "：よみあげ " + (on ? "オン" : "オフ");
+}
+$("readBtn").addEventListener("click", (e)=>{
+  e.stopPropagation();
+  const k = readKey();
+  settings.readOff = settings.readOff || {};
+  if(settings.readOff[k]) delete settings.readOff[k]; else settings.readOff[k] = true;
+  saveState();
+  if(!readOn()){ try{ speechSynthesis.cancel(); }catch(_){} if(ln.audio){ try{ ln.audio.pause(); }catch(_){} } tone(400,.12,"sine",.12); }
+  else{ sfx.pon(); speakText("よみあげ オン"); }
+  updateReadBtn();
+});
+setInterval(updateReadBtn, 600);
+updateReadBtn();
 
 </script>
 </body>
