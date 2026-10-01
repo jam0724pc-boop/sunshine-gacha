@@ -2660,7 +2660,7 @@
   .omoide .de-bar{padding-right:0 !important;}
   body.split .flow .flow-head{padding-right:0;}
   /* F. こどもモードでは せんせい用を かくす */
-  body:not(.teacher) :is(#lnAutoBtn,#lnRecBtn,.ln-foot,#omoEdit,#diaryPrint,#flowUndo,#mapGrp,#zViewBtn,#soundBtn,#grpSeg,#timeBtn,#quizNextBtn,.dp-tools,.dp-add){display:none !important;}
+  body:not(.teacher) :is(#lnAutoBtn,#lnRecBtn,.ln-foot,#omoEdit,#diaryPrint,#mapGrp,#zViewBtn,#soundBtn,#grpSeg,#timeBtn,#quizNextBtn,.dp-tools,.dp-add){display:none !important;}
   body.teacher .t-mode-badge{display:flex;}
   .ux-toast{position:fixed;left:50%;top:76px;transform:translateX(-50%);z-index:120;background:#1B4965;color:#fff;font-weight:900;font-size:17px;padding:10px 20px;border-radius:999px;
     box-shadow:0 8px 20px rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:opacity .25s;white-space:nowrap;max-width:94vw;overflow:hidden;text-overflow:ellipsis;}
@@ -2921,6 +2921,81 @@ body.swmode .sw-bar{position:fixed;left:50%;bottom:10px;transform:translateX(-50
 body.swmode .sw-picked{outline:6px solid #8A6BD1!important;outline-offset:4px;box-shadow:0 0 0 14px rgba(138,107,209,.25)!important}
 body.swmode .ux-hint{visibility:hidden!important}
 body.swmode .flow-foot,body.swmode .result-btns,body.swmode .quiz-result .result-btns{margin-bottom:58px}
+
+/* ===== しおり：いちらん ＋ いまだけ おおきく ===== */
+#quizNextBtn{display:none!important}
+.flow #flowGrid.flow-grid{display:block!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch;max-width:900px;width:100%;margin:0 auto;padding:22px 8px 30px!important}
+#flowGrid .sh-list{display:flex;flex-direction:column;gap:10px}
+#flowGrid .sh-card{position:relative;display:flex;align-items:center;gap:14px;background:#fff;border-radius:18px;padding:8px 10px 8px 12px;box-shadow:0 4px 0 rgba(0,0,0,.12);border:3px solid transparent;cursor:pointer;transition:transform .2s}
+#flowGrid .sh-card .fl-ico.sm{width:52px;height:52px;font-size:30px}
+#flowGrid .sh-card .sh-body{flex:1;min-width:0;display:flex;align-items:center;gap:12px}
+#flowGrid .sh-card .fl-lab.sm{font-size:clamp(17px,2vw,22px);font-weight:900;color:var(--ink);flex:1;min-width:0}
+#flowGrid .sh-card .fl-time svg{width:30px;height:30px}
+#flowGrid .sh-card .fl-time b{font-size:clamp(16px,1.9vw,21px)}
+#flowGrid .sh-card.now{border-color:var(--cc);padding:22px 18px 18px;margin:10px 0 6px;background:var(--ct);box-shadow:0 8px 0 rgba(0,0,0,.14),0 0 0 6px rgba(255,255,255,.55);gap:22px}
+#flowGrid .sh-card.now .sh-body{flex-direction:column;align-items:flex-start;gap:6px}
+#flowGrid .sh-card.now .fl-ico.big{width:clamp(110px,20vh,160px);height:clamp(110px,20vh,160px);background:#fff}
+#flowGrid .sh-card.now .fl-lab.big{font-size:clamp(28px,4vw,46px);font-weight:900;color:var(--ink);white-space:nowrap;max-width:100%}
+#flowGrid .sh-card.now .fl-time b{font-size:clamp(20px,2.6vw,30px)}
+#flowGrid .sh-card.now .fl-time svg{width:40px;height:40px}
+#flowGrid .sh-card.done{opacity:.62;background:#F1F6F8;box-shadow:none}
+#flowGrid .sh-card.done .fl-ico{filter:grayscale(.6)}
+#flowGrid .sh-chk{flex:0 0 auto;width:64px;height:64px;border-radius:50%;border:4px dashed #B9CBD5;background:#fff;color:#D5E1E7;font-size:30px;font-weight:900;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;cursor:pointer;font-family:inherit;padding:0}
+#flowGrid .sh-chk small{font-size:9px;color:#8AA3B0;margin-top:2px;letter-spacing:-.5px}
+#flowGrid .sh-chk.on{border:4px solid #3EAE6B;background:#3EAE6B;color:#fff}
+#flowGrid .sh-chk.on small{color:#fff}
+#flowGrid .sh-card.now .sh-chk{width:96px;height:96px;font-size:44px;border-color:var(--cc);color:var(--cc);animation:opPulse 1.6s ease-in-out infinite}
+#flowGrid .sh-card.now .sh-chk small{font-size:12px;color:var(--cc)}
+#flowGrid .sh-card.tapped{transform:scale(.98)}
+#flowGrid .sh-next.flash{animation:swFlash .5s 2}
+#flowGrid .sh-allend{background:#fff;border-radius:20px;padding:14px 18px;margin-bottom:12px;font-size:clamp(22px,3vw,32px);font-weight:900;color:var(--ink);display:flex;align-items:center;gap:16px;flex-wrap:wrap;box-shadow:0 5px 0 rgba(0,0,0,.12)}
+#flowGrid .sh-allend small{font-size:15px;color:#5A7A8C;flex:1;min-width:200px}
+#flowGrid .sh-allend .fl-again{margin:0}
+#flowGrid .fl-bigclock{margin-bottom:12px}
+body.split #flowGrid .sh-card.now .fl-ico.big{width:clamp(70px,12vh,96px);height:clamp(70px,12vh,96px)}
+body.split #flowGrid .sh-card.now .fl-lab.big{font-size:clamp(20px,2.4vw,28px);white-space:normal}
+body.split #flowGrid .sh-card .fl-lab.sm{font-size:clamp(14px,1.5vw,17px)}
+body.split #flowGrid .sh-card.now .sh-chk{width:72px;height:72px;font-size:34px}
+body.split #flowGrid .sh-card.now .fl-cam{position:relative;right:auto;top:auto;margin-left:auto}
+body.split #flowGrid .fl-bigclock{position:sticky;top:-22px;z-index:4;margin:-22px -8px 12px;padding:8px 8px 6px;background:inherit;background:linear-gradient(#2E8FC2,#2a85b8)}
+body.split #flowGrid .sh-card.now{flex-wrap:wrap;gap:12px;padding:20px 14px 14px}
+body.split #flowGrid .sh-card.now .sh-body{flex:1 1 calc(100% - 120px)}
+body.split #flowGrid .sh-card.now .fl-cam{margin-left:auto}
+body.split #flowGrid .sh-card.now .sh-chk{width:68px;height:68px;font-size:30px}
+
+/* ===== fix7 ===== */
+.coin.ask{cursor:pointer;z-index:6;animation:coinAsk 1.3s ease-in-out infinite}
+@keyframes coinAsk{0%,100%{box-shadow:0 0 0 4px #FFE27A,0 0 16px 6px rgba(255,214,70,.75);filter:brightness(1.1)}50%{box-shadow:0 0 0 8px #FFD23F,0 0 34px 14px rgba(255,214,70,.95);filter:brightness(1.35)}}
+.coin.ask::before{content:"100えん";position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%);background:#FFD23F;color:#7A5200;font-weight:900;font-size:clamp(13px,1.6vw,18px);padding:4px 12px;border-radius:99px;border:3px solid #fff;white-space:nowrap;box-shadow:0 3px 0 rgba(0,0,0,.18);animation:opPulse 1.3s ease-in-out infinite}
+.coin.nudge{animation:shakeX .5s,coinAsk 1.3s ease-in-out infinite}
+.home-preset{display:flex;align-items:center;justify-content:center;gap:10px;margin:2px auto 6px;background:rgba(255,255,255,.92);border-radius:999px;padding:6px 8px 6px 18px;width:max-content;max-width:calc(100% - 32px);box-shadow:0 4px 12px rgba(10,60,100,.18);position:relative;z-index:3}
+.home-preset .hp-lab{font-weight:900;color:var(--ink);font-size:clamp(14px,1.6vw,17px)}
+.home-preset button{border:3px solid #DCE9F0;background:#fff;border-radius:999px;font-family:inherit;font-weight:900;font-size:clamp(15px,1.8vw,19px);color:var(--ink);padding:6px 16px;display:flex;align-items:center;gap:6px;cursor:pointer}
+.home-preset button i{font-style:normal;display:inline-flex;align-items:center}
+.home-preset button i .tsk{width:22px;height:22px}
+.home-preset button.on{background:#FFE27A;border-color:#F2B705;box-shadow:0 3px 0 #D9A400}
+body.coin-need .handle{animation:none!important}
+
+body.swmode .sw-bar{pointer-events:auto}
+.sw-bar .sw-free{border:3px solid #8A6BD1;background:#fff;color:#5640A8;border-radius:99px;font-family:inherit;font-weight:900;font-size:clamp(13px,1.5vw,16px);padding:6px 12px;margin-left:6px;cursor:pointer;white-space:nowrap}
+.sw-bar.free{box-shadow:0 0 0 4px #9AA9B5,0 6px 18px rgba(0,0,0,.25)}
+.sw-bar.free .sw-t,.sw-bar.free .sw-c{opacity:.25}
+.sw-bar.free .sw-free{background:#FF8A3D;border-color:#FF8A3D;color:#fff}
+#flowGrid .sh-card.now .fl-time svg{width:66px;height:66px}
+#flowGrid .sh-card .fl-time svg{width:44px;height:44px}
+body.split #flowGrid .sh-card.now .fl-time svg{width:56px;height:56px}
+
+.yt-btn{margin-left:auto;border:3px solid #fff;background:#fff;color:#C4302B;border-radius:999px;font-family:inherit;font-weight:900;font-size:clamp(13px,1.5vw,16px);padding:3px 12px 3px 4px;display:flex;align-items:center;gap:6px;cursor:pointer;box-shadow:0 2px 0 rgba(0,0,0,.15)}
+.yt-btn .yt-ico{background:#FF0000;color:#fff;border-radius:8px;width:30px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:12px}
+.yt-ov{position:fixed;inset:0;background:rgba(8,40,64,.55);z-index:3000;display:none;align-items:center;justify-content:center;padding:16px}
+.yt-ov.show{display:flex}
+.yt-card{background:#fff;border-radius:26px;padding:24px 28px;text-align:center;max-width:460px;width:100%;box-shadow:0 12px 30px rgba(0,0,0,.3);color:var(--ink)}
+.yt-big{width:84px;height:60px;margin:0 auto 10px;background:#FF0000;color:#fff;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:30px}
+.yt-card p{font-size:clamp(20px,2.4vw,26px);font-weight:900;margin:0 0 8px;line-height:1.5}
+.yt-card small{display:block;font-size:14px;color:#5A7A8C;margin-bottom:16px;line-height:1.6}
+.yt-row{display:flex;gap:12px;justify-content:center}
+.yt-row a{text-decoration:none;display:inline-flex;align-items:center}
+@media (max-width:1100px){.home h2{font-size:clamp(20px,2.85vw,46px)!important}}
 </style>
 </head>
 <body>
@@ -3092,13 +3167,14 @@ body.swmode .flow-foot,body.swmode .result-btns,body.swmode .quiz-result .result
     <div class="h-art" data-svg="kawauso"></div>
   </div>
   <h2>サンシャインすいぞくかんへ いこう！</h2>
-  <p class="next-hint ux-hint" id="homeHint">👆 やりたい ことを さわってね</p>
+  <p class="next-hint ux-hint" id="homeHint" style="display:none"></p>
+  <div class="home-preset" id="homePreset" role="group" aria-label="グループ"><span class="hp-lab">グループ</span><button data-hp="easy"><i>🌸</i>こすもす</button><button data-hp="normal"><i class="hp-tsk"></i>つくし</button><button data-hp="challenge"><i>🌹</i>ばら</button></div>
   <div class="phases">
     <section class="phase p1" id="phase1">
-      <div class="ph-head"><span class="num">1</span>まえに まなぶ <small>（じぜん）</small><span class="ph-now">いまは ここ！</span></div>
+      <div class="ph-head"><span class="num">1</span>まえに まなぶ <small>（じぜん）</small><span class="ph-now">いまは ここ！</span><button class="yt-btn" id="ytBtn" type="button"><span class="yt-ico">▶</span>すいぞくかんの どうが</button></div>
       <div class="ph-grid">
         <button class="home-btn" id="goLearn" style="--acc:#2E9BC6;--accd:#1B6F98;--tint:#DDF3FB;"><span class="hb-emo">🎬</span>ながれを<br>アニメで</button>
-        <button class="home-btn" id="goFlow" style="--acc:#3E9E6B;--accd:#2B7A50;--tint:#E2F5EA;"><span class="hb-emo"><svg class="cal-ico" viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="8" width="56" height="52" rx="9" fill="#fff" stroke="#1B4965" stroke-width="4"/><path d="M4 17 Q4 8 13 8 H51 Q60 8 60 17 V24 H4 Z" fill="#E0473D" stroke="#1B4965" stroke-width="4" stroke-linejoin="round"/><rect x="16" y="2" width="6" height="12" rx="3" fill="#1B4965"/><rect x="42" y="2" width="6" height="12" rx="3" fill="#1B4965"/><text x="32" y="21" text-anchor="middle" font-size="12" font-weight="900" fill="#fff" font-family="sans-serif">10がつ</text><text x="32" y="53" text-anchor="middle" font-size="28" font-weight="900" fill="#1B4965" font-family="sans-serif">20</text></svg></span>きょうの<br>ながれ</button>
+        <button class="home-btn" id="goFlow" style="--acc:#3E9E6B;--accd:#2B7A50;--tint:#E2F5EA;"><span class="hb-emo"><svg class="cal-ico" viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="8" width="56" height="52" rx="9" fill="#fff" stroke="#1B4965" stroke-width="4"/><path d="M4 17 Q4 8 13 8 H51 Q60 8 60 17 V24 H4 Z" fill="#E0473D" stroke="#1B4965" stroke-width="4" stroke-linejoin="round"/><rect x="16" y="2" width="6" height="12" rx="3" fill="#1B4965"/><rect x="42" y="2" width="6" height="12" rx="3" fill="#1B4965"/><text x="32" y="21" text-anchor="middle" font-size="12" font-weight="900" fill="#fff" font-family="sans-serif">10がつ</text><text x="32" y="53" text-anchor="middle" font-size="28" font-weight="900" fill="#1B4965" font-family="sans-serif">20</text></svg></span>しおり</button>
         <button class="home-btn" id="goGacha"><span class="hb-ico" data-ico="gacha"></span>ガチャで<br>あつめる</button>
         <button class="home-btn" id="goZukan"><span class="hb-ico" data-ico="zukan"></span>ずかん <span class="badge" id="countBadge">0/15</span></button>
         <button class="home-btn" id="goQuiz"><span class="hb-ico" data-ico="quiz"></span>だれかな？<br>クイズ</button>
@@ -3109,9 +3185,9 @@ body.swmode .flow-foot,body.swmode .result-btns,body.swmode .quiz-result .result
     </section>
     <div class="ph-side">
       <section class="phase p2" id="phase2">
-        <div class="ph-head"><span class="num">2</span>とうじつ <small>（10/20）</small><span class="ph-now">いまは ここ！</span></div>
+        <div class="ph-head"><span class="num">2</span>とうじつ <small>（10/20 かようび）</small><span class="ph-now">いまは ここ！</span></div>
         <button class="chk-go" id="goCheck">✅ じゅんび チェック（せんせい）</button>
-        <button class="big-go" id="todayBtn"><span class="bg-i">🚌</span>すいぞくかんに<br>ついたよ！<small>（ながれと たんけんカード）</small></button>
+        <button class="big-go" id="todayBtn"><span class="bg-i">🚌</span>すいぞくかんに<br>ついたよ！<small>（しおりと たんけんカード）</small></button>
       </section>
       <section class="phase p3" id="phase3">
         <div class="ph-head"><span class="num">3</span>あとで <small>（じご）</small><span class="ph-now">いまは ここ！</span></div>
@@ -3178,10 +3254,10 @@ body.swmode .flow-foot,body.swmode .result-btns,body.swmode .quiz-result .result
 </div>
 
 <!-- きょうの ながれ -->
-<div class="flow" id="flow" role="dialog" aria-label="きょうの ながれ">
+<div class="flow" id="flow" role="dialog" aria-label="しおり">
   <div class="zukan-head flow-head">
     <button class="pill-btn back-btn" id="closeFlow">⬅ もどる</button>
-    <h2 class="flow-title"><svg class="cal-ico" viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="8" width="56" height="52" rx="9" fill="#fff" stroke="#1B4965" stroke-width="4"/><path d="M4 17 Q4 8 13 8 H51 Q60 8 60 17 V24 H4 Z" fill="#E0473D" stroke="#1B4965" stroke-width="4" stroke-linejoin="round"/><rect x="16" y="2" width="6" height="12" rx="3" fill="#1B4965"/><rect x="42" y="2" width="6" height="12" rx="3" fill="#1B4965"/><text x="32" y="21" text-anchor="middle" font-size="12" font-weight="900" fill="#fff" font-family="sans-serif">10がつ</text><text x="32" y="53" text-anchor="middle" font-size="28" font-weight="900" fill="#1B4965" font-family="sans-serif">20</text></svg>きょうの ながれ</h2>
+    <h2 class="flow-title"><svg class="cal-ico" viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="8" width="56" height="52" rx="9" fill="#fff" stroke="#1B4965" stroke-width="4"/><path d="M4 17 Q4 8 13 8 H51 Q60 8 60 17 V24 H4 Z" fill="#E0473D" stroke="#1B4965" stroke-width="4" stroke-linejoin="round"/><rect x="16" y="2" width="6" height="12" rx="3" fill="#1B4965"/><rect x="42" y="2" width="6" height="12" rx="3" fill="#1B4965"/><text x="32" y="21" text-anchor="middle" font-size="12" font-weight="900" fill="#fff" font-family="sans-serif">10がつ</text><text x="32" y="53" text-anchor="middle" font-size="28" font-weight="900" fill="#1B4965" font-family="sans-serif">20</text></svg>しおり</h2>
     <div class="flow-tools">
       <div class="grp-seg" id="grpSeg">
         <button class="grp-btn red" data-g="red">🔴 あか</button>
@@ -3195,7 +3271,7 @@ body.swmode .flow-foot,body.swmode .result-btns,body.swmode .quiz-result .result
   </div>
   <div class="flow-grid" id="flowGrid"></div>
   <div class="flow-foot">
-    <button class="big-btn btn-zukan flow-undo" id="flowUndo">↩ もどす</button>
+    <button class="big-btn btn-zukan flow-undo" id="flowUndo">◀ まえの よてい</button>
     <button class="big-btn btn-again flow-done" id="flowDone">✔ おわった！</button>
     <button class="big-btn btn-zukan" id="flowMission" style="display:none">🎒 たんけんカード</button>
   </div>
@@ -3523,7 +3599,7 @@ body.swmode .flow-foot,body.swmode .result-btns,body.swmode .quiz-result .result
         <label class="toggle"><input type="checkbox" id="optReadName" checked><span class="tr"></span></label>
       </div>
       <div class="setting-row">
-        <span>きょうの ながれ：くわしく<span class="hint">オン＝14まい（トイレ・しゃしん・かいごとの けんがく など）／オフ＝7まいの かんたんな ながれ</span></span>
+        <span>しおり：くわしく<span class="hint">オン＝14まい（トイレ・しゃしん・かいごとの けんがく など）／オフ＝7まいの かんたんな ながれ</span></span>
         <label class="toggle"><input type="checkbox" id="optFlowDetail" checked><span class="tr"></span></label>
       </div>
     </div>
@@ -4763,7 +4839,7 @@ let coinBusy = false;  // コインが とんでいる とちゅうか
 
 function updateHint(){
   if(settings.coinMode && !coinIn){
-    tapHint.textContent = "👆 タップして 100えんを いれてね！";
+    tapHint.textContent = "👆 ひかっている ところに 100えんを いれてね！";
   }else{
     tapHint.textContent = "👆 タップして ハンドルを まわそう！";
   }
@@ -4788,7 +4864,7 @@ function insertCoin(){
 
 handle.addEventListener("click", ()=>{
   if(busy || coinBusy) return;
-  if(settings.coinMode && !coinIn){ insertCoin(); return; }
+  if(settings.coinMode && !coinIn){ coinNudge(); return; }
   coinIn = false;
   busy = true;
   handle.disabled = true;
@@ -6638,9 +6714,9 @@ const MAP_SPOTS = {
   kaeru:{a:"f2", x:692, y:100}, kumanomi:{a:"f2", x:900, y:100}, kame:{a:"f2", x:700, y:190}, iguana:{a:"f2", x:800, y:190}, azarashi:{a:"f2", x:910, y:190}
 };
 const MAP_AREA = {
-  roof:{x:24,  y:282, w:456, h:348, fill:"#FFE8C2", st:"#F29B38", name:"おそと", sub:"マリンガーデン", lx:98, ly:324},
-  f1:  {x:520, y:282, w:456, h:348, fill:"#D6ECFA", st:"#3A93D6", name:"1かい", sub:"たてものの なか", lx:594, ly:324},
-  f2:  {x:520, y:14,  w:456, h:236, fill:"#D9F2E2", st:"#38A865", name:"2かい", sub:"うえの かい", lx:594, ly:56}
+  roof:{x:24,  y:282, w:456, h:348, fill:"#FFE8C2", st:"#F29B38", name:"おそと", sub:"マリンガーデン", lx:50, ly:330},
+  f1:  {x:520, y:282, w:456, h:348, fill:"#D6ECFA", st:"#3A93D6", name:"1かい", sub:"たてものの なか", lx:546, ly:330},
+  f2:  {x:520, y:14,  w:456, h:236, fill:"#D9F2E2", st:"#38A865", name:"2かい", sub:"うえの かい", lx:546, ly:62}
 };
 function mapIcon(kind, x, y){
   const bg = '<circle cx="' + x + '" cy="' + y + '" r="19" fill="#fff" stroke="#1B4965" stroke-width="3"/>';
@@ -6662,8 +6738,9 @@ function buildMapSVG(group, hi, opts){
       + '<text x="' + A.lx + '" y="' + A.ly + '" font-size="34" font-weight="900" fill="' + A.st + '">' + A.name + '</text>'
       + '<text x="' + (A.lx + (A.name.length*34) + 10) + '" y="' + (A.ly - 2) + '" font-size="17" font-weight="900" fill="#1B4965" opacity=".75">' + A.sub + '</text>';
     const ord = order.indexOf(k) + 1;
-    o += '<circle cx="' + (A.x + 44) + '" cy="' + (A.y + 38) + '" r="25" fill="' + col + '" stroke="#fff" stroke-width="4"/>'
-      + '<text x="' + (A.x + 44) + '" y="' + (A.y + 48) + '" text-anchor="middle" font-size="30" font-weight="900" fill="#fff">' + ord + '</text>';
+    const ry = Math.max(0, A.y - 23), rx = k === "roof" ? A.x + 236 : A.x + A.w - 168;
+    o += '<g class="map-ord"><rect x="' + rx + '" y="' + ry + '" width="150" height="46" rx="23" fill="' + col + '" stroke="#fff" stroke-width="4"/>'
+      + '<text x="' + (rx + 75) + '" y="' + (ry + 32) + '" text-anchor="middle" font-size="24" font-weight="900" fill="#fff">👣 ' + ord + 'ばんめ</text></g>';
     if(on) o += '<text x="' + (A.x + A.w - 70) + '" y="' + (A.y + A.h - 16) + '" text-anchor="end" font-size="22" font-weight="900" fill="#E0473D">★ いま ここ</text>';
     o += '</g>';
   }
@@ -6673,7 +6750,7 @@ function buildMapSVG(group, hi, opts){
   // いどう（1かい⇔2かい エレベーター、2かい→おそと かいだん）
   o += '<g><rect x="548" y="253" width="56" height="26" rx="8" fill="#fff" stroke="#1B4965" stroke-width="2.5"/><text x="576" y="272" text-anchor="middle" font-size="15" font-weight="900" fill="#1B4965">♿ EV</text></g>';
   o += '<path d="M520 200 C492 214 476 248 470 282" stroke="#8AA4B6" stroke-width="5" stroke-dasharray="3 8" stroke-linecap="round" fill="none"/>';
-  o += '<text x="330" y="270" font-size="14" font-weight="900" fill="#5A7A8E">かいだん（2かい→おそと）</text>';
+  o += '<text x="398" y="250" font-size="14" font-weight="900" fill="#5A7A8E">かいだん</text>';
   // いりぐち・でぐち・トイレ・ガチャ
   o += '<g><rect x="452" y="624" width="96" height="40" rx="12" fill="#1B4965"/><text x="500" y="651" text-anchor="middle" font-size="21" font-weight="900" fill="#fff">いりぐち</text></g>';
   o += '<g><rect x="100" y="624" width="96" height="40" rx="12" fill="#E0473D"/><text x="148" y="651" text-anchor="middle" font-size="21" font-weight="900" fill="#fff">でぐち</text></g>';
@@ -6700,7 +6777,7 @@ function buildMapSVG(group, hi, opts){
   // グループ
   o += '<g><rect x="24" y="22" width="300" height="56" rx="18" fill="' + col + '"/><text x="174" y="60" text-anchor="middle" font-size="28" font-weight="900" fill="#fff">' + (g === "red" ? "あかグループ" : "あおグループ") + '</text></g>';
   o += '<text x="28" y="112" font-size="20" font-weight="900" fill="#1B4965">まわる じゅんばん：</text>';
-  o += '<text x="28" y="144" font-size="24" font-weight="900" fill="' + col + '">' + order.map((k,i)=>(i+1) + ". " + MAP_AREA[k].name).join(" → ") + ' → でぐち</text>';
+  o += '<text x="28" y="146" font-size="28" font-weight="900" fill="' + col + '">' + order.map(k=>MAP_AREA[k].name).join(" ➜ ") + ' ➜ でぐち</text>';
   o += '<text x="28" y="182" font-size="14" font-weight="700" fill="#5A7A8E">※ こうしき パンフレットの いちを もとに かいた かんたんな ちずです</text>';
   o += '<text x="28" y="208" font-size="14" font-weight="700" fill="#5A7A8E">♿ くるまいすは 2かい⇔1かいを EV（エレベーター）で。</text>';
   o += '<text x="28" y="228" font-size="14" font-weight="700" fill="#5A7A8E">　 おそとへは いりぐちの ほうから はいります。</text>';
@@ -6875,8 +6952,11 @@ function flowSteps(){
     { t:"13:55", ico:"🏫", l:"がっこうに つく", c:"school" }
   ];
 }
-function curFlowIdx(){ return settings.flowDetail ? flowIdx.d : flowIdx.s; }
-function setFlowIdx(v){ if(settings.flowDetail) flowIdx.d = v; else flowIdx.s = v; }
+let flowChk = { d:[], s:[] };   // おわった ✔ を つけた カード（つけた じゅん）
+function chkArr(){ return settings.flowDetail ? flowChk.d : flowChk.s; }
+function curFlowIdx(){ const a = chkArr(), n = flowSteps().length; for(let i = 0; i < n; i++) if(!a.includes(i)) return i; return n; }
+function setFlowIdx(v){ const a = []; for(let i = 0; i < v; i++) a.push(i); if(settings.flowDetail){ flowChk.d = a; flowIdx.d = v; } else { flowChk.s = a; flowIdx.s = v; } }
+function syncFlowIdx(){ if(settings.flowDetail) flowIdx.d = curFlowIdx(); else flowIdx.s = curFlowIdx(); }
 function flowSay(st){
   if(st.kind === "floor") return st.say;
   if(st.kind === "aq"){
@@ -6897,13 +6977,23 @@ function speakText(t, delay){
   if(delay) setTimeout(go, delay); else go();
 }
 /* D. とけいの え */
+/* とけいの もじばん（1〜12の すうじ いり） */
+function clockDial(){
+  let o = "";
+  for(let k = 0; k < 60; k++){ if(k % 5) { const a = k*6*Math.PI/180; o += '<line x1="' + (50+Math.sin(a)*42.5).toFixed(1) + '" y1="' + (50-Math.cos(a)*42.5).toFixed(1) + '" x2="' + (50+Math.sin(a)*44.5).toFixed(1) + '" y2="' + (50-Math.cos(a)*44.5).toFixed(1) + '" stroke="#9FB3C0" stroke-width="1" stroke-linecap="round"/>'; } }
+  for(let k = 0; k < 12; k++){
+    const a = k*30*Math.PI/180;
+    o += '<line x1="' + (50+Math.sin(a)*40.5).toFixed(1) + '" y1="' + (50-Math.cos(a)*40.5).toFixed(1) + '" x2="' + (50+Math.sin(a)*44.5).toFixed(1) + '" y2="' + (50-Math.cos(a)*44.5).toFixed(1) + '" stroke="#1B4965" stroke-width="' + (k%3 ? 2 : 3) + '" stroke-linecap="round"/>';
+    const n = k === 0 ? 12 : k, r = 32.5;
+    o += '<text x="' + (50+Math.sin(a)*r).toFixed(1) + '" y="' + (50-Math.cos(a)*r + 4.6).toFixed(1) + '" text-anchor="middle" font-size="' + (k%3 ? 12 : 14) + '" font-weight="900" fill="' + (k === 0 ? "#E0473D" : "#1B4965") + '" font-family="Arial, sans-serif">' + n + '</text>';
+  }
+  return o;
+}
 function clockSVG(t){
   if(!t) return "";
   const [h,m] = t.split(":").map(Number);
   const ma = m * 6, ha = (h % 12) * 30 + m * 0.5;
-  let ticks = "";
-  for(let k=0;k<12;k++){ const a = k*30*Math.PI/180; const r1 = k%3 ? 40 : 36;
-    ticks += '<line x1="' + (50+Math.sin(a)*r1).toFixed(1) + '" y1="' + (50-Math.cos(a)*r1).toFixed(1) + '" x2="' + (50+Math.sin(a)*44).toFixed(1) + '" y2="' + (50-Math.cos(a)*44).toFixed(1) + '" stroke="#1B4965" stroke-width="' + (k%3?2:4) + '" stroke-linecap="round"/>'; }
+  const ticks = clockDial();
   return '<svg class="fl-clock" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="#fff" stroke="#1B4965" stroke-width="5"/>' + ticks
     + '<line x1="50" y1="50" x2="50" y2="26" stroke="#1B4965" stroke-width="7" stroke-linecap="round" transform="rotate(' + ha + ' 50 50)"/>'
     + '<line x1="50" y1="50" x2="50" y2="14" stroke="#E0473D" stroke-width="4.5" stroke-linecap="round" transform="rotate(' + ma + ' 50 50)"/>'
@@ -6918,7 +7008,7 @@ function renderFlow(){
   const steps = flowSteps();
   const g = settings.flowGroup === "blue" ? "blue" : "red";
   let idx = Math.max(0, Math.min(curFlowIdx(), steps.length));
-  setFlowIdx(idx);
+  syncFlowIdx();
   const grid = $("flowGrid");
   const split = document.body.classList.contains("split");
   $("flow").classList.toggle("no-time", !settings.flowTime);
@@ -6927,65 +7017,27 @@ function renderFlow(){
   $("quizNextBtn").classList.toggle("on", !!settings.flowQuiz);
   $("quizNextBtn").textContent = settings.flowQuiz ? "❓ つぎは なにかな：オン" : "❓ つぎは なにかな";
   document.querySelectorAll(".grp-btn").forEach(b=>b.classList.toggle("on", b.dataset.g === g));
-  const now = steps[idx], next = steps[idx+1];
-  const quiz = flowQuizOn() && now && next;
-  if(quiz) prepFlowQuiz(steps, idx);
-  const hideNext = quiz && !flowQ.solved;
+  const done = chkArr();
+  const nextK = steps.findIndex((st, k)=>k > idx && !done.includes(k));
   let html = "";
-  // D. すごろくの みち
-  const n = steps.length;
-  const pct = n > 1 ? Math.min(100, idx / (n-1) * 100) : 0;
   if(split) html += '<div class="fl-bigclock" id="flBigClock"></div>';
-  else if(false) html += '<div class="fl-road"><div class="fl-track"><div class="fl-line"><i style="width:' + pct.toFixed(1) + '%"></i></div>'
-    + steps.map((st,k)=>{
-        const state = k < idx ? "done" : k === idx ? "now" : "todo";
-        const q = hideNext && k === idx+1;
-        return '<button class="fl-stop ' + state + ' c-' + (st.c||"aq") + '" data-i="' + (q ? "" : k) + '">'
-          + (q ? '<b class="fl-q">？</b>' : '<span class="fl-stop-ico">' + icoHTML(st) + '</span>')
-          + (k === idx ? '<span class="fl-bus">' + PICS.bus_go + '</span>' : '') + '</button>';
-      }).join("")
-    + '</div><span class="fl-count">' + Math.min(idx, n) + ' / ' + n + '</span></div>';
-  html += '<div class="fl-main">';
-  // A. いま（ひだり・おおきく）
-  html += '<div class="fl-colL">';
-  if(now){
-    let extra = "";
-    if(false && now.sub && now.kind !== "floor") extra += '<div class="fl-sub">' + escapeHTML(now.sub) + '</div>';
-    if(false && now.arts) extra += '<div class="fl-arts">' + now.arts.map(a=>'<span>' + (SVG[a]||"") + '</span>').join("") + '</div>';
-    if(false && now.kind === "aq") extra += '<div class="fl-route">' + ROUTE[g].map((k,m)=>'<b>' + (m+1) + '. ' + FLOORS[k].l + '</b>').join("") + '</div>';
-    html += '<div class="fl-now c-' + (now.c||"aq") + '" data-i="' + idx + '">'
-      + '<div class="fl-tag now">いま</div>'
-      + (split ? '<label class="fl-cam" data-ck="' + stepKey(now, idx) + '" aria-label="しゃしんを とる">📷<span class="fl-camn"></span><input type="file" accept="image/*" capture="environment" hidden></label>' : '')
-      + '<div class="fl-ico big">' + icoHTML(now) + '</div>'
-      + '<div class="fl-body">' + flTime(now) + '<div class="fl-lab big">' + flLabel(now, g) + '</div>' + extra + '</div></div>';
-  }else{
-    html += '<div class="fl-allend">🎉 ぜんぶ おわったよ！<small>したの よていに さわると、もういちど みられるよ</small></div>'
-      + '<div class="fl-later fl-review"><div class="fl-later-lab">きょうの よてい</div>' + steps.map((st,k)=>'<div class="fl-row done c-' + (st.c||"aq") + '" data-i="' + k + '"><span class="fl-ico sm">' + icoHTML(st) + '</span><span class="fl-lab sm">' + flLabel(st, g) + '</span>' + flTime(st) + '<span class="fl-ok">✔</span></div>').join("") + '</div>'
-      + '<button class="big-btn btn-zukan fl-again" id="flowAgain">↺ さいしょから みる</button>';
-  }
-  html += '</div><div class="fl-colR">';
-  // G. つぎは なにかな？
-  if(hideNext){
-    html += '<div class="fl-quiz"><div class="fl-quiz-t">❓ つぎは なにかな？</div><div class="fl-opts">'
-      + flowQ.opts.map((o,k)=>'<button class="fl-opt c-' + (o.c||"aq") + (flowQ.wrong.includes(k) ? ' wrong' : '') + '" data-opt="' + k + '"><span class="fl-ico mid">' + icoHTML(o) + '</span><span class="fl-opt-l">' + (o.kind === "floor" ? escapeHTML(o.l) + ' を みる' : escapeHTML(o.l)) + '</span></button>').join("")
-      + '</div></div>';
-  }else if(next){
-    html += '<div class="fl-next c-' + (next.c||"aq") + (quiz ? ' solved' : '') + '" data-i="' + (idx+1) + '">'
-      + '<div class="fl-tag next">' + (quiz ? '⭕ せいかい！ つぎ' : 'つぎ') + '</div>'
-      + '<div class="fl-ico mid">' + icoHTML(next) + '</div>'
-      + '<div class="fl-body">' + flTime(next) + '<div class="fl-lab mid">' + flLabel(next, g) + '</div></div></div>';
-  }
-  const later = steps.slice(idx+2, idx+4);
-  if(later.length && !hideNext){
-    html += '<div class="fl-later"><div class="fl-later-lab">そのあと</div>'
-      + later.map((st,k)=>'<div class="fl-row c-' + (st.c||"aq") + '" data-i="' + (idx+2+k) + '"><span class="fl-ico sm">' + icoHTML(st) + '</span><span class="fl-lab sm">' + flLabel(st, g) + '</span>' + flTime(st) + '</div>').join("")
+  if(idx >= steps.length) html += '<div class="sh-allend">🎉 ぜんぶ おわったよ！<small>カードに さわると、もういちど みられるよ</small><button class="big-btn btn-zukan fl-again" id="flowAgain">↺ さいしょから</button></div>';
+  html += '<div class="sh-list">' + steps.map((st, k)=>{
+    const isDone = done.includes(k), isNow = k === idx;
+    const cls = "sh-card c-" + (st.c || "aq") + (isDone ? " done" : "") + (isNow ? " now" : "") + (k === nextK ? " sh-next" : "");
+    return '<div class="' + cls + '" data-i="' + k + '">'
+      + (isNow ? '<div class="fl-tag now">いま</div>' : '')
+      + '<div class="fl-ico ' + (isNow ? 'big' : 'sm') + '">' + icoHTML(st) + '</div>'
+      + '<div class="sh-body">' + (isNow ? flTime(st) + '<div class="fl-lab big">' + flLabel(st, g) + '</div>' : '<div class="fl-lab sm">' + flLabel(st, g) + '</div>' + flTime(st)) + '</div>'
+      + (isNow && split ? '<label class="fl-cam" data-ck="' + stepKey(st, k) + '" aria-label="しゃしんを とる">📷<span class="fl-camn"></span><input type="file" accept="image/*" capture="environment" hidden></label>' : '')
+      + '<button class="sh-chk' + (isDone ? ' on' : '') + '" data-chk="' + k + '" aria-label="おわった">✔<small>' + (isDone ? 'おわった' : 'おわったら') + '</small></button>'
       + '</div>';
-  }
-  html += '</div></div>';
+  }).join("") + '</div>';
   grid.innerHTML = html;
+  const now = steps[idx];
   $("flowMission").style.display = now && (now.kind === "floor" || now.kind === "aq") ? "" : "none";
   $("flowDone").style.display = idx < steps.length ? "" : "none";
-  $("flowUndo").style.visibility = idx > 0 ? "visible" : "hidden";
+  $("flowUndo").style.visibility = done.length ? "visible" : "hidden";
   requestAnimationFrame(fitFlowLabels);
   if(split){ updateBigClock(true); setTimeout(fillCamCounts, 0); }
 }
@@ -7012,6 +7064,13 @@ $("goFlow").addEventListener("click", openFlow);
 $("closeFlow").addEventListener("click", ()=>{ sfx.click(); if(document.body.classList.contains("split")){ closeDay(); return; } $("flow").classList.remove("show"); speechSynthesis && speechSynthesis.cancel && speechSynthesis.cancel(); });
 $("flowGrid").addEventListener("click", (e)=>{
   if(e.target.closest(".fl-cam")) return;
+  const ck = e.target.closest("[data-chk]");
+  if(ck){
+    const k = +ck.dataset.chk, a = chkArr();
+    if(a.includes(k)){ a.splice(a.indexOf(k), 1); syncFlowIdx(); saveState(); sfx.click(); renderFlow(); setTimeout(scrollFlowNow, 30); speakText("もどしたよ"); }
+    else flowCheck(k);
+    return;
+  }
   if(e.target.id === "flowAgain"){ sfx.click(); setFlowIdx(0); saveState(); renderFlow(); setTimeout(scrollFlowNow, 30); speakText("さいしょから みるよ"); return; }
   const ob = e.target.closest("[data-opt]");
   if(ob){
@@ -7035,32 +7094,34 @@ $("flowGrid").addEventListener("click", (e)=>{
   c.classList.remove("tapped"); void c.offsetWidth; c.classList.add("tapped");
   speakText(flowSay(st));
 });
-$("flowDone").addEventListener("click", ()=>{
-  const steps = flowSteps();
-  const i = curFlowIdx();
-  if(i >= steps.length) return;
-  setFlowIdx(i + 1);
+function flowCheck(k){
+  const steps = flowSteps(), a = chkArr();
+  if(k < 0 || k >= steps.length || a.includes(k)) return;
+  a.push(k); syncFlowIdx();
   saveState();
   sfx.pinpon();
   renderFlow();
   setTimeout(scrollFlowNow, 30);
-  if(i + 1 >= steps.length){
+  const nx = curFlowIdx();
+  if(nx >= steps.length){
     $("flowFin").classList.add("show");
     confetti(80);
     speakText("きょうも いっぱい がんばったね", 500);
     setTimeout(()=>$("flowFin").classList.remove("show"), 4200);
-  }else{
-    if(flowQuizOn() && steps[i+2]) speakText("いまは、" + flowSay(steps[i+1]) + "。つぎは なにかな？", 600);
-    else speakText("つぎは、" + flowSay(steps[i+1]), 600);
-  }
-});
+  }else speakText("おわったね。つぎは、" + flowSay(steps[nx]), 600);
+}
+$("flowDone").addEventListener("click", ()=>flowCheck(curFlowIdx()));
 $("quizNextBtn").addEventListener("click", ()=>{
   sfx.click(); settings.flowQuiz = !settings.flowQuiz; flowQ.key = ""; renderFlow();
   if(settings.flowQuiz) speakText("つぎは なにかな？");
 });
 $("flowUndo").addEventListener("click", ()=>{
-  const i = curFlowIdx(); if(i <= 0) return;
-  sfx.click(); setFlowIdx(i - 1); saveState(); renderFlow(); setTimeout(scrollFlowNow, 30);
+  const a = chkArr(); if(!a.length) return;
+  const cur = curFlowIdx(), before = a.filter(k=>k < cur);
+  const k = before.length ? Math.max(...before) : a[a.length - 1];
+  a.splice(a.indexOf(k), 1);
+  sfx.click(); syncFlowIdx(); saveState(); renderFlow(); setTimeout(scrollFlowNow, 30);
+  const st = flowSteps()[curFlowIdx()]; if(st) speakText("まえの よていに もどったよ。" + flowSay(st), 200);
 });
 $("timeBtn").addEventListener("click", ()=>{ sfx.click(); settings.flowTime = !settings.flowTime; saveState(); renderFlow(); });
 $("grpSeg").addEventListener("click", (e)=>{
@@ -7070,7 +7131,13 @@ $("grpSeg").addEventListener("click", (e)=>{
 });
 $("flowMission").addEventListener("click", ()=>{ openDay(); });
 /* 「いま ここ」が みえる ように スクロール */
-function scrollFlowNow(){ const g = $("flowGrid"); if(g) g.scrollTop = 0; const l = g && g.querySelector(".fl-later"); if(l) l.scrollTop = 0; }
+function scrollFlowNow(){
+  const g = $("flowGrid"); if(!g) return;
+  const n = g.querySelector(".sh-card.now");
+  if(!n){ g.scrollTop = 0; return; }
+  const ck = g.querySelector(".fl-bigclock"); const off = ck ? ck.offsetHeight + 30 : 74;
+  g.scrollTop += n.getBoundingClientRect().top - g.getBoundingClientRect().top - off;
+}
 $("optFlowDetail").addEventListener("change", ()=>{ if($("flow").classList.contains("show")) renderFlow(); });
 
 $("goSwim").addEventListener("click", openSwim);
@@ -7088,7 +7155,7 @@ function qpScreens(){
   return [sc];
 }
 const QP_TITLE = { home:"🏠 はじめの がめん", gacha:"🎡 ガチャ", zukan:"📖 ずかん", quiz:"❓ クイズ", mission:"🎒 たんけんカード",
-  swim:"🐟 およぐ おさかな", flow:"🗓 きょうの ながれ（10/20）", cert:"🏆 しょうじょう" };
+  swim:"🐟 およぐ おさかな", flow:"🗓 しおり（10/20 かようび）", cert:"🏆 しょうじょう" };
 function qpToggle(label, id){ return { type:"sw", label, id, get:()=>$(id).checked, act:()=>{ const el=$(id); el.checked=!el.checked; el.dispatchEvent(new Event("change")); } }; }
 const QP_ITEMS = {
   home:[ { type:"preset" } ],
@@ -7220,18 +7287,18 @@ function helpContent(s){
   case "map": return { t:"🗺 たんけんマップ", steps:[
       ["🔴","みぎ上で あか・あおを えらぶと、まわる じゅんばんが かわるよ"],
       ["👆","いきものに さわると、なまえを よみあげて うごくよ"],
-      ["★","きょうの ながれで いま みている ばしょが、きいろく ひかるよ"]],
+      ["★","しおりで いま みている ばしょが、きいろく ひかるよ"]],
     tip:"こうしきの パンフレットの いちを もとに、かんたんに かいた ちずです" };
-  case "flow": return { t:"きょうの ながれ（10がつ 20にち）", steps:[
+  case "flow": return { t:"しおり（10がつ 20にち）", steps:[
       ["👆","カードに さわると、なにを するか よみあげるよ"],
-      ["✔","おわったら「✔ おわった！」。「いま ここ」が つぎへ すすむよ"],
+      ["✔","おわったら みぎの ✔ か「✔ おわった！」。いまの カードが おおきく なるよ"],
       ["🔴","みぎ上で あか・あおの グループを えらぶと、すいぞくかんを まわる じゅんばんが かわるよ"],
       ["🕘","「じかん」ボタンで、じこくを みせる・かくすを きりかえられるよ"],
-      ["🎒","「たんけんカード」を おすと、ひだりに ながれ・みぎに たんけんカードが ならぶよ"]],
+      ["🎒","「たんけんカード」を おすと、ひだりに しおり・みぎに たんけんカードが ならぶよ"]],
     tip:"「くわしい（14まい）」と「かんたん（7まい）」は ⚙ せんせいメニューで きりかえます" };
   case "home": return { t:"🏠 はじめの がめん", steps:[
       ["👆","やりたい ことの ボタンを タップしてね"],
-      ["🚌","とうじつは「すいぞくかんに ついたよ！」で、ひだりに きょうの ながれ・みぎに たんけんカードが ひらくよ"],
+      ["🚌","とうじつは「すいぞくかんに ついたよ！」で、ひだりに しおり・みぎに たんけんカードが ひらくよ"],
       ["⚙️","ひだり下の ⚙ は せんせい用。どの がめんでも、その がめんの せっていを すぐ かえられるよ"]],
     tip:"どの がめんでも、ひだり上の「⬅ もどる」で ひとつ まえに もどれます" };
   case "gacha": {
@@ -7315,7 +7382,7 @@ function saveState(){
                   readName: settings.readName, readOff: settings.readOff || {}, lnAuto: !!settings.lnAuto, zukanSolo: settings.zukanSolo,
                   flowDetail: settings.flowDetail, flowTime: settings.flowTime, flowGroup: settings.flowGroup,
                   quizStart: settings.quizStart, swMode: !!settings.swMode, swLock: settings.swLock || 1 },
-      flowIdx: flowIdx,
+      flowIdx: flowIdx, flowChk: flowChk,
       missionFeel: missionFeel,
       soundOn: soundOn,
       missionTarget: missionTarget,
@@ -7356,6 +7423,9 @@ function loadState(){
     }
     if(typeof s.soundOn === "boolean") soundOn = s.soundOn;
     if(s.flowIdx && typeof s.flowIdx.d === "number" && typeof s.flowIdx.s === "number") flowIdx = { d:s.flowIdx.d, s:s.flowIdx.s };
+    const rng = (n)=>Array.from({ length:Math.max(0, n|0) }, (_, i)=>i);
+    if(s.flowChk && Array.isArray(s.flowChk.d) && Array.isArray(s.flowChk.s)) flowChk = { d:s.flowChk.d.filter(x=>typeof x === "number"), s:s.flowChk.s.filter(x=>typeof x === "number") };
+    else flowChk = { d:rng(flowIdx.d), s:rng(flowIdx.s) };
     if(typeof s.missionTarget === "number") missionTarget = s.missionTarget;
     (s.missionPicked || []).filter(id=>valid.has(id)).forEach(id=>missionPicked.add(id));
     (s.missionStamped || []).filter(id=>valid.has(id)).forEach(id=>missionStamped.add(id));
@@ -8315,9 +8385,7 @@ function bigClockSVG(nowM, tgt){
       sector = '<path d="M50 50 L' + x1.toFixed(2) + ' ' + y1.toFixed(2) + ' A' + r + ' ' + r + ' 0 ' + ((a2-a1) > 180 ? 1 : 0) + ' 1 ' + x2.toFixed(2) + ' ' + y2.toFixed(2) + ' Z" fill="#FFD447" opacity=".75"/>';
     }
   }
-  let ticks = "";
-  for(let k=0;k<12;k++){ const a = k*30*Math.PI/180; const r1 = k%3 ? 40 : 36;
-    ticks += '<line x1="' + (50+Math.sin(a)*r1).toFixed(1) + '" y1="' + (50-Math.cos(a)*r1).toFixed(1) + '" x2="' + (50+Math.sin(a)*44).toFixed(1) + '" y2="' + (50-Math.cos(a)*44).toFixed(1) + '" stroke="#1B4965" stroke-width="' + (k%3?2:4) + '" stroke-linecap="round"/>'; }
+  const ticks = clockDial();
   return '<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" fill="#fff" stroke="#1B4965" stroke-width="5"/>' + sector + ticks
     + '<line x1="50" y1="50" x2="50" y2="26" stroke="#1B4965" stroke-width="7" stroke-linecap="round" transform="rotate(' + ha.toFixed(1) + ' 50 50)"/>'
     + '<line x1="50" y1="50" x2="50" y2="14" stroke="#E0473D" stroke-width="4.5" stroke-linecap="round" transform="rotate(' + ma.toFixed(1) + ' 50 50)"/>'
@@ -8332,7 +8400,7 @@ function updateBigClock(fresh){
   // C. じかんに なったら しらせる
   if(tgt && nowM >= tgt.m && !clkDone.has(tgt.st.t + tgt.st.l)){
     clkDone.add(tgt.st.t + tgt.st.l);
-    const nx = document.querySelector("#flowGrid .fl-next");
+    const nx = document.querySelector("#flowGrid .sh-next");
     if(nx){ nx.classList.remove("flash"); void nx.offsetWidth; nx.classList.add("flash"); }
     sfx.pinpon();
     speakText("じかんだよ。つぎは、" + flowSay(tgt.st), 300);
@@ -8803,7 +8871,7 @@ omoEl.addEventListener("scroll", ()=>{ if(omoEl.dataset.v === "diary" && omoEl.s
 
 
 /* ===================== よみあげ オン・オフ（がめんごと） ===================== */
-const READ_NAME = { home:"はじめの がめん", gacha:"ガチャ", zukan:"ずかん", quiz:"クイズ", mission:"たんけんカード", swim:"およぐ おさかな", flow:"きょうの ながれ",
+const READ_NAME = { home:"はじめの がめん", gacha:"ガチャ", zukan:"ずかん", quiz:"クイズ", mission:"たんけんカード", swim:"およぐ おさかな", flow:"しおり",
   cert:"しょうじょう", day:"すいぞくかんに ついたよ", learn:"ながれを アニメで", omoide:"おもいで えにっき", map:"マップ" };
 function readKey(){
   if($("learn") && $("learn").classList.contains("show")) return "learn";
@@ -8974,9 +9042,9 @@ const TOURS = {
   swim:[[".swim-menu, #swimMenu, .sw-menu","あそびかたを えらんでね"]],
   missionPick:[["#missionGrid","すいぞくかんで さがしたい子を えらんでね"]],
   missionStamp:[["#missionGrid","ほんものに あえたら、その子に さわってね"]],
-  flow:[[".fl-colL .fl-now, .fl-now","「いま」やる ことだよ"],["#flowDone","おわったら おしてね。つぎに すすむよ"]],
-  day:[["#flBigClock","いまの じかん。きいろい ところは「つぎ」までの じかんだよ"],[".fl-now","いま やる こと。📷 で しゃしんが とれるよ"],["#flowDone","おわったら おしてね"],["#missionGrid","あえた子に さわってね"]],
-  learn:[["#lnStage","がめんの どこでも さわると、つぎへ すすむよ"],["#lnRoad","うえの えは、きょうの ながれの じゅんばんだよ"]],
+  flow:[[".sh-card.now","「いま」やる ことだよ。おおきく なっているよ"],[".sh-card.now .sh-chk","おわったら ✔ を おしてね"]],
+  day:[["#flBigClock","いまの じかん。きいろい ところは「つぎ」までの じかんだよ"],[".sh-card.now","いま やる こと。📷 で しゃしんが とれるよ"],["#flowDone","おわったら おしてね"],["#missionGrid","あえた子に さわってね"]],
+  learn:[["#lnStage","がめんの どこでも さわると、つぎへ すすむよ"],["#lnRoad","うえの えは、しおりの じゅんばんだよ"]],
   omoide:[["#deBar","「おまかせ」「しゃしん」「もじ」「スタンプ」で えにっきを つくるよ"],["#dePage","さわって えらぶと、うごかしたり おおきく したり できるよ"],["#corner","せんせいは ⚙ を ながおし すると、しゃしんの せいりや いんさつが できるよ"]],
   map:[["#mapBox","いきものに さわると、なまえを よみあげるよ"]]
 };
@@ -9036,8 +9104,7 @@ function uxTick(){
   uxLast = s;
   clearTimeout(uxSpeakT);
   if(!ux.setup) return;
-  if(!ux.tours[s] && TOURS[s]){ uxSpeakT = setTimeout(()=>{ if(uxScreen() === s && !tour && !helpEl.classList.contains("show")) startTour(s); }, 900); return; }
-  if(HINT[s] && ["home","zukan","map","omoide"].includes(s)){
+  if(HINT[s] && ["zukan","map","omoide"].includes(s)){
     uxSpeakT = setTimeout(()=>{ try{ if(uxScreen() === s && !tour && !speechSynthesis.speaking) speakText(HINT[s].replace("👆","")); }catch(e){} }, 1100);
   }
 }
@@ -9091,7 +9158,7 @@ $("setupBody").addEventListener("click", (e)=>{
     if(setupStep < 2){ setupStep++; sfx.click(); renderSetup(); } else finishSetup(true);
   }
 });
-if(!ux.setup) setTimeout(openSetup, 400);
+if(!ux.setup){ ux.setup = true; saveUx(); }
 
 /* ---------- E. がめんごとの ⚙：せつめい・もどす・あたらしい がめん ---------- */
 const DEF_SETTINGS = JSON.parse(JSON.stringify({ fullTap:true, newFirst:true, coinMode:true, showAll:false, feelings:false, quizLevel:2, quizPick:true, swimSpeed:2, swimCount:5, fishSize:2, clearView:false, nudge:true, outline:true, sigSound:true, chant:true, swimBgm:true, readName:true, zukanSolo:false, flowDetail:true, flowTime:true, flowGroup:"red", lnAuto:false, quizStart:"select", swMode:false, swLock:1 }));
@@ -9116,10 +9183,7 @@ QP_ITEMS.omoide = [
   { type:"name" },
   { type:"act", label:"えにっきを はじめから つくりなおす", btn:"🔄 つくりなおす", act:async()=>{ closeQP(); if(await pDialog("えにっきを はじめから つくりなおしますか？（しゃしんは きえません）", "つくりなおす", "やめる")){ dePush(); await deApplyLayout(0, true); deSave(); deRender(); } } }
 ];
-QP_ITEMS.home = (QP_ITEMS.home || []).concat([
-  { type:"act", label:"かんたん じゅんび（グループ・なまえ・そうさ）", btn:"▶ やりなおす", act:()=>{ closeQP(); openSetup(); } },
-  { type:"act", label:"はじめての あんない（ガイド）を もういちど", btn:"▶ もういちど", act:()=>{ ux.tours = {}; saveUx(); closeQP(); uxLast = ""; uxToast("✔ ガイドを もういちど だすよ"); } }
-]);
+
 QP_TITLE.learn = "🎬 ながれを アニメで"; QP_TITLE.omoide = "📔 おもいで えにっき"; QP_TITLE.map = "🗺 たんけんマップ";
 const _qpScreens0 = qpScreens;
 qpScreens = function(){
@@ -9173,7 +9237,7 @@ const vis = (el)=> !!(el && el.offsetParent !== null && getComputedStyle(el).vis
 
 /* ---------- A. 「つぎに やること」を どの がめんも おなじ ばしょに ---------- */
 function uxHintText(s){
-  if(s === "home") return "👆 やりたい ことを さわってね";
+  if(s === "home") return "";
   if(s === "gacha") return (tapHint.style.visibility === "hidden" || busy) ? "" : tapHint.textContent;
   if(s === "reveal") return "👆 でてきた なかまに さわってみよう";
   if(s === "quiz"){ const m = document.querySelector(".qtype-btn"), onMenu = vis(m); const qm = $("quizMsg"); if(qm) qm.style.visibility = onMenu ? "hidden" : ""; return onMenu ? "👆 あそびたい クイズを えらんでね" : ""; }
@@ -9220,7 +9284,7 @@ zukanGrid.addEventListener("click", (e)=>{
 
 /* ---------- E. とまっていたら そっと おしえる ---------- */
 const NUDGE_SEL = {
-  home:".phase.now .home-btn, .phase.now .big-go", gacha:"#tapHint, .machine-col", zukan:".z-card.met, .z-card.new-get",
+  gacha:"#tapHint, .machine-col", zukan:".z-card.met, .z-card.new-get",
   quiz:".qtype-btn", swim:"#swimSelect .smode-btn, #swimDir .smode-btn", missionPick:"#missionGrid .m-card",
   flow:"#flowDone", day:"#flowDone", omoide:'[data-act="layout"]', learn:"#lnStage"
 };
@@ -9243,7 +9307,7 @@ setInterval(()=>{
 
 /* ---------- F. いま どこ？（いろ と みちしるべ） ---------- */
 const PHASE_OF = { home:0, learn:1, flow:1, gacha:1, reveal:1, zukan:1, detail:1, quiz:1, swim:1, missionPick:1, map:1, cert:2, day:2, missionStamp:2, omoide:3, omoEdit:3 };
-const SCREEN_NAME = { learn:"ながれを アニメで", flow:"きょうの ながれ", gacha:"ガチャ", reveal:"ガチャ", zukan:"ずかん", detail:"ずかん", quiz:"クイズ", swim:"およぐ おさかな",
+const SCREEN_NAME = { learn:"ながれを アニメで", flow:"しおり", gacha:"ガチャ", reveal:"ガチャ", zukan:"ずかん", detail:"ずかん", quiz:"クイズ", swim:"およぐ おさかな",
   missionPick:"たんけんカード", missionStamp:"たんけんカード", map:"たんけんマップ", cert:"しょうじょう", day:"すいぞくかんに ついたよ", omoide:"えにっき", omoEdit:"えにっき" };
 const PHASE_NAME = { 1:"① まえに まなぶ", 2:"② とうじつ", 3:"③ あとで" };
 function uxCrumbTick(){
@@ -9293,7 +9357,6 @@ function chkItems(){
     { k:"speak", t:"よみあげが きこえる", now:(settings.readName === false ? "オフ" : "オン"), btn:"🗣 よむ", act:()=>{ settings.readName = true; syncSettingsUI(); saveState(); speakText("よみあげの テストです"); } },
     { k:"camera", t:"カメラが つかえる", now:"", btn:"📷 ためす", act:()=>{ $("chkCam").click(); } },
     { k:"save", t:"しゃしんアプリへの ほぞん", now:"とった あと「📲 ほぞん」→「画像を保存」", btn:"", act:null },
-    { k:"tour", t:"はじめての あんないを しまう", now:"とうじつ とちゅうで でない ように", btn:"しまう", act:()=>{ Object.keys(TOURS).forEach(k=>ux.tours[k] = true); saveUx(); uxToast("✔ あんないは もう でないよ"); } },
     { k:"kid", t:"さいごに こどもモードに もどす", now:(document.body.classList.contains("teacher") ? "いまは せんせいモード" : "こどもモード"), btn:"もどす", act:()=>{ setTeacher(false); renderCheck(); } }
   ];
 }
@@ -9387,7 +9450,8 @@ document.addEventListener("keydown", (e)=>{
 const SW_CHOICE = ".home-btn, .big-go, .qtype-btn, .qlv-btn, #quizAnswers .ox-btn, #quizAnswers .big-btn[data-cid], #swimSelect .smode-btn, #swimDir .smode-btn, .z-card.met";
 let swPending = null, swPassing = false, swLast = 0;
 document.body.insertAdjacentHTML("beforeend",
-  '<div id="swBar" class="sw-bar" aria-live="polite"><span class="sw-t">👩‍🏫 せんせい</span><span class="sw-c">🔘 こども</span><b id="swText"></b></div><div id="swTag" class="sw-tag">🔘 スイッチ</div>');
+  '<div id="swBar" class="sw-bar" aria-live="polite"><span class="sw-t">👩‍🏫 せんせい</span><span class="sw-c">🔘 こども</span><b id="swText"></b><button id="swFreeBtn" class="sw-free" type="button">✋ ふつうに さわる</button></div><div id="swTag" class="sw-tag">🔘 スイッチ</div>');
+let swFree = false;   // しばらく ふつうに タッチ できる
 function swOn(){ return !!settings.swMode; }
 function swModal(){
   return ["settings","help","qpanel","setup","check"].some(id=>{ const el = document.getElementById(id); return el && el.classList.contains("show"); }) || (typeof tour !== "undefined" && tour);
@@ -9398,7 +9462,7 @@ function swLabel(el){ return (el.innerText || el.textContent || "").replace(/\s+
 
 /* せんせいが えらぶ：その ばでは きまらず、こどもの スイッチを まつ */
 window.addEventListener("click", (e)=>{
-  if(!swOn() || swPassing || swModal()) return;
+  if(!swOn() || swFree || swPassing || swModal()) return;
   const el = e.target.closest(SW_CHOICE); if(!el) return;
   const sc = uxScreen(); if(sc === "omoide" || sc === "omoEdit") return;
   e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
@@ -9419,6 +9483,7 @@ function swAction(){
   if(sc === "gacha"){
     if(result.classList.contains("show")) return { el:$("againBtn"), l:"もういっかい", run:()=>{ if(Date.now() - resultShownAt > 1200) goAgain(); } };
     if(stageCapsule.classList.contains("show")) return { el:null, l:"カプセルを あける", run:()=>openCapsule() };
+    if(typeof coinNeed === "function" && coinNeed()) return { el:coinSlot, l:"100えんを いれる", run:()=>insertCoin() };
     return busy ? { wait:true } : { el:null, l:"ガチャを まわす", run:()=>handle.click() };
   }
   if(sc === "reveal"){
@@ -9486,6 +9551,8 @@ function swTick(){
   if(hide){ tag.style.display = "none"; return; }
   const a = swAction();
   bar.classList.toggle("kid", !!a && !a.wait); bar.classList.toggle("tch", !a);
+  bar.classList.toggle("free", swFree);
+  if(swFree){ bar.classList.remove("kid","tch"); const t2 = "✋ いまは ふつうに さわれるよ"; if($("swText").textContent !== t2) $("swText").textContent = t2; tag.style.display = "none"; return; }
   const txt = a && a.wait ? "⏳ みてね" : a ? (swPending ? "👩‍🏫 えらんだよ → 🔘 おして " + a.l : "🔘 おすと " + a.l) : "👩‍🏫 せんせいが えらぶ ばん";
   if($("swText").textContent !== txt) $("swText").textContent = txt;
   if(a && a.el && vis(a.el)){
@@ -9495,6 +9562,64 @@ function swTick(){
 }
 setInterval(swTick, 300);
 swSync();
+
+/* ===== fix7 ===== */
+/* ガチャ：100えんは ひかっている コインいれに いれる */
+function coinNeed(){ return settings.coinMode && !coinIn && !busy && !coinBusy; }
+function coinNudge(){
+  if(!coinNeed()) return;
+  coinSlot.classList.remove("nudge"); void coinSlot.offsetWidth; coinSlot.classList.add("nudge");
+  sfx.click(); speakText("ひかっている ところに おかねを いれてね");
+}
+coinSlot.addEventListener("click", (e)=>{ e.stopPropagation(); if(coinNeed()) insertCoin(); });
+setInterval(()=>{ const n = coinNeed(); coinSlot.classList.toggle("ask", n); document.body.classList.toggle("coin-need", n); }, 250);
+
+/* トップの グループ スイッチ（おすと アプリ ぜんたいの せっていが きまる） */
+(function(){
+  const box = $("homePreset"); if(!box) return;
+  box.querySelector(".hp-tsk").innerHTML = TSK_SVG;
+  const mark = ()=>{ const k = currentPreset(); box.querySelectorAll("[data-hp]").forEach(b=>b.classList.toggle("on", b.dataset.hp === k)); };
+  box.addEventListener("click", (e)=>{
+    const b = e.target.closest("[data-hp]"); if(!b) return;
+    const pb = document.querySelector('#presetRow .preset-btn[data-preset="' + b.dataset.hp + '"]');
+    if(pb) pb.click(); else applyPreset(b.dataset.hp);
+    if(typeof swSync === "function") swSync();
+    mark();
+    const nm = { easy:"こすもす", normal:"つくし", challenge:"ばら" }[b.dataset.hp];
+    uxToast("✔ " + nm + " の せっていに したよ（こまかい ことは それぞれの がめんの ⚙ で）");
+  });
+  mark(); setInterval(mark, 800);
+})();
+
+/* こすもす：こどもが おす ばめんは、がめんの どこを さわっても すすむ */
+const SW_TAP_SKIP = "button, a, input, label, select, textarea, [contenteditable], .corner, #swBar, .sh-card:not(.now), .z-card, .m-card, .map-cr, .fl-cam, .zs-nav, #qpanel, .help, .settings";
+window.addEventListener("click", (e)=>{
+  if(!swOn() || swFree || swPassing || swModal()) return;
+  if(e.target.closest("#swBar")) return;
+  const sc = uxScreen(); if(!swPending && ["home","omoide","omoEdit","setup","map","cert","detail"].includes(sc)) return;
+  if(e.target.closest("#homePreset")) return;
+  if(e.target.closest(SW_TAP_SKIP) || e.target.closest(SW_CHOICE)) return;
+  const a = swAction(); if(!a || a.wait) return;
+  e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+  swPress();
+}, true);
+
+/* こすもす：しばらく ふつうに さわる */
+$("swFreeBtn").addEventListener("click", (e)=>{
+  e.stopPropagation();
+  swFree = !swFree; swClearPick(); sfx.click();
+  $("swFreeBtn").textContent = swFree ? "🔘 スイッチに もどす" : "✋ ふつうに さわる";
+  uxToast(swFree ? "✋ しばらく ふつうに さわれるよ（もどすときは「🔘 スイッチに もどす」）" : "🔘 スイッチで すすめる モードに もどったよ");
+  swTick();
+});
+
+/* サンシャイン水族館 公式YouTube（いちど きいてから ひらく） */
+const YT_URL = "https://www.youtube.com/@SunshineAquarium";
+document.body.insertAdjacentHTML("beforeend", '<div class="yt-ov" id="ytOv" role="dialog" aria-label="YouTube"><div class="yt-card"><div class="yt-big">▶</div><p>サンシャインすいぞくかんの<br>YouTubeを ひらきますか？</p><small>アプリの そとに でます。もどる ときは、がめんを きりかえて このアプリに もどってね</small><div class="yt-row"><button type="button" class="big-btn btn-zukan" id="ytNo">やめる</button><a class="big-btn btn-again" id="ytGo" href="' + YT_URL + '" target="_blank" rel="noopener">▶ ひらく</a></div></div></div>');
+$("ytBtn").addEventListener("click", (e)=>{ e.stopPropagation(); sfx.click(); $("ytOv").classList.add("show"); speakText("ユーチューブを ひらきますか"); });
+$("ytNo").addEventListener("click", ()=>{ sfx.click(); $("ytOv").classList.remove("show"); });
+$("ytGo").addEventListener("click", ()=>{ setTimeout(()=>$("ytOv").classList.remove("show"), 300); });
+$("ytOv").addEventListener("click", (e)=>{ if(e.target.id === "ytOv") $("ytOv").classList.remove("show"); });
 </script>
 </body>
 </html>
