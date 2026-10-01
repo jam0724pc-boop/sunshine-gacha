@@ -2501,6 +2501,131 @@
   body.split .fl-now .fl-cam{width:clamp(48px,7vh,58px);height:clamp(48px,7vh,58px);font-size:clamp(24px,3.8vh,30px);}
   body.split .fl-now{gap:8px;padding:14px 10px;}
 
+  /* ===================== えにっき エディタ ===================== */
+  .omoide[data-v="diary"]{overflow:hidden;padding-bottom:8px;}
+  .omo-diary{flex:1;min-height:0;display:none;flex-direction:column;gap:8px;}
+  .omoide[data-v="diary"] .omo-diary{display:flex;}
+  .de-wrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;}
+  .de-holder{position:relative;}
+  .de-page{position:absolute;left:0;top:0;width:1123px;height:794px;transform-origin:0 0;overflow:hidden;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.4);
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;touch-action:none;-webkit-user-select:none;user-select:none;}
+  .de-deco{position:absolute;inset:0;pointer-events:none;}
+  .bg-deep{background:linear-gradient(180deg,#2C8ED0 0%,#145A94 55%,#0B3A6A 100%);}
+  .bg-deep .de-deco{background:
+      linear-gradient(105deg,transparent 18%,rgba(255,255,255,.10) 22%,transparent 30%),linear-gradient(100deg,transparent 52%,rgba(255,255,255,.08) 56%,transparent 64%),
+      radial-gradient(circle at 6% 92%,rgba(255,255,255,.5) 0 7px,transparent 8px),radial-gradient(circle at 8% 84%,rgba(255,255,255,.4) 0 4px,transparent 5px),
+      radial-gradient(circle at 95% 60%,rgba(255,255,255,.45) 0 8px,transparent 9px),radial-gradient(circle at 93% 52%,rgba(255,255,255,.35) 0 4px,transparent 5px),
+      linear-gradient(0deg,#E8D3A2 0 26px,transparent 26px);}
+  .bg-lagoon{background:linear-gradient(180deg,#E6F8FD 0%,#BDEBF7 60%,#8FD8EE 100%);}
+  .bg-lagoon .de-deco{background:
+      radial-gradient(ellipse 60% 18% at 50% 104%,#F3E1B8 60%,transparent 61%),
+      radial-gradient(circle at 92% 12%,rgba(255,255,255,.9) 0 10px,transparent 11px),radial-gradient(circle at 88% 20%,rgba(255,255,255,.8) 0 6px,transparent 7px),
+      repeating-radial-gradient(circle at 50% -40%,transparent 0 60px,rgba(255,255,255,.18) 60px 64px);}
+  .bg-beach{background:linear-gradient(180deg,#9FDCF5 0%,#CBEFFA 46%,#F6E6C2 46.2%,#EFD7A6 100%);}
+  .bg-beach .de-deco{background:
+      radial-gradient(circle at 92% 14%,#FFD447 0 46px,rgba(255,212,71,.25) 47px 64px,transparent 65px),
+      radial-gradient(ellipse 30% 4% at 20% 46%,#fff 50%,transparent 52%),radial-gradient(ellipse 30% 4% at 70% 46.5%,#fff 50%,transparent 52%);}
+  .bg-simple{background:#FFFFFF;}
+  .bg-simple .de-deco{border:14px solid #DDF1FA;border-radius:10px;}
+  .de-el{position:absolute;box-sizing:border-box;}
+  .de-el.sel{z-index:50;outline:calc(3px / var(--sc,1)) dashed #FF5D8F;outline-offset:calc(4px / var(--sc,1));}
+  .de-el .h{position:absolute;width:calc(30px / var(--sc,1));height:calc(30px / var(--sc,1));border-radius:50%;background:#FF5D8F;border:calc(3px / var(--sc,1)) solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);z-index:5;
+    color:#fff;font-style:normal;font-weight:900;font-size:calc(16px / var(--sc,1));display:grid;place-items:center;line-height:1;}
+  .de-el .h-rs{right:calc(-17px / var(--sc,1));bottom:calc(-17px / var(--sc,1));cursor:nwse-resize;}
+  .de-el .h-rot{left:50%;top:calc(-46px / var(--sc,1));transform:translateX(-50%);background:#2F7FD6;}
+  .de-el .h-del{right:calc(-17px / var(--sc,1));top:calc(-17px / var(--sc,1));background:#E0473D;}
+  /* しゃしん */
+  .de-photo .ph{position:absolute;inset:0;overflow:hidden;background:#CFE8F5;}
+  .de-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:50% 50%;pointer-events:none;}
+  .de-photo .ph-empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-weight:900;color:#2F7FD6;font-size:26px;line-height:1.3;
+    border:5px dashed #6EC6F0;background:rgba(255,255,255,.75);}
+  .f-tank{border:12px solid #5BB8E8;border-radius:26px;box-shadow:inset 0 0 0 4px #fff,0 8px 0 rgba(0,0,0,.18);background:#5BB8E8;}
+  .f-tank .ph{border-radius:14px;}
+  .f-polaroid{background:#fff;padding:14px 14px 54px;box-shadow:0 10px 22px rgba(0,0,0,.28);border-radius:4px;}
+  .f-polaroid .ph{inset:14px 14px 54px;}
+  .f-round{border-radius:50%;border:14px solid #A7B4BF;box-shadow:inset 0 0 0 5px #fff,0 8px 0 rgba(0,0,0,.2);background:#A7B4BF;}
+  .f-round .ph{border-radius:50%;}
+  .de-photo.crop{outline-color:#2F7FD6;}
+  .de-photo.crop .ph{overflow:visible;}
+  .de-photo.crop img{opacity:.92;}
+  /* もじ */
+  .de-text{display:flex;align-items:center;justify-content:center;}
+  .de-text .tx{width:100%;font-weight:900;line-height:1.3;text-align:center;white-space:pre-wrap;word-break:break-all;outline:none;}
+  .de-text.r-free .tx{text-align:left;}
+  .de-text.r-title .tx{text-shadow:0 3px 0 rgba(0,0,0,.18);}
+  .de-text .tx-ph{position:absolute;inset:0;display:grid;place-items:center;color:#9AB8CA;font-weight:900;font-size:24px;pointer-events:none;}
+  .b-white{background:rgba(255,255,255,.95);border-radius:26px;padding:12px 20px;box-shadow:0 6px 0 rgba(0,0,0,.12);border:4px solid #BFE3F5;}
+  .b-bubble{background:#fff;border:6px solid #6EC6F0;border-radius:40px;padding:14px 24px;}
+  .b-bubble::after{content:"";position:absolute;left:40px;bottom:-30px;border:16px solid transparent;border-top:22px solid #6EC6F0;}
+  .tx[contenteditable="true"]{background:rgba(255,255,255,.6);border-radius:8px;-webkit-user-select:text;user-select:text;}
+  /* スタンプ */
+  .de-stamp .st{width:100%;height:100%;}
+  .de-stamp .st svg{width:100%;height:100%;display:block;}
+  /* どうぐ */
+  .de-ctx{display:flex;flex-wrap:nowrap;justify-content:safe center;align-items:center;gap:6px;min-height:46px;overflow-x:auto;flex:none;}
+  .de-ctx button{flex:none;}
+  .de-bar{flex:none;}
+  .de-ctx button{border:3px solid #fff;border-radius:999px;background:#fff;font-family:inherit;font-weight:900;font-size:15px;color:var(--ink);padding:6px 12px;cursor:pointer;}
+  .de-ctx button.on{background:#FFD447;}
+  .de-ctx .dc-col{width:34px;height:34px;padding:0;border:3px solid #fff;box-shadow:0 0 0 2px rgba(0,0,0,.2);}
+  .de-ctx .dc-col.on{box-shadow:0 0 0 4px #FFD447;}
+  .de-ctx .dc-sep{width:10px;}
+  .de-ctx .dc-hint{color:#fff;font-weight:900;font-size:15px;opacity:.9;}
+  .de-bar{display:flex;justify-content:center;gap:clamp(6px,1vw,12px);flex-wrap:wrap;}
+  .de-bar button{border:4px solid #fff;border-radius:18px;background:linear-gradient(180deg,#fff,#E6F5FC);font-family:inherit;font-weight:900;color:var(--ink);
+    font-size:clamp(14px,1.6vw,18px);padding:8px clamp(10px,1.4vw,18px);display:flex;align-items:center;gap:4px;box-shadow:0 4px 0 rgba(0,0,0,.2);cursor:pointer;}
+  .de-bar button span{font-size:1.4em;}
+  .de-tray{position:fixed;left:50%;bottom:-100%;transform:translateX(-50%);width:min(980px,96vw);max-height:62vh;overflow:auto;z-index:70;background:#fff;border-radius:26px 26px 0 0;
+    box-shadow:0 -10px 40px rgba(0,0,0,.4);padding:12px 16px 20px;transition:bottom .3s ease;}
+  .de-tray.show{bottom:0;}
+  .omoide > .de-tray.de-tray{position:fixed;z-index:70;}
+  .dt-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-size:19px;}
+  .dt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;}
+  .dt-grid button{border:3px solid #E3EEF4;border-radius:16px;background:#F7FBFD;padding:6px;font-family:inherit;font-weight:900;font-size:13px;color:var(--ink);
+    display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;min-width:0;}
+  .dt-grid button span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
+  .dt-grid button.on{border-color:#FFD447;background:#FFF8DC;}
+  .dt-grid svg{width:84px;height:84px;}
+  .dt-photo{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));}
+  .dt-photo img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;}
+  .dt-layout{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));}
+  .dt-layout svg{width:100%;height:auto;border-radius:8px;}
+  .dt-sw{display:block;width:100%;aspect-ratio:4/3;border-radius:10px;border:2px solid #E3EEF4;}
+  .dt-empty{grid-column:1/-1;padding:24px;text-align:center;color:#6A8597;font-weight:900;}
+  /* かくにん・おしらせ */
+  .pconfirm{position:fixed;inset:0;z-index:95;background:rgba(8,30,50,.55);display:none;place-items:center;}
+  .pconfirm.show{display:grid;}
+  .pc-box{background:#fff;border-radius:26px;padding:24px 26px;width:min(560px,90vw);text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.4);animation:popIn .3s ease-out;}
+  .pc-box p{font-size:clamp(18px,2.4vw,24px);font-weight:900;line-height:1.5;margin:0 0 18px;color:var(--ink);}
+  .pc-box div{display:flex;gap:14px;justify-content:center;}
+  .ptoast{position:fixed;left:50%;bottom:-120px;transform:translateX(-50%);z-index:92;background:#fff;border-radius:999px;padding:8px 10px 8px 22px;display:flex;align-items:center;gap:10px;
+    box-shadow:0 10px 30px rgba(0,0,0,.35);transition:bottom .3s ease;border:4px solid #FFD447;font-weight:900;color:var(--ink);font-size:18px;white-space:nowrap;}
+  .ptoast.show{bottom:20px;}
+  .ptoast button{border:none;border-radius:999px;font-family:inherit;font-weight:900;font-size:16px;padding:8px 14px;cursor:pointer;}
+  #ptSave{background:#2F7FD6;color:#fff;}
+  #ptClose{background:#EEF3F6;color:var(--ink);}
+  @media print{
+    @page{size:A4 landscape;margin:0;}
+    body.printing-diary .omo-diary{display:block !important;}
+    body.printing-diary .omo-diary > *:not(.de-wrap){display:none !important;}
+    body.printing-diary .de-holder{width:auto !important;height:auto !important;}
+    body.printing-diary .de-page{position:relative !important;transform:none !important;box-shadow:none;border-radius:0;}
+    body.printing-diary .ph-empty,body.printing-diary .tx-ph{display:none !important;}
+  }
+
+  .dc-del{background:#FFE3E0 !important;}
+  .de-shot-hint{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:99;background:rgba(27,73,101,.92);color:#fff;font-weight:900;font-size:24px;text-align:center;
+    padding:18px 30px;border-radius:24px;display:none;pointer-events:none;line-height:1.5;}
+  .de-shot-hint small{font-size:17px;opacity:.9;}
+  .de-shot-hint.show{display:block;animation:popIn .3s ease-out;}
+  .omoide > .de-shot-hint.de-shot-hint{position:fixed;z-index:99;}
+  .omoide.shot{padding:0;background:#0B3A6A;}
+  .omoide.shot > *:not(.omo-diary):not(.de-shot-hint){display:none !important;}
+  .omoide.shot .omo-diary > *:not(.de-wrap){display:none !important;}
+  .omoide.shot .omo-diary{gap:0;}
+  .omoide.shot .de-page{border-radius:0;box-shadow:none;}
+  .omoide.shot .ph-empty,.omoide.shot .tx-ph{display:none !important;}
+  body.de-shot-on #teacherBtn, body.de-shot-on #helpBtn, body.de-shot-on .qpanel{display:none !important;}
 </style>
 </head>
 <body>
@@ -2810,13 +2935,27 @@
     </div>
   </div>
   <div class="omo-edit">
-    <p class="omo-note">カードごとに しゃしんを いれてください。「すいぞくかんに ついたよ」の 📷 で とった しゃしんも ここに はいります。しゃしんは この iPad の なかだけに ほぞんされ、インターネットには でません。<br>いきものの しゃしんは「ずかん」の くわしい ページから いれられます。</p>
+    <p class="omo-note">カードごとに しゃしんを いれてください（きほんは 1まい、かくにんすると 3まいまで）。「すいぞくかんに ついたよ」の 📷 で とった しゃしんも ここに はいります。しゃしんは この iPad の なかだけに ほぞんされ、インターネットには でません。<br>いきものの しゃしんは「ずかん」の くわしい ページから いれられます。</p>
     <div class="omo-grid" id="omoEditGrid"></div>
   </div>
   <div class="omo-diary">
-    <div class="diary-page" id="diaryPage"></div>
+    <div class="de-wrap" id="deWrap"><div class="de-holder" id="deHolder"><div class="de-page bg-deep" id="dePage"></div></div></div>
+    <div class="de-ctx" id="deCtx"></div>
+    <div class="de-bar" id="deBar">
+      <button data-act="layout"><span>✨</span>おまかせ</button>
+      <button data-act="photo"><span>📷</span>しゃしん</button>
+      <button data-act="text"><span>🔤</span>もじ</button>
+      <button data-act="stamp"><span>🐧</span>スタンプ</button>
+      <button data-act="bg"><span>🎨</span>はいけい</button>
+      <button data-act="undo"><span>↩</span>もどす</button>
+      <button data-act="shot"><span>📸</span>スクショ</button>
+    </div>
   </div>
+  <div class="de-tray" id="deTray"></div>
+  <div class="de-shot-hint" id="deShotHint">📸 いま スクリーンショットを とってね<br><small>（もどるときは がめんを タップ）</small></div>
 </div>
+<div class="pconfirm" id="pConfirm" role="dialog"><div class="pc-box"><p id="pcMsg"></p><div><button class="big-btn btn-again" id="pcOk">はい</button><button class="big-btn btn-zukan" id="pcNo">やめる</button></div></div></div>
+<div class="ptoast" id="pToast"><span id="ptMsg">📷 とれたよ！</span><button id="ptSave">📲 しゃしんアプリにも ほぞん</button><button id="ptClose">✕</button></div>
 <!-- いきものはかせ（くわしい せつめい） -->
 <div class="detail" id="detail" role="dialog" aria-label="いきもののせつめい">
   <button class="pill-btn back-btn detail-close" id="closeDetail">⬅ もどる</button>
@@ -7552,7 +7691,7 @@ function omoView(v){
   omoEl.dataset.v = v;
   $("omoTitle").textContent = v === "edit" ? "✏️ しゃしんを いれる" : "📔 おもいで えにっき";
   if(v === "edit") renderOmoEdit();
-  if(v === "diary") renderDiary();
+  if(v === "diary") renderEditor();
 }
 let omoSceneOn = false;
 $("goOmoide").addEventListener("click", ()=>{
@@ -7569,7 +7708,7 @@ async function renderOmoEdit(){
     const list = await MDB.get("photo:" + k) || [];
     html += '<div class="oe-card"><div class="oe-h"><span class="oe-ico">' + keyPic(k) + '</span><b>' + escapeHTML(keyLabel(k)) + '</b></div><div class="oe-ph">'
       + list.map((b,j)=>'<div class="oe-th"><img data-blob="' + k + ':' + j + '" alt=""><button class="oe-x" data-del="' + k + ':' + j + '" aria-label="けす">✕</button></div>').join("")
-      + '<label class="oe-add">＋<br>しゃしん<input type="file" accept="image/*" multiple data-add="' + k + '" hidden></label>'
+      + (list.length < 3 ? '<label class="oe-add">＋<br>しゃしん<input type="file" accept="image/*" multiple data-add="' + k + '" hidden></label>' : '')
       + '</div></div>';
   }
   box.innerHTML = html;
@@ -7581,10 +7720,9 @@ async function renderOmoEdit(){
 $("omoEditGrid").addEventListener("change", async (e)=>{
   const inp = e.target.closest("[data-add]"); if(!inp || !inp.files.length) return;
   const k = inp.dataset.add;
-  const list = await MDB.get("photo:" + k) || [];
-  for(const f of [...inp.files]) list.push(await shrinkImage(f));
-  await MDB.set("photo:" + k, list);
-  sfx.pon();
+  const files = [...inp.files]; inp.value = "";
+  const got = await addPhotosToKey(k, files, false);
+  if(got) sfx.pon();
   renderOmoEdit();
 });
 $("omoEditGrid").addEventListener("click", async (e)=>{
@@ -7596,62 +7734,6 @@ $("omoEditGrid").addEventListener("click", async (e)=>{
   sfx.click();
   renderOmoEdit();
 });
-const DY_WAVE = '<svg class="dy-wave" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0 H1000 V18 C930 38 860 38 790 20 C720 2 650 2 580 20 C510 38 440 38 370 20 C300 2 230 2 160 20 C100 36 40 36 0 22 Z" fill="currentColor"/></svg>';
-async function renderDiary(){
-  const box = $("diaryPage");
-  let cells = "";
-  for(const k of MEM_KEYS){
-    const list = await MDB.get("photo:" + k) || [];
-    if(!list.length) continue;
-    const f = FEELS.find(x=>x.k === omo.feel[k]);
-    cells += '<div class="dy-cell"><div class="dy-frame"><img data-dk="' + k + '" alt=""><i class="b1"></i><i class="b2"></i><i class="b3"></i>'
-      + '<button class="dy-feel' + (f ? '' : ' none') + '" data-fk="' + k + '" aria-label="きもち">' + (f ? f.e : '＋') + '</button></div>'
-      + '<div class="dy-lab"><span class="dy-ico">' + keyPic(k) + '</span>' + escapeHTML(keyLabel(k)) + '</div></div>';
-  }
-  const metIds = [];
-  for(const c of CREATURES){
-    const b = await MDB.get("zphoto:" + c.id);
-    if(b || (typeof missionStamped !== "undefined" && missionStamped.has(c.id))) metIds.push([c, b]);
-  }
-  const met = metIds.map(([c,b])=>'<div class="dy-met"><div class="dy-port' + (b ? ' ph' : '') + '">' + (b ? '<img data-zk="' + c.id + '" alt="">' : (SVG[c.svg] || '')) + '</div><span>' + escapeHTML(c.name) + '</span></div>').join("");
-  box.innerHTML = '<div class="dy-band"><div class="dy-band-in"><div class="dy-title">🐧 サンシャインすいぞくかんに いったよ！</div>'
-    + '<div class="dy-sub"><span class="dy-date">10がつ 20にち</span><label class="dy-name">なまえ <input id="dyName" value="' + escapeHTML(settings.studentName || "") + '" placeholder="　"></label></div></div>' + DY_WAVE + '</div>'
-    + (cells ? '<div class="dy-grid">' + cells + '</div>' : '<div class="dy-empty">「✏️ しゃしんを いれる」や、とうじつの 📷 で とった しゃしんが ここに ならびます</div>')
-    + (met ? '<div class="dy-mets">' + met + '</div>' : '')
-    + '<div class="dy-free" id="dyFree" contenteditable="true" role="textbox" aria-label="じゆうに かける スペース"></div>';
-  $("dyFree").innerText = omo.comment || "";
-  fitFree();
-  for(const k of MEM_KEYS){ const im = box.querySelector('[data-dk="' + k + '"]'); if(im){ const l = await MDB.get("photo:" + k); im.src = URL.createObjectURL(l[0]); } }
-  for(const c of CREATURES){ const im = box.querySelector('[data-zk="' + c.id + '"]'); if(im){ im.src = URL.createObjectURL(await MDB.get("zphoto:" + c.id)); } }
-  $("dyName").addEventListener("change", (e)=>{ settings.studentName = e.target.value; saveState(); });
-}
-/* じゆうに かける スペース：もじの かずで おおきさを じどうで かえる */
-function fitFree(){
-  const el = $("dyFree"); if(!el) return;
-  let fs = 44; el.style.fontSize = fs + "px";
-  let g = 0;
-  while(el.scrollHeight > el.clientHeight + 1 && fs > 12 && g++ < 40){ fs -= 2; el.style.fontSize = fs + "px"; }
-}
-$("diaryPage").addEventListener("input", (e)=>{
-  if(e.target.id !== "dyFree") return;
-  omo.comment = e.target.innerText; saveOmo(); fitFree();
-});
-$("diaryPage").addEventListener("click", (e)=>{
-  const b = e.target.closest("[data-fk]"); if(!b) return;
-  const k = b.dataset.fk, cur = FEELS.findIndex(x=>x.k === omo.feel[k]);
-  const nx = cur + 1 < FEELS.length ? FEELS[cur + 1] : null;
-  if(nx) omo.feel[k] = nx.k; else delete omo.feel[k];
-  saveOmo(); sfx.pon();
-  b.textContent = nx ? nx.e : "＋"; b.classList.toggle("none", !nx);
-  if(nx) speakText(nx.l);
-});
-$("diaryPrint").addEventListener("click", ()=>{
-  sfx.click();
-  if(omoEl.dataset.v !== "diary") omoView("diary");
-  document.body.classList.add("printing-diary");
-  setTimeout(()=>{ window.print(); setTimeout(()=>document.body.classList.remove("printing-diary"), 500); }, 400);
-});
-
 /* イ. あえたよ ずかん（ほんものの しゃしん） */
 async function renderDetailPhoto(){
   const c = CREATURES[detailIndex], box = $("dPhoto");
@@ -7733,10 +7815,68 @@ function updateBigClock(fresh){
 }
 setInterval(()=>{ if(document.body.classList.contains("split") && $("flow").classList.contains("show")) updateBigClock(false); }, 10000);
 
+
+
+/* ===================== かくにん・おしらせ（おおきな ボタン） ===================== */
+function pDialog(msg, ok, no){
+  return new Promise(res=>{
+    const d = $("pConfirm");
+    $("pcMsg").textContent = msg;
+    $("pcOk").textContent = ok || "はい";
+    $("pcNo").textContent = no || "やめる";
+    $("pcNo").style.display = no === null ? "none" : "";
+    d.classList.add("show");
+    const done = (v)=>{ d.classList.remove("show"); $("pcOk").onclick = $("pcNo").onclick = null; res(v); };
+    $("pcOk").onclick = ()=>{ sfx.click(); done(true); };
+    $("pcNo").onclick = ()=>{ sfx.click(); done(false); };
+  });
+}
+function pAlert(msg){ return pDialog(msg, "わかった", null); }
+
+/* しゃしんアプリにも ほぞん（iPad の きょうゆう がめん →「画像を保存」） */
+let lastShot = null, toastT = null;
+function shotToast(file, msg){
+  lastShot = file;
+  $("ptMsg").textContent = msg || "📷 とれたよ！";
+  const can = !!(navigator.canShare && file && navigator.canShare({ files:[file] }));
+  $("ptSave").style.display = file ? "" : "none";
+  $("ptSave").dataset.mode = can ? "share" : "open";
+  $("pToast").classList.add("show");
+  clearTimeout(toastT); toastT = setTimeout(()=>$("pToast").classList.remove("show"), 12000);
+}
+$("ptSave").addEventListener("click", async ()=>{
+  if(!lastShot) return;
+  if($("ptSave").dataset.mode === "share"){
+    try{ await navigator.share({ files:[lastShot] }); $("pToast").classList.remove("show"); }catch(e){}
+  }else{
+    const u = URL.createObjectURL(lastShot); window.open(u, "_blank");
+  }
+});
+$("ptClose").addEventListener("click", ()=>$("pToast").classList.remove("show"));
+
+/* ① ひとつの ばしょの しゃしん：きほん 1まい。2まいめからは かくにんして 3まいまで */
+async function addPhotosToKey(k, files, confirmed){
+  const list = await MDB.get("photo:" + k) || [];
+  const room = 3 - list.length;
+  if(room <= 0){ await pAlert("この ばしょの しゃしんは 3まいまでだよ"); return 0; }
+  let n = files.length;
+  if(!confirmed && list.length + n > 1){
+    const ok = await pDialog(list.length
+      ? "この ばしょには もう しゃしんが " + list.length + "まい あります。" + (list.length + 1) + "まいめも いれますか？"
+      : "この ばしょに " + Math.min(n, 3) + "まい いれますか？（きほんは 1まいです）", "いれる", "やめる");
+    if(!ok){ if(list.length) return 0; n = 1; }
+  }
+  n = Math.min(n, room);
+  for(const f of [...files].slice(0, n)) list.push(await shrinkImage(f));
+  await MDB.set("photo:" + k, list);
+  return n;
+}
+
 /* ===================== とうじつ：カメラ（H・I・J） ===================== */
 async function fillCamCounts(){
   for(const el of document.querySelectorAll("#flowGrid .fl-cam")){
     const l = await MDB.get("photo:" + el.dataset.ck) || [];
+    el.dataset.n = l.length;
     el.querySelector(".fl-camn").textContent = l.length ? l.length : "";
   }
   for(const el of document.querySelectorAll("#missionGrid .m-cam")){
@@ -7744,15 +7884,23 @@ async function fillCamCounts(){
     el.querySelector(".m-camn").textContent = b ? "✔" : "";
   }
 }
+document.addEventListener("click", (e)=>{
+  const cam = e.target.closest("#flowGrid .fl-cam"); if(!cam || e.target.tagName === "INPUT") return;
+  const n = +cam.dataset.n || 0;
+  if(n === 0) return;                       // 1まいめは そのまま カメラへ
+  e.preventDefault();
+  if(n >= 3){ pAlert("この ばしょの しゃしんは 3まいまでだよ"); return; }
+  pDialog("この ばしょには もう しゃしんが " + n + "まい あります。" + (n + 1) + "まいめを とりますか？", "とる", "やめる").then(ok=>{
+    if(ok){ cam.dataset.ok = "1"; cam.querySelector("input").click(); }
+  });
+}, true);
 $("flowGrid").addEventListener("change", async (e)=>{
   const cam = e.target.closest(".fl-cam"); if(!cam) return;
   const f = e.target.files && e.target.files[0]; if(!f) return;
-  const k = cam.dataset.ck;
-  const list = await MDB.get("photo:" + k) || [];
-  list.push(await shrinkImage(f));
-  await MDB.set("photo:" + k, list);
+  const got = await addPhotosToKey(cam.dataset.ck, [f], cam.dataset.ok === "1" || (+cam.dataset.n || 0) === 0);
+  cam.dataset.ok = "";
   e.target.value = "";
-  sfx.coin(); speakText("しゃしん、とれたよ");
+  if(got){ sfx.coin(); speakText("しゃしん、とれたよ"); shotToast(f); }
   fillCamCounts();
 });
 missionGrid.addEventListener("change", async (e)=>{
@@ -7761,10 +7909,372 @@ missionGrid.addEventListener("change", async (e)=>{
   await MDB.set("zphoto:" + cam.dataset.zid, await shrinkImage(f));
   e.target.value = "";
   sfx.coin(); speakText("しゃしん、とれたよ。ずかんに はいったよ");
+  shotToast(f, "📷 ずかんに はいったよ！");
   fillCamCounts();
 });
 const _renderMission0 = renderMission;
 renderMission = function(){ _renderMission0(); if(document.body.classList.contains("split")) setTimeout(fillCamCounts, 0); };
+
+/* ===================== えにっき エディタ ===================== */
+const DE_W = 1123, DE_H = 794;
+let de = { bg:"deep", els:[] }, deSel = null, deUndo = [], deLoaded = false, deScale = 1, deDrag = null, deCrop = null, deLastTap = { id:"", t:0 }, deFillId = null;
+const DE_BGS = [["deep","ふかい うみ"],["lagoon","あかるい ラグーン"],["beach","すなはま"],["simple","シンプル（いんさつむけ）"]];
+const DE_COLORS = ["#1B4965","#FFFFFF","#E0473D","#F29E2E","#3E9E6B","#2F7FD6"];
+const DE_FRAMES = [["tank","すいそう"],["polaroid","ポラロイド"],["round","まるまど"]];
+const DE_BOX = [["none","なし"],["white","しろ"],["bubble","ふきだし"]];
+const DE_EXTRA = {
+  bubble:'<svg viewBox="0 0 100 100"><circle cx="40" cy="62" r="26" fill="rgba(255,255,255,.45)" stroke="#6EC6F0" stroke-width="5"/><circle cx="74" cy="28" r="14" fill="rgba(255,255,255,.45)" stroke="#6EC6F0" stroke-width="4"/><circle cx="31" cy="52" r="6" fill="#fff"/><circle cx="70" cy="23" r="3.5" fill="#fff"/></svg>',
+  star:'<svg viewBox="0 0 100 100"><path d="M50 6 L62 37 L95 38 L69 58 L79 91 L50 72 L21 91 L31 58 L5 38 L38 37 Z" fill="#FFD447" stroke="#E0A000" stroke-width="4" stroke-linejoin="round"/></svg>',
+  wave:'<svg viewBox="0 0 120 60"><path d="M0 40 C15 20 30 20 45 40 S75 60 90 40 S110 20 120 30 V60 H0 Z" fill="#6EC6F0"/><path d="M0 40 C15 20 30 20 45 40 S75 60 90 40 S110 20 120 30" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/></svg>',
+  hanamaru:'<svg viewBox="0 0 100 100">' + [0,45,90,135,180,225,270,315].map(a=>'<ellipse cx="' + (50+Math.cos(a*Math.PI/180)*34).toFixed(1) + '" cy="' + (50+Math.sin(a*Math.PI/180)*34).toFixed(1) + '" rx="13" ry="10" fill="#FF8FB0" transform="rotate(' + a + ' ' + (50+Math.cos(a*Math.PI/180)*34).toFixed(1) + ' ' + (50+Math.sin(a*Math.PI/180)*34).toFixed(1) + ')"/>').join("") + '<circle cx="50" cy="50" r="28" fill="#fff"/><path d="M38 47 C38 30 64 30 64 47 C64 63 40 66 37 52 C35 42 49 38 56 44" stroke="#E0473D" stroke-width="6" fill="none" stroke-linecap="round"/></svg>',
+  heart:'<svg viewBox="0 0 100 100"><path d="M50 86 C20 64 8 48 8 32 C8 18 20 8 32 8 C40 8 46 12 50 20 C54 12 60 8 68 8 C80 8 92 18 92 32 C92 48 80 64 50 86 Z" fill="#FF7FA5" stroke="#E0476D" stroke-width="4"/></svg>',
+  shell:'<svg viewBox="0 0 100 100"><path d="M50 90 L14 46 C14 22 32 10 50 10 C68 10 86 22 86 46 Z" fill="#FFD9C2" stroke="#E89A6E" stroke-width="4" stroke-linejoin="round"/><path d="M50 88 L50 14 M50 88 L30 22 M50 88 L70 22 M50 88 L18 40 M50 88 L82 40" stroke="#E89A6E" stroke-width="3"/></svg>'
+};
+const DE_EXTRA_NAME = { bubble:"あわ", star:"ほし", wave:"なみ", hanamaru:"はなまる", heart:"ハート", shell:"かい" };
+const deUid = ()=> "e" + Math.random().toString(36).slice(2, 9);
+const deUrls = new WeakMap();
+function deUrl(b){ if(!b) return ""; let u = deUrls.get(b); if(!u){ u = URL.createObjectURL(b); deUrls.set(b, u); } return u; }
+const deClone = ()=> ({ bg:de.bg, els:de.els.map(e=>Object.assign({}, e, e.crop ? { crop:Object.assign({}, e.crop) } : {})) });
+function dePush(){ deUndo.push(deClone()); if(deUndo.length > 50) deUndo.shift(); }
+let deSaveT = null;
+function deSave(){ clearTimeout(deSaveT); deSaveT = setTimeout(()=>MDB.set("diary:v1", de), 400); }
+const deGet = (id)=> de.els.find(e=>e.id === id);
+
+async function deAllPhotos(){
+  const out = [];
+  for(const k of MEM_KEYS){ (await MDB.get("photo:" + k) || []).forEach(b=>out.push({ b, l:keyLabel(k) })); }
+  for(const c of CREATURES){ const b = await MDB.get("zphoto:" + c.id); if(b) out.push({ b, l:c.name }); }
+  return out;
+}
+
+/* おまかせレイアウト（5しゅるい） */
+const DE_LAYOUTS = [
+  { name:"まんなか おおきく", bg:"deep", make:(P,T,S)=>[
+      T("title", 50, 26, 760, 84, 0, "#FFFFFF", "none"), T("sub", 60, 112, 560, 44, 0, "#FFFFFF", "none"),
+      P(70, 182, 560, 420, -3, "tank"), P(684, 150, 380, 300, 4, "polaroid"), P(704, 470, 340, 270, -3, "polaroid"),
+      T("free", 70, 630, 570, 136, 0, "#1B4965", "white"),
+      S("penguin", 900, 26, 120, 0), S("bubble", 1010, 30, 90, 0), S("iwashi", 820, 20, 110, 0) ] },
+  { name:"ポラロイド ちらし", bg:"lagoon", make:(P,T,S)=>[
+      T("title", 160, 24, 800, 80, 0, "#1B4965", "none"), T("sub", 330, 100, 460, 40, 0, "#1B4965", "none"),
+      P(50, 170, 360, 290, -7, "polaroid"), P(390, 200, 360, 290, 4, "polaroid"), P(730, 160, 340, 270, -4, "polaroid"),
+      T("free", 300, 560, 740, 190, 0, "#1B4965", "bubble"),
+      S("kumanomi", 60, 560, 170, 0), S("kame", 120, 660, 150, 0), S("star", 1020, 40, 70, 15), S("star", 60, 40, 56, -12) ] },
+  { name:"まるい まど", bg:"deep", make:(P,T,S)=>[
+      T("title", 160, 30, 800, 84, 0, "#FFFFFF", "none"), T("sub", 330, 112, 460, 42, 0, "#FFFFFF", "none"),
+      P(90, 190, 290, 290, 0, "round"), P(417, 190, 290, 290, 0, "round"), P(744, 190, 290, 290, 0, "round"),
+      T("free", 150, 540, 820, 200, 0, "#1B4965", "white"),
+      S("kurage", 20, 20, 130, 0), S("ei", 960, 470, 150, -10), S("bubble", 990, 40, 90, 0), S("bubble", 30, 470, 70, 0) ] },
+  { name:"すっきり ならべ", bg:"simple", make:(P,T,S)=>[
+      T("title", 60, 40, 820, 80, 0, "#1B4965", "none"), T("sub", 60, 118, 520, 40, 0, "#2F7FD6", "none"),
+      P(60, 190, 320, 240, 0, "tank"), P(401, 190, 320, 240, 0, "tank"), P(742, 190, 320, 240, 0, "tank"),
+      T("free", 60, 470, 1002, 260, 0, "#1B4965", "white"),
+      S("dorado", 900, 40, 160, 0), S("wave", 20, 700, 160, 0), S("wave", 950, 700, 160, 0) ] },
+  { name:"おおきな いちまい", bg:"beach", make:(P,T,S)=>[
+      T("title", 40, 24, 760, 80, 0, "#1B4965", "none"), T("sub", 50, 102, 520, 40, 0, "#1B4965", "none"),
+      P(40, 160, 620, 465, -2, "tank"), P(712, 150, 180, 180, 0, "round"), P(905, 150, 180, 180, 0, "round"),
+      T("free", 700, 360, 390, 300, 0, "#1B4965", "bubble"),
+      S("ashika", 470, 600, 180, 0), S("shell", 980, 660, 90, 10), S("kaeru", 60, 640, 110, 0), S("star", 820, 30, 70, 0) ] }
+];
+const DE_TXT = { title:"サンシャインすいぞくかんに いったよ！", sub:()=>"10がつ 20にち　" + (settings.studentName ? settings.studentName : "なまえ："), free:"" };
+async function deApplyLayout(n, fresh){
+  const L = DE_LAYOUTS[n];
+  const keepPh = fresh ? [] : de.els.filter(e=>e.type === "photo" && e.blob).map(e=>e.blob);
+  const keepFree = fresh ? "" : ((de.els.find(e=>e.role === "free") || {}).text || "");
+  let pool = keepPh.slice();
+  if(pool.length < 3){ const all = await deAllPhotos(); for(const p of all){ if(pool.length >= 3) break; if(!pool.includes(p.b)) pool.push(p.b); } }
+  let pi = 0;
+  const P = (x,y,w,h,rot,frame)=>({ id:deUid(), type:"photo", x,y,w,h,rot, frame, blob:pool[pi++] || null, crop:{ s:1, ox:0, oy:0 } });
+  const T = (role,x,y,w,h,rot,color,box)=>({ id:deUid(), type:"text", role, x,y,w,h,rot, color, box,
+    text: role === "free" ? keepFree : role === "sub" ? DE_TXT.sub() : DE_TXT.title });
+  const S = (name,x,y,w,rot)=>({ id:deUid(), type:"stamp", name, x,y,w,h:w, rot, flip:false });
+  de = { bg:L.bg, els:L.make(P,T,S) };
+  deSel = null; deCrop = null;
+}
+async function deLoad(){
+  if(deLoaded) return;
+  const d = await MDB.get("diary:v1");
+  if(d && d.els) de = d; else await deApplyLayout(0, true);
+  deLoaded = true;
+}
+
+/* がめんに あわせて かみを ちぢめる */
+function deFitPage(){
+  const w = $("deWrap"); if(!w) return;
+  const r = w.getBoundingClientRect();
+  deScale = Math.max(.2, Math.min(r.width / DE_W, r.height / DE_H));
+  const pg = $("dePage");
+  pg.style.transform = "scale(" + deScale + ")";
+  pg.style.setProperty("--sc", deScale);
+  $("deHolder").style.width = (DE_W * deScale) + "px";
+  $("deHolder").style.height = (DE_H * deScale) + "px";
+}
+addEventListener("resize", ()=>{ if(omoEl.classList.contains("show") && omoEl.dataset.v === "diary") deFitPage(); });
+
+function deInner(el){
+  if(el.type === "photo"){
+    const c = el.crop || { s:1, ox:0, oy:0 };
+    return '<div class="ph">' + (el.blob ? '<img src="' + deUrl(el.blob) + '" alt="" draggable="false" style="transform:translate(' + c.ox + '%,' + c.oy + '%) scale(' + c.s + ')">'
+      : '<div class="ph-empty">📷<br>タップして<br>しゃしんを えらぶ</div>') + '</div>';
+  }
+  if(el.type === "text") return '<div class="tx" style="color:' + el.color + '">' + escapeHTML(el.text || "").replace(/\n/g, "<br>") + '</div>' + (el.text ? '' : '<div class="tx-ph">✏️ ダブルタップで もじを かく</div>');
+  if(el.type === "stamp") return '<div class="st"' + (el.flip ? ' style="transform:scaleX(-1)"' : '') + '>' + (DE_EXTRA[el.name] || SVG[el.name] || "") + '</div>';
+  return "";
+}
+function deStyle(node, el){
+  node.style.left = el.x + "px"; node.style.top = el.y + "px";
+  node.style.width = el.w + "px"; node.style.height = el.h + "px";
+  node.style.transform = "rotate(" + (el.rot || 0) + "deg)";
+}
+function deFitText(node, el){
+  const tx = node.querySelector(".tx"); if(!tx) return;
+  const max = el.role === "title" ? el.h * .62 : el.role === "sub" ? el.h * .62 : Math.min(64, el.h * .45);
+  const cs = getComputedStyle(node);
+  const availH = node.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - 2;
+  let fs = max; tx.style.fontSize = fs + "px";
+  let g = 0;
+  while((tx.scrollHeight > availH || tx.scrollWidth > tx.clientWidth + 1) && fs > 10 && g++ < 80){ fs -= 1.5; tx.style.fontSize = fs + "px"; }
+}
+function deRender(){
+  const pg = $("dePage"); if(!pg) return;
+  pg.className = "de-page bg-" + de.bg;
+  pg.innerHTML = '<div class="de-deco"></div>' + de.els.map(el=>{
+    const cls = "de-el de-" + el.type + (el.type === "photo" ? " f-" + el.frame : "") + (el.type === "text" ? " b-" + el.box + " r-" + (el.role || "free") : "")
+      + (el.id === deSel ? " sel" : "") + (el.id === deCrop ? " crop" : "");
+    return '<div class="' + cls + '" data-id="' + el.id + '">' + deInner(el)
+      + (el.id === deSel ? '<i class="h h-rs" data-h="rs"></i><i class="h h-rot" data-h="rot">↻</i><i class="h h-del" data-h="del">✕</i>' : '') + '</div>';
+  }).join("");
+  pg.querySelectorAll(".de-el").forEach(n=>{ const el = deGet(n.dataset.id); deStyle(n, el); if(el.type === "text") deFitText(n, el); });
+  deCtx();
+}
+function deSelect(id){ deSel = id; if(deCrop && deCrop !== id) deCrop = null; deRender(); }
+function dePt(e){ const r = $("dePage").getBoundingClientRect(); return { x:(e.clientX - r.left) / deScale, y:(e.clientY - r.top) / deScale }; }
+
+/* そうさ：うごかす・おおきさ・まわす・きりとり */
+function deBindPage(){
+  const pg = $("dePage");
+  pg.addEventListener("pointerdown", (e)=>{
+    if(e.target.closest(".tx[contenteditable='true']")) return;
+    const node = e.target.closest(".de-el");
+    if(!node){ if(deSel || deCrop){ deCrop = null; deSelect(null); } return; }
+    const el = deGet(node.dataset.id); if(!el) return;
+    const h = e.target.closest("[data-h]");
+    if(h && h.dataset.h === "del"){ dePush(); de.els = de.els.filter(x=>x !== el); deSel = null; deSave(); sfx.click(); deRender(); return; }
+    if(deSel !== el.id){ deSelect(el.id); }
+    const p = dePt(e);
+    const nd = $("dePage").querySelector('[data-id="' + el.id + '"]');
+    deDrag = { mode: h ? h.dataset.h : (deCrop === el.id ? "crop" : "move"), el, node:nd, sx:p.x, sy:p.y,
+      o:{ x:el.x, y:el.y, w:el.w, h:el.h, rot:el.rot || 0, crop: el.crop ? Object.assign({}, el.crop) : null }, moved:false };
+    try{ pg.setPointerCapture(e.pointerId); }catch(_){}
+    e.preventDefault();
+  });
+  pg.addEventListener("pointermove", (e)=>{
+    if(!deDrag) return;
+    const p = dePt(e), d = deDrag, el = d.el, o = d.o;
+    const dx = p.x - d.sx, dy = p.y - d.sy;
+    if(!d.moved){ if(Math.hypot(dx, dy) < 5) return; d.moved = true; dePush(); }
+    if(d.mode === "move"){ el.x = Math.round(o.x + dx); el.y = Math.round(o.y + dy); }
+    else if(d.mode === "rs"){
+      if(el.type === "text"){ el.w = Math.max(90, o.w + dx); el.h = Math.max(40, o.h + dy); }
+      else{ const k = Math.max(.15, Math.max((o.w + dx) / o.w, (o.h + dy) / o.h)); el.w = Math.max(50, o.w * k); el.h = Math.max(50, o.h * k); if(el.frame === "round") el.h = el.w; }
+    }
+    else if(d.mode === "rot"){
+      const cx = o.x + o.w/2, cy = o.y + o.h/2;
+      let a = Math.atan2(p.y - cy, p.x - cx) * 180 / Math.PI + 90;
+      if(a > 180) a -= 360;
+      if(Math.abs(a) < 4) a = 0;
+      el.rot = Math.round(a);
+    }
+    else if(d.mode === "crop" && el.crop){
+      el.crop.ox = Math.max(-60, Math.min(60, o.crop.ox + dx / el.w * 100 / el.crop.s));
+      el.crop.oy = Math.max(-60, Math.min(60, o.crop.oy + dy / el.h * 100 / el.crop.s));
+      const im = d.node.querySelector("img"); if(im) im.style.transform = "translate(" + el.crop.ox + "%," + el.crop.oy + "%) scale(" + el.crop.s + ")";
+    }
+    deStyle(d.node, el);
+    if(el.type === "text" && d.mode === "rs") deFitText(d.node, el);
+  });
+  const up = ()=>{
+    if(!deDrag) return;
+    const d = deDrag; deDrag = null;
+    if(d.moved){ deSave(); return; }
+    // タップ
+    const now = Date.now();
+    const dbl = deLastTap.id === d.el.id && now - deLastTap.t < 380;
+    deLastTap = { id:d.el.id, t:now };
+    if(d.el.type === "photo" && !d.el.blob){ deFillId = d.el.id; deOpenTray("photo"); return; }
+    if(dbl){ deLastTap = { id:"", t:0 }; deDouble(d.el); }
+  };
+  pg.addEventListener("pointerup", up);
+  pg.addEventListener("pointercancel", up);
+}
+function deDouble(el){
+  if(el.type === "photo" && el.blob){ deCrop = deCrop === el.id ? null : el.id; deRender(); sfx.click(); return; }
+  if(el.type === "text") deEditText(el);
+}
+function deEditText(el){
+  const node = $("dePage").querySelector('[data-id="' + el.id + '"]'); if(!node) return;
+  const tx = node.querySelector(".tx"), ph = node.querySelector(".tx-ph");
+  if(ph) ph.remove();
+  dePush();
+  tx.contentEditable = "true"; tx.focus();
+  try{ const r = document.createRange(); r.selectNodeContents(tx); r.collapse(false); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }catch(_){}
+  tx.oninput = ()=>{ el.text = tx.innerText.replace(/\n$/, ""); deFitText(node, el); };
+  tx.onblur = ()=>{ tx.contentEditable = "false"; el.text = tx.innerText.replace(/\n$/, ""); deSave(); deRender(); };
+}
+
+/* ちいさな どうぐばこ（えらんでいる もの） */
+function deCtx(){
+  const box = $("deCtx"); if(!box) return;
+  const el = deSel && deGet(deSel);
+  if(!el){ box.innerHTML = '<span class="dc-hint">さわって えらぶと、うごかしたり おおきさを かえたり できるよ</span>'; return; }
+  let h = "";
+  if(el.type === "photo"){
+    h += DE_FRAMES.map(([v,l])=>'<button data-ca="frame" data-v="' + v + '" class="' + (el.frame === v ? "on" : "") + '">' + l + '</button>').join("");
+    if(el.blob) h += '<span class="dc-sep"></span><button data-ca="crop" class="' + (deCrop === el.id ? "on" : "") + '">✂️ きりとり</button>'
+      + (deCrop === el.id ? '<button data-ca="zin">🔍＋</button><button data-ca="zout">🔍－</button>' : '')
+      + '<button data-ca="swap">🔄 しゃしんを かえる</button>';
+  }else if(el.type === "text"){
+    h += DE_COLORS.map(c=>'<button data-ca="color" data-v="' + c + '" class="dc-col' + (el.color === c ? " on" : "") + '" style="background:' + c + '" aria-label="いろ"></button>').join("");
+    h += '<span class="dc-sep"></span>' + DE_BOX.map(([v,l])=>'<button data-ca="box" data-v="' + v + '" class="' + (el.box === v ? "on" : "") + '">' + l + '</button>').join("");
+    h += '<button data-ca="edit">✏️ もじを かく</button>';
+  }else if(el.type === "stamp"){
+    h += '<button data-ca="flip">↔ はんてん</button>';
+  }
+  h += '<span class="dc-sep"></span><button data-ca="front">⬆ まえへ</button><button data-ca="back">⬇ うしろへ</button><button data-ca="copy">📄 ふやす</button><button data-ca="del" class="dc-del">🗑 けす</button>';
+  box.innerHTML = h;
+}
+function deBindUI(){
+  $("deCtx").addEventListener("click", (e)=>{
+    const b = e.target.closest("[data-ca]"); if(!b) return;
+    const el = deSel && deGet(deSel); if(!el) return;
+    const a = b.dataset.ca;
+    sfx.click();
+    if(a === "edit"){ deEditText(el); return; }
+    if(a === "swap"){ deFillId = el.id; deOpenTray("photo"); return; }
+    if(a === "crop"){ deCrop = deCrop === el.id ? null : el.id; deRender(); return; }
+    dePush();
+    if(a === "del"){ de.els = de.els.filter(x=>x !== el); deSel = null; deCrop = null; deSave(); deRender(); return; }
+    if(a === "frame"){ el.frame = b.dataset.v; if(el.frame === "round"){ const m = Math.min(el.w, el.h); el.w = el.h = m; } }
+    else if(a === "zin" && el.crop){ el.crop.s = Math.min(4, +(el.crop.s + .2).toFixed(2)); }
+    else if(a === "zout" && el.crop){ el.crop.s = Math.max(1, +(el.crop.s - .2).toFixed(2)); }
+    else if(a === "color") el.color = b.dataset.v;
+    else if(a === "box") el.box = b.dataset.v;
+    else if(a === "flip") el.flip = !el.flip;
+    else if(a === "front"){ de.els = de.els.filter(x=>x !== el).concat([el]); }
+    else if(a === "back"){ de.els = [el].concat(de.els.filter(x=>x !== el)); }
+    else if(a === "copy"){
+      if(el.type === "photo" && de.els.filter(x=>x.type === "photo").length >= 3){ deUndo.pop(); pAlert("えにっきの しゃしんは 3まいまでだよ"); return; }
+      const c = Object.assign({}, el, { id:deUid(), x:el.x + 30, y:el.y + 30 }, el.crop ? { crop:Object.assign({}, el.crop) } : {});
+      de.els.push(c); deSel = c.id;
+    }
+    deSave(); deRender();
+  });
+  $("deBar").addEventListener("click", async (e)=>{
+    const b = e.target.closest("[data-act]"); if(!b) return;
+    sfx.click();
+    const a = b.dataset.act;
+    if(a === "text"){
+      dePush();
+      const t = { id:deUid(), type:"text", role:"free", x:DE_W/2 - 200, y:DE_H/2 - 60, w:400, h:120, rot:0, color:"#1B4965", box:"white", text:"" };
+      de.els.push(t); deSel = t.id; deSave(); deRender(); deEditText(t); return;
+    }
+    if(a === "undo"){ const s = deUndo.pop(); if(s){ de = s; deSel = null; deCrop = null; deSave(); deRender(); } return; }
+    if(a === "print"){ dePrint(); return; }
+    if(a === "shot"){ deShot(true); return; }
+    deFillId = null;
+    deOpenTray(a);
+  });
+  $("deTray").addEventListener("click", async (e)=>{
+    if(e.target.closest("[data-tclose]")){ deCloseTray(); return; }
+    const b = e.target.closest("[data-t]"); if(!b) return;
+    const kind = b.dataset.t;
+    sfx.pon();
+    if(kind === "stamp"){
+      dePush();
+      const s = { id:deUid(), type:"stamp", name:b.dataset.v, x:DE_W/2 - 75, y:DE_H/2 - 75, w:150, h:150, rot:0, flip:false };
+      de.els.push(s); deSel = s.id; deSave(); deRender(); deCloseTray(); return;
+    }
+    if(kind === "bg"){ dePush(); de.bg = b.dataset.v; deSave(); deRender(); deCloseTray(); return; }
+    if(kind === "layout"){
+      deCloseTray();
+      const ok = await pDialog("「" + DE_LAYOUTS[+b.dataset.v].name + "」に かえますか？（えらんだ しゃしんと かいた もじは そのまま つかいます）", "かえる", "やめる");
+      if(!ok) return;
+      dePush(); await deApplyLayout(+b.dataset.v, false); deSave(); deRender(); return;
+    }
+    if(kind === "photo"){
+      const blob = deTrayPhotos[+b.dataset.v]; if(!blob) return;
+      dePush();
+      let target = deFillId && deGet(deFillId);
+      if(!target){ target = de.els.find(x=>x.type === "photo" && !x.blob); }
+      if(target){ target.blob = blob; target.crop = { s:1, ox:0, oy:0 }; deSel = target.id; }
+      else if(de.els.filter(x=>x.type === "photo").length >= 3){ deUndo.pop(); deCloseTray(); pAlert("えにっきの しゃしんは 3まいまでだよ。かえたい しゃしんを えらんで「🔄 しゃしんを かえる」を おしてね"); return; }
+      else{ const p = { id:deUid(), type:"photo", x:DE_W/2 - 180, y:DE_H/2 - 135, w:360, h:270, rot:0, frame:"tank", blob, crop:{ s:1, ox:0, oy:0 } }; de.els.push(p); deSel = p.id; }
+      deFillId = null; deSave(); deRender(); deCloseTray();
+    }
+  });
+}
+let deTrayPhotos = [];
+function deLayoutThumb(L){
+  const els = L.make((x,y,w,h,rot,frame)=>({ t:"p", x,y,w,h,rot,frame }), (role,x,y,w,h,rot)=>({ t:"t", role,x,y,w,h,rot }), (name,x,y,w,rot)=>({ t:"s", x,y,w,h:w,rot }));
+  const bgc = { deep:"#1C6FA8", lagoon:"#BDEBF7", beach:"#F3E1B8", simple:"#FFFFFF" }[L.bg];
+  return '<svg viewBox="0 0 1123 794"><rect width="1123" height="794" fill="' + bgc + '" stroke="#CFE3EE" stroke-width="10"/>' + els.map(e=>{
+    const tr = ' transform="rotate(' + (e.rot || 0) + ' ' + (e.x + e.w/2) + ' ' + (e.y + e.h/2) + ')"';
+    if(e.t === "p") return e.frame === "round" ? '<circle cx="' + (e.x + e.w/2) + '" cy="' + (e.y + e.h/2) + '" r="' + (e.w/2) + '" fill="#8FD3F5" stroke="#9AA9B5" stroke-width="16"/>'
+      : '<rect x="' + e.x + '" y="' + e.y + '" width="' + e.w + '" height="' + e.h + '" rx="18" fill="#8FD3F5" stroke="' + (e.frame === "polaroid" ? "#fff" : "#5BB8E8") + '" stroke-width="18"' + tr + '/>';
+    if(e.t === "t") return e.role === "free" ? '<rect x="' + e.x + '" y="' + e.y + '" width="' + e.w + '" height="' + e.h + '" rx="26" fill="#fff" opacity=".9"/>'
+      : '<rect x="' + e.x + '" y="' + (e.y + e.h*.25) + '" width="' + (e.w*.8) + '" height="' + (e.h*.5) + '" rx="10" fill="' + (L.bg === "deep" ? "#fff" : "#1B4965") + '" opacity=".7"/>';
+    return '<circle cx="' + (e.x + e.w/2) + '" cy="' + (e.y + e.h/2) + '" r="' + (e.w/2.6) + '" fill="#FFD447"/>';
+  }).join("") + '</svg>';
+}
+async function deOpenTray(kind){
+  const t = $("deTray");
+  let h = '<div class="dt-head"><b>' + { photo:"📷 しゃしんを えらぶ（えにっきは 3まいまで）", stamp:"🐧 スタンプ", bg:"🎨 はいけい", layout:"✨ おまかせレイアウト" }[kind] + '</b><button class="pill-btn" data-tclose="1">とじる</button></div><div class="dt-grid dt-' + kind + '">';
+  if(kind === "photo"){
+    const all = await deAllPhotos(); deTrayPhotos = all.map(p=>p.b);
+    h += all.length ? all.map((p,i)=>'<button data-t="photo" data-v="' + i + '"><img src="' + deUrl(p.b) + '" alt=""><span>' + escapeHTML(p.l) + '</span></button>').join("")
+      : '<div class="dt-empty">まだ しゃしんが ないよ。右上の「✏️ しゃしんを いれる」から いれてね</div>';
+  }else if(kind === "stamp"){
+    h += CREATURES.map(c=>'<button data-t="stamp" data-v="' + c.svg + '">' + (SVG[c.svg] || "") + '<span>' + escapeHTML(c.name) + '</span></button>').join("")
+      + Object.keys(DE_EXTRA).map(k=>'<button data-t="stamp" data-v="' + k + '">' + DE_EXTRA[k] + '<span>' + DE_EXTRA_NAME[k] + '</span></button>').join("");
+  }else if(kind === "bg"){
+    h += DE_BGS.map(([v,l])=>'<button data-t="bg" data-v="' + v + '" class="' + (de.bg === v ? "on" : "") + '"><i class="dt-sw bg-' + v + '"></i><span>' + l + '</span></button>').join("");
+  }else if(kind === "layout"){
+    h += DE_LAYOUTS.map((L,i)=>'<button data-t="layout" data-v="' + i + '">' + deLayoutThumb(L) + '<span>' + L.name + '</span></button>').join("");
+  }
+  t.innerHTML = h + '</div>';
+  t.classList.add("show");
+}
+function deCloseTray(){ $("deTray").classList.remove("show"); }
+async function renderEditor(){
+  await deLoad();
+  deFitPage();
+  deRender();
+  requestAnimationFrame(()=>{ deFitPage(); deRender(); });
+}
+function dePrint(){
+  deSel = null; deCrop = null; deRender();
+  document.body.classList.add("printing-diary");
+  setTimeout(()=>{ window.print(); setTimeout(()=>document.body.classList.remove("printing-diary"), 600); }, 400);
+}
+$("diaryPrint").addEventListener("click", ()=>{ sfx.click(); if(omoEl.dataset.v !== "diary") omoView("diary"); setTimeout(dePrint, 300); });
+/* スクショ モード：どうぐを かくして、かみを がめんいっぱいに */
+let deShotT = null;
+function deShot(on){
+  if(on){ deSel = null; deCrop = null; deCloseTray(); deRender(); }
+  omoEl.classList.toggle("shot", on);
+  document.body.classList.toggle("de-shot-on", on);
+  clearTimeout(deShotT);
+  $("deShotHint").classList.toggle("show", on);
+  if(on) deShotT = setTimeout(()=>$("deShotHint").classList.remove("show"), 2600);
+  requestAnimationFrame(()=>{ deFitPage(); requestAnimationFrame(deFitPage); });
+}
+omoEl.addEventListener("pointerdown", (e)=>{
+  if(!omoEl.classList.contains("shot")) return;
+  e.preventDefault(); e.stopPropagation();
+  deShot(false); sfx.click();
+}, true);
+deBindPage(); deBindUI();
+omoEl.addEventListener("scroll", ()=>{ if(omoEl.dataset.v === "diary" && omoEl.scrollTop) omoEl.scrollTop = 0; });
+
 
 </script>
 </body>
